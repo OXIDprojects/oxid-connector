@@ -1,12 +1,14 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Category;
+
 Class CategoryCustomerGroup {
 
     private $customerGroupId;
     private $categoryId;
     private $discount;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">   
+   
     //CustomerGroupId
     public function setCustomerGroupId($customerGroupId) {
         $this->customerGroupId = $customerGroupId;
@@ -34,9 +36,9 @@ Class CategoryCustomerGroup {
         return $this->discount;
     }
 
-    // </editor-fold>  
+  
      
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -59,7 +61,7 @@ Class CategoryCustomerGroup {
     public function __set($name, $wert) {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
     }
-    // </editor-fold>
+
 }
 
 ?>

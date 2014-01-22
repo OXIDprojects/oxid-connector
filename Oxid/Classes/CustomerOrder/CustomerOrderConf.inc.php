@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\CustomerOrder;
+
 require_once 'CustomerOrderPosition/CustomerOrderPosition.php';
 require_once 'CustomerOrderPosition/CustomerOrderPositions.php';
 require_once 'CustomerOrderPosition/CustomerOrderPositionVariation.php';

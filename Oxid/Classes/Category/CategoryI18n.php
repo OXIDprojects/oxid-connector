@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Category;
+
 Class CategoryI18n {
 
     private $localeName;
@@ -11,7 +13,7 @@ Class CategoryI18n {
     private $metaKeywords;
     private $titleTag;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //localeName
     public function setLocaleName($localeName) {
         $this->localeName = $localeName;
@@ -84,9 +86,9 @@ Class CategoryI18n {
         return $this->titleTag;
     }
 
-    // </editor-fold>
+
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -109,7 +111,7 @@ Class CategoryI18n {
     public function __set($name, $wert) {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
     }
-    // </editor-fold>
+
 }
 
 ?>

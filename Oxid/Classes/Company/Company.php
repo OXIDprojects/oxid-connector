@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Company;
+
 Class Company {
 
     private $name;
@@ -22,7 +24,7 @@ Class Company {
     private $iban;
     private $bic;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //Name
     public function setName($name) {
         $this->name = $name;
@@ -194,9 +196,9 @@ Class Company {
         return $this->bic;
     }
 
-    // </editor-fold>
+
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -220,7 +222,7 @@ Class Company {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
     }
 
-    // </editor-fold>
+
 }
 
 ?>

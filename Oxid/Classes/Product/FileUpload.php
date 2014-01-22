@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Product;
+
 Class FileUpload {
 
     private $id;
@@ -9,7 +11,7 @@ Class FileUpload {
     private $fileType;
     private $isRequired;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //Id
     public function setId($id) {
         $this->id = $id;
@@ -64,9 +66,9 @@ Class FileUpload {
         return $this->isRequired;
     }
 
-    // </editor-fold>
+
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -89,7 +91,7 @@ Class FileUpload {
     public function __set($name, $wert) {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
     }
-    // </editor-fold>
+
 }
 
 ?>

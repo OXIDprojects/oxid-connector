@@ -1,6 +1,7 @@
-﻿<?php
+<?php
+Namespace jtl\Connector\Oxid\Classes\CustomerOrder\CustomerOrderPosition;
 
-require_once("CustomerOrderPosition.php");
+//require_once("CustomerOrderPosition.php");
 
 Class CustomerOrderPositions {
     

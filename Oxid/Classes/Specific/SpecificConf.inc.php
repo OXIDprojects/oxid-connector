@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Specific;
+
 require_once 'Specific.php';
 require_once 'SpecificI18n.php';
 require_once 'SpecificValue.php';

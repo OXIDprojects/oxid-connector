@@ -1,11 +1,13 @@
 <?php
-
 /**
  * Description of Config
  *
  * @access public
  * @author Michele Berger <michele.berger@jtl-software.com>
  */
+
+Namespace jtl\Connector\Oxid\Config;
+
 class OxidConfig {
 
     private $dbHost;

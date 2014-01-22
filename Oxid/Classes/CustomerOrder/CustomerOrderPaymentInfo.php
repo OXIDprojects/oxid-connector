@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\CustomerOrder;
+
 Class CustomerOrderPaymentInfo {
 
     private $id;
@@ -16,7 +18,7 @@ Class CustomerOrderPaymentInfo {
     private $creditCardType;
     private $creditCardHolder;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //Id
     public function setId($id) {
         $this->id = $id;
@@ -134,9 +136,9 @@ Class CustomerOrderPaymentInfo {
         return $this->creditCardHolder;
     }
 
-    // </editor-fold>
+
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -161,7 +163,7 @@ Class CustomerOrderPaymentInfo {
     }
     
 
-    // </editor-fold>
+
 }
 
 ?>

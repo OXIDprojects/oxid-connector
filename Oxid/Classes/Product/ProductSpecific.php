@@ -1,12 +1,14 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Product;
+
 Class ProductSpecific {
 
     private $id;
     private $specificValueId;
     private $productId;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //Id
     public function setId($id) {
         $this->id = $id;
@@ -34,9 +36,9 @@ Class ProductSpecific {
         return $this->productId;
     }
 
-    // </editor-fold>
+
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -60,7 +62,7 @@ Class ProductSpecific {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
     }
 
-    // </editor-fold>
+
 }
 
 ?>

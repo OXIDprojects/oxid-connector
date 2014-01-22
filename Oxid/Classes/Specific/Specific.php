@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Specific;
+
 Class Specific {
 
     private $id;
@@ -8,7 +10,7 @@ Class Specific {
     private $name;
     private $type;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //Id
     public function setId($id) {
         $this->id = $id;
@@ -54,9 +56,9 @@ Class Specific {
         return $this->type;
     }
 
-    // </editor-fold>
+
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -79,7 +81,7 @@ Class Specific {
     public function __set($name, $wert) {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
     }
-    // </editor-fold>
+
 }
 
 ?>

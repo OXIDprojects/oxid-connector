@@ -1,11 +1,13 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Product\ProductVariationValue;
+
 Class ProductVariationValueVisibility {
 
     private $customerGroupId;
     private $productVariationValueId;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //CustomerGroupId
     public function setCustomerGroupId($customerGroupId) {
         $this->customerGroupId = $customerGroupId;
@@ -23,10 +25,7 @@ Class ProductVariationValueVisibility {
     public function getProductVariationValueId() {
         return $this->productVariationValueId;
     }
-
-    // </editor-fold>
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -49,7 +48,7 @@ Class ProductVariationValueVisibility {
     public function __set($name, $wert) {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
     }
-    // </editor-fold>
+
 }
 
 ?>

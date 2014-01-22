@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Product;
+
 class ProductI18n {
 
     private $localeName;
@@ -12,7 +14,7 @@ class ProductI18n {
     private $metaDescription;
     private $metaKeywords;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //LocaleName
     public function setLocaleName($localeName) {
         $this->localeName = $localeName;
@@ -94,9 +96,9 @@ class ProductI18n {
         return $this->metaKeywords;
     }
 
-    // </editor-fold>
+
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -120,7 +122,7 @@ class ProductI18n {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
     }
 
-    // </editor-fold>
+
 }
 
 ?>

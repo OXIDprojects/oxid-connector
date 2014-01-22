@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Product;
+
 Class ProductFunctionAttr {
 
     private $id;
@@ -7,7 +9,7 @@ Class ProductFunctionAttr {
     private $key;
     private $value;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //Id
     public function setId($id) {
         $this->id = $id;
@@ -44,9 +46,9 @@ Class ProductFunctionAttr {
         return $this->value;
     }
 
-    // </editor-fold>
+
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -71,7 +73,7 @@ Class ProductFunctionAttr {
     }
     
 
-    // </editor-fold>
+
 }
 
 ?>

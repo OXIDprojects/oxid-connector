@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Product;
+
 class ProductSpecialPrice {
 
     private $id;
@@ -11,7 +13,7 @@ class ProductSpecialPrice {
     private $considerQuantityLimit;
     private $considerDateLimit;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //Id
     public function setId($id) {
         $this->id = $id;
@@ -84,9 +86,9 @@ class ProductSpecialPrice {
         return $this->considerDateLimit;
     }
 
-    // </editor-fold>
+
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -110,7 +112,7 @@ class ProductSpecialPrice {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
     }
 
-    // </editor-fold>
+
 }
 
 ?>

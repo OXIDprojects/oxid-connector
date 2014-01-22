@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Product\MediaFile;
+
 Class MediaFileAttr {
 
     private $mediaFileAttr;
@@ -8,7 +10,7 @@ Class MediaFileAttr {
     private $name;
     private $value;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //MediaFileAttr
     public function setMediaFileAttr($mediaFileAttr) {
         $this->mediaFileAttr = $mediaFileAttr;
@@ -54,9 +56,9 @@ Class MediaFileAttr {
         return $this->value;
     }
 
-    // </editor-fold>
+
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -79,7 +81,7 @@ Class MediaFileAttr {
     public function __set($name, $wert) {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
     }
-    // </editor-fold>
+
 }
 
 ?>

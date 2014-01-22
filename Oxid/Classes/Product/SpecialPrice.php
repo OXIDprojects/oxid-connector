@@ -1,12 +1,14 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Product;
+
 Class SpecialPrice {
 
     private $customerGroupId;
     private $productSpecialPriceId;
     private $priceNet;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //CustomerGroupId
     public function setCustomerGroupId($customerGroupId) {
         $this->customerGroupId = $customerGroupId;
@@ -34,9 +36,9 @@ Class SpecialPrice {
         return $this->priceNet;
     }
 
-    // </editor-fold>
+
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -60,7 +62,7 @@ Class SpecialPrice {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
     }
 
-    // </editor-fold>
+
 }
 
 ?>

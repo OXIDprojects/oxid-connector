@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Customer;
+
 Class Customer {
 
     private $activateCustomer;
@@ -41,7 +43,7 @@ Class Customer {
     private $isFetched;
     private $hasCustomerAccount;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //ActivateCustomer
     public function setActivateCustomer($setactivateCustomer) {
         $this->activateCustomer = $setactivateCustomer;
@@ -384,9 +386,9 @@ Class Customer {
         return $this->hasCustomerAccount;
     }
 
-    // </editor-fold>
+
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -409,7 +411,7 @@ Class Customer {
     public function __set($name, $wert) {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
     }
-    // </editor-fold>
+
 }
 
 ?>

@@ -1,5 +1,4 @@
 <?php
-
 /**
  * @copyright 2010-2013 JTL-Software GmbH
  */
@@ -9,14 +8,22 @@
  * @access public
  * @author Michele Berger <michele.berger@jtl-software.com>
  */
+
+Namespace jtl\Connector\Oxid\Database;
+
 require_once("../Config/Config.php");
 
-Class Database {    
+Class Database {
         
     private $server;
     private $user;
     private $password;
     private $database;
+
+    public function __construct()
+    {
+        echo "Bauen der Klasse Database!";
+    }
     
     //Server
     public function setServer($server) {
@@ -60,10 +67,10 @@ Class Database {
      * @return type
      */
     public function oxidStatement($query) {
-        $OxidConf = New OxidConfig();
+        $OxidConf = New \OxidConfig;
         $OxidConf->getConfigs("../../../oxid-shop/");
-        //$OxidConf->getConfigs($OxidConfigPath);
-
+        //$OxidConf->getConfigs($OxidConfigPath); 
+        
         //Variablen Deklaration
         $this->setServer($OxidConf->getDbHost());
         $this->setUser($OxidConf->getDbUser());
@@ -83,7 +90,7 @@ Class Database {
         //Fehler ausgabe
         if (!$rs) {
             echo "Der folgende Fehler ist aufgetreten: <strong>" . $mysqli->error
-            . ".</strong><br />\n Die Fehlernummer: " . $mysqli->errno;
+            . ".</strong><br />\n Die Fehlernummer: " . $mysqli->error;
         }
         
         while ($zeile = $rs->fetch_array(MYSQLI_ASSOC)) {

@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Category;
+
 require_once("Category.php");
 require_once("CategoryAttr.php");
 require_once("CategoryAttrI18n.php");

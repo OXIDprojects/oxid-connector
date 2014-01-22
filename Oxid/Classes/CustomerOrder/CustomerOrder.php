@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\CustomerOrder;
+
 Class CustomerOrder {
 
     private $id;
@@ -29,7 +31,7 @@ Class CustomerOrder {
     private $paymentModuleId;
     private $estimatedDeliveryDate;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //Id
     public function setId($id) {
         $this->id = $id;
@@ -264,9 +266,9 @@ Class CustomerOrder {
         return $this->estimatedDeliveryDate;
     }
 
-    // </editor-fold>
+
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -290,7 +292,7 @@ Class CustomerOrder {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
     }
 
-    // </editor-fold>
+
 }
 
 ?>

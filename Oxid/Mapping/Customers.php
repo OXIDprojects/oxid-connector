@@ -1,4 +1,6 @@
 <?php
+Namespace jtl\Connector\Oxid\Mapping;
+
 require_once("../Database/Database.php");
 require_once("../Classes/Customer/CustomerConf.inc.php");
 

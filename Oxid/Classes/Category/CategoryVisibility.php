@@ -1,11 +1,13 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Category;
+
 Class CategoryVisibility {
 
     private $customerGroupId;
     private $categoryId;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //CustomerGroupId
     public function setCustomerGroupId($customerGroupId) {
         $this->customerGroupId = $customerGroupId;
@@ -23,9 +25,9 @@ Class CategoryVisibility {
     public function getCategoryId() {
         return $this->categoryId;
     }
-    // </editor-fold>
+
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
 
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
@@ -49,7 +51,7 @@ Class CategoryVisibility {
     public function __set($name, $wert) {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
     }
-    // </editor-fold>
+
 }
 
 ?>

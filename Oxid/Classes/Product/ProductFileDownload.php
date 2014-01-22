@@ -1,11 +1,13 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Product;
+
 Class ProductFileDownload {
 
     private $productId;
     private $fileDownloadId;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //ProductId
     public function setProductId($productId) {
         $this->productId = $productId;
@@ -24,9 +26,9 @@ Class ProductFileDownload {
         return $this->fileDownloadId;
     }
 
-    // </editor-fold>
+
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -50,7 +52,7 @@ Class ProductFileDownload {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
     }
 
-    // </editor-fold>
+
 }
 
 ?>

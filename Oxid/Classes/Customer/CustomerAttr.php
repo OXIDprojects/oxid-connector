@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Customer;
+
 Class CustomerAttr {
 
     private $id;
@@ -7,7 +9,7 @@ Class CustomerAttr {
     private $key;
     private $value;
 
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+
     //Id
     public function setId($id) {
         $this->id = $id;
@@ -44,9 +46,9 @@ Class CustomerAttr {
         return $this->value;
     }
 
-    // </editor-fold>
+
     
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -65,7 +67,7 @@ Class CustomerAttr {
         echo "Die Eigenschaft: " . $name . " existiert nicht.";
     }
 
-    // </editor-fold>
+
 }
 
 ?>

@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Product;
+
 Class ProductWarehouseInfo {
 
     private $productId;
@@ -7,8 +9,7 @@ Class ProductWarehouseInfo {
     private $stockLevel;
     private $inflowQuantity;
     private $inflowDate;
-
-    // <editor-fold defaultstate="collapsed" desc="Get/Setter">
+    
     //ProductId
     public function setProductId($productId) {
         $this->productId = $productId;
@@ -54,9 +55,6 @@ Class ProductWarehouseInfo {
         return $this->inflowDate;
     }
 
-    // </editor-fold>
-    
-    // <editor-fold defaultstate="collapsed" desc="Abfang Funktionen">
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)) {
@@ -80,7 +78,6 @@ Class ProductWarehouseInfo {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
     }
 
-    // </editor-fold>
 }
 
 ?>

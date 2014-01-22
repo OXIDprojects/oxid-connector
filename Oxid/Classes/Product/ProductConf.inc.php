@@ -1,5 +1,7 @@
 <?php
 
+Namespace jtl\Connector\Oxid\Classes\Product;
+
 require_once 'MediaFile/MediaFile.php';
 require_once 'MediaFile/MediaFileAttr.php';
 require_once 'MediaFile/MediaFileI18n.php';

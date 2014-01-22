@@ -1,4 +1,6 @@
 <?php
+Namespace jtl\Connector\Oxid\Mapping;
+
 require_once("../Database/Database.php");
 require_once("../Classes/CustomerOrder/CustomerOrderConf.inc.php");
 
@@ -17,7 +19,7 @@ Class CustomerOrders {
      * @return type CustomerOrders
      */
     Public Function getCustomerOrders() {
-        $database = New Database;
+        $database = New \Database\Database;
         
         $query = " SELECT Ord.OXID, " .
                 " Ord.OXSHOPID, " .
@@ -117,18 +119,9 @@ Class CustomerOrders {
            $CustomerOrderPositions = New CustomerOrderPositions;
            $CustomerOrderPositions = $this->getCustomerOrderPositions($SQLResult[$i]['OXID']);
 
-
-                   /* CustomerOrderPositionVariation */ /* Tabelle: oxobject2attribute */
+            /* CustomerOrderPositionVariation */ /* Tabelle: oxobject2attribute */
             $CustomerOrderPositionVariation = New CustomerOrderPositionVariation;
-//            $CustomerOrderPositionVariation->setId($SQLResult[$i]['']);
-//            $CustomerOrderPositionVariation->setCustomerOrderPositionId($SQLResult[$i]['OXOBJECTID']);
-//            $CustomerOrderPositionVariation->setProductVariationId($SQLResult[$i]['']);
-//            $CustomerOrderPositionVariation->setProductVariationValueId($SQLResult[$i]['']);
-//            $CustomerOrderPositionVariation->setProductVariationName($SQLResult[$i]['']);
-//            $CustomerOrderPositionVariation->setProductVariationValueName($SQLResult[$i]['']);
-//            $CustomerOrderPositionVariation->setFreeField($SQLResult[$i]['']);
-//            $CustomerOrderPositionVariation->setSurcharge($SQLResult[$i]['']);
-
+            $CustomerOrderPositions = $this->getCustomerOrderPositionVariations($SQLResult[$i]['OXID']);
 
             /* CustomerOrder */
             $CustomerOrder = New CustomerOrder;
@@ -159,14 +152,12 @@ Class CustomerOrders {
 //            $CustomerOrder->setPaymentModuleId($SQLResult[$i]['']);
 //            $CustomerOrder->setEstimatedDeliveryDate($SQLResult[$i]['']);
 
-
             /* CustomerOrderAttr */
             $CustomerOrderAttr = New CustomerOrderAttr;
 //            $CustomerOrderAttr->setId($SQLResult[$i]['']);                                    // Nicht in Oxid
             $CustomerOrderAttr->setCustomerOrderId($SQLResult[$i]['OXID']);
 //            $CustomerOrderAttr->setKey($SQLResult[$i]['']);                                   // Nicht in Oxid
 //            $CustomerOrderAttr->setValue($SQLResult[$i]['']);                                 // Nicht in Oxid
-
 
             /* CustomerOrderBillingAddress */
             $CustomerOrderBillingAddress = New CustomerOrderBillingAddress;
@@ -190,7 +181,6 @@ Class CustomerOrders {
             $CustomerOrderBillingAddress->setFax($SQLResult[$i]['OXBILLFAX']);
             $CustomerOrderBillingAddress->setEMail($SQLResult[$i]['OXBILLEMAIL']);
 
-
             /* CustomerOrderPaymentInfo */
             $CustomerOrderPaymentInfo = New CustomerOrderPaymentInfo;
             $CustomerOrderPaymentInfo->setId($SQLResult[$i]['OXPAYID']);
@@ -206,7 +196,6 @@ Class CustomerOrders {
 //            $CustomerOrderPaymentInfo->setCreditCardExpiration($SQLResult[$i]['']);           // Nicht in Oxid
 //            $CustomerOrderPaymentInfo->setCreditCardType($SQLResult[$i]['']);                 // Nicht in Oxid
 //            $CustomerOrderPaymentInfo->setCreditCardHolder($SQLResult[$i]['']);               // Nicht in Oxid
-
 
             /* CustomerOrderShippingAddress */
             $CustomerOrderShippingAddress = New CustomerOrderShippingAddress;
@@ -243,13 +232,13 @@ Class CustomerOrders {
         return $CustomerOrders;
     }
     
+
     /**
      * Ziehe BestellungsWarenkorb-Inhalt vom Oxid-Shop
      * @param type $OrderId
      */
     Function getCustomerOrderPositions($OrderId) {
-        $database = New Database;
-        
+        $database = New \Database\Database;
         
         $query = 'SELECT * ' .
 	             'FROM oxorderarticles' .
@@ -296,6 +285,56 @@ Class CustomerOrders {
         return $CustomerOrderPositions;
     }
     
+    
+    /**
+     * Ziehe Warenkorbartikel Eigenschaften vom Oxid-Shop 
+     * @param type $ArticleId
+     */
+    Function getCustomerOrderPositionVariations($OrderId) {
+        $database = New \Database\Database;
+        
+        
+        $query = 'SELECT * ' .
+	             'FROM oxorderarticles' .
+                 ' WHERE oxorderarticles.OXORDERID = "' . $OrderId . '"' .
+                 ' ORDER BY oxorderarticles.OXORDERID;';
+        
+        $SQLResult = $database->oxidStatement($query);
+        
+        Return $this->fillCustomerOrderPositionVariations($SQLResult);
+    }
+    
+    /**
+     * Füllt den Warenkorbartikel-Eigenschaften mit Inhalt vom Oxid-Shop
+     * @param type $SQLResult
+     * @return \CustomerOrderPositionVariations
+     */
+    function fillCustomerOrderPositionVariations($SQLResult){
+        $CustomerOrderPositionVariations = New CustomerOrderPositionVariations;
+        $CustomerOrderPositionVariationArr = Array(New CustomerOrderPositionVariation);
+        
+        For ($i = 0; $i < count($SQLResult); ++$i) {
+
+            /* CustomerOrderPositionVariation */
+            $CustomerOrderPositionVariation = New CustomerOrderPositionVariation;
+            $CustomerOrderPositionVariation->setId($SQLResult[$i]['']);
+            $CustomerOrderPositionVariation->setCustomerOrderPositionId($SQLResult[$i]['OXOBJECTID']);
+            $CustomerOrderPositionVariation->setProductVariationId($SQLResult[$i]['']);
+            $CustomerOrderPositionVariation->setProductVariationValueId($SQLResult[$i]['']);
+            $CustomerOrderPositionVariation->setProductVariationName($SQLResult[$i]['']);
+            $CustomerOrderPositionVariation->setProductVariationValueName($SQLResult[$i]['']);
+            $CustomerOrderPositionVariation->setFreeField($SQLResult[$i]['']);
+            $CustomerOrderPositionVariation->setSurcharge($SQLResult[$i]['']);
+
+            
+            $CustomerOrderPositionArr[$i] = $CustomerOrderPositionVariation;
+        }
+        
+        $CustomerOrderPositions->setCustomerOrderPositionVariation($CustomerOrderPositionVariationArr);    
+        
+        return $CustomerOrderPositionVariations;
+    }
+    
     /**
      * Schreibe Kundenbestellungen in Oxid-Shop
      * @return nulls
@@ -313,6 +352,7 @@ $result = $CustomerOrders->getCustomerOrders();
 echo "<pre>";
 print_r($result);
 echo "</pre>";
+
 
 /* Einzelnen Eintrag aufrufen: */
 //  $result->CustomerOrder[0]->getId()
