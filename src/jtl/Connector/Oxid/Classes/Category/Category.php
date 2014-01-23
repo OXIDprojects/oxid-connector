@@ -2,42 +2,53 @@
 
 Namespace jtl\Connector\Oxid\Classes\Category;
 
-Class CategoryCustomerGroup {
+Class Category {
 
-    private $customerGroupId;
-    private $categoryId;
-    private $discount;
-
-   
-    //CustomerGroupId
-    public function setCustomerGroupId($customerGroupId) {
-        $this->customerGroupId = $customerGroupId;
+    private $id;
+    private $parentCategoryId;
+    private $level;
+    private $sort;
+    
+    public function __construct()
+    {
+        echo "Dies ist ein Test von Category!";
+    }
+    
+    //Id
+    public function setId($id) {
+        $this->id = $id;
     }
 
-    public function getCustomerGroupId() {
-        return $this->customerGroupId;
+    public function getId() {
+        return $this->id;
     }
 
-    //CategoryId
-    public function setCategoryId($categoryId) {
-        $this->categoryId = $categoryId;
+    //ParentCategoryId
+    public function setParentCategoryId($parentCategoryId) {
+        $this->parentCategoryId = $parentCategoryId;
     }
 
-    public function getCategoryId() {
-        return $this->categoryId;
+    public function getParentCategoryId() {
+        return $this->parentCategoryId;
     }
 
-    //Discount
-    public function setDiscount($discount) {
-        $this->discount = $discount;
+    //Level
+    public function setLevel($level) {
+        $this->level = $level;
     }
 
-    public function getDiscount() {
-        return $this->discount;
+    public function getLevel() {
+        return $this->level;
     }
 
-  
-     
+    //Sort
+    public function setSort($sort) {
+        $this->sort = $sort;
+    }
+
+    public function getSort() {
+        return $this->sort;
+    }
     
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
@@ -60,8 +71,7 @@ Class CategoryCustomerGroup {
     //Undefinierte Eigenschaft setzten abfangen
     public function __set($name, $wert) {
         echo "Die Eigenschaft: " . $name . " Existiert nicht. Der Wert: " . $wert . "konnte nicht zugeordnet werden.";
-    }
-
+    }   
 }
 
 ?>

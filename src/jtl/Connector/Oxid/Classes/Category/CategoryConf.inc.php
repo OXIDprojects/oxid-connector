@@ -9,4 +9,5 @@ require_once("CategoryCustomerGroup.php");
 require_once("CategoryFunctionAttr.php");
 require_once("CategoryI18n.php");
 require_once("CategoryVisibility.php");
+
 ?>
