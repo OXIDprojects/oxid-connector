@@ -47,10 +47,10 @@ Class Products {
                 "OXTITLE, " .
                 "OXSHORTDESC, " .
                 "OXPRICE " .
-                "FROM oxarticles";              
+                "FROM oxarticles";
 
         $SQLResult = $database->oxidStatement($query);
-
+        
         echo $query;
 
         Return $this->fillProductClasses($SQLResult);

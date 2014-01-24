@@ -1,8 +1,10 @@
 <?php
 Namespace jtl\Connector\Oxid\Mapping;
 
-require_once("../Database/Database.php");
-require_once("../Classes/CustomerOrder/CustomerOrderConf.inc.php");
+use \jtl\Connector\Oxid;
+
+//require_once("../Database/Database.php");
+//require_once("../Classes/CustomerOrder/CustomerOrderConf.inc.php");
 
 Class CustomerOrders {
 
@@ -19,7 +21,7 @@ Class CustomerOrders {
      * @return type CustomerOrders
      */
     Public Function getCustomerOrders() {
-        $database = New \Database\Database;
+        $database = New \jtl\Connector\Oxid\Database\Database;
         
         $query = " SELECT Ord.OXID, " .
                 " Ord.OXSHOPID, " .
@@ -100,7 +102,7 @@ Class CustomerOrders {
                 " Ord.OXISNETTOMODE " .
                 " FROM oxorder AS Ord; ";
         
-        $SQLResult = $database->oxidStatement($query);       
+        $SQLResult = $database->oxidStatement($query);     
 
         Return $this->fillCustomerOrderClasses($SQLResult);
     }

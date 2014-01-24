@@ -1,6 +1,6 @@
 <?php
 /**
- * @copyright 2010-2013 JTL-Software GmbH
+ * @copyright 2010-2014 JTL-Software GmbH
  */
 /**
  * Description of Database
@@ -11,7 +11,9 @@
 
 Namespace jtl\Connector\Oxid\Database;
 
-require_once("../Config/Config.php");
+use \jtl\Connector\Oxid\Config As Config;
+
+//require_once("../Config/Config.php");
 
 Class Database {
         
@@ -67,8 +69,8 @@ Class Database {
      * @return type
      */
     public function oxidStatement($query) {
-        $OxidConf = New \OxidConfig;
-        $OxidConf->getConfigs("../../../oxid-shop/");
+        $OxidConf = New Config\Config;
+        $OxidConf->getConfigs("../../../../../../oxid-shop/");
         //$OxidConf->getConfigs($OxidConfigPath); 
         
         //Variablen Deklaration
@@ -78,7 +80,7 @@ Class Database {
         $this->setDatabase($OxidConf->getDbName());
        
         //Verbindung zur Datenbank aufbauen
-        $mysqli = New mysqli($this->server, $this->user, $this->password, $this->database);
+        $mysqli = New \mysqli($this->server, $this->user, $this->password, $this->database);
         if ($mysqli->connect_error) {
             echo "Fehler bei der Verbindung: " . mysqli_connect_error();
             exit();

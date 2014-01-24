@@ -1,8 +1,11 @@
 <?php
+
 Namespace jtl\Connector\Oxid;
 
-require_once 'config/bootstrap.php';
+require_once '../../../bootstrap.php';
 
-$Category = new \jtl\Connector\Oxid\Classes\Category\Category();
+//$Category = new \jtl\Connector\Oxid\Classes\Category\Category();
+
+$Companies = new Mapping\Companies;
 
 ?>

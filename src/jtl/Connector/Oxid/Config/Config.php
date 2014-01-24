@@ -8,7 +8,7 @@
 
 Namespace jtl\Connector\Oxid\Config;
 
-class OxidConfig {
+class Config {
 
     private $dbHost;
     private $dbName;

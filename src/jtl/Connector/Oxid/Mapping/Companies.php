@@ -1,8 +1,13 @@
 <?php
 Namespace jtl\Connector\Oxid\Mapping;
 
+use jtl\Connector\Oxid\Classes\Company As Company;
+use jtl\Connector\Oxid\Database As Database;
+
 require_once("../Database/Database.php");
 require_once("../Classes/Company/CompanyConf.inc.php");
+
+echo "Dies ist ein Company-Test!";
 
 Class Companies {
 
@@ -13,22 +18,12 @@ Class Companies {
      * @return type
      */
     Public Function getCompanies() {
-        $database = New Database;
-
-        $query = "SELECT Cat.OXID " . "AS categoryId," .
-                " Cat.OXPARENTID " . "AS categoryParentId," .
-                " Cat.OXSORT " . "AS categorySort," .
-                " Cat.OXACTIVE " . "AS categoryAktiv," .
-                " Cat.OXHIDDEN " . "AS categoryHidden," .
-                " Cat.OXTITLE " . "AS categoryName," .
-                " Cat2Att.OXID " . "AS cat2AttId," .
-                " Cat2Att.OXSORT " . "AS cat2AttSort" .
-                " FROM oxcategories " . "AS Cat," .
-                " oxcategory2attribute " . "AS Cat2Att";
+        $database = New Database\Database;
+       
+        $query = "SELECT * " .
+                " FROM oxshops";
 
         $SQLResult = $database->oxidStatement($query);
-
-        echo $query;
 
         Return $this->fillCompanyClasses($SQLResult);
     }
@@ -44,26 +39,33 @@ Class Companies {
         For ($i = 0; $i < count($SQLResult); ++$i) {
 
             /* Company */
-            $Company = New Company;
-//            $Company->setAccountHolder($SQLResult[$i]['']);
-//            $Company->setAccountNumber($SQLResult[$i]['']);
-//            $Company->setBankCode($SQLResult[$i]['']);
-//            $Company->setBankName($SQLResult[$i]['']);
-//            $Company->setBic($SQLResult[$i]['']);
-//            $Company->setBusinessman($SQLResult[$i]['']);
-//            $Company->setCity($SQLResult[$i]['']);
-//            $Company->setCountryIso($SQLResult[$i]['']);
-//            $Company->setEMail($SQLResult[$i]['']);
-//            $Company->setFax($SQLResult[$i]['']);
-//            $Company->setIban($SQLResult[$i]['']);
-//            $Company->setName($SQLResult[$i]['']);
-//            $Company->setPhone($SQLResult[$i]['']);
-//            $Company->setStreet($SQLResult[$i]['']);
-//            $Company->setStreetNumber($SQLResult[$i]['']);
-//            $Company->setTaxIdNumber($SQLResult[$i]['']);
-//            $Company->setVatNumber($SQLResult[$i]['']);
-//            $Company->setWww($SQLResult[$i]['']);
-//            $Company->setZipCode($SQLResult[$i]['']);
+            $Company = New Company\Company;
+            $Company->setName($SQLResult[$i]['oxshops.OXCOMPANY']);
+            $Company->setBusinessman($SQLResult[$i]['oxshops.OXFNAME'] . ' ' . $SQLResult[$i]['oxshops.OXLNAME']);
+            $Company->setStreet($SQLResult[$i]['oxshops.OXSTREET']);
+            $Company->setZipCode($SQLResult[$i]['oxshops.OXZIP']);
+            $Company->setCity($SQLResult[$i]['oxshops.OXCITY']);
+            $Company->setCountryIso($SQLResult[$i]['oxshops.OXCOUNTRY']);
+            $Company->setPhone($SQLResult[$i]['oxshops.OXTELEFON']);
+            $Company->setFax($SQLResult[$i]['oxshops.OXTELEFAX']);
+//          $Company->setEMail($SQLResult[$i]['']); // Nicht in Oxid
+            $Company->setWWW($SQLResult[$i]['oxshops.OXURL']);
+            $Company->setBankCode($SQLResult[$i]['oxshops.OXBANKCODE']);
+            $Company->setAccountNumber($SQLResult[$i]['oxshops.OXBANKNUMBER']);
+            $Company->setBankName($SQLResult[$i]['oxshops.OXBANKNAME']);
+            
+            If (empty($SQLResult[$i]['oxshops.OXCOMPANY']))
+            {
+                $Company->setAccountHolder($SQLResult[$i]['oxshops.OXFNAME'] . ' ' . $SQLResult[$i]['oxshops.OXLNAME']);    
+            }else{
+                $Company->setAccountHolder($SQLResult[$i]['oxshops.OXCOMPANY']);    
+            }                
+        
+            $Company->setVatNumber($SQLResult[$i]['oxshops.OXVATNUMBER']);
+//          $Company->setTaxIdNumber($SQLResult[$i]['oxshops.']); // Nicht in Oxid
+            $Company->setIban($SQLResult[$i]['oxshops.OXIBANNUMBER']);
+            $Company->setBic($SQLResult[$i]['oxshops.OXBICCODE']);
+            
             
             $Companies->Company[$i] = $Company;
         }
