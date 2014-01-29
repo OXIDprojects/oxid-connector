@@ -1,13 +1,11 @@
 <?php
 Namespace jtl\Connector\Oxid\Mapping;
 
-use jtl\Connector\Oxid\Classes\Company As Company;
-use jtl\Connector\Oxid\Database As Database;
+use jtl\Connector\Oxid\Database;
+use jtl\Connector\Oxid\Classes\Company;
 
 require_once("../Database/Database.php");
 require_once("../Classes/Company/CompanyConf.inc.php");
-
-echo "Dies ist ein Company-Test!";
 
 Class Companies {
 
@@ -27,7 +25,7 @@ Class Companies {
 
         Return $this->fillCompanyClasses($SQLResult);
     }
-
+    
     /**
      * Füllt die Firmen-Klassen mit Inhalt vom Oxid-Shop
      * @param type $SQLResult
@@ -35,36 +33,36 @@ Class Companies {
      */
     Function fillCompanyClasses($SQLResult) {
         $Companies = New Companies;
-
+        
         For ($i = 0; $i < count($SQLResult); ++$i) {
 
             /* Company */
             $Company = New Company\Company;
-            $Company->setName($SQLResult[$i]['oxshops.OXCOMPANY']);
-            $Company->setBusinessman($SQLResult[$i]['oxshops.OXFNAME'] . ' ' . $SQLResult[$i]['oxshops.OXLNAME']);
-            $Company->setStreet($SQLResult[$i]['oxshops.OXSTREET']);
-            $Company->setZipCode($SQLResult[$i]['oxshops.OXZIP']);
-            $Company->setCity($SQLResult[$i]['oxshops.OXCITY']);
-            $Company->setCountryIso($SQLResult[$i]['oxshops.OXCOUNTRY']);
-            $Company->setPhone($SQLResult[$i]['oxshops.OXTELEFON']);
-            $Company->setFax($SQLResult[$i]['oxshops.OXTELEFAX']);
+            $Company->setName($SQLResult[$i]['OXCOMPANY']);
+            $Company->setBusinessman($SQLResult[$i]['OXFNAME'] . ' ' . $SQLResult[$i]['OXLNAME']);
+            $Company->setStreet($SQLResult[$i]['OXSTREET']);
+            $Company->setZipCode($SQLResult[$i]['OXZIP']);
+            $Company->setCity($SQLResult[$i]['OXCITY']);
+            $Company->setCountryIso($SQLResult[$i]['OXCOUNTRY']);
+            $Company->setPhone($SQLResult[$i]['OXTELEFON']);
+            $Company->setFax($SQLResult[$i]['OXTELEFAX']);
 //          $Company->setEMail($SQLResult[$i]['']); // Nicht in Oxid
-            $Company->setWWW($SQLResult[$i]['oxshops.OXURL']);
-            $Company->setBankCode($SQLResult[$i]['oxshops.OXBANKCODE']);
-            $Company->setAccountNumber($SQLResult[$i]['oxshops.OXBANKNUMBER']);
-            $Company->setBankName($SQLResult[$i]['oxshops.OXBANKNAME']);
+            $Company->setWWW($SQLResult[$i]['OXURL']);
+            $Company->setBankCode($SQLResult[$i]['OXBANKCODE']);
+            $Company->setAccountNumber($SQLResult[$i]['OXBANKNUMBER']);
+            $Company->setBankName($SQLResult[$i]['OXBANKNAME']);
             
-            If (empty($SQLResult[$i]['oxshops.OXCOMPANY']))
+            If (empty($SQLResult[$i]['OXCOMPANY']))
             {
-                $Company->setAccountHolder($SQLResult[$i]['oxshops.OXFNAME'] . ' ' . $SQLResult[$i]['oxshops.OXLNAME']);    
+                $Company->setAccountHolder($SQLResult[$i]['OXFNAME'] . ' ' . $SQLResult[$i]['OXLNAME']);    
             }else{
-                $Company->setAccountHolder($SQLResult[$i]['oxshops.OXCOMPANY']);    
+                $Company->setAccountHolder($SQLResult[$i]['OXCOMPANY']);    
             }                
         
-            $Company->setVatNumber($SQLResult[$i]['oxshops.OXVATNUMBER']);
-//          $Company->setTaxIdNumber($SQLResult[$i]['oxshops.']); // Nicht in Oxid
-            $Company->setIban($SQLResult[$i]['oxshops.OXIBANNUMBER']);
-            $Company->setBic($SQLResult[$i]['oxshops.OXBICCODE']);
+            $Company->setVatNumber($SQLResult[$i]['OXVATNUMBER']);
+//          $Company->setTaxIdNumber($SQLResult[$i]['']); // Nicht in Oxid
+            $Company->setIban($SQLResult[$i]['OXIBANNUMBER']);
+            $Company->setBic($SQLResult[$i]['OXBICCODE']);
             
             
             $Companies->Company[$i] = $Company;
@@ -83,14 +81,13 @@ Class Companies {
 
 }
 
+//Testausgabe
 $Companies = New Companies;
 $result = $Companies->getCompanies();
 
-
-
-//Ausgabe
 echo "<pre>";
 print_r($result);
 echo "</pre>";
+
 ?>
 <a href="http://localhost/">Zur&uuml;ck</a>

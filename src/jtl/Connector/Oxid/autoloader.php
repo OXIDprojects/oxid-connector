@@ -18,20 +18,20 @@ class Autoloader
     
     public function loadClass($className)
     {
-        if($this->namespace !== null)
+        $className = str_replace("_", "\\", $className);
+        $className = ltrim($className, '\\');
+        $fileName = '';
+        $namespace = '';
+        if ($lastNsPos = strripos($className, '\\'))
         {
-            $className = str_replace($this->namespace . '\\', '', $className);
+            $namespace = substr($className, 0, $lastNsPos);
+            $className = substr($className, $lastNsPos + 1);
+            $fileName = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
         }
-        
-        $className = str_replace('\\', DIRECTORY_SEPARATOR, $className);
-        
-        $file = ROOT_PATH . $className . '.php';
-        
-        if(file_exists($file))
-        {
-            require_once $file;
-        }
-        
+        $fileName .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
+
+        require_once $fileName;
     }
 }
+
 ?>

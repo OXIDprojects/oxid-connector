@@ -9,11 +9,6 @@ Class Category {
     private $level;
     private $sort;
     
-    public function __construct()
-    {
-        echo "Dies ist ein Test von Category!";
-    }
-    
     //Id
     public function setId($id) {
         $this->id = $id;

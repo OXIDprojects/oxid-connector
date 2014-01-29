@@ -11,9 +11,9 @@
 
 Namespace jtl\Connector\Oxid\Database;
 
-use \jtl\Connector\Oxid\Config As Config;
+use \jtl\Connector\Oxid\Config\Loader As ConfigLoader;
 
-//require_once("../Config/Config.php");
+require_once("../Config/Loader/Config.php");
 
 Class Database {
         
@@ -21,11 +21,6 @@ Class Database {
     private $user;
     private $password;
     private $database;
-
-    public function __construct()
-    {
-        echo "Bauen der Klasse Database!";
-    }
     
     //Server
     public function setServer($server) {
@@ -69,9 +64,8 @@ Class Database {
      * @return type
      */
     public function oxidStatement($query) {
-        $OxidConf = New Config\Config;
-        $OxidConf->getConfigs("../../../../../../oxid-shop/");
-        //$OxidConf->getConfigs($OxidConfigPath); 
+        $OxidConf = New ConfigLoader\Config;
+        $OxidConf->getConfigs();
         
         //Variablen Deklaration
         $this->setServer($OxidConf->getDbHost());

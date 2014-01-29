@@ -1,6 +1,9 @@
 <?php
 Namespace jtl\Connector\Oxid\Mapping;
 
+use jtl\Connector\Oxid\Database;
+use jtl\Connector\Oxid\Classes\Category;
+
 require_once("../Database/Database.php");
 require_once("../Classes/Category/CategoryConf.inc.php");
 
@@ -19,7 +22,7 @@ Class Categories {
      * @return type
      */
     Public Function getCategories() {
-        $database = New Database;
+        $database = New Database\Database;
 
         $query = "SELECT Cat.OXID " . "AS categoryId," .
                 " Cat.OXPARENTID " . "AS categoryParentId," .
@@ -33,8 +36,6 @@ Class Categories {
                 " oxcategory2attribute " . "AS Cat2Att";
 
         $SQLResult = $database->oxidStatement($query);
-
-        echo $query;
 
         Return $this->fillCategoryClasses($SQLResult);
     }
@@ -50,41 +51,41 @@ Class Categories {
         //For ($i = 0; $i < count($SQLResult); ++$i) {
         For ($i = 0; $i < count($SQLResult); ++$i) {
             /* Category */
-            $Category = New Category;
+            $Category = New Category\Category;
             $Category->setId($SQLResult[$i]['categoryId']);
 //            $Category->setLevel($SQLResult[$i]['']); // Nicht Definiert
             $Category->setParentCategoryId($SQLResult[$i]['categoryParentId']);
             $Category->setSort($SQLResult[$i]['categorySort']);
 
             /* CategoryAttr */
-            $CategoryAttr = New CategoryAttr;
+            $CategoryAttr = New Category\CategoryAttr;
             $CategoryAttr->setCategoryId($SQLResult[$i]['categoryId']);
             $CategoryAttr->setId($SQLResult[$i]['cat2AttId']);
             $CategoryAttr->setSort($SQLResult[$i]['cat2AttSort']);
 //            $CategoryAttr->setType($SQLResult[$i]['']); // Nicht in Oxid
 
             /* CategoryAttrI18n */
-            $CategoryAttrI18n = New CategoryAttrI18n;
+            $CategoryAttrI18n = New Category\CategoryAttrI18n;
             $CategoryAttrI18n->setCategoryAttrId($SQLResult[$i]['cat2AttId']);
 //            $CategoryAttrI18n->setKey($SQLResult[$i]['']);
 //            $CategoryAttrI18n->setLocaleName($SQLResult[$i]['']);
 //            $CategoryAttrI18n->setValue($SQLResult[$i]['']);
 
             /* CategoryCustomerGroup */
-            $CategoryCustomerGroup = New CategoryCustomerGroup;
+            $CategoryCustomerGroup = New Category\CategoryCustomerGroup;
             $CategoryCustomerGroup->setCategoryId($SQLResult[$i]['categoryId']);
 //            $CategoryCustomerGroup->setCustomerGroupId($SQLResult[$i]['']);
 //            $CategoryCustomerGroup->setDiscount($SQLResult[$i]['']);
 
             /* CategoryFunctionAttr */
-            $CategoryFunctionAttr = New CategoryFunctionAttr;
+            $CategoryFunctionAttr = New Category\CategoryFunctionAttr;
             $CategoryFunctionAttr->setCategoryId($SQLResult[$i]['categoryId']);
 //            $CategoryFunctionAttr->setId($SQLResult[$i]['']);
 //            $CategoryFunctionAttr->setKey($SQLResult[$i]['']);
 //            $CategoryFunctionAttr->setValue($SQLResult[$i]['']);
 
             /* CategoryI18n */
-            $CategoryI18n = New CategoryI18n;
+            $CategoryI18n = New Category\CategoryI18n;
             $CategoryI18n->setCategoryId($SQLResult[$i]['categoryId']);
 //            $CategoryI18n->setDescription($SQLResult[$i]['']);
 //            $CategoryI18n->setLocaleName($SQLResult[$i]['']);
@@ -95,13 +96,11 @@ Class Categories {
 //            $CategoryI18n->setUrl($SQLResult[$i]['']);
 
             /* CategoryVisibility */
-            $CategoryVisibility = New CategoryVisibility;
+            $CategoryVisibility = New Category\CategoryVisibility;
             IF ($SQLResult[$i]['categoryHidden'] == 1) {
                 $CategoryVisibility->setCategoryId($SQLResult[$i]['categoryId']);
 //            $CategoryVisibility->setCustomerGroupId($SQLResult[$i]['']);
             }
-
-
 
             $Categories->Category[$i] = $Category;
             $Categories->CategoryAttr[$i] = $CategoryAttr;
@@ -125,10 +124,10 @@ Class Categories {
 
 }
 
+//Testausgabe
 $Categories = New Categories;
 $result = $Categories->getCategories();
 
-//Ausgabe
 echo "<pre>";
 print_r($result);
 echo "</pre>";

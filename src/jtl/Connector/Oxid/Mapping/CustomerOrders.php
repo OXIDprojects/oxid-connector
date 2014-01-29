@@ -1,10 +1,12 @@
 <?php
 Namespace jtl\Connector\Oxid\Mapping;
 
-use \jtl\Connector\Oxid;
+use jtl\Connector\Oxid\Database;
+use jtl\Connector\Oxid\Classes\CustomerOrder;
+use jtl\Connector\Oxid\Classes\CustomerOrder\CustomerOrderPosition;
 
-//require_once("../Database/Database.php");
-//require_once("../Classes/CustomerOrder/CustomerOrderConf.inc.php");
+require_once("../Database/Database.php");
+require_once("../Classes/CustomerOrder/CustomerOrderConf.inc.php");
 
 Class CustomerOrders {
 
@@ -21,86 +23,10 @@ Class CustomerOrders {
      * @return type CustomerOrders
      */
     Public Function getCustomerOrders() {
-        $database = New \jtl\Connector\Oxid\Database\Database;
+        $database = New Database\Database;
         
-        $query = " SELECT Ord.OXID, " .
-                " Ord.OXSHOPID, " .
-                " Ord.OXUSERID, " .
-                " Ord.OXORDERDATE, " .
-                " Ord.OXORDERNR, " .
-                " Ord.OXBILLCOMPANY, " .
-                " Ord.OXBILLEMAIL, " .
-                " Ord.OXBILLFNAME, " .
-                " Ord.OXBILLLNAME, " .
-                " Ord.OXBILLSTREET, " .
-                " Ord.OXBILLSTREETNR, " .
-                " Ord.OXBILLADDINFO, " .
-                " Ord.OXBILLUSTID, " .
-                " Ord.OXBILLCITY, " .
-                " Ord.OXBILLCOUNTRYID, " .
-                " Ord.OXBILLSTATEID, " .
-                " Ord.OXBILLZIP, " .
-                " Ord.OXBILLFON, " .
-                " Ord.OXBILLFAX, " .
-                " Ord.OXBILLSAL, " .
-                " Ord.OXDELCOMPANY, " .
-                " Ord.OXDELFNAME, " .
-                " Ord.OXDELLNAME, " .
-                " Ord.OXDELSTREET, " .
-                " Ord.OXDELSTREETNR, " .
-                " Ord.OXDELADDINFO, " .
-                " Ord.OXDELCITY, " .
-                " Ord.OXDELCOUNTRYID, " .
-                " Ord.OXDELSTATEID, " .
-                " Ord.OXDELZIP, " .
-                " Ord.OXDELFON, " .
-                " Ord.OXDELFAX, " .
-                " Ord.OXDELSAL, " .
-                " Ord.OXPAYMENTID, " .
-                " Ord.OXPAYMENTTYPE, " .
-                " Ord.OXTOTALNETSUM, " .
-                " Ord.OXTOTALBRUTSUM, " .
-                " Ord.OXTOTALORDERSUM, " .
-                " Ord.OXARTVAT1, " .
-                " Ord.OXARTVATPRICE1, " .
-                " Ord.OXARTVAT2, " .
-                " Ord.OXARTVATPRICE2, " .
-                " Ord.OXDELCOST, " .
-                " Ord.OXDELVAT, " .
-                " Ord.OXPAYCOST, " .
-                " Ord.OXPAYVAT, " .
-                " Ord.OXWRAPCOST, " .
-                " Ord.OXWRAPVAT, " .
-                " Ord.OXGIFTCARDCOST, " .
-                " Ord.OXGIFTCARDVAT, " .
-                " Ord.OXCARDID, " .
-                " Ord.OXCARDTEXT, " .
-                " Ord.OXDISCOUNT, " .
-                " Ord.OXEXPORT, " .
-                " Ord.OXBILLNR, " .
-                " Ord.OXBILLDATE, " .
-                " Ord.OXTRACKCODE, " .
-                " Ord.OXSENDDATE, " .
-                " Ord.OXREMARK, " .
-                " Ord.OXVOUCHERDISCOUNT, " .
-                " Ord.OXCURRENCY, " .
-                " Ord.OXCURRATE, " .
-                " Ord.OXFOLDER, " .
-                " Ord.OXTRANSID, " .
-                " Ord.OXPAYID, " .
-                " Ord.OXXID, " .
-                " Ord.OXPAID, " .
-                " Ord.OXSTORNO, " .
-                " Ord.OXIP, " .
-                " Ord.OXTRANSSTATUS, " .
-                " Ord.OXLANG, " .
-                " Ord.OXINVOICENR, " .
-                " Ord.OXDELTYPE, " .
-                " Ord.OXTSPROTECTID, " .
-                " Ord.OXTSPROTECTCOSTS, " .
-                " Ord.OXTIMESTAMP, " .
-                " Ord.OXISNETTOMODE " .
-                " FROM oxorder AS Ord; ";
+        $query = " SELECT * " .
+                 " FROM oxorder; ";
         
         $SQLResult = $database->oxidStatement($query);     
 
@@ -118,15 +44,15 @@ Class CustomerOrders {
         For ($i = 0; $i < count($SQLResult); ++$i) {
         
             /* CustomerOrderPosition */
-           $CustomerOrderPositions = New CustomerOrderPositions;
+           $CustomerOrderPositions = New CustomerOrderPosition\CustomerOrderPositions;
            $CustomerOrderPositions = $this->getCustomerOrderPositions($SQLResult[$i]['OXID']);
 
             /* CustomerOrderPositionVariation */ /* Tabelle: oxobject2attribute */
-            $CustomerOrderPositionVariation = New CustomerOrderPositionVariation;
+            $CustomerOrderPositionVariation = New CustomerOrderPosition\CustomerOrderPositionVariation;
             $CustomerOrderPositions = $this->getCustomerOrderPositionVariations($SQLResult[$i]['OXID']);
 
             /* CustomerOrder */
-            $CustomerOrder = New CustomerOrder;
+            $CustomerOrder = New CustomerOrder\CustomerOrder;
             $CustomerOrder->setId($SQLResult[$i]['OXID']);
             $CustomerOrder->setCustomerId($SQLResult[$i]['OXUSERID']);
 //            $CustomerOrder->setShippingAddressId($SQLResult[$i]['']);                         // Nicht in Oxid
@@ -155,14 +81,14 @@ Class CustomerOrders {
 //            $CustomerOrder->setEstimatedDeliveryDate($SQLResult[$i]['']);
 
             /* CustomerOrderAttr */
-            $CustomerOrderAttr = New CustomerOrderAttr;
+            $CustomerOrderAttr = New CustomerOrder\CustomerOrderAttr;
 //            $CustomerOrderAttr->setId($SQLResult[$i]['']);                                    // Nicht in Oxid
             $CustomerOrderAttr->setCustomerOrderId($SQLResult[$i]['OXID']);
 //            $CustomerOrderAttr->setKey($SQLResult[$i]['']);                                   // Nicht in Oxid
 //            $CustomerOrderAttr->setValue($SQLResult[$i]['']);                                 // Nicht in Oxid
 
             /* CustomerOrderBillingAddress */
-            $CustomerOrderBillingAddress = New CustomerOrderBillingAddress;
+            $CustomerOrderBillingAddress = New CustomerOrder\CustomerOrderBillingAddress;
 //            $CustomerOrderBillingAddress->setId($SQLResult[$i]['']);                          // Nicht in Oxid
             $CustomerOrderBillingAddress->setCustomer($SQLResult[$i]['OXUSERID']);
             $CustomerOrderBillingAddress->setSalutation($SQLResult[$i]['OXBILLSAL']);
@@ -171,8 +97,7 @@ Class CustomerOrders {
 //            $CustomerOrderBillingAddress->setTitle($SQLResult[$i]['']);                       // Nicht in Oxid
             $CustomerOrderBillingAddress->setCompany($SQLResult[$i]['OXBILLCOMPANY']);
             $CustomerOrderBillingAddress->setDeliveryInstruction($SQLResult[$i]['OXBILLADDINFO']);
-            $CustomerOrderBillingAddress->setStreet($SQLResult[$i]['OXBILLSTREET']);
-            $CustomerOrderBillingAddress->setStreetNumber($SQLResult[$i]['OXBILLSTREETNR']);
+            $CustomerOrderBillingAddress->setStreet($SQLResult[$i]['OXBILLSTREET'] . ' ' . $SQLResult[$i]['OXBILLSTREETNR']);
 //            $CustomerOrderBillingAddress->setExtraAddressLine($SQLResult[$i]['']);
             $CustomerOrderBillingAddress->setZipCode($SQLResult[$i]['OXBILLZIP']);
             $CustomerOrderBillingAddress->setCity($SQLResult[$i]['OXBILLCITY']);
@@ -184,7 +109,7 @@ Class CustomerOrders {
             $CustomerOrderBillingAddress->setEMail($SQLResult[$i]['OXBILLEMAIL']);
 
             /* CustomerOrderPaymentInfo */
-            $CustomerOrderPaymentInfo = New CustomerOrderPaymentInfo;
+            $CustomerOrderPaymentInfo = New CustomerOrder\CustomerOrderPaymentInfo;
             $CustomerOrderPaymentInfo->setId($SQLResult[$i]['OXPAYID']);
             $CustomerOrderPaymentInfo->setCustomerOrderId($SQLResult[$i]['OXUSERID']);
 //            $CustomerOrderPaymentInfo->setBankAccount($SQLResult[$i]['']);                    // Nicht in Oxid
@@ -200,7 +125,7 @@ Class CustomerOrders {
 //            $CustomerOrderPaymentInfo->setCreditCardHolder($SQLResult[$i]['']);               // Nicht in Oxid
 
             /* CustomerOrderShippingAddress */
-            $CustomerOrderShippingAddress = New CustomerOrderShippingAddress;
+            $CustomerOrderShippingAddress = New CustomerOrder\CustomerOrderShippingAddress;
 //            $CustomerOrderShippingAddress->setId($SQLResult[$i]['']);                         // Nicht in Oxid
             $CustomerOrderShippingAddress->setCustomerId($SQLResult[$i]['OXUSERID']);
             $CustomerOrderShippingAddress->setSalutation($SQLResult[$i]['OXDELSAL']);
@@ -209,8 +134,7 @@ Class CustomerOrders {
 //            $CustomerOrderShippingAddress->setTitle($SQLResult[$i]['']);                      // Nicht in Oxid
             $CustomerOrderShippingAddress->setCompany($SQLResult[$i]['OXDELCOMPANY']);
             $CustomerOrderShippingAddress->setDeliveryInstruction($SQLResult[$i]['OXDELADDINFO']);
-            $CustomerOrderShippingAddress->setStreet($SQLResult[$i]['OXDELSTREET']);
-            $CustomerOrderShippingAddress->setStreetNumber($SQLResult[$i]['OXDELSTREETNR']);
+            $CustomerOrderShippingAddress->setStreet($SQLResult[$i]['OXDELSTREET'] . ' ' . $SQLResult[$i]['OXDELSTREETNR']);
 //            $CustomerOrderShippingAddress->setExtraAddressLine($SQLResult[$i]['']);           // Nicht in Oxid
             $CustomerOrderShippingAddress->setZipCode($SQLResult[$i]['OXDELZIP']);
             $CustomerOrderShippingAddress->setCity($SQLResult[$i]['OXDELCITY']);
@@ -240,7 +164,7 @@ Class CustomerOrders {
      * @param type $OrderId
      */
     Function getCustomerOrderPositions($OrderId) {
-        $database = New \Database\Database;
+        $database = New Database\Database;
         
         $query = 'SELECT * ' .
 	             'FROM oxorderarticles' .
@@ -259,13 +183,13 @@ Class CustomerOrders {
      * @return \CustomerOrderPosition
      */
     function fillCustomerOrderPositions($SQLResult){
-        $CustomerOrderPositions = New CustomerOrderPositions;
-        $CustomerOrderPositionArr = Array(New CustomerOrderPosition);
+        $CustomerOrderPositions = New CustomerOrderPosition\CustomerOrderPositions;
+        $CustomerOrderPositionArr = Array(New CustomerOrderPosition\CustomerOrderPosition);
        
         For ($i = 0; $i < count($SQLResult); ++$i) {
 
             /* CustomerOrderPosition */
-            $CustomerOrderPosition = New CustomerOrderPosition;
+            $CustomerOrderPosition = New CustomerOrderPosition\CustomerOrderPosition;
             $CustomerOrderPosition->setId($SQLResult[$i]['OXID']);
             $CustomerOrderPosition->setCustomerOrderId($SQLResult[$i]['OXORDERID']);
             $CustomerOrderPosition->setProductId($SQLResult[$i]['OXARTID']);
@@ -293,7 +217,7 @@ Class CustomerOrders {
      * @param type $ArticleId
      */
     Function getCustomerOrderPositionVariations($OrderId) {
-        $database = New \Database\Database;
+        $database = New Database\Database;
         
         
         $query = 'SELECT * ' .
@@ -312,27 +236,26 @@ Class CustomerOrders {
      * @return \CustomerOrderPositionVariations
      */
     function fillCustomerOrderPositionVariations($SQLResult){
-        $CustomerOrderPositionVariations = New CustomerOrderPositionVariations;
-        $CustomerOrderPositionVariationArr = Array(New CustomerOrderPositionVariation);
+        $CustomerOrderPositionVariations = New CustomerOrderPosition\CustomerOrderPositionVariations;
+        $CustomerOrderPositionVariationArr = Array(New CustomerOrderPosition\CustomerOrderPositionVariation);
         
         For ($i = 0; $i < count($SQLResult); ++$i) {
 
             /* CustomerOrderPositionVariation */
-            $CustomerOrderPositionVariation = New CustomerOrderPositionVariation;
-            $CustomerOrderPositionVariation->setId($SQLResult[$i]['']);
-            $CustomerOrderPositionVariation->setCustomerOrderPositionId($SQLResult[$i]['OXOBJECTID']);
-            $CustomerOrderPositionVariation->setProductVariationId($SQLResult[$i]['']);
-            $CustomerOrderPositionVariation->setProductVariationValueId($SQLResult[$i]['']);
-            $CustomerOrderPositionVariation->setProductVariationName($SQLResult[$i]['']);
-            $CustomerOrderPositionVariation->setProductVariationValueName($SQLResult[$i]['']);
-            $CustomerOrderPositionVariation->setFreeField($SQLResult[$i]['']);
-            $CustomerOrderPositionVariation->setSurcharge($SQLResult[$i]['']);
+            $CustomerOrderPositionVariation = New CustomerOrderPosition\CustomerOrderPositionVariation;
+            //$CustomerOrderPositionVariation->setId($SQLResult[$i]['']);
+            //$CustomerOrderPositionVariation->setCustomerOrderPositionId($SQLResult[$i]['OXOBJECTID']);
+            //$CustomerOrderPositionVariation->setProductVariationId($SQLResult[$i]['']);
+            //$CustomerOrderPositionVariation->setProductVariationValueId($SQLResult[$i]['']);
+            //$CustomerOrderPositionVariation->setProductVariationName($SQLResult[$i]['']);
+            //$CustomerOrderPositionVariation->setProductVariationValueName($SQLResult[$i]['']);
+            //$CustomerOrderPositionVariation->setFreeField($SQLResult[$i]['']);
+            //$CustomerOrderPositionVariation->setSurcharge($SQLResult[$i]['']);
 
-            
-            $CustomerOrderPositionArr[$i] = $CustomerOrderPositionVariation;
+            $CustomerOrderPositionVariationArr[$i] = $CustomerOrderPositionVariation;
         }
         
-        $CustomerOrderPositions->setCustomerOrderPositionVariation($CustomerOrderPositionVariationArr);    
+        $CustomerOrderPositionVariations->setCustomerOrderPositionVariation($CustomerOrderPositionVariationArr);
         
         return $CustomerOrderPositionVariations;
     }
@@ -347,16 +270,14 @@ Class CustomerOrders {
 
 }
 
+//Testausgabe
 $CustomerOrders = New CustomerOrders;
 $result = $CustomerOrders->getCustomerOrders();
 
-//Ausgabe
+
 echo "<pre>";
 print_r($result);
 echo "</pre>";
 
-
-/* Einzelnen Eintrag aufrufen: */
-//  $result->CustomerOrder[0]->getId()
 ?>
 <a href="http://localhost/">Zur&uuml;ck</a>

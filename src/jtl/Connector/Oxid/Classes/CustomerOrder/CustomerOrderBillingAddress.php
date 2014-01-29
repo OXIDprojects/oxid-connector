@@ -13,7 +13,6 @@ Class CustomerOrderBillingAddress {
     private $company;
     private $deliveryInstruction;
     private $street;
-    private $streetNumber;
     private $extraAddressLine;
     private $zipCode;
     private $city;
@@ -104,15 +103,6 @@ Class CustomerOrderBillingAddress {
 
     public function getStreet() {
         return $this->street;
-    }
-
-    //StreetNumber
-    public function setStreetNumber($streetNumber) {
-        $this->streetNumber = $streetNumber;
-    }
-
-    public function getStreetNumber() {
-        return $this->streetNumber;
     }
 
     //ExtraAddressLine

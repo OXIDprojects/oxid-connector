@@ -1,6 +1,9 @@
 <?php
 Namespace jtl\Connector\Oxid\Mapping;
 
+use jtl\Connector\Oxid\Database;
+use jtl\Connector\Oxid\Classes\Specific;
+
 require_once("../Database/Database.php");
 require_once("../Classes/Specific/SpecificConf.inc.php");
 
@@ -16,18 +19,11 @@ Class Specifics {
      * @return type
      */
     Public Function getSpecifics() {
-        $database = New Database();
-        $query = "SELECT OXID," .
-                "OXTITLE," .
-                "OXTITLE_1," .
-                "OXTITLE_2," .
-                "OXTITLE_3," .
-                "OXDISPLAYINBASKET " .
+        $database = New Database\Database();
+        $query = "SELECT * " .
                 "FROM oxattribute";
 
         $SQLResult = $database->oxidStatement($query);
-
-        echo $query;
 
         Return $this->fillSpecificClasses($SQLResult);
     }
@@ -43,7 +39,7 @@ Class Specifics {
         For ($i = 0; $i < count($SQLResult); ++$i) {
 
             /* Specific */
-            $Specific = New Specific;
+            $Specific = New Specific\Specific;
 //            $Specific->setGlobal($SQLResult[$i]['']);
             $Specific->setId($SQLResult[$i]['OXID']);
             $Specific->setName($SQLResult[$i]['OXTITLE']);
@@ -51,19 +47,19 @@ Class Specifics {
 //            $Specific->setType($SQLResult[$i]['']);
 
             /* SpecificI18n */
-            $SpecificI18n = New SpecificI18n;
+            $SpecificI18n = New Specific\SpecificI18n;
 //            $SpecificI18n->setLocaleName($SQLResult[$i]['']);
 //            $SpecificI18n->setName($SQLResult[$i]['']);
             $SpecificI18n->setSpecificId($SQLResult[$i]['OXID']);
 
             /* SpecificValue */
-            $SpecificValue = New SpecificValue;
+            $SpecificValue = New Specific\SpecificValue;
             $SpecificValue->setId($SQLResult[$i]['OXID']);
 //            $SpecificValue->setSort($SQLResult[$i]['']);
             $SpecificValue->setSpecificId($SQLResult[$i]['OXID']);
 
             /* SpecificValueI18n */
-            $SpecificValueI18n = New SpecificValueI18n;
+            $SpecificValueI18n = New Specific\SpecificValueI18n;
             $SpecificValueI18n->setDescription($SQLResult[$i]['OXTITLE']);
 //            $SpecificValueI18n->setLocaleName($SQLResult[$i]['']);
 //            $SpecificValueI18n->setMetaDescription($SQLResult[$i]['']);
@@ -92,10 +88,10 @@ Class Specifics {
 
 }
 
+//Testausgabe
 $Specifics = New Specifics;
 $result = $Specifics->getSpecifics();
 
-//Ausgabe
 echo "<pre>";
 print_r($result);
 echo "</pre>";

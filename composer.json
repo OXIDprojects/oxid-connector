@@ -42,7 +42,7 @@
     "autoload": {
         "psr-0": {
             "jtl\\Connector": "src/",
-            "jtl\\Magento": "src/"
+            "jtl\\Oxid": "src/"
         }
     }
 }

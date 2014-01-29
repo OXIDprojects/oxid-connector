@@ -7,7 +7,6 @@ Class Company {
     private $name;
     private $businessman;
     private $street;
-    private $streetNumber;
     private $zipCode;
     private $city;
     private $countryIso;
@@ -50,15 +49,6 @@ Class Company {
 
     public function getStreet() {
         return $this->street;
-    }
-
-    //StreetNumber
-    public function setStreetNumber($streetNumber) {
-        $this->streetNumber = $streetNumber;
-    }
-
-    public function getStreetNumber() {
-        return $this->streetNumber;
     }
 
     //ZipCode

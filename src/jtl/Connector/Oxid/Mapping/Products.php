@@ -1,6 +1,13 @@
 <?php
 Namespace jtl\Connector\Oxid\Mapping;
 
+use jtl\Connector\Oxid\Database;
+use jtl\Connector\Oxid\Classes\Product;
+use jtl\Connector\Oxid\Classes\Product\MediaFile;
+use jtl\Connector\Oxid\Classes\Product\ProductVariation;
+use jtl\Connector\Oxid\Classes\Product\ProductVariationValue;
+
+
 require_once("../Database/Database.php");
 require_once("../Classes/Product/ProductConf.inc.php");
 
@@ -36,22 +43,11 @@ Class Products {
     public $setArticle = array();
 
     Public Function getProducts() {
-        $database = New Database();
-        $query = "SELECT OXID AS ProductID, " .
-                "OXSHOPID, " .
-                "OXPARENTID, " .
-                "OXACTIVE, " .
-                "OXACTIVEFROM, " .
-                "OXACTIVETO, " .
-                "OXARTNUM, " .
-                "OXTITLE, " .
-                "OXSHORTDESC, " .
-                "OXPRICE " .
+        $database = New Database\Database();
+        $query = "SELECT * " .
                 "FROM oxarticles";
 
         $SQLResult = $database->oxidStatement($query);
-        
-        echo $query;
 
         Return $this->fillProductClasses($SQLResult);
     }
@@ -67,17 +63,17 @@ Class Products {
         For ($i = 0; $i < count($SQLResult); ++$i) {
 
             /* MediaFile */
-            $MediaFile = New MediaFile;
+            $MediaFile = New MediaFile\MediaFile;
 //            $MediaFile->setId($SQLResult[$i]['']);
 //            $MediaFile->setPath($SQLResult[$i]['']);
 //            $MediaFile->setMediaFileCategory($SQLResult[$i]['']);
-            $MediaFile->setProductId($SQLResult[$i]['ProductID']);
+            $MediaFile->setProductId($SQLResult[$i]['OXID']);
 //            $MediaFile->setSort($SQLResult[$i]['']);
 //            $MediaFile->setType($SQLResult[$i]['']);
 //            $MediaFile->setUrl($SQLResult[$i]['']);
 
             /* MediaFileAttr */
-            $MediaFileAttr = New MediaFileAttr;
+            $MediaFileAttr = New MediaFile\MediaFileAttr;
 //            $MediaFileAttr->setLocaleName($SQLResult[$i]['']);
 //            $MediaFileAttr->setMediaFileAttr($SQLResult[$i]['']);
 //            $MediaFileAttr->setMediaFileId($SQLResult[$i]['']);
@@ -85,32 +81,32 @@ Class Products {
 //            $MediaFileAttr->setValue($SQLResult[$i]['']);
 
             /* MediaFileI18n */
-            $MediaFileI18n = New MediaFileI18n;
+            $MediaFileI18n = New MediaFile\MediaFileI18n;
 //            $MediaFileI18n->setDescription($SQLResult[$i]['']);
 //            $MediaFileI18n->setLocaleName($SQLResult[$i]['']);
 //            $MediaFileI18n->setMediaFileId($SQLResult[$i]['']);
 //            $MediaFileI18n->setName($SQLResult[$i]['']);
 
             /* ProductVariation */
-            $ProductVariation = New ProductVariation;
+            $ProductVariation = New ProductVariation\ProductVariation;
 //            $ProductVariation->setId($SQLResult[$i]['']);
 //            $ProductVariation->setProductId($SQLResult[$i]['']);
 //            $ProductVariation->setSort($SQLResult[$i]['']);
 //            $ProductVariation->setType($SQLResult[$i]['']);
 
             /* ProductVariationI18n */
-            $ProductVariationI18n = New ProductVariationI18n;
+            $ProductVariationI18n = New ProductVariation\ProductVariationI18n;
 //            $ProductVariationI18n->setLocaleName($SQLResult[$i]['']);
 //            $ProductVariationI18n->setName($SQLResult[$i]['']);
 //            $ProductVariationI18n->setProductVariationId($SQLResult[$i]['']);
 
             /* ProductVariationVisibility */
-            $ProductVariationVisibility = New ProductVariationVisibility;
+            $ProductVariationVisibility = New ProductVariation\ProductVariationVisibility;
 //            $ProductVariationVisibility->setCustomerGroupId($SQLResult[$i]['']);
 //            $ProductVariationVisibility->setProductVariationId($SQLResult[$i]['']);
 
             /* ProductVariationValue */
-            $ProductVariationValue = New ProductVariationValue;
+            $ProductVariationValue = New ProductVariationValue\ProductVariationValue;
 //            $ProductVariationValue->setExtraWeight($SQLResult[$i]['']);
 //            $ProductVariationValue->setId($SQLResult[$i]['']);
 //            $ProductVariationValue->setPackagingUnitId($SQLResult[$i]['']);
@@ -120,35 +116,35 @@ Class Products {
 //            $ProductVariationValue->setStockLevel($SQLResult[$i]['']);
 
             /* ProductVariationValueDependency */
-            $ProductVariationValueDependency = New ProductVariationValueDependency;
+            $ProductVariationValueDependency = New ProductVariationValue\ProductVariationValueDependency;
 //            $ProductVariationValueDependency->setProductVariationValue($SQLResult[$i]['']);
 //            $ProductVariationValueDependency->setProductVariationValueTargetId($SQLResult[$i]['']);
 
             /* ProductVariationValueExtraCharge */
-            $ProductVariationValueExtraCharge = New ProductVariationValueExtraCharge;
+            $ProductVariationValueExtraCharge = New ProductVariationValue\ProductVariationValueExtraCharge;
 //            $ProductVariationValueExtraCharge->setCustomerGroupId($SQLResult[$i]['']);
 //            $ProductVariationValueExtraCharge->setCustomerGroupId($SQLResult[$i]['']);
 
             /* ProductVariationValueI18n */
-            $ProductVariationValueI18n = New ProductVariationValueI18n;
+            $ProductVariationValueI18n = New ProductVariationValue\ProductVariationValueI18n;
 //            $ProductVariationValueI18n->setLocaleName($SQLResult[$i]['']);
 //            $ProductVariationValueI18n->setName($SQLResult[$i]['']);
 //            $ProductVariationValueI18n->setProductVariationValueId($SQLResult[$i]['']);
 
             /* ProductVariationValueVisibility */
-            $ProductVariationValueVisibility = New ProductVariationValueVisibility;
+            $ProductVariationValueVisibility = New ProductVariationValue\ProductVariationValueVisibility;
 //            $ProductVariationValueVisibility->setCustomerGroupId($SQLResult[$i]['']);
 //            $ProductVariationValueVisibility->setProductVariationValueId($SQLResult[$i]['']);
 
             /* CrossSelling */
-            $CrossSelling = New CrossSelling;
+            $CrossSelling = New Product\CrossSelling;
 //            $CrossSelling->setCrossSellingGroupId($SQLResult[$i]['']);
 //            $CrossSelling->setCrossSellingProductId($SQLResult[$i]['']);
 //            $CrossSelling->setId($SQLResult[$i]['']);
 //            $CrossSelling->setProductId($SQLResult[$i]['']);
 
             /* FileUpload */
-            $FileUpload = New FileUpload;
+            $FileUpload = New Product\FileUpload;
 //            $FileUpload->setDescription($SQLResult[$i]['']);
 //            $FileUpload->setFileType($SQLResult[$i]['']);
 //            $FileUpload->setId($SQLResult[$i]['']);
@@ -157,7 +153,7 @@ Class Products {
 //            $FileUpload->setProductId($SQLResult[$i]['']);
 
             /* Product */
-            $Product = New Product;
+            $Product = New Product\Product;
 //            $Product->setId($SQLResult[$i]['']);
 //            $Product->setMasterProductId($SQLResult[$i]['']);
 //            $Product->setManufacturerId($SQLResult[$i]['']);
@@ -210,46 +206,46 @@ Class Products {
             
 
             /* Product2Category */
-            $Product2Category = New Product2Category;
+            $Product2Category = New Product\Product2Category;
 //            $Product2Category->setCategoryId($SQLResult[$i]['']);
 //            $Product2Category->setId($SQLResult[$i]['']);
 //            $Product2Category->setProductId($SQLResult[$i]['']);
 
             /* ProductAttr */
-            $ProductAttr = New ProductAttr;
+            $ProductAttr = New Product\ProductAttr;
 //            $ProductAttr->setId($SQLResult[$i]['']);
 //            $ProductAttr->setProductId($SQLResult[$i]['']);
 //            $ProductAttr->setSort($SQLResult[$i]['']);
 //            $ProductAttr->setType($SQLResult[$i]['']);
 
             /* ProductAttrI18n */
-            $ProductAttrI18n = New ProductAttrI18n;
+            $ProductAttrI18n = New Product\ProductAttrI18n;
 //            $ProductAttrI18n->setKey($SQLResult[$i]['']);
 //            $ProductAttrI18n->setLocaleName($SQLResult[$i]['']);
 //            $ProductAttrI18n->setProductAttrId($SQLResult[$i]['']);
 //            $ProductAttrI18n->setValue($SQLResult[$i]['']);
 
             /* ProductConfigGroup */
-            $ProductConfigGroup = New ProductConfigGroup;
+            $ProductConfigGroup = New Product\ProductConfigGroup;
 //            $ProductConfigGroup->setConfigGroupId($SQLResult[$i]['']);
 //            $ProductConfigGroup->setId($SQLResult[$i]['']);
 //            $ProductConfigGroup->setProductId($SQLResult[$i]['']);
 //            $ProductConfigGroup->setSort($SQLResult[$i]['']);
 
             /* ProductFileDownload */
-            $ProductFileDownload = New ProductFileDownload;
+            $ProductFileDownload = New Product\ProductFileDownload;
 //            $ProductFileDownload->setFileDownloadId($SQLResult[$i]['']);
 //            $ProductFileDownload->setProductId($SQLResult[$i]['']);
 
             /* ProductFunctionAttr */
-            $ProductFunctionAttr = New ProductFunctionAttr;
+            $ProductFunctionAttr = New Product\ProductFunctionAttr;
 //            $ProductFunctionAttr->setId($SQLResult[$i]['']);
 //            $ProductFunctionAttr->setKey($SQLResult[$i]['']);
 //            $ProductFunctionAttr->setProductId($SQLResult[$i]['']);
 //            $ProductFunctionAttr->setValue($SQLResult[$i]['']);
 
             /* ProductI18n */
-            $ProductI18n = New ProductI18n;
+            $ProductI18n = New Product\ProductI18n;
 //            $ProductI18n->setDescription($SQLResult[$i]['']);
 //            $ProductI18n->setLocaleName($SQLResult[$i]['']);
 //            $ProductI18n->setMetaDescription($SQLResult[$i]['']);
@@ -261,14 +257,14 @@ Class Products {
 //            $ProductI18n->setUrl($SQLResult[$i]['']);
 
             /* ProductPrice */
-            $ProductPrice = New ProductPrice;
+            $ProductPrice = New Product\ProductPrice;
 //            $ProductPrice->setCustomerGroupId($SQLResult[$i]['']);
 //            $ProductPrice->setNetPrice($SQLResult[$i]['']);
 //            $ProductPrice->setProductId($SQLResult[$i]['']);
 //            $ProductPrice->setQuantity($SQLResult[$i]['']);
 
             /* ProductSpecialPrice */
-            $ProductSpecialPrice = New ProductSpecialPrice;
+            $ProductSpecialPrice = New Product\ProductSpecialPrice;
 //            $ProductSpecialPrice->setActiveFrom($SQLResult[$i]['']);
 //            $ProductSpecialPrice->setActiveUntil($SQLResult[$i]['']);
 //            $ProductSpecialPrice->setConsiderDateLimit($SQLResult[$i]['']);
@@ -279,18 +275,18 @@ Class Products {
 //            $ProductSpecialPrice->setQuantityLimit($SQLResult[$i]['']);
 
             /* ProductSpecific */
-            $ProductSpecific = New ProductSpecific;
+            $ProductSpecific = New Product\ProductSpecific;
 //            $ProductSpecific->setId($SQLResult[$i]['']);
 //            $ProductSpecific->setProductId($SQLResult[$i]['']);
 //            $ProductSpecific->setSpecificValueId($SQLResult[$i]['']);
 
             /* ProductVisibility */
-            $ProductVisibility = New ProductVisibility;
+            $ProductVisibility = New Product\ProductVisibility;
 //            $ProductVisibility->setCustomerGroupId($SQLResult[$i]['']);
 //            $ProductVisibility->setProductId($SQLResult[$i]['']);
 
             /* ProductWarehouseInfo */
-            $ProductWarehouseInfo = New ProductWarehouseInfo;
+            $ProductWarehouseInfo = New Product\ProductWarehouseInfo;
 //            $ProductWarehouseInfo->setInflowDate($SQLResult[$i]['']);
 //            $ProductWarehouseInfo->setInflowQuantity($SQLResult[$i]['']);
 //            $ProductWarehouseInfo->setProductId($SQLResult[$i]['']);
@@ -298,13 +294,13 @@ Class Products {
 //            $ProductWarehouseInfo->setWarehouseId($SQLResult[$i]['']);
 
             /* SpecialPrice */
-            $SpecialPrice = New SpecialPrice;
+            $SpecialPrice = New Product\SpecialPrice;
 //            $SpecialPrice->setCustomerGroupId($SQLResult[$i]['']);
 //            $SpecialPrice->setPriceNet($SQLResult[$i]['']);
 //            $SpecialPrice->setProductSpecialPriceId($SQLResult[$i]['']);
 
             /* setArticle */
-            $setArticle = New setArticle;
+            $setArticle = New Product\setArticle;
 //            $setArticle->setId($SQLResult[$i]['']);
 //            $setArticle->setProductId($SQLResult[$i]['']);
 //            $setArticle->setQuantity($SQLResult[$i]['']);
