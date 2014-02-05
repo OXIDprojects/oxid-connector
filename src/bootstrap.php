@@ -1,5 +1,7 @@
 <?php
 
+require_once (__DIR__ . "/../vendor/autoload.php");
+
 use \jtl\Core\Rpc\Error;
 use \jtl\Core\Http\Response;
 use \jtl\Core\Rpc\RequestPacket;
@@ -16,9 +18,8 @@ define('DATABASE_PATH', CONNECTOR_PATH . 'Oxid\Database\\');
 define('MAPPING_PATH', CONNECTOR_PATH . 'Oxid\Mapping\\');
 define('OXID_SHOP_PATH', ROOT_PATH . '..\oxid-shop\\');
 
-//define('CONNECTOR_DIR', __DIR__ . '/../vendor/jtl/connector/');
-//define('AUTOLOAD_PATH', CONNECTOR_PATH . 'Oxid\autoloader.php');
-//define('ENDPOINT_DIR', realpath(__DIR__ . '/../'));
+define('CONNECTOR_DIR', __DIR__ . '/../vendor/jtl/connector/');
+define('ENDPOINT_DIR', realpath(__DIR__ . '/../'));
 
 function exception_handler(\Exception $exception)
 {

@@ -43,15 +43,15 @@ Class Customers {
             /* Customer */
             $Customer = New Customer\Customer;
             // Wawi -> Shop Funktionen
-//            $Customer->setActivateCustomer($SQLResult[$i]['']);
-//            $Customer->setCreateAccountPassword($SQLResult[$i]['']);
-//            $Customer->setDeleteAccounts($SQLResult[$i]['']);
-//            $Customer->setSetAccountCredit($SQLResult[$i]['']);
+//            $Customer->setActivateCustomer($SQLResult[$i]['']); // Not in Oxid
+//            $Customer->setCreateAccountPassword($SQLResult[$i]['']); // Not in Oxid
+//            $Customer->setDeleteAccounts($SQLResult[$i]['']); // Not in Oxid
+//            $Customer->setSetAccountCredit($SQLResult[$i]['']); // Not in Oxid
             
             $Customer->setId($SQLResult[$i]['OXID']);
             $Customer->setCustomerGroupId(0); //Mehrere in Oxid, daher Standard Gruppe für JTL-Wawi
-//            $Customer->setTitle($SQLResult[$i]['']); //Not in Oxid
-//            $Customer->setLocaleName($SQLResult[$i]['']); //Not in Oxid
+//            $Customer->setTitle($SQLResult[$i]['']); // Not in Oxid
+//            $Customer->setLocaleName($SQLResult[$i]['']); // Not in Oxid
             $Customer->setCustomerNumber($SQLResult[$i]['OXCUSTNR']);
             $Customer->setPassword($SQLResult[$i]['OXPASSWORD']);
             $Customer->setSalutation($SQLResult[$i]['OXSAL']);
@@ -60,27 +60,27 @@ Class Customers {
             $Customer->setCompany($SQLResult[$i]['OXCOMPANY']);
             $Customer->setDeliveryInstruction($SQLResult[$i]['OXADDINFO']);
             $Customer->setStreet($SQLResult[$i]['OXSTREET'] . ' ' . $SQLResult[$i]['OXSTREETNR']);
-//            $Customer->setExtraAddressLine($SQLResult[$i]['']);
+//            $Customer->setExtraAddressLine($SQLResult[$i]['']); // Not in Oxid
             $Customer->setZipCode($SQLResult[$i]['OXZIP']);
             $Customer->setCity($SQLResult[$i]['OXCITY']);
             $Customer->setState($SQLResult[$i]['OXSTATEID']);
-//            $Customer->setCountryIso($SQLResult[$i]['']); //Not in Oxid
+//            $Customer->setCountryIso($SQLResult[$i]['']); // Not in Oxid
             $Customer->setPhone($SQLResult[$i]['OXPRIVFON']);
             $Customer->setMobile($SQLResult[$i]['OXMOBFON']);
             $Customer->setFax($SQLResult[$i]['OXFAX']);
             $Customer->setEMail($SQLResult[$i]['OXUSERNAME']);
             $Customer->setVatNumber($SQLResult[$i]['OXUSTID']);
             $Customer->setWww($SQLResult[$i]['OXURL']);
-//            $Customer->setAccountCredit($SQLResult[$i]['']); //Not in Oxid
+//            $Customer->setAccountCredit($SQLResult[$i]['']); // Not in Oxid
             $Customer->setHasNewsletterSubscription($SQLResult[$i]['OXDBOPTIN']);
             $Customer->setBirthday($SQLResult[$i]['OXBIRTHDATE']);
-//            $Customer->setDiscount($SQLResult[$i]['']);
-//            $Customer->setOrigin($SQLResult[$i]['']);
+//            $Customer->setDiscount($SQLResult[$i]['']); // Not in Oxid (wird in Gruppen geregelt)
+//            $Customer->setOrigin($SQLResult[$i]['']); 
             $Customer->setCreated($SQLResult[$i]['OXCREATE']);
-//            $Customer->setModified($SQLResult[$i]['']);
+//            $Customer->setModified($SQLResult[$i]['']); // Not in Oxid
             $Customer->setIsActive($SQLResult[$i]['OXACTIVE']);
-//            $Customer->setIsFetched($SQLResult[$i]['']);
-//            $Customer->setHasCustomerAccount($SQLResult[$i]['']);
+//            $Customer->setIsFetched($SQLResult[$i]['']); // Not in Oxid
+//            $Customer->setHasCustomerAccount($SQLResult[$i]['']); // Not in Oxid
             
             /* CustomerAttr */
             $CustomerAttr = New Customer\CustomerAttr;

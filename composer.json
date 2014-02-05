@@ -41,8 +41,7 @@
     "minimum-stability": "dev",
     "autoload": {
         "psr-0": {
-            "jtl\\Connector": "src/",
-            "jtl\\Oxid": "src/"
+            "jtl\\Connector": "src/"
         }
     }
 }

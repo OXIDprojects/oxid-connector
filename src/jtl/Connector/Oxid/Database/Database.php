@@ -13,7 +13,7 @@ Namespace jtl\Connector\Oxid\Database;
 
 use \jtl\Connector\Oxid\Config\Loader As ConfigLoader;
 
-require_once("../Config/Loader/Config.php");
+require_once "/../Config/Loader/Config.php";
 
 Class Database {
         
@@ -100,7 +100,7 @@ Class Database {
         return $Arr;
         
     }
-
+    
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
         If (!empty($arguments)){

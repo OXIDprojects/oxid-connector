@@ -9,8 +9,7 @@ use \jtl\Core\Filesystem\Tool;
 use \jtl\Core\Exception\ConfigException;
 use \jtl\Core\Config\Loader\Base as BaseLoader;
 
-require_once('../../../../bootstrap.php');
-
+require_once ("/../../../../../bootstrap.php");
 
 class Config {
 
@@ -26,7 +25,6 @@ class Config {
     private $sShopDir;
     private $sCompileDir;
     
-
     //DbHost
     public function setDbHost($dbHost) {
         $this->dbHost = $dbHost;

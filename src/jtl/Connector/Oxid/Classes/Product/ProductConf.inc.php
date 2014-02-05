@@ -2,9 +2,17 @@
 
 Namespace jtl\Connector\Oxid\Classes\Product;
 
+require_once 'ConfigGroup/ConfigGroup.php';
+require_once 'ConfigGroup/ConfigGroupI18n.php';
+require_once 'ConfigItem/ConfigItem.php';
+require_once 'ConfigItem/ConfigItemI18n.php';
+require_once 'ConfigItem/ConfigItemPrice.php';
+require_once 'FileDownload/FileDownload.php';
+require_once 'FileDownload/FileDownloadI18n.php';
 require_once 'MediaFile/MediaFile.php';
 require_once 'MediaFile/MediaFileAttr.php';
 require_once 'MediaFile/MediaFileI18n.php';
+require_once 'ProductVarCombination/ProductVarCombination.php';
 require_once 'ProductVariation/ProductVariation.php';
 require_once 'ProductVariation/ProductVariationI18n.php';
 require_once 'ProductVariation/ProductVariationVisibility.php';
@@ -28,6 +36,7 @@ require_once 'ProductSpecialPrice.php';
 require_once 'ProductSpecific.php';
 require_once 'ProductVisibility.php';
 require_once 'ProductWarehouseInfo.php';
-require_once 'SpecialPrice.php';
 require_once 'setArticle.php';
+require_once 'SpecialPrice.php';
+
 ?>
