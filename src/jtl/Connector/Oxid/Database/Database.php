@@ -9,13 +9,13 @@
  * @author Michele Berger <michele.berger@jtl-software.com>
  */
 
-Namespace jtl\Connector\Oxid\Database;
+namespace jtl\Connector\Oxid\Database;
 
 use \jtl\Connector\Oxid\Config\Loader As ConfigLoader;
 
 require_once "/../Config/Loader/Config.php";
 
-Class Database {
+class Database {
         
     private $server;
     private $user;
@@ -64,7 +64,7 @@ Class Database {
      * @return type
      */
     public function oxidStatement($query) {
-        $OxidConf = New ConfigLoader\Config;
+        $OxidConf = new ConfigLoader\Config;
         $OxidConf->getConfigs();
         
         //Variablen Deklaration
@@ -74,7 +74,7 @@ Class Database {
         $this->setDatabase($OxidConf->getDbName());
        
         //Verbindung zur Datenbank aufbauen
-        $mysqli = New \mysqli($this->server, $this->user, $this->password, $this->database);
+        $mysqli = new \mysqli($this->server, $this->user, $this->password, $this->database);
         if ($mysqli->connect_error) {
             echo "Fehler bei der Verbindung: " . mysqli_connect_error();
             exit();
@@ -96,18 +96,22 @@ Class Database {
         //Schließen der Connection
         $rs->close();
         $mysqli->close();
-
+        
+        if (empty($Arr)){
+            $Arr = false;   
+        }
+        
         return $Arr;
         
     }
     
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
-        If (!empty($arguments)){
+        if (!empty($arguments)){
             $ausgabe =  "Die Methode: " . $name .
                         " mit dem Parameter: " . $arguments .
                         " existiert nicht.";
-        }Else{
+        }else{
             $ausgabe =  "Die Methode: " . $name .
                         " existiert nicht.";
         }      
@@ -120,4 +124,3 @@ Class Database {
     }
 }
 
-?>

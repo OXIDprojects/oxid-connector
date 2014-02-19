@@ -10,6 +10,7 @@ use \jtl\Core\Exception\ConfigException;
 use \jtl\Core\Config\Loader\Base as BaseLoader;
 
 require_once ("/../../../../../bootstrap.php");
+require_once("/../../Utilities/OxConfunctions.php");
 
 class Config {
 
@@ -24,7 +25,7 @@ class Config {
     private $sAdminSSLURL;
     private $sShopDir;
     private $sCompileDir;
-    
+        
     //DbHost
     public function setDbHost($dbHost) {
         $this->dbHost = $dbHost;
@@ -124,7 +125,6 @@ class Config {
         return $this->sCompileDir;
     }
 
-
     public function getConfigs() {
         
         $dbHostConf = array();
@@ -140,56 +140,57 @@ class Config {
 
         
         $datei = "config.inc.php";
-        $file = file_get_contents(OXID_SHOP_PATH . $datei, true);
+        //$file = file_get_contents($oxidShopPath . $datei, true);
+        $file = file_get_contents("../../../../../../oxid-shop/" . $datei, true);
 
-        If (preg_match("/dbHost = '(.*?)'/is", $file, $dbHostConf) != 0) {
+        if (preg_match("/dbHost = '(.*?)'/is", $file, $dbHostConf) != 0) {
             $this->dbHost = $dbHostConf[1];
         }
 
-        If (preg_match("/dbName = '(.*?)'/is", $file, $dbNameConf) != 0) {
+        if (preg_match("/dbName = '(.*?)'/is", $file, $dbNameConf) != 0) {
             $this->dbName = $dbNameConf[1];
         }
 
-        If (preg_match("/dbUser = '(.*?)'/is", $file, $dbUserConf) != 0) {
+        if (preg_match("/dbUser = '(.*?)'/is", $file, $dbUserConf) != 0) {
             $this->dbUser = $dbUserConf[1];
         }
 
-        If (preg_match("/dbPwd = '(.*?)'/is", $file, $dbPwdConf) != 0) {
+        if (preg_match("/dbPwd = '(.*?)'/is", $file, $dbPwdConf) != 0) {
             $this->dbPwd = $dbPwdConf[1];
         }
 
-        If (preg_match("/dbType = '(.*?)'/is", $file, $dbTypeConf) != 0) {
+        if (preg_match("/dbType = '(.*?)'/is", $file, $dbTypeConf) != 0) {
             $this->dbType = $dbTypeConf[1];
         }
 
-        If (preg_match("/sShopURL = '(.*?)'/is", $file, $sShopURLConf) != 0) {
+        if (preg_match("/sShopURL = '(.*?)'/is", $file, $sShopURLConf) != 0) {
             $this->sShopURL = $sShopURLConf[1];
         }
 
-        If (preg_match("/sSSLShopURL = '(.*?)'/is", $file, $sSSLShopURLConf) != 0) {
+        if (preg_match("/sSSLShopURL = '(.*?)'/is", $file, $sSSLShopURLConf) != 0) {
             $this->sSSLShopURL = $sSSLShopURLConf[1];
         }
 
-        If (preg_match("/sAdminSSLURL = '(.*?)'/is", $file, $sAdminSSLURLConf) != 0) {
+        if (preg_match("/sAdminSSLURL = '(.*?)'/is", $file, $sAdminSSLURLConf) != 0) {
             $this->sAdminSSLURL = $sAdminSSLURLConf[1];
         }
 
-        If (preg_match("/sShopDir = '(.*?)'/is", $file, $sShopDirConf) != 0) {
+        if (preg_match("/sShopDir = '(.*?)'/is", $file, $sShopDirConf) != 0) {
             $this->sShopDir = $sShopDirConf[1];
         }
 
-        If (preg_match("/sCompileDir = '(.*?)'/is", $file, $sCompileDirConf) != 0) {
+        if (preg_match("/sCompileDir = '(.*?)'/is", $file, $sCompileDirConf) != 0) {
             $this->sCompileDir = $sCompileDirConf[1];
         }
     }
 
     //Undefinierte Methoden aufrufe abfangen
     public function __call($name, $arguments) {
-        If (!empty($arguments)) {
+        if (!empty($arguments)) {
             $ausgabe = "Die Methode: " . $name .
                     " mit dem Parameter: " . $arguments .
                     " existiert nicht.";
-        } Else {
+        } else {
             $ausgabe = "Die Methode: " . $name .
                     " existiert nicht.";
         }
@@ -202,4 +203,3 @@ class Config {
     }
 
 }
-?>
