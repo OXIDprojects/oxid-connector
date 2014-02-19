@@ -1,46 +1,55 @@
 <?php
 namespace jtl\Connector\Oxid\Models\GlobalData\CustomerGroup;
 
-class CustomerGroupAttr {
-	
+class CustomerGroupAttr
+{
+
     private $id;
     private $customerGroupId;
     private $key;
 	private $value;
 
 	//Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
-	
+
     //CustomerGroupId
-    public function setCustomerGroupId($customerGroupId) {
+    public function setCustomerGroupId($customerGroupId)
+	{
         $this->customerGroupId = $customerGroupId;
     }
-    
-    public function getCustomerGroupId() {
+
+    public function getCustomerGroupId()
+	{
         return $this->customerGroupId;
     }
 
     //Key
-    public function setKey($key) {
+    public function setKey($key)
+	{
         $this->key = $key;
     }
-    
-    public function getKey() {
+
+    public function getKey()
+	{
         return $this->key;
     }
-	
+
 	//Value
-    public function setValue($value) {
+    public function setValue($value)
+	{
         $this->value = $value;
     }
 
-    public function getValue() {
+    public function getValue()
+	{
         return $this->value;
     }
 }

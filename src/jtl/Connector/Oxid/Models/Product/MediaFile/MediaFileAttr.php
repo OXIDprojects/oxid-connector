@@ -1,7 +1,8 @@
 <?php
 namespace jtl\Connector\Oxid\Models\Product\MediaFile;
 
-class MediaFileAttr {
+class MediaFileAttr
+{
 
     private $id;
     private $mediaFileId;
@@ -11,47 +12,57 @@ class MediaFileAttr {
 
 
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //MediaFileId
-    public function setMediaFileId($mediaFileId) {
+    public function setMediaFileId($mediaFileId)
+	{
         $this->mediaFileId = $mediaFileId;
     }
 
-    public function getMediaFileId() {
+    public function getMediaFileId()
+	{
         return $this->mediaFileId;
     }
 
     //LocaleName
-    public function setLocaleName($localeName) {
+    public function setLocaleName($localeName)
+	{
         $this->$localeName = $localeName;
     }
 
-    public function getLocaleName() {
+    public function getLocaleName()
+	{
         return $this->localeName;
     }
 
     //Key
-    public function setKey($key) {
+    public function setKey($key)
+	{
         $this->key = $key;
     }
 
-    public function getKey() {
+    public function getKey()
+	{
         return $this->key;
     }
 
     //Value
-    public function setValue($value) {
+    public function setValue($value)
+	{
         $this->value = $value;
     }
 
-    public function getValue() {
+    public function getValue()
+	{
         return $this->value;
     }
 }

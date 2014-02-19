@@ -1,13 +1,17 @@
 <?php
 namespace jtl\Connector\Oxid\Mapper;
 
-use jtl\Connector\Oxid\Database;
-use jtl\Connector\Oxid\Models\Category;
+use jtl\Connector\Oxid\Database,
+jtl\Connector\Oxid\Models\Category;
 
 require_once("../Database/Database.php");
 require_once("../Models/Category/CategoryConf.inc.php");
 
-class Categories {
+/**
+ * Summary of Categories
+ */
+class Categories
+{
 
     public $Category = array();
     public $CategoryAttr = array();
@@ -21,7 +25,8 @@ class Categories {
      * Ziehe Kategorien vom Oxid-Shop
      * @return type
      */
-    public function getCategories() {
+    public function getCategories()
+    {
         $database = new Database\Database;
 
         $query = "SELECT Cat.OXID " . "AS categoryId," .
@@ -45,7 +50,8 @@ class Categories {
      * @param type $SQLResult
      * @return \Categories
      */
-    function fillCategoryclasses($SQLResult) {
+    function fillCategoryclasses($SQLResult)
+    {
         $Categories = new Categories;
 
         //for ($i = 0; $i < count($SQLResult); ++$i) {
@@ -53,7 +59,7 @@ class Categories {
             /* Category */
             $Category = new Category\Category;
             $Category->setId($SQLResult[$i]['categoryId']);
-//            $Category->setLevel($SQLResult[$i]['']); // Nicht Definiert
+            //            $Category->setLevel($SQLResult[$i]['']); // Nicht Definiert
             $Category->setParentCategoryId($SQLResult[$i]['categoryParentId']);
             $Category->setSort($SQLResult[$i]['categorySort']);
 
@@ -62,44 +68,44 @@ class Categories {
             $CategoryAttr->setCategoryId($SQLResult[$i]['categoryId']);
             $CategoryAttr->setId($SQLResult[$i]['cat2AttId']);
             $CategoryAttr->setSort($SQLResult[$i]['cat2AttSort']);
-//            $CategoryAttr->setType($SQLResult[$i]['']); // Nicht in Oxid
+            //            $CategoryAttr->setType($SQLResult[$i]['']); // Nicht in Oxid
 
             /* CategoryAttrI18n */
             $CategoryAttrI18n = new Category\CategoryAttrI18n;
             $CategoryAttrI18n->setCategoryAttrId($SQLResult[$i]['cat2AttId']);
-//            $CategoryAttrI18n->setKey($SQLResult[$i]['']);
-//            $CategoryAttrI18n->setLocaleName($SQLResult[$i]['']);
-//            $CategoryAttrI18n->setValue($SQLResult[$i]['']);
+            //            $CategoryAttrI18n->setKey($SQLResult[$i]['']);
+            //            $CategoryAttrI18n->setLocaleName($SQLResult[$i]['']);
+            //            $CategoryAttrI18n->setValue($SQLResult[$i]['']);
 
             /* CategoryCustomerGroup */
             $CategoryCustomerGroup = new Category\CategoryCustomerGroup;
             $CategoryCustomerGroup->setCategoryId($SQLResult[$i]['categoryId']);
-//            $CategoryCustomerGroup->setCustomerGroupId($SQLResult[$i]['']);
-//            $CategoryCustomerGroup->setDiscount($SQLResult[$i]['']);
+            //            $CategoryCustomerGroup->setCustomerGroupId($SQLResult[$i]['']);
+            //            $CategoryCustomerGroup->setDiscount($SQLResult[$i]['']);
 
             /* CategoryfunctionAttr */
             $CategoryfunctionAttr = new Category\CategoryfunctionAttr;
             $CategoryfunctionAttr->setCategoryId($SQLResult[$i]['categoryId']);
-//            $CategoryfunctionAttr->setId($SQLResult[$i]['']);
-//            $CategoryfunctionAttr->setKey($SQLResult[$i]['']);
-//            $CategoryfunctionAttr->setValue($SQLResult[$i]['']);
+            //            $CategoryfunctionAttr->setId($SQLResult[$i]['']);
+            //            $CategoryfunctionAttr->setKey($SQLResult[$i]['']);
+            //            $CategoryfunctionAttr->setValue($SQLResult[$i]['']);
 
             /* CategoryI18n */
             $CategoryI18n = new Category\CategoryI18n;
             $CategoryI18n->setCategoryId($SQLResult[$i]['categoryId']);
-//            $CategoryI18n->setDescription($SQLResult[$i]['']);
-//            $CategoryI18n->setLocaleName($SQLResult[$i]['']);
-//            $CategoryI18n->setMetaDescription($SQLResult[$i]['']);
-//            $CategoryI18n->setMetaKeywords($SQLResult[$i]['']);
+            //            $CategoryI18n->setDescription($SQLResult[$i]['']);
+            //            $CategoryI18n->setLocaleName($SQLResult[$i]['']);
+            //            $CategoryI18n->setMetaDescription($SQLResult[$i]['']);
+            //            $CategoryI18n->setMetaKeywords($SQLResult[$i]['']);
             $CategoryI18n->setName($SQLResult[$i]['categoryName']);
-//            $CategoryI18n->setTitleTag($SQLResult[$i]['']);
-//            $CategoryI18n->setUrl($SQLResult[$i]['']);
+            //            $CategoryI18n->setTitleTag($SQLResult[$i]['']);
+            //            $CategoryI18n->setUrl($SQLResult[$i]['']);
 
             /* CategoryInvisibility */
             $CategoryInvisibility = new Category\CategoryInvisibility;
             if ($SQLResult[$i]['categoryHidden'] == 1) {
                 $CategoryInvisibility->setCategoryId($SQLResult[$i]['categoryId']);
-//            $CategoryInvisibility->setCustomerGroupId($SQLResult[$i]['']);
+                //            $CategoryInvisibility->setCustomerGroupId($SQLResult[$i]['']);
             }
 
             $Categories->Category[$i] = $Category;
@@ -118,8 +124,9 @@ class Categories {
      * Schreibe Kategorien in Oxid-Shop
      * @return null
      */
-    public function setCategories() {
-        return Null;
+    public function setCategories()
+    {
+        return null;
     }
 
 }

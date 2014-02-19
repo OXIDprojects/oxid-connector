@@ -2,7 +2,8 @@
 
 namespace jtl\Connector\Oxid\Models\Specific;
 
-class Specific {
+class Specific
+{
 
     private $id;
     private $sort;
@@ -11,40 +12,46 @@ class Specific {
 
 
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //Sort
-    public function setSort($sort) {
+    public function setSort($sort)
+	{
         $this->sort = $sort;
     }
 
-    public function getSort() {
+    public function getSort()
+	{
         return $this->sort;
     }
 
     //IsGlobal
-    public function setIsGlobal($isGlobal) {
+    public function setIsGlobal($isGlobal)
+	{
         $this->isGlobal = $isGlobal;
     }
 
-    public function getIsGlobal() {
+    public function getIsGlobal()
+	{
         return $this->isGlobal;
     }
 
     //Type
-    public function setType($type) {
+    public function setType($type)
+	{
         $this->type = $type;
     }
 
-    public function getType() {
+    public function getType()
+	{
         return $this->type;
-    }   
+    }
 }
-
-

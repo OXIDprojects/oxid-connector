@@ -1,47 +1,56 @@
 <?php
 namespace jtl\Connector\Oxid\Models\GlobalData\CustomerGroup;
 
-class CustomerGroup {
-	
+class CustomerGroup
+{
+
 	private $id;
     private $discount;
     private $isDefault;
     private $applyNetPrice;
-	
-	
-	 //Id
-    public function setId($id) {
+
+
+    //Id
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //Discount
-    public function setDiscount($discount) {
+    public function setDiscount($discount)
+	{
         $this->discount = $discount;
     }
-    
-    public function getDiscount() {
+
+    public function getDiscount()
+	{
         return $this->discount;
-    } 
-	
+    }
+
 	//IsDefault
-    public function setIsDefault($isDefault) {
+    public function setIsDefault($isDefault)
+	{
         $this->isDefault = $isDefault;
     }
 
-    public function getIsDefault() {
+    public function getIsDefault()
+	{
         return $this->isDefault;
     }
 
     //ApplyNetPrice
-    public function setApplyNetPrice($applyNetPrice) {
+    public function setApplyNetPrice($applyNetPrice)
+	{
         $this->applyNetPrice = $applyNetPrice;
     }
-    
-    public function getApplyNetPrice() {
+
+    public function getApplyNetPrice()
+	{
         return $this->applyNetPrice;
     }
 }

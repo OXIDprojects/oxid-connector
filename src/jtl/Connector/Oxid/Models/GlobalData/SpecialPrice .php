@@ -1,38 +1,43 @@
 <?php
 namespace jtl\Connector\Oxid\Models\Product;
 
-class SpecialPrice  {
+class SpecialPrice
+{
 
     private $customerGroupId;
     private $productSpecialPriceId;
     private $priceNet;
-    
+
     //CustomerGroupId
-    public function setCustomerGroupId($customerGroupId) {
+    public function setCustomerGroupId($customerGroupId)
+	{
         $this->customerGroupId = $customerGroupId;
     }
 
-    public function getCustomerGroupId() {
+    public function getCustomerGroupId()
+	{
         return $this->customerGroupId;
     }
 
     //ProductSpecialPriceId
-    public function setProductSpecialPriceId($productSpecialPriceId) {
+    public function setProductSpecialPriceId($productSpecialPriceId)
+	{
         $this->productSpecialPriceId = $productSpecialPriceId;
     }
 
-    public function getProductSpecialPriceId() {
+    public function getProductSpecialPriceId()
+	{
         return $this->productSpecialPriceId;
     }
 
     //PriceNet
-    public function setPriceNet($priceNet) {
+    public function setPriceNet($priceNet)
+	{
         $this->priceNet = $priceNet;
     }
 
-    public function getPriceNet() {
+    public function getPriceNet()
+	{
         return $this->priceNet;
     }
 }
-
-

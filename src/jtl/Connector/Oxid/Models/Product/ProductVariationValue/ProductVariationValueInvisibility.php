@@ -1,29 +1,32 @@
 <?php
 namespace jtl\Connector\Oxid\Models\Product\ProductVariationValue;
 
-class ProductVariationValueInvisibility {
+class ProductVariationValueInvisibility
+{
 
     private $customerGroupId;
     private $productVariationValueId;
 
 
     //CustomerGroupId
-    public function setCustomerGroupId($customerGroupId) {
+    public function setCustomerGroupId($customerGroupId)
+	{
         $this->customerGroupId = $customerGroupId;
     }
 
-    public function getCustomerGroupId() {
+    public function getCustomerGroupId()
+	{
         return $this->customerGroupId;
     }
 
     //ProductVariationValueId
-    public function setProductVariationValueId($productVariationValueId) {
+    public function setProductVariationValueId($productVariationValueId)
+	{
         $this->productVariationValueId = $productVariationValueId;
     }
 
-    public function getProductVariationValueId() {
+    public function getProductVariationValueId()
+	{
         return $this->productVariationValueId;
     }
 }
-
-

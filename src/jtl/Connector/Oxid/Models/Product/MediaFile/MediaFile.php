@@ -1,7 +1,8 @@
 <?php
 namespace jtl\Connector\Oxid\Models\Product\MediaFile;
 
-class MediaFile {
+class MediaFile
+{
 
     private $id;
     private $productId;
@@ -13,67 +14,79 @@ class MediaFile {
 
 
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //ProductId
-    public function setProductId($productId) {
+    public function setProductId($productId)
+	{
         $this->productId = $productId;
     }
 
-    public function getProductId() {
+    public function getProductId()
+	{
         return $this->productId;
     }
 
     //Path
-    public function setPath($path) {
+    public function setPath($path)
+	{
         $this->path = $path;
     }
 
-    public function getPath() {
+    public function getPath()
+	{
         return $this->path;
     }
 
     //Url
-    public function setUrl($url) {
+    public function setUrl($url)
+	{
         $this->url = $url;
     }
 
-    public function getUrl() {
+    public function getUrl()
+	{
         return $this->url;
     }
 
     //MediaFileCategory
-    public function setMediaFileCategory($mediaFileCategory) {
+    public function setMediaFileCategory($mediaFileCategory)
+	{
         $this->mediaFileCategory = $mediaFileCategory;
     }
 
-    public function getMediaFileCategory() {
+    public function getMediaFileCategory()
+	{
         return $this->mediaFileCategory;
     }
 
     //Type
-    public function setType($type) {
+    public function setType($type)
+	{
         $this->type = $type;
     }
 
-    public function getType() {
+    public function getType()
+	{
         return $this->type;
     }
 
     //Sort
-    public function setSort($sort) {
+    public function setSort($sort)
+	{
         $this->sort = $sort;
     }
 
-    public function getSort() {
+    public function getSort()
+	{
         return $this->sort;
     }
 }
-
-

@@ -2,7 +2,8 @@
 
 namespace jtl\Connector\Oxid\Models\CustomerOrder\CustomerOrderItem;
 
-class CustomerOrderItemVariation {
+class CustomerOrderItemVariation
+{
 
     private $id;
     private $customerOrderItemId;
@@ -14,75 +15,90 @@ class CustomerOrderItemVariation {
     private $surcharge;
 
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //CustomerOrderItemId
-    public function setCustomerOrderItemId($customerOrderItemId) {
+    public function setCustomerOrderItemId($customerOrderItemId)
+	{
         $this->customerOrderItemId = $customerOrderItemId;
     }
 
-    public function getCustomerOrderItemId() {
+    public function getCustomerOrderItemId()
+	{
         $this->customecustomerOrderItemId;
     }
 
     //ProductVariationId
-    public function setProductVariationId($productVariationId) {
+    public function setProductVariationId($productVariationId)
+	{
         $this->productVariationId = $productVariationId;
     }
 
-    public function getProductVariationId() {
+    public function getProductVariationId()
+	{
         return $this->productVariationId;
     }
 
     //ProductVariationValueId
-    public function setProductVariationValueId($productVariationValueId) {
+    public function setProductVariationValueId($productVariationValueId)
+	{
         $this->productVariationValueId = $productVariationValueId;
     }
 
-    public function getProductVariationValueId() {
+    public function getProductVariationValueId()
+	{
         return $this->productVariationValueId;
     }
-	
+
 	//ProductVariationName
-    public function setProductVariationName($productVariationName) {
+    public function setProductVariationName($productVariationName)
+	{
         $this->productVariationName = $productVariationName;
     }
 
-    public function getProductVariationName() {
+    public function getProductVariationName()
+	{
         return $this->productVariationName;
     }
 
     //ProductVariationValueName
-    public function setProductVariationValueName($productVariationValueName) {
+    public function setProductVariationValueName($productVariationValueName)
+	{
         $this->productVariationValueName = $productVariationValueName;
     }
 
-    public function getProductVariationValueName() {
+    public function getProductVariationValueName()
+	{
         $this->customeproductVariationValueName;
     }
 
     //FreeField
-    public function setFreeField($freeField) {
+    public function setFreeField($freeField)
+	{
         $this->freeField = $freeField;
     }
 
-    public function getFreeField() {
+    public function getFreeField()
+	{
         return $this->freeField;
     }
 
     //Surcharge
-    public function setSurcharge($surcharge) {
+    public function setSurcharge($surcharge)
+	{
         $this->surcharge = $surcharge;
     }
 
-    public function getSurcharge() {
+    public function getSurcharge()
+	{
         return $this->surcharge;
     }
 }
-

@@ -30,4 +30,3 @@ require_once 'ProductSpecific.php';
 require_once 'ProductVarCombination.php';
 require_once 'ProductWarehouseInfo.php';
 require_once 'setArticle.php';
-

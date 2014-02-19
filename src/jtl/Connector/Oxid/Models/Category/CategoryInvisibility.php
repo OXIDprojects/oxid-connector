@@ -2,29 +2,32 @@
 
 namespace jtl\Connector\Oxid\Models\Category;
 
-class CategoryInvisibility {
+class CategoryInvisibility
+{
 
     private $customerGroupId;
     private $categoryId;
 
 
     //CustomerGroupId
-    public function setCustomerGroupId($customerGroupId) {
+    public function setCustomerGroupId($customerGroupId)
+	{
         $this->customerGroupId = $customerGroupId;
     }
 
-    public function getCustomerGroupId() {
+    public function getCustomerGroupId()
+	{
         return $this->customerGroupId;
     }
 
     //CategoryId
-    public function setCategoryId($categoryId) {
+    public function setCategoryId($categoryId)
+	{
         $this->categoryId = $categoryId;
     }
 
-    public function getCategoryId() {
+    public function getCategoryId()
+	{
         return $this->categoryId;
     }
 }
-
-

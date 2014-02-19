@@ -1,7 +1,8 @@
 <?php
 namespace jtl\Connector\Oxid\Models\Product\MediaFile;
 
-class MediaFileI18n {
+class MediaFileI18n
+{
 
     private $mediaFileId;
     private $localeName;
@@ -10,40 +11,46 @@ class MediaFileI18n {
 
 
     //MediaFileId
-    public function setMediaFileId($mediaFileId) {
+    public function setMediaFileId($mediaFileId)
+	{
         $this->mediaFileId = $mediaFileId;
     }
 
-    public function getMediaFileId() {
+    public function getMediaFileId()
+	{
         return $this->mediaFileId;
     }
 
     //LocaleName
-    public function setLocaleName($localeName) {
+    public function setLocaleName($localeName)
+	{
         $this->localeName = $localeName;
     }
 
-    public function getLocaleName() {
+    public function getLocaleName()
+	{
         return $this->localeName;
     }
 
     //Name
-    public function setName($name) {
+    public function setName($name)
+	{
         $this->name = $name;
     }
 
-    public function getName() {
+    public function getName()
+	{
         return $this->name;
     }
 
     //Description
-    public function setDescription($description) {
+    public function setDescription($description)
+	{
         $this->description = $description;
     }
 
-    public function getDescription() {
+    public function getDescription()
+	{
         return $this->description;
     }
 }
-
-

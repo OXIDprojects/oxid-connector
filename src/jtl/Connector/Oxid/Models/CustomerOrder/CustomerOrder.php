@@ -2,7 +2,8 @@
 
 namespace jtl\Connector\Oxid\Models\CustomerOrder;
 
-class CustomerOrder {
+class CustomerOrder
+{
 
     private $id;
     private $customerId;
@@ -30,239 +31,290 @@ class CustomerOrder {
     private $status;
     private $created;
     private $paymentModuleId;
-    
+
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //CustomerId
-    public function setCustomerId($customerId) {
+    public function setCustomerId($customerId)
+	{
         $this->customerId = $customerId;
     }
 
-    public function getCustomerId() {
+    public function getCustomerId()
+	{
         $this->customerId;
     }
 
     //ShippingAddressId
-    public function setShippingAddressId($shippingAddressId) {
+    public function setShippingAddressId($shippingAddressId)
+	{
         $this->shippingAddressId = $shippingAddressId;
     }
 
-    public function getShippingAddressId() {
+    public function getShippingAddressId()
+	{
         return $this->shippingAddressId;
     }
 
     //BillingAddressId
-    public function setBillingAddressId($billingAddressId) {
+    public function setBillingAddressId($billingAddressId)
+	{
         $this->billingAddressId = $billingAddressId;
     }
 
-    public function getBillingAddressId() {
+    public function getBillingAddressId()
+	{
         return $this->billingAddressId;
     }
 
     //ShippingMethodId
-    public function setShippingMethodId($shippingMethodId) {
+    public function setShippingMethodId($shippingMethodId)
+	{
         $this->shippingMethodId = $shippingMethodId;
     }
 
-    public function getShippingMethodId() {
+    public function getShippingMethodId()
+	{
         return $this->shippingMethodId;
     }
 
     //LocaleName
-    public function setLocaleName($localeName) {
+    public function setLocaleName($localeName)
+	{
         $this->localeName = $localeName;
     }
 
-    public function getLocaleName() {
+    public function getLocaleName()
+	{
         return $this->localeName;
     }
 
     //CurrencyIso
-    public function setCurrencyIso($currencyIso) {
+    public function setCurrencyIso($currencyIso)
+	{
         $this->currencyIso = $currencyIso;
     }
 
-    public function getCurrencyIso() {
+    public function getCurrencyIso()
+	{
         return $this->currencyIso;
     }
-    
+
     //EstimatedDeliveryDate
-    public function setEstimatedDeliveryDate($estimatedDeliveryDate) {
+    public function setEstimatedDeliveryDate($estimatedDeliveryDate)
+	{
         $this->estimatedDeliveryDate = $estimatedDeliveryDate;
     }
 
-    public function getEstimatedDeliveryDate() {
+    public function getEstimatedDeliveryDate()
+	{
         return $this->estimatedDeliveryDate;
     }
 
     //Credit
-    public function setCredit($credit) {
+    public function setCredit($credit)
+	{
         $this->credit = $credit;
     }
 
-    public function getCredit() {
+    public function getCredit()
+	{
         return $this->credit;
     }
 
     //TotalSum
-    public function setTotalSum($totalSum) {
+    public function setTotalSum($totalSum)
+	{
         $this->totalSum = $totalSum;
     }
 
-    public function getTotalSum() {
+    public function getTotalSum()
+	{
         return $this->totalSum;
     }
 
     //Session
-    public function setSession($session) {
+    public function setSession($session)
+	{
         $this->session = $session;
     }
 
-    public function getSession() {
+    public function getSession()
+	{
         return $this->session;
     }
 
     //ShippingMethodName
-    public function setShippingMethodName($shippingMethodName) {
+    public function setShippingMethodName($shippingMethodName)
+	{
         $this->shippingMethodName = $shippingMethodName;
     }
 
-    public function getShippingMethodName() {
+    public function getShippingMethodName()
+	{
         return $this->shippingMethodName;
     }
 
     //OrderNumber
-    public function setOrderNumber($orderNumber) {
+    public function setOrderNumber($orderNumber)
+	{
         $this->orderNumber = $orderNumber;
     }
 
-    public function getOrderNumber() {
+    public function getOrderNumber()
+	{
         return $this->orderNumber;
     }
 
     //ShippingInfo
-    public function setShippingInfo($shippingInfo) {
+    public function setShippingInfo($shippingInfo)
+	{
         $this->shippingInfo = $shippingInfo;
     }
 
-    public function getShippingInfo() {
+    public function getShippingInfo()
+	{
         return $this->shippingInfo;
     }
 
     //ShippingDate
-    public function setShippingDate($shippingDate) {
+    public function setShippingDate($shippingDate)
+	{
         $this->shippingDate = $shippingDate;
     }
 
-    public function getShippingDate() {
+    public function getShippingDate()
+	{
         return $this->shippingDate;
     }
 
     //PaymentDate
-    public function setPaymentDate($paymentDate) {
+    public function setPaymentDate($paymentDate)
+	{
         $this->paymentDate = $paymentDate;
     }
 
-    public function getPaymentDate() {
+    public function getPaymentDate()
+	{
         return $this->paymentDate;
     }
 
     //RatingNotificationDate
-    public function setRatingNotificationDate($ratingNotificationDate) {
+    public function setRatingNotificationDate($ratingNotificationDate)
+	{
         $this->ratingNotificationDate = $ratingNotificationDate;
     }
 
-    public function getRatingNotificationDate() {
+    public function getRatingNotificationDate()
+	{
         return $this->ratingNotificationDate;
     }
 
     //Tracking
-    public function setTracking($tracking) {
+    public function setTracking($tracking)
+	{
         $this->tracking = $tracking;
     }
 
-    public function getTracking() {
+    public function getTracking()
+	{
         return $this->tracking;
     }
 
     //Note
-    public function setNote($note) {
+    public function setNote($note)
+	{
         $this->note = $note;
     }
 
-    public function getNote() {
+    public function getNote()
+	{
         return $this->note;
     }
 
     //Logistic
-    public function setLogistic($logistic) {
+    public function setLogistic($logistic)
+	{
         $this->logistic = $logistic;
     }
 
-    public function getLogistic() {
+    public function getLogistic()
+	{
         return $this->logistic;
     }
 
     //TrackingURL
-    public function setTrackingURL($trackingURL) {
+    public function setTrackingURL($trackingURL)
+	{
         $this->trackingURL = $trackingURL;
     }
 
-    public function getTrackingURL() {
+    public function getTrackingURL()
+	{
         return $this->trackingURL;
     }
 
     //Ip
-    public function setIp($ip) {
+    public function setIp($ip)
+	{
         $this->ip = $ip;
     }
 
-    public function getIp() {
+    public function getIp()
+	{
         return $this->ip;
     }
 
     //IsFetched
-    public function setIsFetched($isFetched) {
+    public function setIsFetched($isFetched)
+	{
         $this->isFetched = $isFetched;
     }
 
-    public function getIsFetched() {
+    public function getIsFetched()
+	{
         return $this->isFetched;
     }
 
     //Status
-    public function setStatus($status) {
+    public function setStatus($status)
+	{
         $this->status = $status;
     }
 
-    public function getStatus() {
+    public function getStatus()
+	{
         return $this->status;
     }
 
     //Created
-    public function setCreated($created) {
+    public function setCreated($created)
+	{
         $this->created = $created;
     }
 
-    public function getCreated() {
+    public function getCreated()
+	{
         return $this->created;
     }
 
     //PaymentModuleId
-    public function setPaymentModuleId($paymentModuleId) {
+    public function setPaymentModuleId($paymentModuleId)
+	{
         $this->paymentModuleId = $paymentModuleId;
     }
 
-    public function getPaymentModuleId() {
+    public function getPaymentModuleId()
+	{
         return $this->paymentModuleId;
-    }   
+    }
 }
-

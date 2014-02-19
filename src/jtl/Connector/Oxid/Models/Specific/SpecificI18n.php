@@ -2,39 +2,42 @@
 
 namespace jtl\Connector\Oxid\Models\Specific;
 
-class SpecificI18n {
-
+class SpecificI18n
+{
     private $localeName;
     private $specificId;
     private $name;
 
-
     //LocaleName
-    public function setLocaleName($localeName) {
+    public function setLocaleName($localeName)
+	{
         $this->localeName = $localeName;
     }
 
-    public function getLocaleName() {
+    public function getLocaleName()
+	{
         return $this->localeName;
     }
 
     //SpecificId
-    public function setSpecificId($specificId) {
+    public function setSpecificId($specificId)
+	{
         $this->specificId = $specificId;
     }
 
-    public function getSpecificId() {
+    public function getSpecificId()
+	{
         return $this->specificId;
     }
 
     //Name
-    public function setName($name) {
+    public function setName($name)
+	{
         $this->name = $name;
     }
 
-    public function getName() {
+    public function getName()
+	{
         return $this->name;
     }
 }
-
-

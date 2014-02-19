@@ -9,5 +9,3 @@ require_once("CategoryCustomerGroup.php");
 require_once("CategoryfunctionAttr.php");
 require_once("CategoryI18n.php");
 require_once("CategoryInvisibility.php");
-
-

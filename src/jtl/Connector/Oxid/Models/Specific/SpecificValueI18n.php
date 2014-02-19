@@ -2,8 +2,8 @@
 
 namespace jtl\Connector\Oxid\Models\Specific;
 
-class SpecificValueI18n {
-
+class SpecificValueI18n
+{
     private $localeName;
     private $specificValueId;
     private $value;
@@ -14,76 +14,90 @@ class SpecificValueI18n {
     private $titleTag;
 
     //LocaleName
-    public function setLocaleName($localeName) {
+    public function setLocaleName($localeName)
+	{
         $this->localeName = $localeName;
     }
 
-    public function getLocaleName() {
+    public function getLocaleName()
+	{
         return $this->localeName;
     }
 
     //SpecificValueId
-    public function setSpecificValueId($specificValueId) {
+    public function setSpecificValueId($specificValueId)
+	{
         $this->specificValueId = $specificValueId;
     }
 
-    public function getSpecificValueId() {
+    public function getSpecificValueId()
+	{
         return $this->specificValueId;
     }
 
     //Value
-    public function setValue($value) {
+    public function setValue($value)
+	{
         $this->value = $value;
     }
 
-    public function getValue() {
+    public function getValue()
+	{
         return $this->value;
     }
 
     //UrlPath
-    public function setUrlPath($urlPath) {
+    public function setUrlPath($urlPath)
+	{
         $this->urlPath = $urlPath;
     }
 
-    public function getUrlPath() {
+    public function getUrlPath()
+	{
         return $this->urlPath;
     }
 
     //Description
-    public function setDescription($description) {
+    public function setDescription($description)
+	{
         $this->description = $description;
     }
 
-    public function getDescription() {
+    public function getDescription()
+	{
         return $this->description;
     }
 
     //MetaDescription
-    public function setMetaDescription($metaDescription) {
+    public function setMetaDescription($metaDescription)
+	{
         $this->metaDescription = $metaDescription;
     }
 
-    public function getMetaDescription() {
+    public function getMetaDescription()
+	{
         return $this->metaDescription;
     }
 
     //MetaKeywords
-    public function setMetaKeywords($metaKeywords) {
+    public function setMetaKeywords($metaKeywords)
+	{
         $this->metaKeywords = $metaKeywords;
     }
 
-    public function getMetaKeywords() {
+    public function getMetaKeywords()
+	{
         return $this->metaKeywords;
     }
 
     //TitleTag
-    public function setTitleTag($titleTag) {
+    public function setTitleTag($titleTag)
+	{
         $this->titleTag = $titleTag;
     }
 
-    public function getTitleTag() {
+    public function getTitleTag()
+	{
         return $this->titleTag;
     }
 }
-
-

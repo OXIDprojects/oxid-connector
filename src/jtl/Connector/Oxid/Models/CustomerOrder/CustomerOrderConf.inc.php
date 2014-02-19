@@ -11,4 +11,3 @@ require_once 'CustomerOrderItem/CustomerOrderItemVariations.php';
 require_once 'CustomerOrderBillingAddress.php';
 require_once 'CustomerOrderPaymentInfo.php';
 require_once 'CustomerOrderShippingAddress.php';
-

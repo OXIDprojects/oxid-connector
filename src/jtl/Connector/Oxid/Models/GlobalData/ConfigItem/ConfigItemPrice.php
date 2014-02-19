@@ -1,47 +1,55 @@
 <?php
 namespace jtl\Connector\Oxid\Models\GlobalData\ConfigItem;
 
-class ConfigItemPrice {
-    
+class ConfigItemPrice
+{
+
 	private $configItemId;
     private $customerGroupId;
     private $price;
 	private $type;
-	
+
 	//ConfigItemId
-    public function setConfigItemId($configItemId) {
+    public function setConfigItemId($configItemId)
+	{
         $this->configItemId = $configItemId;
     }
 
-    public function getConfigItemId() {
+    public function getConfigItemId()
+	{
         return $this->configItemId;
     }
 
     //CustomerGroupId
-    public function setCustomerGroupId($customerGroupId) {
+    public function setCustomerGroupId($customerGroupId)
+	{
         $this->customerGroupId = $customerGroupId;
     }
-    
-    public function getCustomerGroupId() {
+
+    public function getCustomerGroupId()
+	{
         return $this->customerGroupId;
     }
-	
+
 	//Price
-    public function setPrice($price) {
+    public function setPrice($price)
+	{
         $this->price = $price;
     }
-    
-    public function getPrice() {
+
+    public function getPrice()
+	{
         return $this->price;
     }
-	
+
 	//Type
-    public function setType($type) {
+    public function setType($type)
+	{
         $this->type = $type;
     }
-    
-    public function getType() {
+
+    public function getType()
+	{
         return $this->type;
     }
 }
-

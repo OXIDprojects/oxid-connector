@@ -1,7 +1,8 @@
 <?php
 namespace jtl\Connector\Oxid\Models\Product\ProductVariation;
 
-class ProductVariation {
+class ProductVariation
+{
 
     private $id;
     private $productId;
@@ -10,40 +11,46 @@ class ProductVariation {
 
 
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //ProductId
-    public function setProductId($productId) {
+    public function setProductId($productId)
+	{
         $this->productId = $productId;
     }
 
-    public function getProductId() {
+    public function getProductId()
+	{
         return $this->productId;
     }
 
     //Type
-    public function setType($type) {
+    public function setType($type)
+	{
         $this->type = $type;
     }
 
-    public function getType() {
+    public function getType()
+	{
         return $this->type;
     }
 
     //Sort
-    public function setSort($sort) {
+    public function setSort($sort)
+	{
         $this->sort = $sort;
     }
 
-    public function getSort() {
+    public function getSort()
+	{
         return $this->sort;
     }
 }
-
-

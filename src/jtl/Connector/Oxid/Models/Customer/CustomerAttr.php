@@ -2,7 +2,8 @@
 
 namespace jtl\Connector\Oxid\Models\Customer;
 
-class CustomerAttr {
+class CustomerAttr
+{
 
     private $id;
     private $customerId;
@@ -11,40 +12,46 @@ class CustomerAttr {
 
 
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //CustomerId
-    public function setCustomerId($customerId) {
+    public function setCustomerId($customerId)
+	{
         $this->customerId = $customerId;
     }
 
-    public function getCustomerId() {
+    public function getCustomerId()
+	{
         return $this->customerId;
     }
 
     //Key
-    public function setKey($key) {
+    public function setKey($key)
+	{
         $this->key = $key;
     }
 
-    public function getKey() {
+    public function getKey()
+	{
         return $this->key;
     }
 
     //Value
-    public function setValue($value) {
+    public function setValue($value)
+	{
         $this->value = $value;
     }
 
-    public function getValue() {
+    public function getValue()
+	{
         return $this->value;
     }
 }
-
-

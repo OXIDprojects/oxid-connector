@@ -26,5 +26,3 @@ require_once("ProductType.php");
 require_once("Shippingclass.php");
 require_once("SpecialPrice.php");
 require_once("Unit.php");
-
-

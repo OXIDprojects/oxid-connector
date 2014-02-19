@@ -2,7 +2,8 @@
 
 namespace jtl\Connector\Oxid\Models\Manufacturer;
 
-class ManufacturerI18n {
+class ManufacturerI18n
+{
 
     private $manufacturerId;
     private $localeName;
@@ -12,56 +13,68 @@ class ManufacturerI18n {
     private $titleTag;
 
     //ManufacturerId
-    public function setManufacturerId($manufacturerId) {
+    public function setManufacturerId($manufacturerId)
+	{
         $this->manufacturerId = $manufacturerId;
     }
 
-    public function getManufacturerId() {
+    public function getManufacturerId()
+	{
         return $this->manufacturerId;
     }
 
     //LocaleName
-    public function setLocaleName($localeName) {
+    public function setLocaleName($localeName)
+	{
         $this->localeName = $localeName;
     }
 
-    public function getLocaleName() {
+    public function getLocaleName()
+	{
         return $this->localeName;
     }
-    
+
     //Description
-    public function setDescription($description) {
+    public function setDescription($description)
+	{
         $this->description = $description;
     }
 
-    public function getDescription() {
+    public function getDescription()
+	{
         return $this->description;
     }
-    
+
     //MetaDescription
-    public function setMetaDescription($metaDescription) {
+    public function setMetaDescription($metaDescription)
+	{
         $this->metaDescription = $metaDescription;
     }
-    
-    public function getMetaDescription() {
+
+    public function getMetaDescription()
+	{
         return $this->metaDescription;
     }
-    
+
     //MetaKeywords
-    public function setMetaKeywords($metaKeywords) {
+    public function setMetaKeywords($metaKeywords)
+	{
         $this->metaKeywords = $metaKeywords;
     }
-    
-    public function getMetaKeywords() {
+
+    public function getMetaKeywords()
+	{
         return $this->metaKeywords;
     }
-    
+
     //TitleTag
-    public function setTitleTag($titleTag) {
+    public function setTitleTag($titleTag)
+	{
         $this->titleTag = $titleTag;
     }
-    
-    public function getTitleTag() {
+
+    public function getTitleTag()
+	{
         return $this->titleTag;
     }
 }

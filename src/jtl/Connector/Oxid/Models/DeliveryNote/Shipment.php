@@ -2,7 +2,8 @@
 
 namespace jtl\Connector\Oxid\Models\DeliveryNote;
 
-class Shipment {
+class Shipment
+{
 
     private $id;
     private $deliveryNoteId;
@@ -13,65 +14,79 @@ class Shipment {
 	private $note;
 
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //DeliveryNoteId
-    public function setDeliveryNoteId($deliveryNoteId) {
+    public function setDeliveryNoteId($deliveryNoteId)
+	{
         $this->deliveryNoteId = $deliveryNoteId;
     }
 
-    public function getDeliveryNoteId() {
+    public function getDeliveryNoteId()
+	{
         return $this->deliveryNoteId;
     }
-    
+
     //Logistic
-    public function setLogistic($logistic) {
+    public function setLogistic($logistic)
+	{
         $this->logistic = $logistic;
     }
 
-    public function getLogistic() {
+    public function getLogistic()
+	{
         return $this->logistic;
     }
-    
+
     //LogisticURL
-    public function setLogisticURL($logisticURL) {
+    public function setLogisticURL($logisticURL)
+	{
         $this->logisticURL = $logisticURL;
     }
-    
-    public function getLogisticURL() {
+
+    public function getLogisticURL()
+	{
         return $this->logisticURL;
     }
-    
+
     //IdentCode
-    public function setIdentCode($identCode) {
+    public function setIdentCode($identCode)
+	{
         $this->identCode = $identCode;
     }
-    
-    public function getIdentCode() {
+
+    public function getIdentCode()
+	{
         return $this->identCode;
     }
-    
+
     //Created
-    public function setCreated($created) {
+    public function setCreated($created)
+	{
         $this->created = $created;
     }
-    
-    public function getCreated() {
+
+    public function getCreated()
+	{
         return $this->created;
     }
-	
+
 	//Note
-    public function setNote($note) {
+    public function setNote($note)
+	{
         $this->note = $note;
     }
 
-    public function getNote() {
+    public function getNote()
+	{
         return $this->note;
     }
 }

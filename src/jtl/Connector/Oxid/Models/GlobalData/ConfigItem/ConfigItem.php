@@ -1,7 +1,8 @@
 <?php
 namespace jtl\Connector\Oxid\Models\GlobalData\ConfigItem;
 
-class ConfigItem {
+class ConfigItem
+{
 
 	private $id;
     private $configGroupId;
@@ -19,150 +20,181 @@ class ConfigItem {
     private $initialQuantity;
 	private $sort;
     private $vat;
-	
-	
+
+
 	//Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //ConfigGroupId
-    public function setConfigGroupId($configGroupId) {
+    public function setConfigGroupId($configGroupId)
+	{
         $this->configGroupId = $configGroupId;
     }
-    
-    public function getConfigGroupId() {
+
+    public function getConfigGroupId()
+	{
         return $this->configGroupId;
     }
-	
+
 	//ProductId
-    public function setProductId($productId) {
+    public function setProductId($productId)
+	{
         $this->productId = $productId;
     }
-    
-    public function getProductId() {
+
+    public function getProductId()
+	{
         return $this->productId;
     }
-	
+
 	//Type
-    public function setType($type) {
+    public function setType($type)
+	{
         $this->type = $type;
     }
-    
-    public function getType() {
+
+    public function getType()
+	{
         return $this->type;
     }
-	
+
 	//IsPreSelected
-    public function setIsPreSelected($isPreSelected) {
+    public function setIsPreSelected($isPreSelected)
+	{
         $this->isPreSelected = $isPreSelected;
     }
 
-    public function getIsPreSelected() {
+    public function getIsPreSelected()
+	{
         return $this->isPreSelected;
     }
 
     //IsRecommended
-    public function setIsRecommended($isRecommended) {
+    public function setIsRecommended($isRecommended)
+	{
         $this->isRecommended = $isRecommended;
     }
-    
-    public function getIsRecommended() {
+
+    public function getIsRecommended()
+	{
         return $this->isRecommended;
     }
-	
+
 	//InheritProductName
-    public function setInheritProductName($inheritProductName) {
+    public function setInheritProductName($inheritProductName)
+	{
         $this->inheritProductName = $inheritProductName;
     }
-    
-    public function getInheritProductName() {
+
+    public function getInheritProductName()
+	{
         return $this->inheritProductName;
     }
-	
+
 	//InheritProductPrice
-    public function setInheritProductPrice($inheritProductPrice) {
+    public function setInheritProductPrice($inheritProductPrice)
+	{
         $this->inheritProductPrice = $inheritProductPrice;
     }
-    
-    public function getInheritProductPrice() {
+
+    public function getInheritProductPrice()
+	{
         return $this->inheritProductPrice;
     }
-	
+
 	//Vat
-    public function setVat($vat) {
+    public function setVat($vat)
+	{
         $this->vat = $vat;
     }
 
-    public function getVat() {
+    public function getVat()
+	{
         return $this->vat;
     }
 
     //ShowDiscount
-    public function setShowDiscount($showDiscount) {
+    public function setShowDiscount($showDiscount)
+	{
         $this->showDiscount = $showDiscount;
     }
-    
-    public function getShowDiscount() {
+
+    public function getShowDiscount()
+	{
         return $this->showDiscount;
     }
-	
+
 	//ShowSurcharge
-    public function setShowSurcharge($showSurcharge) {
+    public function setShowSurcharge($showSurcharge)
+	{
         $this->showSurcharge = $showSurcharge;
     }
-    
-    public function getShowSurcharge() {
+
+    public function getShowSurcharge()
+	{
         return $this->showSurcharge;
     }
-	
+
 	//IgnoreMultiplier
-    public function setIgnoreMultiplier($ignoreMultiplier) {
+    public function setIgnoreMultiplier($ignoreMultiplier)
+	{
         $this->ignoreMultiplier = $ignoreMultiplier;
     }
-    
-    public function getIgnoreMultiplier() {
+
+    public function getIgnoreMultiplier()
+	{
         return $this->ignoreMultiplier;
     }
-	
+
 	//MinQuantity
-    public function setMinQuantity($minQuantity) {
+    public function setMinQuantity($minQuantity)
+	{
         $this->minQuantity = $minQuantity;
     }
 
-    public function getMinQuantity() {
+    public function getMinQuantity()
+	{
         return $this->minQuantity;
     }
 
     //MaxQuantity
-    public function setMaxQuantity($maxQuantity) {
+    public function setMaxQuantity($maxQuantity)
+	{
         $this->maxQuantity = $maxQuantity;
     }
-    
-    public function getMaxQuantity() {
+
+    public function getMaxQuantity()
+	{
         return $this->maxQuantity;
     }
-	
+
 	//InitialQuantity
-    public function setInitialQuantity($initialQuantity) {
+    public function setInitialQuantity($initialQuantity)
+	{
         $this->initialQuantity = $initialQuantity;
     }
-    
-    public function getInitialQuantity() {
+
+    public function getInitialQuantity()
+	{
         return $this->initialQuantity;
     }
-	
+
 	//Sort
-    public function setSort($sort) {
+    public function setSort($sort)
+	{
         $this->sort = $sort;
     }
-    
-    public function getSort() {
+
+    public function getSort()
+	{
         return $this->sort;
     }
 }
-

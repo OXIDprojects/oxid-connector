@@ -45,5 +45,3 @@ class ProductfunctionAttr {
         return $this->value;
     }
 }
-
-

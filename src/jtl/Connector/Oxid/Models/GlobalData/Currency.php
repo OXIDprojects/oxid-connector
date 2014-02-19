@@ -1,8 +1,9 @@
 <?php
 namespace jtl\Connector\Oxid\Models\GlobalData;
 
-class Currency {
-    
+class Currency
+{
+
     private $id;
     private $name;
     private $iso;
@@ -12,86 +13,104 @@ class Currency {
     private $hasCurrencySignBeforeValue;
     private $delimiterCent;
     private $delimiterThousand;
-    
-    
+
+
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //Name
-    public function setName($name) {
+    public function setName($name)
+	{
         $this->name = $name;
     }
-    
-    public function getName() {
+
+    public function getName()
+	{
         return $this->name;
     }
 
     //ISO
-    public function setISO($iso) {
+    public function setISO($iso)
+	{
         $this->iso = $iso;
     }
-    
-    public function getISO() {
+
+    public function getISO()
+	{
         return $this->iso;
     }
-    
+
     //NameHtml
-    public function setNameHtml($nameHtml) {
+    public function setNameHtml($nameHtml)
+	{
         $this->nameHtml = $nameHtml;
     }
-    
-    public function getNameHtml() {
+
+    public function getNameHtml()
+	{
         return $this->nameHtml;
     }
-    
+
     //Factor
-    public function setFactor($factor) {
+    public function setFactor($factor)
+	{
         $this->factor = $factor;
     }
-    
-    public function getFactor() {
+
+    public function getFactor()
+	{
         return $this->factor;
     }
-    
+
     //IsDefault
-    public function setIsDefault($isDefault) {
+    public function setIsDefault($isDefault)
+	{
         $this->isDefault = $isDefault;
     }
-    
-    public function getIsDefault() {
+
+    public function getIsDefault()
+	{
         return $this->isDefault;
     }
-    
+
     //HasCurrencySignBeforeValue
-    public function setHasCurrencySignBeforeValue($hasCurrencySignBeforeValue) {
+    public function setHasCurrencySignBeforeValue($hasCurrencySignBeforeValue)
+	{
         $this->hasCurrencySignBeforeValue = $hasCurrencySignBeforeValue;
     }
-    
-    public function getHasCurrencySignBeforeValue() {
+
+    public function getHasCurrencySignBeforeValue()
+	{
         return $this->hasCurrencySignBeforeValue;
     }
-    
+
     //DelimiterCent
-    public function setDelimiterCent($delimiterCent) {
+    public function setDelimiterCent($delimiterCent)
+	{
         $this->delimiterCent = $delimiterCent;
     }
-    
-    public function getDelimiterCent() {
+
+    public function getDelimiterCent()
+	{
         return $this->delimiterCent;
     }
-	
+
 	//DelimiterThousand
-    public function setDelimiterThousand($delimiterThousand) {
+    public function setDelimiterThousand($delimiterThousand)
+	{
         $this->delimiterThousand = $delimiterThousand;
     }
-    
-    public function getDelimiterThousand() {
+
+    public function getDelimiterThousand()
+	{
         return $this->delimiterThousand;
     }
 }

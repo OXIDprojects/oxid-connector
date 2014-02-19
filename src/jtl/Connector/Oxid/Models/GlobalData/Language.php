@@ -1,56 +1,67 @@
 <?php
 namespace jtl\Connector\Oxid\Models\GlobalData;
 
-class Language {
+class Language
+{
 
     private $id;
     private $nameEnglish;
     private $nameGerman;
     private $localeName;
     private $isDefault;
-	
+
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //NameEnglish
-    public function setNameEnglish($nameEnglish) {
+    public function setNameEnglish($nameEnglish)
+	{
         $this->nameEnglish = $nameEnglish;
     }
-    
-    public function getNameEnglish() {
+
+    public function getNameEnglish()
+	{
         return $this->nameEnglish;
     }
 
     //NameGerman
-    public function setNameGerman($nameGerman) {
+    public function setNameGerman($nameGerman)
+	{
         $this->nameGerman = $nameGerman;
     }
-    
-    public function getNameGerman() {
+
+    public function getNameGerman()
+	{
         return $this->nameGerman;
     }
-    
+
     //LocaleName
-    public function setLocaleName($localeName) {
+    public function setLocaleName($localeName)
+	{
         $this->localeName = $localeName;
     }
-    
-    public function getLocaleName() {
+
+    public function getLocaleName()
+	{
         return $this->localeName;
     }
-    
+
     //IsDefault
-    public function setIsDefault($isDefault) {
+    public function setIsDefault($isDefault)
+	{
         $this->isDefault = $isDefault;
     }
-    
-    public function getIsDefault() {
+
+    public function getIsDefault()
+	{
         return $this->isDefault;
-    }	
+    }
 }

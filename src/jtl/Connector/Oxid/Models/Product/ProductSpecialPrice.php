@@ -2,7 +2,8 @@
 
 namespace jtl\Connector\Oxid\Models\Product;
 
-class ProductSpecialPrice {
+class ProductSpecialPrice
+{
 
     private $id;
     private $productId;
@@ -15,76 +16,90 @@ class ProductSpecialPrice {
 
 
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //ProductId
-    public function setProductId($productId) {
+    public function setProductId($productId)
+	{
         $this->productId = $productId;
     }
 
-    public function getProductId() {
+    public function getProductId()
+	{
         return $this->productId;
     }
 
     //IsActive
-    public function setIsActive($isActive) {
+    public function setIsActive($isActive)
+	{
         $this->isActive = $isActive;
     }
 
-    public function getIsActive() {
+    public function getIsActive()
+	{
         return $this->isActive;
     }
 
     //ActiveFrom
-    public function setActiveFrom($activeFrom) {
+    public function setActiveFrom($activeFrom)
+	{
         $this->activeFrom = $activeFrom;
     }
 
-    public function getActiveFrom() {
+    public function getActiveFrom()
+	{
         return $this->activeFrom;
     }
 
     //ActiveUntil
-    public function setActiveUntil($activeUntil) {
+    public function setActiveUntil($activeUntil)
+	{
         $this->activeUntil = $activeUntil;
     }
 
-    public function getActiveUntil() {
+    public function getActiveUntil()
+	{
         return $this->activeUntil;
     }
 
     //StockLimit
-    public function setStockLimit($stockLimit) {
+    public function setStockLimit($stockLimit)
+	{
         $this->stockLimit = $stockLimit;
     }
 
-    public function getStockLimit() {
+    public function getStockLimit()
+	{
         return $this->stockLimit;
     }
 
     //ConsiderStockLimit
-    public function setConsiderStockLimit($considerStockLimit) {
+    public function setConsiderStockLimit($considerStockLimit)
+	{
         $this->considerStockLimit = $considerStockLimit;
     }
 
-    public function getConsiderStockLimit() {
+    public function getConsiderStockLimit()
+	{
         return $this->considerStockLimit;
     }
 
     //ConsiderDateLimit
-    public function setConsiderDateLimit($considerDateLimit) {
+    public function setConsiderDateLimit($considerDateLimit)
+	{
         $this->considerDateLimit = $considerDateLimit;
     }
 
-    public function getConsiderDateLimit() {
+    public function getConsiderDateLimit()
+	{
         return $this->considerDateLimit;
     }
 }
-
-

@@ -1,7 +1,8 @@
 <?php
 namespace jtl\Connector\Oxid\Models\Product;
 
-class ProductConfigGroup {
+class ProductConfigGroup
+{
 
     private $id;
     private $configGroupId;
@@ -9,39 +10,46 @@ class ProductConfigGroup {
     private $sort;
 
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //ConfigGroupId
-    public function setIConfigGroupId($configGroupId) {
+    public function setIConfigGroupId($configGroupId)
+	{
         $this->configGroupId = $configGroupId;
     }
 
-    public function getConfigGroupId() {
+    public function getConfigGroupId()
+	{
         return $this->configGroupId;
     }
 
     //ProductId
-    public function setProductId($productId) {
+    public function setProductId($productId)
+	{
         $this->productId = $productId;
     }
 
-    public function getProductId() {
+    public function getProductId()
+	{
         return $this->productId;
     }
 
     //Sort
-    public function setSort($sort) {
+    public function setSort($sort)
+	{
         $this->sort = $sort;
     }
 
-    public function getSort() {
+    public function getSort()
+	{
         return $this->sort;
     }
 }
-

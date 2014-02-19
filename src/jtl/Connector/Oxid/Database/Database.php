@@ -15,67 +15,78 @@ use \jtl\Connector\Oxid\Config\Loader As ConfigLoader;
 
 require_once "/../Config/Loader/Config.php";
 
-class Database {
-        
+class Database
+{
+
     private $server;
     private $user;
     private $password;
     private $database;
-    
+
     //Server
-    public function setServer($server) {
+    public function setServer($server)
+	{
         $this->server = $server;
     }
 
-    public function getServer() {
+    public function getServer()
+	{
         return $this->server;
     }
 
     //User
-    public function setUser($user) {
+    public function setUser($user)
+	{
         $this->user = $user;
     }
 
-    public function getUser() {
+    public function getUser()
+	{
         return $this->user;
     }
 
     //Password
-    public function setPassword($password) {
+    public function setPassword($password)
+	{
         $this->password = $password;
     }
 
-    public function getPassword() {
+    public function getPassword()
+	{
         return $this->password;
     }
 
     //Database
-    public function setDatabase($database) {
+    public function setDatabase($database)
+	{
         $this->database = $database;
     }
 
-    public function getDatabase() {
+    public function getDatabase()
+	{
         return $this->database;
     }
-    
+
     /**
      * SQL-Statement an die Oxid-Datenbank Senden
      * @param type $query (SQL-Statement)
      * @return type
      */
-    public function oxidStatement($query) {
+    public function oxidStatement($query)
+	{
         $OxidConf = new ConfigLoader\Config;
         $OxidConf->getConfigs();
-        
+
         //Variablen Deklaration
         $this->setServer($OxidConf->getDbHost());
         $this->setUser($OxidConf->getDbUser());
         $this->setPassword($OxidConf->getDbPwd());
         $this->setDatabase($OxidConf->getDbName());
-       
+
         //Verbindung zur Datenbank aufbauen
         $mysqli = new \mysqli($this->server, $this->user, $this->password, $this->database);
-        if ($mysqli->connect_error) {
+        if ($mysqli->connect_error)
+		{
             echo "Fehler bei der Verbindung: {mysqli_connect_error()}";
             exit();
         }
@@ -84,24 +95,27 @@ class Database {
         $rs = $mysqli->query($query);
 
         //Fehler ausgabe
-        if (!$rs) {
+        if (!$rs)
+		{
             echo "Der folgende Fehler ist aufgetreten: <strong>{$mysqli->error}</strong><br />\n Die Fehlernummer: {$mysqli->error}";
         }
-        
-        while ($row = $rs->fetch_array(MYSQLI_ASSOC)) {
+
+        while ($row = $rs->fetch_array(MYSQLI_ASSOC))
+		{
             $Arr[] = $row;
         }
 
         //Schließen der Connection
         $rs->close();
         $mysqli->close();
-        
-        if (empty($Arr)){
-            $Arr = false;   
+
+        if (empty($Arr))
+		{
+            $Arr = false;
         }
-        
+
         return $Arr;
-        
+
     }
 }
 

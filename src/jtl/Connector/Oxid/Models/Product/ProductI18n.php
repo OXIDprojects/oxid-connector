@@ -2,7 +2,8 @@
 
 namespace jtl\Connector\Oxid\Models\Product;
 
-class ProductI18n {
+class ProductI18n
+{
 
     private $localeName;
     private $productId;
@@ -12,58 +13,68 @@ class ProductI18n {
     private $shortDescription;
 
     //LocaleName
-    public function setLocaleName($localeName) {
+    public function setLocaleName($localeName)
+	{
         $this->localeName = $localeName;
     }
 
-    public function getLocaleName() {
+    public function getLocaleName()
+	{
         return $this->localeName;
     }
 
     //ProductId
-    public function setProductId($productId) {
+    public function setProductId($productId)
+	{
         $this->productId = $productId;
     }
 
-    public function getProductId() {
+    public function getProductId()
+	{
         return $this->productId;
     }
 
     //Name
-    public function setName($name) {
+    public function setName($name)
+	{
         $this->name = $name;
     }
 
-    public function getName() {
+    public function getName()
+	{
         return $this->name;
     }
 
     //UrlPath
-    public function setUrlPath($urlPath) {
+    public function setUrlPath($urlPath)
+	{
         $this->urlPath = $urlPath;
     }
 
-    public function getUrlPath() {
+    public function getUrlPath()
+	{
         return $this->urlPath;
     }
 
     //Description
-    public function setDescription($description) {
+    public function setDescription($description)
+	{
         $this->description = $description;
     }
 
-    public function getDescription() {
+    public function getDescription()
+	{
         return $this->description;
     }
 
     //ShortDescription
-    public function setShortDescription($shortDescription) {
+    public function setShortDescription($shortDescription)
+	{
         $this->shortDescription = $shortDescription;
     }
 
-    public function getShortDescription() {
+    public function getShortDescription()
+	{
         return $this->shortDescription;
     }
 }
-
-

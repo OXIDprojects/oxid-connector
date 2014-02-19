@@ -19,7 +19,8 @@
 //function exception_handler(\Exception $exception)
 //{
 //    $trace = $exception->getTrace();
-//    if (isset($trace[0]['args'][0])) {
+//    if (isset($trace[0]['args'][0]))
+//    {
 //        $requestpacket = $trace[0]['args'][0];
 //    }
     
@@ -32,7 +33,8 @@
 //    $responsepacket->setError($error)
 //        ->setJtlrpc("2.0");
     
-//    if (isset($requestpacket) && $requestpacket !== null && is_object($requestpacket) && get_class($requestpacket) == "jtl\\Core\\Rpc\\RequestPacket") {
+//    if (isset($requestpacket) && $requestpacket !== null && is_object($requestpacket) && get_class($requestpacket) == "jtl\\Core\\Rpc\\RequestPacket")
+//    {
 //        $responsepacket->setId($requestpacket->getId());
 //    }
     

@@ -1,7 +1,8 @@
 <?php
 namespace jtl\Connector\Oxid\Models\Product;
 
-class ProductSpecific {
+class ProductSpecific
+{
 
     private $id;
     private $specificValueId;
@@ -9,31 +10,35 @@ class ProductSpecific {
 
 
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //SpecificValueId
-    public function setSpecificValueId($specificValueId) {
+    public function setSpecificValueId($specificValueId)
+	{
         $this->specificValueId = $specificValueId;
     }
 
-    public function getSpecificValueId() {
+    public function getSpecificValueId()
+	{
         return $this->specificValueId;
     }
 
     //ProductId
-    public function setProductId($productId) {
+    public function setProductId($productId)
+	{
         $this->productId = $productId;
     }
 
-    public function getProductId() {
+    public function getProductId()
+	{
         return $this->productId;
     }
 }
-
-

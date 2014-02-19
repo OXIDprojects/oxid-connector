@@ -5,7 +5,8 @@ namespace jtl\Connector\Oxid\Models\Product;
 /**
  * class Product
  */
-class Product {
+class Product
+{
 
     private $id;
     private $masterProductId;
@@ -57,427 +58,519 @@ class Product {
 
 
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //MasterProductId
-    public function setMasterProductId($masterProductId) {
+    public function setMasterProductId($masterProductId)
+	{
         $this->masterProductId = $masterProductId;
     }
 
-    public function getMasterProductId() {
+    public function getMasterProductId()
+	{
         return $this->masterProductId;
     }
 
     //ManufacturerId
-    public function setManufacturerId($manufacturerId) {
+    public function setManufacturerId($manufacturerId)
+	{
         $this->manufacturerId = $manufacturerId;
     }
 
-    public function getManufacturerId() {
+    public function getManufacturerId()
+	{
         return $this->manufacturerId;
     }
 
     //DeliveryStatusId
-    public function setDeliveryStatusId($deliveryStatusId) {
+    public function setDeliveryStatusId($deliveryStatusId)
+	{
         $this->deliveryStatusId = $deliveryStatusId;
     }
 
-    public function getDeliveryStatusId() {
+    public function getDeliveryStatusId()
+	{
         return $this->deliveryStatusId;
     }
 
     //UnitId
-    public function setUnitId($unitId) {
+    public function setUnitId($unitId)
+	{
         $this->unitId = $unitId;
     }
 
-    public function getUnitId() {
+    public function getUnitId()
+	{
         return $this->unitId;
     }
 
     //BasePriceUnitId
-    public function setBasePriceUnitId($basePriceUnitId) {
+    public function setBasePriceUnitId($basePriceUnitId)
+	{
         $this->basePriceUnitId = $basePriceUnitId;
     }
 
-    public function getBasePriceUnitId() {
+    public function getBasePriceUnitId()
+	{
         return $this->basePriceUnitId;
     }
 
     //ShippingclassId
-    public function setShippingclassId($shippingclassId) {
+    public function setShippingclassId($shippingclassId)
+	{
         $this->shippingclassId = $shippingclassId;
     }
 
-    public function getShippingclassId() {
+    public function getShippingclassId()
+	{
         return $this->shippingclassId;
     }
 
     //Sku
-    public function setSku($sku) {
+    public function setSku($sku)
+	{
         $this->sku = $sku;
     }
 
-    public function getSku() {
+    public function getSku()
+	{
         return $this->sku;
     }
 
     //Note
-    public function setNote($note) {
+    public function setNote($note)
+	{
         $this->note = $note;
     }
 
-    public function getNote() {
+    public function getNote()
+	{
         return $this->note;
     }
 
     //StockLevel
-    public function setStockLevel($stockLevel) {
+    public function setStockLevel($stockLevel)
+	{
         $this->stockLevel = $stockLevel;
     }
 
-    public function getStockLevel() {
+    public function getStockLevel()
+	{
         return $this->stockLevel;
     }
 
     //Vat
-    public function setVat($vat) {
+    public function setVat($vat)
+	{
         $this->vat = $vat;
     }
 
-    public function getVat() {
+    public function getVat()
+	{
         return $this->vat;
     }
 
     //MinimumOrderQuantity
-    public function setMinimumOrderQuantity($minimumOrderQuantity) {
+    public function setMinimumOrderQuantity($minimumOrderQuantity)
+	{
         $this->minimumOrderQuantity = $minimumOrderQuantity;
     }
 
-    public function getMinimumOrderQuantity() {
+    public function getMinimumOrderQuantity()
+	{
         return $this->minimumOrderQuantity;
     }
 
     //Ean
-    public function setEan($ean) {
+    public function setEan($ean)
+	{
         $this->ean = $ean;
     }
 
-    public function getEan() {
+    public function getEan()
+	{
         return $this->ean;
     }
 
     //IsTopProduct
-    public function setIsTopProduct($isTopProduct) {
+    public function setIsTopProduct($isTopProduct)
+	{
         $this->isTopProduct = $isTopProduct;
     }
 
-    public function getIsTopProduct() {
+    public function getIsTopProduct()
+	{
         return $this->isTopProduct;
     }
 
     //ProductWeight
-    public function setProductWeight($productWeight) {
+    public function setProductWeight($productWeight)
+	{
         $this->productWeight = $productWeight;
     }
 
-    public function getProductWeight() {
+    public function getProductWeight()
+	{
         return $this->productWeight;
     }
 
     //ShippingWeight
-    public function setShippingWeight($shippingWeight) {
+    public function setShippingWeight($shippingWeight)
+	{
         $this->shippingWeight = $shippingWeight;
     }
 
-    public function getShippingWeight() {
+    public function getShippingWeight()
+	{
         return $this->shippingWeight;
     }
 
     //Isnew
-    public function setIsnew($isnew) {
+    public function setIsnew($isnew)
+	{
         $this->isnew = $isnew;
     }
 
-    public function getIsnew() {
+    public function getIsnew()
+	{
         return $this->isnew;
     }
 
     //RecommendedRetailPrice
-    public function setRecommendedRetailPrice($recommendedRetailPrice) {
+    public function setRecommendedRetailPrice($recommendedRetailPrice)
+	{
         $this->recommendedRetailPrice = $recommendedRetailPrice;
     }
 
-    public function getRecommendedRetailPrice() {
+    public function getRecommendedRetailPrice()
+	{
         return $this->recommendedRetailPrice;
     }
 
     //ConsiderStock
-    public function setConsiderStock($considerStock) {
+    public function setConsiderStock($considerStock)
+	{
         $this->considerStock = $considerStock;
     }
 
-    public function getConsiderStock() {
+    public function getConsiderStock()
+	{
         return $this->considerStock;
     }
 
     //PermitNegativeStock
-    public function setPermitNegativeStock($permitNegativeStock) {
+    public function setPermitNegativeStock($permitNegativeStock)
+	{
         $this->permitNegativeStock = $permitNegativeStock;
     }
 
-    public function getPermitNegativeStock() {
+    public function getPermitNegativeStock()
+	{
         return $this->permitNegativeStock;
     }
 
     //ConsiderVariationStock
-    public function setConsiderVariationStock($considerVariationStock) {
+    public function setConsiderVariationStock($considerVariationStock)
+	{
         $this->considerVariationStock = $considerVariationStock;
     }
 
-    public function getConsiderVariationStock() {
+    public function getConsiderVariationStock()
+	{
         return $this->considerVariationStock;
     }
 
     //IsDivisible
-    public function setIsDivisible($isDivisible) {
+    public function setIsDivisible($isDivisible)
+	{
         $this->isDivisible = $isDivisible;
     }
 
-    public function getIsDivisible() {
+    public function getIsDivisible()
+	{
         return $this->isDivisible;
     }
 
     //ConsiderBasePrice
-    public function setConsiderBasePrice($considerBasePrice) {
+    public function setConsiderBasePrice($considerBasePrice)
+	{
         $this->considerBasePrice = $considerBasePrice;
     }
 
-    public function getConsiderBasePrice() {
+    public function getConsiderBasePrice()
+	{
         return $this->considerBasePrice;
     }
 
     //BasePriceValue
-    public function setBasePriceValue($basePriceValue) {
+    public function setBasePriceValue($basePriceValue)
+	{
         $this->basePriceValue = $basePriceValue;
     }
 
-    public function getBasePriceValue() {
+    public function getBasePriceValue()
+	{
         return $this->basePriceValue;
     }
 
     //Keywords
-    public function setKeywords($keywords) {
+    public function setKeywords($keywords)
+	{
         $this->keywords = $keywords;
     }
 
-    public function getKeywords() {
+    public function getKeywords()
+	{
         return $this->keywords;
     }
 
     //Sort
-    public function setSort($sort) {
+    public function setSort($sort)
+	{
         $this->sort = $sort;
     }
 
-    public function getSort() {
+    public function getSort()
+	{
         return $this->sort;
     }
 
     //Created
-    public function setCreated($created) {
+    public function setCreated($created)
+	{
         $this->created = $created;
     }
 
-    public function getCreated() {
+    public function getCreated()
+	{
         return $this->created;
     }
 
     //AvailableFrom
-    public function setAvailableFrom($availableFrom) {
+    public function setAvailableFrom($availableFrom)
+	{
         $this->availableFrom = $availableFrom;
     }
 
-    public function getAvailableFrom() {
+    public function getAvailableFrom()
+	{
         return $this->availableFrom;
     }
 
     //ManufacturerNumber
-    public function setManufacturerNumber($manufacturerNumber) {
+    public function setManufacturerNumber($manufacturerNumber)
+	{
         $this->manufacturerNumber = $manufacturerNumber;
     }
 
-    public function getManufacturerNumber() {
+    public function getManufacturerNumber()
+	{
         return $this->manufacturerNumber;
     }
 
     //SerialNumber
-    public function setSerialNumber($serialNumber) {
+    public function setSerialNumber($serialNumber)
+	{
         $this->serialNumber = $serialNumber;
     }
 
-    public function getSerialNumber() {
+    public function getSerialNumber()
+	{
         return $this->serialNumber;
     }
 
     //Isbn
-    public function setIsbn($isbn) {
+    public function setIsbn($isbn)
+	{
         $this->isbn = $isbn;
     }
 
-    public function getIsbn() {
+    public function getIsbn()
+	{
         return $this->isbn;
     }
 
     //Asin
-    public function setAsin($asin) {
+    public function setAsin($asin)
+	{
         $this->asin = $asin;
     }
 
-    public function getAsin() {
+    public function getAsin()
+	{
         return $this->asin;
     }
 
     //UnNumber
-    public function setUnNumber($unNumber) {
+    public function setUnNumber($unNumber)
+	{
         $this->unNumber = $unNumber;
     }
 
-    public function getUnNumber() {
+    public function getUnNumber()
+	{
         return $this->unNumber;
     }
 
     //HazardIdNumber
-    public function setHazardIdNumber($hazardIdNumber) {
+    public function setHazardIdNumber($hazardIdNumber)
+	{
         $this->hazardIdNumber = $hazardIdNumber;
     }
 
-    public function getHazardIdNumber() {
+    public function getHazardIdNumber()
+	{
         return $this->hazardIdNumber;
     }
 
     //Taric
-    public function setTaric($taric) {
+    public function setTaric($taric)
+	{
         $this->taric = $taric;
     }
 
-    public function getTaric() {
+    public function getTaric()
+	{
         return $this->taric;
     }
 
     //IsMasterProduct
-    public function setIsMasterProduct($isMasterProduct) {
+    public function setIsMasterProduct($isMasterProduct)
+	{
         $this->isMasterProduct = $isMasterProduct;
     }
 
-    public function getIsMasterProduct() {
+    public function getIsMasterProduct()
+	{
         return $this->isMasterProduct;
     }
 
     //TakeOffQuantity
-    public function setTakeOffQuantity($takeOffQuantity) {
+    public function setTakeOffQuantity($takeOffQuantity)
+	{
         $this->takeOffQuantity = $takeOffQuantity;
     }
 
-    public function getTakeOffQuantity() {
+    public function getTakeOffQuantity()
+	{
         return $this->takeOffQuantity;
     }
 
     //SetArticleId
-    public function setSetArticleId($setArticleId) {
+    public function setSetArticleId($setArticleId)
+	{
         $this->setArticleId = $setArticleId;
     }
 
-    public function getSetArticleId() {
+    public function getSetArticleId()
+	{
         return $this->setArticleId;
     }
 
     //Upc
-    public function setUpc($upc) {
+    public function setUpc($upc)
+	{
         $this->upc = $upc;
     }
 
-    public function getUpc() {
+    public function getUpc()
+	{
         return $this->upc;
     }
 
     //OriginCountry
-    public function setOriginCountry($originCountry) {
+    public function setOriginCountry($originCountry)
+	{
         $this->originCountry = $originCountry;
     }
 
-    public function getOriginCountry() {
+    public function getOriginCountry()
+	{
         return $this->originCountry;
     }
 
     //Epid
-    public function setEpid($epid) {
+    public function setEpid($epid)
+	{
         $this->epid = $epid;
     }
 
-    public function getEpid() {
+    public function getEpid()
+	{
         return $this->epid;
     }
 
     //ProductTypeId
-    public function setProductTypeId($productTypeId) {
+    public function setProductTypeId($productTypeId)
+	{
         $this->productTypeId = $productTypeId;
     }
 
-    public function getProductTypeId() {
+    public function getProductTypeId()
+	{
         return $this->productTypeId;
     }
 
     //InflowQuantity
-    public function setInflowQuantity($inflowQuantity) {
+    public function setInflowQuantity($inflowQuantity)
+	{
         $this->inflowQuantity = $inflowQuantity;
     }
 
-    public function getInflowQuantity() {
+    public function getInflowQuantity()
+	{
         return $this->inflowQuantity;
     }
 
     //InflowDate
-    public function setInflowDate($inflowDate) {
+    public function setInflowDate($inflowDate)
+	{
         $this->inflowDate = $inflowDate;
     }
 
-    public function getInflowDate() {
+    public function getInflowDate()
+	{
         return $this->inflowDate;
     }
 
     //SupplierStockLevel
-    public function setSupplierStockLevel($supplierStockLevel) {
+    public function setSupplierStockLevel($supplierStockLevel)
+	{
         $this->supplierStockLevel = $supplierStockLevel;
     }
 
-    public function getSupplierStockLevel() {
+    public function getSupplierStockLevel()
+	{
         return $this->supplierStockLevel;
     }
 
     //SupplierDeliveryTime
-    public function setSupplierDeliveryTime($supplierDeliveryTime) {
+    public function setSupplierDeliveryTime($supplierDeliveryTime)
+	{
         $this->supplierDeliveryTime = $supplierDeliveryTime;
     }
 
-    public function getSupplierDeliveryTime() {
+    public function getSupplierDeliveryTime()
+	{
         return $this->supplierDeliveryTime;
     }
 
     //BestBefore
-    public function setBestBefore($bestBefore) {
+    public function setBestBefore($bestBefore)
+	{
         $this->bestBefore = $bestBefore;
     }
 
-    public function getBestBefore() {
+    public function getBestBefore()
+	{
         return $this->bestBefore;
     }
 }
-
-

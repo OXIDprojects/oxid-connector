@@ -2,7 +2,8 @@
 
 namespace jtl\Connector\Oxid\Models\CustomerOrder;
 
-class CustomerOrderAttr {
+class CustomerOrderAttr
+{
 
     private $id;
     private $customerOrderId;
@@ -11,39 +12,46 @@ class CustomerOrderAttr {
 
 
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //CustomerOrderId
-    public function setCustomerOrderId($customerOrderId) {
+    public function setCustomerOrderId($customerOrderId)
+	{
         $this->customerOrderId = $customerOrderId;
     }
 
-    public function getCustomerOrderId() {
+    public function getCustomerOrderId()
+	{
         $this->customerOrderId;
     }
 
     //Key
-    public function setKey($key) {
+    public function setKey($key)
+	{
         $this->key = $key;
     }
 
-    public function getKey() {
+    public function getKey()
+	{
         return $this->key;
     }
 
     //Value
-    public function setValue($value) {
+    public function setValue($value)
+	{
         $this->value = $value;
     }
 
-    public function getValue() {
+    public function getValue()
+	{
         return $this->value;
     }
 }
-

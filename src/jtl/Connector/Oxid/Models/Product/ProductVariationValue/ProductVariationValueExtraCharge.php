@@ -1,7 +1,8 @@
 <?php
 namespace jtl\Connector\Oxid\Models\Product\ProductVariationValue;
 
-class ProductVariationValueExtraCharge {
+class ProductVariationValueExtraCharge
+{
 
     private $customerGroupId;
     private $productVariationValueId;
@@ -9,31 +10,35 @@ class ProductVariationValueExtraCharge {
 
 
     //CustomerGroupId
-    public function setCustomerGroupId($customerGroupId) {
+    public function setCustomerGroupId($customerGroupId)
+	{
         $this->customerGroupId = $customerGroupId;
     }
 
-    public function getCustomerGroupId() {
+    public function getCustomerGroupId()
+	{
         return $this->customerGroupId;
     }
 
     //ProductVariationValueId
-    public function setProductVariationValueId($productVariationValueId) {
+    public function setProductVariationValueId($productVariationValueId)
+	{
         $this->productVariationValueId = $productVariationValueId;
     }
 
-    public function getProductVariationValueId() {
+    public function getProductVariationValueId()
+	{
         return $this->productVariationValueId;
     }
 
     //ExtraChargeNet
-    public function setExtraChargeNet($extraChargeNet) {
+    public function setExtraChargeNet($extraChargeNet)
+	{
         $this->extraChargeNet = $extraChargeNet;
     }
 
-    public function getExtraChargeNet() {
+    public function getExtraChargeNet()
+	{
         return $this->extraChargeNet;
     }
 }
-
-

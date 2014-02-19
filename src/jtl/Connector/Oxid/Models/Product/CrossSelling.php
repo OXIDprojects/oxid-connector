@@ -1,7 +1,8 @@
 <?php
 namespace jtl\Connector\Oxid\Models\Product;
 
-class CrossSelling {
+class CrossSelling
+{
 
     private $id;
     private $crossSellingProductId;
@@ -9,40 +10,46 @@ class CrossSelling {
     private $productId;
 
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //CrossSellingProductId
-    public function setCrossSellingProductId($crossSellingProductId) {
+    public function setCrossSellingProductId($crossSellingProductId)
+	{
         $this->crossSellingProductId = $crossSellingProductId;
     }
 
-    public function getCrossSellingProductId() {
+    public function getCrossSellingProductId()
+	{
         return $this->crossSellingProductId;
     }
 
     //CrossSellingGroupId
-    public function setCrossSellingGroupId($crossSellingGroupId) {
+    public function setCrossSellingGroupId($crossSellingGroupId)
+	{
         $this->crossSellingGroupId = $crossSellingGroupId;
     }
 
-    public function getCrossSellingGroupId() {
+    public function getCrossSellingGroupId()
+	{
         return $this->crossSellingGroupId;
     }
 
     //ProductId
-    public function setProductId($productId) {
+    public function setProductId($productId)
+	{
         $this->productId = $productId;
     }
 
-    public function getProductId() {
+    public function getProductId()
+	{
         return $this->productId;
     }
 }
-
-

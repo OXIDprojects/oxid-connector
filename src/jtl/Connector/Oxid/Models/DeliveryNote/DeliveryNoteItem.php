@@ -2,7 +2,8 @@
 
 namespace jtl\Connector\Oxid\Models\DeliveryNote;
 
-class DeliveryNoteItem {
+class DeliveryNoteItem
+{
 
     private $id;
     private $customerOrderItemId;
@@ -14,74 +15,90 @@ class DeliveryNoteItem {
     private $deliveryNoteId;
 
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //CustomerOrderItemId
-    public function setCustomerOrderItemId($customerOrderItemId) {
+    public function setCustomerOrderItemId($customerOrderItemId)
+	{
         $this->customerOrderItemId = $customerOrderItemId;
     }
 
-    public function getCustomerOrderItemId() {
+    public function getCustomerOrderItemId()
+	{
         return $this->customerOrderItemId;
     }
-    
+
     //Quantity
-    public function setQuantity($quantity) {
+    public function setQuantity($quantity)
+	{
         $this->quantity = $quantity;
     }
-    
-    public function getQuantity() {
+
+    public function getQuantity()
+	{
         return $this->quantity;
     }
-    
+
     //WarehouseId
-    public function setWarehouseId($warehouseId) {
+    public function setWarehouseId($warehouseId)
+	{
         $this->warehouseId = $warehouseId;
     }
-    
-    public function getWarehouseId() {
+
+    public function getWarehouseId()
+	{
         return $this->warehouseId;
     }
-    
+
     //SerialNumber
-    public function setSerialNumber($serialNumber) {
+    public function setSerialNumber($serialNumber)
+	{
         $this->serialNumber = $serialNumber;
     }
-    
-    public function getSerialNumber() {
+
+    public function getSerialNumber()
+	{
         return $this->serialNumber;
     }
-	
+
 	//BatchNumber
-    public function setBatchNumber($batchNumber) {
+    public function setBatchNumber($batchNumber)
+	{
         $this->batchNumber = $batchNumber;
     }
-    
-    public function getBatchNumber() {
+
+    public function getBatchNumber()
+	{
         return $this->batchNumber;
     }
-	
+
 	//BestBefore
-    public function setBestBefore($bestBefore) {
+    public function setBestBefore($bestBefore)
+	{
         $this->bestBefore = $bestBefore;
     }
-    
-    public function getBestBefore() {
+
+    public function getBestBefore()
+	{
         return $this->bestBefore;
     }
-    
+
     //DeliveryNoteId
-    public function setDeliveryNoteId($deliveryNoteId) {
+    public function setDeliveryNoteId($deliveryNoteId)
+	{
         $this->deliveryNoteId = $deliveryNoteId;
     }
 
-    public function getDeliveryNoteId() {
+    public function getDeliveryNoteId()
+	{
         return $this->deliveryNoteId;
     }
 }

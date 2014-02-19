@@ -1,29 +1,32 @@
 <?php
 namespace jtl\Connector\Oxid\Models\Product;
 
-class ProductInvisibility {
+class ProductInvisibility
+{
 
     private $customerGroupId;
     private $productId;
 
 
     //CustomerGroupId
-    public function setCustomerGroupId($customerGroupId) {
+    public function setCustomerGroupId($customerGroupId)
+	{
         $this->customerGroupId = $customerGroupId;
     }
 
-    public function getCustomerGroupId() {
+    public function getCustomerGroupId()
+	{
         return $this->customerGroupId;
     }
 
     //ProductId
-    public function setProductId($productId) {
+    public function setProductId($productId)
+	{
         $this->productId = $productId;
     }
 
-    public function getProductId() {
+    public function getProductId()
+	{
         return $this->productId;
     }
 }
-
-

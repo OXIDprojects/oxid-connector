@@ -1,7 +1,8 @@
 <?php
 namespace jtl\Connector\Oxid\Models\Product;
 
-class setArticle {
+class setArticle
+{
 
     private $id;
     private $productId;
@@ -9,31 +10,35 @@ class setArticle {
 
 
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //ProductId
-    public function setProductId($productId) {
+    public function setProductId($productId)
+	{
         $this->productId = $productId;
     }
 
-    public function getProductId() {
+    public function getProductId()
+	{
         return $this->productId;
     }
 
     //Quantity
-    public function setQuantity($quantity) {
+    public function setQuantity($quantity)
+	{
         $this->quantity = $quantity;
     }
 
-    public function getQuantity() {
+    public function getQuantity()
+	{
         return $this->quantity;
     }
 }
-
-

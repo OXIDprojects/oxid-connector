@@ -1,7 +1,8 @@
 <?php
 namespace jtl\Connector\Oxid\Models\Product\ProductVariationValue;
 
-class ProductVariationValueI18n {
+class ProductVariationValueI18n
+{
 
     private $localeName;
     private $productVariationValueId;
@@ -9,31 +10,35 @@ class ProductVariationValueI18n {
 
 
     //LocaleName
-    public function setLocaleName($localeName) {
+    public function setLocaleName($localeName)
+	{
         $this->localeName = $localeName;
     }
 
-    public function getLocaleName() {
+    public function getLocaleName()
+	{
         return $this->localeName;
     }
 
     //ProductVariationValueId
-    public function setProductVariationValueId($productVariationValueId) {
+    public function setProductVariationValueId($productVariationValueId)
+	{
         $this->productVariationValueId = $productVariationValueId;
     }
 
-    public function getProductVariationValueId() {
+    public function getProductVariationValueId()
+	{
         return $this->productVariationValueId;
     }
 
     //Name
-    public function setName($name) {
+    public function setName($name)
+	{
         $this->name = $name;
     }
 
-    public function getName() {
+    public function getName()
+	{
         return $this->name;
     }
 }
-
-

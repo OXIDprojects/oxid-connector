@@ -1,8 +1,9 @@
 <?php
 namespace jtl\Connector\Oxid\Models\GlobalData\FileDownload;
 
-class FileDownload {
-   
+class FileDownload
+{
+
     private $id;
     private $path;
     private $previewPath;
@@ -10,67 +11,81 @@ class FileDownload {
 	private $maxDays;
     private $sort;
 	private $created;
-	
+
 	//Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //Path
-    public function setPath($path) {
+    public function setPath($path)
+	{
         $this->path = $path;
     }
-    
-    public function getPath() {
+
+    public function getPath()
+	{
         return $this->path;
     }
 
     //PreviewPath
-    public function setPreviewPath($previewPath) {
+    public function setPreviewPath($previewPath)
+	{
         $this->previewPath = $previewPath;
     }
-    
-    public function getPreviewPath() {
+
+    public function getPreviewPath()
+	{
         return $this->previewPath;
     }
-	
+
 	//MaxDownloads
-    public function setMaxDownloads($maxDownloads) {
+    public function setMaxDownloads($maxDownloads)
+	{
         $this->maxDownloads = $maxDownloads;
     }
-    
-    public function getMaxDownloads() {
+
+    public function getMaxDownloads()
+	{
         return $this->maxDownloads;
     }
-	
+
 	//MaxDays
-    public function setMaxDays($maxDays) {
+    public function setMaxDays($maxDays)
+	{
         $this->maxDays = $maxDays;
     }
-    
-    public function getMaxDays() {
+
+    public function getMaxDays()
+	{
         return $this->maxDays;
     }
 
     //Sort
-    public function setSort($sort) {
+    public function setSort($sort)
+	{
         $this->sort = $sort;
     }
-    
-    public function getSort() {
+
+    public function getSort()
+	{
         return $this->sort;
     }
-	
+
 	//Created
-    public function setCreated($created) {
+    public function setCreated($created)
+	{
         $this->created = $created;
     }
-    
-    public function getCreated() {
+
+    public function getCreated()
+	{
         return $this->created;
     }
 }

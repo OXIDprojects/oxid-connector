@@ -2,7 +2,8 @@
 
 namespace jtl\Connector\Oxid\Models\CustomerOrder\CustomerOrderItem;
 
-class CustomerOrderItem {
+class CustomerOrderItem
+{
 
     private $id;
     private $productId;
@@ -17,123 +18,148 @@ class CustomerOrderItem {
     private $unique;
     private $configItemId;
     private $customerOrderItemVariations = array();
-	
+
 
     //Id
-    public function setId($id) {
+    public function setId($id)
+	{
         $this->id = $id;
     }
 
-    public function getId() {
+    public function getId()
+	{
         return $this->id;
     }
 
     //ProductId
-    public function setProductId($productId) {
+    public function setProductId($productId)
+	{
         $this->productId = $productId;
     }
 
-    public function getProductId() {
+    public function getProductId()
+	{
         $this->customeproductId;
     }
 
     //ShippingclassId
-    public function setShippingclassId($shippingclassId) {
+    public function setShippingclassId($shippingclassId)
+	{
         $this->shippingclassId = $shippingclassId;
     }
 
-    public function getShippingclassId() {
+    public function getShippingclassId()
+	{
         return $this->shippingclassId;
     }
 
     //CustomerOrderId
-    public function setCustomerOrderId($customerOrderId) {
+    public function setCustomerOrderId($customerOrderId)
+	{
         $this->customerOrderId = $customerOrderId;
     }
 
-    public function getCustomerOrderId() {
+    public function getCustomerOrderId()
+	{
         return $this->customerOrderId;
     }
 
 	//Name
-    public function setName($name) {
+    public function setName($name)
+	{
         $this->name = $name;
     }
 
-    public function getName() {
+    public function getName()
+	{
         return $this->name;
     }
 
     //Sku
-    public function setSku($sku) {
+    public function setSku($sku)
+	{
         $this->sku = $sku;
     }
 
-    public function getSku() {
+    public function getSku()
+	{
         $this->customesku;
     }
 
     //Price
-    public function setPrice($price) {
+    public function setPrice($price)
+	{
         $this->price = $price;
     }
 
-    public function getPrice() {
+    public function getPrice()
+	{
         return $this->price;
     }
 
     //Vat
-    public function setVat($vat) {
+    public function setVat($vat)
+	{
         $this->vat = $vat;
     }
 
-    public function getVat() {
+    public function getVat()
+	{
         return $this->vat;
     }
-	
+
 	//Quantity
-    public function setQuantity($quantity) {
+    public function setQuantity($quantity)
+	{
         $this->quantity = $quantity;
     }
 
-    public function getQuantity() {
+    public function getQuantity()
+	{
         return $this->quantity;
     }
 
     //Type
-    public function setType($type) {
+    public function setType($type)
+	{
         $this->type = $type;
     }
 
-    public function getType() {
+    public function getType()
+	{
         $this->custometype;
     }
 
     //Unique
-    public function setUnique($unique) {
+    public function setUnique($unique)
+	{
         $this->unique = $unique;
     }
 
-    public function getUnique() {
+    public function getUnique()
+	{
         return $this->unique;
     }
 
     //ConfigItemId
-    public function setConfigItemId($configItemId) {
+    public function setConfigItemId($configItemId)
+	{
         $this->configItemId = $configItemId;
     }
 
-    public function getConfigItemId() {
+    public function getConfigItemId()
+	{
         return $this->configItemId;
     }
-    
+
     //CustomerOrderItemVariations
-    public function setCustomerOrderItemVariations($customerOrderItemVariations) {
+    public function setCustomerOrderItemVariations($customerOrderItemVariations)
+	{
         $this->customerOrderItemVariations = $customerOrderItemVariations;
     }
-    
-    public function getCustomerOrderItemVariations() {
+
+    public function getCustomerOrderItemVariations()
+	{
         return $this->customerOrderItemVariations;
     }
 }
-

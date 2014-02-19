@@ -11,5 +11,3 @@ require_once("Globals/GlobalsConf.inc.php");
 require_once("Image/ImageConf.inc.php");
 require_once("PaymentNotification/PaymentNotificationConf.inc.php");
 require_once("Product/ProductConf.inc.php");
-
-

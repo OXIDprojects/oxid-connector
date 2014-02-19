@@ -1,7 +1,8 @@
 <?php
 namespace jtl\Connector\Oxid\Models\Product;
 
-class ProductAttrI18n {
+class ProductAttrI18n
+{
 
     private $localeName;
     private $productAttrId;
@@ -9,40 +10,46 @@ class ProductAttrI18n {
     private $value;
 
     //LocaleName
-    public function setLocaleName($localeName) {
+    public function setLocaleName($localeName)
+	{
         $this->localeName = $localeName;
     }
 
-    public function getLocaleName() {
+    public function getLocaleName()
+	{
         return $this->localeName;
     }
 
     //ProductAttrId
-    public function setProductAttrId($productAttrId) {
+    public function setProductAttrId($productAttrId)
+	{
         $this->productAttrId = $productAttrId;
     }
 
-    public function getProductAttrId() {
+    public function getProductAttrId()
+	{
         return $this->productAttrId;
     }
 
     //Key
-    public function setKey($key) {
+    public function setKey($key)
+	{
         $this->key = $key;
     }
 
-    public function getKey() {
+    public function getKey()
+	{
         return $this->key;
     }
 
     //Value
-    public function setValue($value) {
+    public function setValue($value)
+	{
         $this->value = $value;
     }
 
-    public function getValue() {
+    public function getValue()
+	{
         return $this->value;
     }
 }
-
-

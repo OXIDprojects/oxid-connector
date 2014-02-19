@@ -1,7 +1,8 @@
 <?php
 namespace jtl\Connector\Oxid\Models\Product;
 
-class ProductPrice {
+class ProductPrice
+{
 
     private $customerGroupId;
     private $productId;
@@ -10,39 +11,46 @@ class ProductPrice {
 
 
     //CustomerGroupId
-    public function setCustomerGroupId($customerGroupId) {
+    public function setCustomerGroupId($customerGroupId)
+	{
         $this->customerGroupId = $customerGroupId;
     }
 
-    public function getCustomerGroupId() {
+    public function getCustomerGroupId()
+	{
         return $this->customerGroupId;
     }
 
     //ProductId
-    public function setProductId($productId) {
+    public function setProductId($productId)
+	{
         $this->productId = $productId;
     }
 
-    public function getProductId() {
+    public function getProductId()
+	{
         return $this->productId;
     }
 
     //NetPrice
-    public function setNetPrice($netPrice) {
+    public function setNetPrice($netPrice)
+	{
         $this->netPrice = $netPrice;
     }
 
-    public function getNetPrice() {
+    public function getNetPrice()
+	{
         return $this->netPrice;
     }
 
     //Quantity
-    public function setQuantity($quantity) {
+    public function setQuantity($quantity)
+	{
         $this->quantity = $quantity;
     }
 
-    public function getQuantity() {
+    public function getQuantity()
+	{
         return $this->quantity;
-    } 
+    }
 }
-

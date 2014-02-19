@@ -5,15 +5,18 @@
  */
 namespace jtl\Connector\Oxid\Config\Loader;
 
-use \jtl\Core\Filesystem\Tool;
-use \jtl\Core\Exception\ConfigException;
-use \jtl\Core\Config\Loader\Base as BaseLoader;
+use \jtl\Core\Filesystem\Tool,
+\jtl\Core\Exception\ConfigException,
+\jtl\Core\Config\Loader\Base as BaseLoader;
 
-require_once ("/../../../../../bootstrap.php");
+require_once("/../../../../../bootstrap.php");
 require_once("/../../Utilities/OxConfunctions.php");
 
-class Config {
-
+/**
+ * Summary of Config
+ */
+class Config
+{
     private $dbHost;
     private $dbName;
     private $dbUser;
@@ -25,108 +28,130 @@ class Config {
     private $sAdminSSLURL;
     private $sShopDir;
     private $sCompileDir;
-    
+
     //DbHost
-    public function setDbHost($dbHost) {
+    public function setDbHost($dbHost)
+    {
         $this->dbHost = $dbHost;
     }
 
-    public function getDbHost() {
+    public function getDbHost()
+    {
         return $this->dbHost;
     }
 
     //DbName
-    public function setDbName($dbName) {
+    public function setDbName($dbName)
+    {
         $this->dbName = $dbName;
     }
 
-    public function getDbName() {
+    public function getDbName()
+    {
         return $this->dbName;
     }
 
     //DbUser
-    public function setDbUser($dbUser) {
+    public function setDbUser($dbUser)
+    {
         $this->dbUser = $dbUser;
     }
 
-    public function getDbUser() {
+    public function getDbUser()
+	{
         return $this->dbUser;
     }
 
     //DbPwd
-    public function setDbPwd($dbPwd) {
+    public function setDbPwd($dbPwd)
+    {
         $this->dbPwd = $dbPwd;
     }
 
-    public function getDbPwd() {
+    public function getDbPwd()
+    {
         return $this->dbPwd;
     }
 
     //DbType
-    public function setDbType($dbType) {
+    public function setDbType($dbType)
+    {
         $this->dbType = $dbType;
     }
 
-    public function getDbType() {
+    public function getDbType()
+    {
         return $this->dbType;
     }
 
     //OxidShopPath
-    public function setOxidShopPath($oxidShopPath){
+    public function setOxidShopPath($oxidShopPath)
+    {
         $this->OxidShopPath = $oxidShopPath;
     }
-    
-    public function getOxidShopPath() {
+
+    public function getOxidShopPath()
+    {
         return $this->OxidShopPath;
     }
-    
+
     //SShopURL
-    public function setSShopURL($sShopURL) {
+    public function setSShopURL($sShopURL)
+    {
         $this->sShopURL = $sShopURL;
     }
 
-    public function getSShopURL() {
+    public function getSShopURL()
+    {
         return $this->sShopURL;
     }
 
     //SSSLShopURL
-    public function setSSSLShopURL($sSSLShopURL) {
+    public function setSSSLShopURL($sSSLShopURL)
+    {
         $this->sSSLShopURL = $sSSLShopURL;
     }
 
-    public function getSSSLShopURL() {
+    public function getSSSLShopURL()
+    {
         return $this->sSSLShopURL;
     }
 
     //SAdminSSLURL
-    public function setSAdminSSLURL($sAdminSSLURL) {
+    public function setSAdminSSLURL($sAdminSSLURL)
+    {
         $this->sAdminSSLURL = $sAdminSSLURL;
     }
 
-    public function getSAdminSSLURL() {
+    public function getSAdminSSLURL()
+    {
         return $this->sAdminSSLURL;
     }
 
     //SShopDir
-    public function setSShopDir($sShopDir) {
+    public function setSShopDir($sShopDir)
+    {
         $this->sShopDir = $sShopDir;
     }
 
-    public function getSShopDir() {
+    public function getSShopDir()
+    {
         return $this->sShopDir;
     }
 
     //SCompileDir
-    public function setSCompileDir($sCompileDir) {
+    public function setSCompileDir($sCompileDir)
+    {
         $this->sCompileDir = $sCompileDir;
     }
 
-    public function getSCompileDir() {
+    public function getSCompileDir()
+    {
         return $this->sCompileDir;
     }
 
-    public function getConfigs() {
-        
+    public function getConfigs()
+    {
         $dbHostConf = array();
         $dbNameConf = array();
         $dbUserConf = array();
@@ -138,48 +163,57 @@ class Config {
         $sShopDirConf = array();
         $sCompileDirConf = array();
 
-        
         $datei = "config.inc.php";
         //$file = file_get_contents($oxidShopPath . $datei, true);
         $file = file_get_contents("../../../../../../oxid-shop/{$datei}", true);
 
-        if (preg_match("/dbHost = '(.*?)'/is", $file, $dbHostConf) != 0) {
+        if (preg_match("/dbHost = '(.*?)'/is", $file, $dbHostConf) != 0)
+        {
             $this->dbHost = $dbHostConf[1];
         }
 
-        if (preg_match("/dbName = '(.*?)'/is", $file, $dbNameConf) != 0) {
+        if (preg_match("/dbName = '(.*?)'/is", $file, $dbNameConf) != 0)
+        {
             $this->dbName = $dbNameConf[1];
         }
 
-        if (preg_match("/dbUser = '(.*?)'/is", $file, $dbUserConf) != 0) {
+        if (preg_match("/dbUser = '(.*?)'/is", $file, $dbUserConf) != 0)
+        {
             $this->dbUser = $dbUserConf[1];
         }
 
-        if (preg_match("/dbPwd = '(.*?)'/is", $file, $dbPwdConf) != 0) {
+        if (preg_match("/dbPwd = '(.*?)'/is", $file, $dbPwdConf) != 0)
+        {
             $this->dbPwd = $dbPwdConf[1];
         }
 
-        if (preg_match("/dbType = '(.*?)'/is", $file, $dbTypeConf) != 0) {
+        if (preg_match("/dbType = '(.*?)'/is", $file, $dbTypeConf) != 0)
+        {
             $this->dbType = $dbTypeConf[1];
         }
 
-        if (preg_match("/sShopURL = '(.*?)'/is", $file, $sShopURLConf) != 0) {
+        if (preg_match("/sShopURL = '(.*?)'/is", $file, $sShopURLConf) != 0)
+        {
             $this->sShopURL = $sShopURLConf[1];
         }
 
-        if (preg_match("/sSSLShopURL = '(.*?)'/is", $file, $sSSLShopURLConf) != 0) {
+        if (preg_match("/sSSLShopURL = '(.*?)'/is", $file, $sSSLShopURLConf) != 0)
+        {
             $this->sSSLShopURL = $sSSLShopURLConf[1];
         }
 
-        if (preg_match("/sAdminSSLURL = '(.*?)'/is", $file, $sAdminSSLURLConf) != 0) {
+        if (preg_match("/sAdminSSLURL = '(.*?)'/is", $file, $sAdminSSLURLConf) != 0)
+        {
             $this->sAdminSSLURL = $sAdminSSLURLConf[1];
         }
 
-        if (preg_match("/sShopDir = '(.*?)'/is", $file, $sShopDirConf) != 0) {
+        if (preg_match("/sShopDir = '(.*?)'/is", $file, $sShopDirConf) != 0)
+        {
             $this->sShopDir = $sShopDirConf[1];
         }
 
-        if (preg_match("/sCompileDir = '(.*?)'/is", $file, $sCompileDirConf) != 0) {
+        if (preg_match("/sCompileDir = '(.*?)'/is", $file, $sCompileDirConf) != 0)
+        {
             $this->sCompileDir = $sCompileDirConf[1];
         }
     }

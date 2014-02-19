@@ -2,7 +2,8 @@
 
 namespace jtl\Connector\Oxid\Models\GlobalData;
 
-class Company {
+class Company
+{
 
     private $name;
     private $businessman;
@@ -23,168 +24,201 @@ class Company {
     private $iban;
     private $bic;
 
-
     //Name
-    public function setName($name) {
+    public function setName($name)
+	{
         $this->name = $name;
     }
 
-    public function getName() {
+    public function getName()
+	{
         return $this->name;
     }
 
     //Businessman
-    public function setBusinessman($businessman) {
+    public function setBusinessman($businessman)
+	{
         $this->businessman = $businessman;
     }
 
-    public function getBusinessman() {
+    public function getBusinessman()
+	{
         return $this->businessman;
     }
 
     //Street
-    public function setStreet($street) {
+    public function setStreet($street)
+	{
         $this->street = $street;
     }
 
-    public function getStreet() {
+    public function getStreet()
+	{
         return $this->street;
     }
 
     //ZipCode
-    public function setZipCode($zipCode) {
+    public function setZipCode($zipCode)
+	{
         $this->zipCode = $zipCode;
     }
 
-    public function getZipCode() {
+    public function getZipCode()
+	{
         return $this->zipCode;
     }
 
     //City
-    public function setCity($city) {
+    public function setCity($city)
+	{
         $this->city = $city;
     }
 
-    public function getCity() {
+    public function getCity()
+	{
         return $this->city;
     }
 
     //CountryIso
-    public function setCountryIso($countryIso) {
+    public function setCountryIso($countryIso)
+	{
         $this->countryIso = $countryIso;
     }
 
-    public function getCountryIso() {
+    public function getCountryIso()
+	{
         return $this->countryIso;
     }
 
     //Phone
-    public function setPhone($phone) {
+    public function setPhone($phone)
+	{
         $this->phone = $phone;
     }
 
-    public function getPhone() {
+    public function getPhone()
+	{
         return $this->phone;
     }
 
     //Fax
-    public function setFax($fax) {
+    public function setFax($fax)
+	{
         $this->fax = $fax;
     }
 
-    public function getFax() {
+    public function getFax()
+	{
         return $this->fax;
     }
 
     //EMail
-    public function setEMail($eMail) {
+    public function setEMail($eMail)
+	{
         $this->eMail = $eMail;
     }
 
-    public function getEMail() {
+    public function getEMail()
+	{
         return $this->eMail;
     }
 
     //WWW
-    public function setWWW($www) {
+    public function setWWW($www)
+	{
         $this->www = $www;
     }
 
-    public function getWWW() {
+    public function getWWW()
+	{
         return $this->www;
     }
 
     //BankCode
-    public function setBankCode($bankCode) {
+    public function setBankCode($bankCode)
+	{
         $this->bankCode = $bankCode;
     }
 
-    public function getBankCode() {
+    public function getBankCode()
+	{
         return $this->bankCode;
     }
 
     //AccountNumber
-    public function setAccountNumber($accountNumber) {
+    public function setAccountNumber($accountNumber)
+	{
         $this->accountNumber = $accountNumber;
     }
 
-    public function getAccountNumber() {
+    public function getAccountNumber()
+	{
         return $this->accountNumber;
     }
 
     //BankName
-    public function setBankName($bankName) {
+    public function setBankName($bankName)
+	{
         $this->bankName = $bankName;
     }
 
-    public function getBankName() {
+    public function getBankName()
+	{
         return $this->bankName;
     }
 
     //AccountHolder
-    public function setAccountHolder($accountHolder) {
+    public function setAccountHolder($accountHolder)
+	{
         $this->accountHolder = $accountHolder;
     }
 
-    public function getAccountHolder() {
+    public function getAccountHolder()
+	{
         return $this->accountHolder;
     }
 
     //VatNumber
-    public function setVatNumber($vatNumber) {
+    public function setVatNumber($vatNumber)
+	{
         $this->vatNumber = $vatNumber;
     }
 
-    public function getVatNumber() {
+    public function getVatNumber()
+	{
         return $this->vatNumber;
     }
 
     //TaxIdNumber
-    public function setTaxIdNumber($taxIdNumber) {
+    public function setTaxIdNumber($taxIdNumber)
+	{
         $this->taxIdNumber = $taxIdNumber;
     }
 
-    public function getTaxIdNumber() {
+    public function getTaxIdNumber()
+	{
         return $this->taxIdNumber;
     }
 
     //Iban
-    public function setIban($iban) {
+    public function setIban($iban)
+	{
         $this->iban = $iban;
     }
 
-    public function getIban() {
+    public function getIban()
+	{
         return $this->iban;
     }
 
     //Bic
-    public function setBic($bic) {
+    public function setBic($bic)
+	{
         $this->bic = $bic;
     }
 
-    public function getBic() {
+    public function getBic()
+	{
         return $this->bic;
     }
 }
-
-
