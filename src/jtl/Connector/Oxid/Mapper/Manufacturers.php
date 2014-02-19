@@ -51,10 +51,10 @@ class Manufacturers {
                 $ManufacturerI18n = new Manufacturer\ManufacturerI18n;
                 $ManufacturerI18n->setManufacturerId($SQLResult[$i]['OXID']);
                 $ManufacturerI18n->setLocaleName($j);
-                $ManufacturerI18n->setDescription($SQLResult[$i]['OXSHORTDESC_' . $j);
+                $ManufacturerI18n->setDescription($SQLResult[$i]['OXSHORTDESC_{$j}']);
                 //$ManufacturerI18n->setMetaDescription($SQLResult[$i]['']); // Nicht in Oxid
                 //$ManufacturerI18n->setMetaKeywords($SQLResult[$i]['']); // Nicht in Oxid
-                $ManufacturerI18n->setTitleTag($SQLResult[$i]['OXTITLE_' . $j]);
+                $ManufacturerI18n->setTitleTag($SQLResult[$i]['OXTITLE_{$j}']);
             }
             $Manufacturers->Manufacturer[$i] = $Manufacturer;
             $Manufacturers->ManufacturerI18n[$i] = $ManufacturerI18n;

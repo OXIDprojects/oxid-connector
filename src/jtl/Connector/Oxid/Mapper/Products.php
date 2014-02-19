@@ -44,8 +44,7 @@ class Products {
 
     public function getProducts() {
         $database = new Database\Database();
-        $query = "SELECT * " .
-                "FROM oxarticles";
+        $query = "SELECT * FROM oxarticles";
 
         $SQLResult = $database->oxidStatement($query);
 
@@ -356,5 +355,3 @@ $result = $Products->getProducts();
 echo "<pre>";
 print_r($result);
 echo "</pre>";
-
-<a href="http://localhost/">Zur&uuml;ck</a>

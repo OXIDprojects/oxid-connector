@@ -76,7 +76,7 @@ class Database {
         //Verbindung zur Datenbank aufbauen
         $mysqli = new \mysqli($this->server, $this->user, $this->password, $this->database);
         if ($mysqli->connect_error) {
-            echo "Fehler bei der Verbindung: " . mysqli_connect_error();
+            echo "Fehler bei der Verbindung: {mysqli_connect_error()}";
             exit();
         }
 
@@ -85,12 +85,11 @@ class Database {
 
         //Fehler ausgabe
         if (!$rs) {
-            echo "Der folgende Fehler ist aufgetreten: <strong>" . $mysqli->error
-            . ".</strong><br />\n Die Fehlernummer: " . $mysqli->error;
+            echo "Der folgende Fehler ist aufgetreten: <strong>{$mysqli->error}</strong><br />\n Die Fehlernummer: {$mysqli->error}";
         }
         
-        while ($zeile = $rs->fetch_array(MYSQLI_ASSOC)) {
-            $Arr[] = $zeile;
+        while ($row = $rs->fetch_array(MYSQLI_ASSOC)) {
+            $Arr[] = $row;
         }
 
         //Schließen der Connection
@@ -103,24 +102,6 @@ class Database {
         
         return $Arr;
         
-    }
-    
-    //Undefinierte Methoden aufrufe abfangen
-    public function __call($name, $arguments) {
-        if (!empty($arguments)){
-            $ausgabe =  "Die Methode: " . $name .
-                        " mit dem Parameter: " . $arguments .
-                        " existiert nicht.";
-        }else{
-            $ausgabe =  "Die Methode: " . $name .
-                        " existiert nicht.";
-        }      
-        echo $ausgabe;
-    }
-    
-    //Undefinierte Eigenschaft aufrufe abfangen
-    public function __get($name) {
-        echo "Die Eigenschaft: " . $name . " existiert nicht.";
     }
 }
 

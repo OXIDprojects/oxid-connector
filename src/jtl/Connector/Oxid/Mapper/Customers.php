@@ -116,5 +116,3 @@ echo "Laufzeit: ".$laufzeit." Sekunden!";
 echo "<pre>";
 print_r($result);
 echo "</pre>";
-
-<a href="http://localhost/">Zur&uuml;ck</a>
