@@ -2,7 +2,8 @@
 namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Database,
-jtl\Connector\Oxid\Models\Category;
+    jtl\Connector\Oxid\Utilities,
+    jtl\Connector\Oxid\Models\Category;
 
 require_once("../Database/Database.php");
 require_once("../Models/Category/CategoryConf.inc.php");
@@ -29,19 +30,30 @@ class Categories
     {
         $database = new Database\Database;
 
-        $query = "SELECT Cat.OXID " . "AS categoryId," .
-                " Cat.OXPARENTID " . "AS categoryParentId," .
-                " Cat.OXSORT " . "AS categorySort," .
-                " Cat.OXACTIVE " . "AS categoryAktiv," .
-                " Cat.OXHIDDEN " . "AS categoryHidden," .
-                " Cat.OXTITLE " . "AS categoryName," .
-                " Cat2Att.OXID " . "AS cat2AttId," .
-                " Cat2Att.OXSORT " . "AS cat2AttSort" .
-                " FROM oxcategories " . "AS Cat," .
-                " oxcategory2attribute " . "AS Cat2Att";
-
+        $query = " SELECT Cat.*, " .
+                " Cat2Att.* " .
+                " FROM oxcategories AS Cat, " .
+                " oxcategory2attribute AS Cat2Att ";
+        
+                //" SELECT Cat.OXID " . "AS categoryId," .
+                //" Cat.OXPARENTID " . "AS categoryParentId," .
+                //" Cat.OXSORT " . "AS categorySort," .
+                //" Cat.OXACTIVE " . "AS categoryAktiv," .
+                //" Cat.OXHIDDEN " . "AS categoryHidden," .
+                //" Cat.OXTITLE " . "AS categoryName," .
+                //" Cat2Att.OXID " . "AS cat2AttId," .
+                //" Cat2Att.OXSORT " . "AS cat2AttSort" .
+                //" FROM oxcategories " . "AS Cat," .
+                //" oxcategory2attribute " . "AS Cat2Att";
+        
         $SQLResult = $database->oxidStatement($query);
-
+        
+        echo $query;
+        
+        echo "<pre>";
+        print_r($SQLResult);
+        echo "</pre>";
+        
         return $this->fillCategoryclasses($SQLResult);
     }
 
@@ -54,11 +66,15 @@ class Categories
     {
         $Categories = new Categories;
 
+        //Language-Tabelle ziehen
+        $OxConfunctions = new Utilities\OxConfunctions;
+        $Langauages = $OxConfunctions->getLanguageIDs();
+        
         //for ($i = 0; $i < count($SQLResult); ++$i) {
         for ($i = 0; $i < count($SQLResult); ++$i) {
             /* Category */
             $Category = new Category\Category;
-            $Category->setId($SQLResult[$i]['categoryId']);
+            $Category->setId($SQLResult[$i]['OXCATEGORIES.OXID']);
             //            $Category->setLevel($SQLResult[$i]['']); // Nicht Definiert
             $Category->setParentCategoryId($SQLResult[$i]['categoryParentId']);
             $Category->setSort($SQLResult[$i]['categorySort']);
@@ -68,7 +84,6 @@ class Categories
             $CategoryAttr->setCategoryId($SQLResult[$i]['categoryId']);
             $CategoryAttr->setId($SQLResult[$i]['cat2AttId']);
             $CategoryAttr->setSort($SQLResult[$i]['cat2AttSort']);
-            //            $CategoryAttr->setType($SQLResult[$i]['']); // Nicht in Oxid
 
             /* CategoryAttrI18n */
             $CategoryAttrI18n = new Category\CategoryAttrI18n;
@@ -83,24 +98,17 @@ class Categories
             //            $CategoryCustomerGroup->setCustomerGroupId($SQLResult[$i]['']);
             //            $CategoryCustomerGroup->setDiscount($SQLResult[$i]['']);
 
-            /* CategoryfunctionAttr */
-            $CategoryfunctionAttr = new Category\CategoryfunctionAttr;
-            $CategoryfunctionAttr->setCategoryId($SQLResult[$i]['categoryId']);
-            //            $CategoryfunctionAttr->setId($SQLResult[$i]['']);
-            //            $CategoryfunctionAttr->setKey($SQLResult[$i]['']);
-            //            $CategoryfunctionAttr->setValue($SQLResult[$i]['']);
+            /* CategoryFunctionAttr */
+            $CategoryFunctionAttr = new Category\CategoryFunctionAttr;
+            $CategoryFunctionAttr->setCategoryId($SQLResult[$i]['categoryId']);
+            //            $CategoryFunctionAttr->setId($SQLResult[$i]['']);
+            //            $CategoryFunctionAttr->setKey($SQLResult[$i]['']);
+            //            $CategoryFunctionAttr->setValue($SQLResult[$i]['']);
 
             /* CategoryI18n */
             $CategoryI18n = new Category\CategoryI18n;
-            $CategoryI18n->setCategoryId($SQLResult[$i]['categoryId']);
-            //            $CategoryI18n->setDescription($SQLResult[$i]['']);
-            //            $CategoryI18n->setLocaleName($SQLResult[$i]['']);
-            //            $CategoryI18n->setMetaDescription($SQLResult[$i]['']);
-            //            $CategoryI18n->setMetaKeywords($SQLResult[$i]['']);
-            $CategoryI18n->setName($SQLResult[$i]['categoryName']);
-            //            $CategoryI18n->setTitleTag($SQLResult[$i]['']);
-            //            $CategoryI18n->setUrl($SQLResult[$i]['']);
-
+            $CategoryI18n = $this->getCategoryI18n($SQLResult[$i], $Langauages);
+            
             /* CategoryInvisibility */
             $CategoryInvisibility = new Category\CategoryInvisibility;
             if ($SQLResult[$i]['categoryHidden'] == 1) {
@@ -112,7 +120,7 @@ class Categories
             $Categories->CategoryAttr[$i] = $CategoryAttr;
             $Categories->CategoryAttrI18n[$i] = $CategoryAttrI18n;
             $Categories->CategoryCustomerGroup[$i] = $CategoryCustomerGroup;
-            $Categories->CategoryfunctionAttr[$i] = $CategoryfunctionAttr;
+            $Categories->CategoryFunctionAttr[$i] = $CategoryFunctionAttr;
             $Categories->CategoryI18n[$i] = $CategoryI18n;
             $Categories->CategoryInvisibility[$i] = $CategoryInvisibility;
         }
@@ -128,13 +136,54 @@ class Categories
     {
         return null;
     }
+    
+    
+    /**
+     * Summary of getCategoryI18n
+     * @param $CategoryId
+     * @return CategoryI18n
+     */
+    public function getCategoryI18n($SQLResult, $Langauages)
+    {
+        $CategoryI18n = new Category\CategoryI18n;
+        
+        //echo "<pre>";
+        //print_r($Langauages);
+        //echo "</pre>";
+        
+        
+        foreach ($Langauages as $key => $value)
+        {
+            
+            $CategoryI18n->setCategoryId($SQLResult['categoryId']);
+            //            $CategoryI18n->setDescription($SQLResult['']);
+            //            $CategoryI18n->setLocaleName($SQLResult['']);
+            //            $CategoryI18n->setMetaDescription($SQLResult['']);
+            //            $CategoryI18n->setMetaKeywords($SQLResult['']);
+            $CategoryI18n->setName($SQLResult['categoryName']);
+            //            $CategoryI18n->setTitleTag($SQLResult['']);
+            //            $CategoryI18n->setUrl($SQLResult['']);
+        }       
+
+        echo "<pre>";
+        print_r($CategoryI18n);
+        echo "</pre>";
+        
+        return $CategoryI18n;
+    }
 
 }
 
 //Testausgabe
 $Categories = new Categories;
-$result = $Categories->getCategories();
 
-echo "<pre>";
-print_r($result);
-echo "</pre>";
+$start = microtime(true);
+$result = $Categories->getCategories();
+$end = microtime(true);
+
+$laufzeit = $end - $start;
+echo "Laufzeit: {$laufzeit} Sekunden! <br/>";
+
+//echo "<pre>";
+//print_r($result);
+//echo "</pre>";

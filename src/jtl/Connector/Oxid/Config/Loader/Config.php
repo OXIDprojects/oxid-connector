@@ -28,6 +28,7 @@ class Config
     private $sAdminSSLURL;
     private $sShopDir;
     private $sCompileDir;
+    private $sConfigKey;
 
     //DbHost
     public function setDbHost($dbHost)
@@ -150,71 +151,83 @@ class Config
         return $this->sCompileDir;
     }
 
+    //sConfigKey
+    public function setSConfigKey($sConfigKey)
+    {
+        $this->sConfigKey = $sConfigKey;
+    }
+
+    public function getSConfigKey()
+    {
+        return $this->sConfigKey;
+    }
+
+
     public function getConfigs()
     {
-        $dbHostConf = array();
-        $dbNameConf = array();
-        $dbUserConf = array();
-        $dbPwdConf = array();
-        $dbTypeConf = array();
-        $sShopURLConf = array();
-        $sSSLShopURLConf = array();
-        $sAdminSSLURLConf = array();
-        $sShopDirConf = array();
-        $sCompileDirConf = array();
 
-        $datei = "config.inc.php";
-        //$file = file_get_contents($oxidShopPath . $datei, true);
-        $file = file_get_contents("../../../../../../oxid-shop/{$datei}", true);
+        $ConfDatei = "config.inc.php";
+        //$ConfFile = file_get_contents($oxidShopPath . $datei, true);
+        $ConfFile = file_get_contents("../../../../../../oxid-shop/{$ConfDatei}", true);
 
-        if (preg_match("/dbHost = '(.*?)'/is", $file, $dbHostConf) != 0)
+        if (preg_match("/dbHost = '(.*?)'/is", $ConfFile, $dbHostConf) != 0)
         {
             $this->dbHost = $dbHostConf[1];
         }
 
-        if (preg_match("/dbName = '(.*?)'/is", $file, $dbNameConf) != 0)
+        if (preg_match("/dbName = '(.*?)'/is", $ConfFile, $dbNameConf) != 0)
         {
             $this->dbName = $dbNameConf[1];
         }
 
-        if (preg_match("/dbUser = '(.*?)'/is", $file, $dbUserConf) != 0)
+        if (preg_match("/dbUser = '(.*?)'/is", $ConfFile, $dbUserConf) != 0)
         {
             $this->dbUser = $dbUserConf[1];
         }
 
-        if (preg_match("/dbPwd = '(.*?)'/is", $file, $dbPwdConf) != 0)
+        if (preg_match("/dbPwd = '(.*?)'/is", $ConfFile, $dbPwdConf) != 0)
         {
             $this->dbPwd = $dbPwdConf[1];
         }
 
-        if (preg_match("/dbType = '(.*?)'/is", $file, $dbTypeConf) != 0)
+        if (preg_match("/dbType = '(.*?)'/is", $ConfFile, $dbTypeConf) != 0)
         {
             $this->dbType = $dbTypeConf[1];
         }
 
-        if (preg_match("/sShopURL = '(.*?)'/is", $file, $sShopURLConf) != 0)
+        if (preg_match("/sShopURL = '(.*?)'/is", $ConfFile, $sShopURLConf) != 0)
         {
             $this->sShopURL = $sShopURLConf[1];
         }
 
-        if (preg_match("/sSSLShopURL = '(.*?)'/is", $file, $sSSLShopURLConf) != 0)
+        if (preg_match("/sSSLShopURL = '(.*?)'/is", $ConfFile, $sSSLShopURLConf) != 0)
         {
             $this->sSSLShopURL = $sSSLShopURLConf[1];
         }
 
-        if (preg_match("/sAdminSSLURL = '(.*?)'/is", $file, $sAdminSSLURLConf) != 0)
+        if (preg_match("/sAdminSSLURL = '(.*?)'/is", $ConfFile, $sAdminSSLURLConf) != 0)
         {
             $this->sAdminSSLURL = $sAdminSSLURLConf[1];
         }
 
-        if (preg_match("/sShopDir = '(.*?)'/is", $file, $sShopDirConf) != 0)
+        if (preg_match("/sShopDir = '(.*?)'/is", $ConfFile, $sShopDirConf) != 0)
         {
             $this->sShopDir = $sShopDirConf[1];
         }
 
-        if (preg_match("/sCompileDir = '(.*?)'/is", $file, $sCompileDirConf) != 0)
+        if (preg_match("/sCompileDir = '(.*?)'/is", $ConfFile, $sCompileDirConf) != 0)
         {
             $this->sCompileDir = $sCompileDirConf[1];
+        }
+
+
+        $ConfkDatei = "core/oxconfk.php";
+        //$ConfkFile = file_get_contents($oxidShopPath . $ConfkDatei, true);
+        $ConfkFile = file_get_contents("../../../../../../oxid-shop/{$ConfkDatei}", true);
+
+        if (preg_match("/sConfigKey = \"(.*?)\"/is", $ConfkFile, $sConfigKey) != 0)
+        {
+            $this->sConfigKey = $sConfigKey[1];
         }
     }
 }

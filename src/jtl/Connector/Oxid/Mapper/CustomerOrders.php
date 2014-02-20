@@ -191,7 +191,6 @@ class CustomerOrders
             /* CustomerOrderItem */
             $CustomerOrderItem = new CustomerOrderItem\CustomerOrderItem;
 
-            //ToDo: Hier muss die Variation zum Artikel gezogen werden
             $CustomerOrderItem->setCustomerOrderItemVariations($this->getCustomerOrderItemVariations($SQLResult[$i]['OXARTID']));
 
             $CustomerOrderItem->setId($SQLResult[$i]['OXID']);
@@ -223,7 +222,6 @@ class CustomerOrders
     {
         $database = new Database\Database;
 
-        /* Tabelle: oxobject2attribute */
         $query = "SELECT * FROM oxobject2attribute WHERE oxobject2attribute.OXOBJECTID = '{$ArticleId}';";
 
         $SQLResult = $database->oxidStatement($query);
@@ -250,11 +248,11 @@ class CustomerOrders
             $CustomerOrderItemVariation->setId($SQLResult[$i]['OXID']);
             $CustomerOrderItemVariation->setCustomerOrderItemId($SQLResult[$i]['OXOBJECTID']);
             $CustomerOrderItemVariation->setProductVariationId($SQLResult[$i]['OXATTRID']);
-            $CustomerOrderItemVariation->setProductVariationValueId($SQLResult[$i]['']); // Nicht in Oxid
+            //$CustomerOrderItemVariation->setProductVariationValueId($SQLResult[$i]['']); // Nicht in Oxid
             $CustomerOrderItemVariation->setProductVariationName($SQLResult[$i]['OXVALUE']);
             $CustomerOrderItemVariation->setProductVariationValueName($SQLResult[$i]['OXVALUE_1']);
-            $CustomerOrderItemVariation->setFreeField($SQLResult[$i]['']); // Nicht in Oxid
-            $CustomerOrderItemVariation->setSurcharge($SQLResult[$i]['']); // Nicht in Oxid
+            //$CustomerOrderItemVariation->setFreeField($SQLResult[$i]['']); // Nicht in Oxid
+            //$CustomerOrderItemVariation->setSurcharge($SQLResult[$i]['']); // Nicht in Oxid
 
             $CustomerOrderItemVariationArr[$i] = $CustomerOrderItemVariation;
         }
@@ -303,58 +301,58 @@ class CustomerOrders
         $CustomerOrderPaymentInfo = new CustomerOrder\CustomerOrderPaymentInfo;
         $OxConfunctions = new Utilities\OxConfunctions;
 
-        $BankName = "";
-        $BankCode = "";
-        $AccountNumber = "";
-        $AccountHolder = "";
+        $bankName = "";
+        $bankCode = "";
+        $accountNumber = "";
+        $accountHolder = "";
 
         for ($i = 0; $i < count($SQLResult); ++$i)
         {
 
-            $Blob = $SQLResult[$i]['OXVALUEDECODED'];
+            $blob = $SQLResult[$i]['OXVALUEDECODED'];
 
-            if(preg_match('!lsbankname__(.*?)@@!', $Blob, $lsbankname))
+            if(preg_match('!lsbankname__(.*?)@@!', $blob, $lsbankname))
             {
-                $BankName = $lsbankname[1];
+                $bankName = $lsbankname[1];
             }
 
-            if(preg_match('!lsblz__(.*?)@@!', $Blob, $lsblz))
+            if(preg_match('!lsblz__(.*?)@@!', $blob, $lsblz))
             {
-                $BankCode = $lsblz[1];
+                $bankCode = $lsblz[1];
             }
 
-            if(preg_match('!lsktonr__(.*?)@@!', $Blob, $lsktonr))
+            if(preg_match('!lsktonr__(.*?)@@!', $blob, $lsktonr))
             {
-                $AccountNumber = $lsktonr[1];
+                $accountNumber = $lsktonr[1];
             }
 
-            if(preg_match('!lsktoinhaber__(.*?)@@!', $Blob, $lsktoinhaber))
+            if(preg_match('!lsktoinhaber__(.*?)@@!', $blob, $lsktoinhaber))
             {
-                $AccountHolder = $lsktoinhaber[1];
+                $accountHolder = $lsktoinhaber[1];
             }
 
             $CustomerOrderPaymentInfo->setId($SQLResult[$i]['OXID']);
             $CustomerOrderPaymentInfo->setCustomerOrderId($SQLResult[$i]['OXUSERID']);
-            $CustomerOrderPaymentInfo->setBankName($BankName);
+            $CustomerOrderPaymentInfo->setBankName($bankName);
 
-            if ($OxConfunctions->checkBIC($BankCode))
+            if ($OxConfunctions->checkBIC($bankCode))
             {
-                $CustomerOrderPaymentInfo->setBic($BankCode);
+                $CustomerOrderPaymentInfo->setBic($bankCode);
             }
             else
             {
-                $CustomerOrderPaymentInfo->setBankCode($BankCode);
+                $CustomerOrderPaymentInfo->setBankCode($bankCode);
             }
 
-            $CustomerOrderPaymentInfo->setAccountHolder($AccountHolder);
+            $CustomerOrderPaymentInfo->setAccountHolder($accountHolder);
 
-            if ($OxConfunctions->checkIBAN($AccountNumber))
+            if ($OxConfunctions->checkIBAN($accountNumber))
             {
-                $CustomerOrderPaymentInfo->setIban($AccountNumber);
+                $CustomerOrderPaymentInfo->setIban($accountNumber);
             }
             else
             {
-                $CustomerOrderPaymentInfo->setAccountNumber($AccountNumber);
+                $CustomerOrderPaymentInfo->setAccountNumber($accountNumber);
             }
             //$CustomerOrderPaymentInfo->setCreditCardNumber($SQLResult[$i]['']);               // Nicht in Oxid
             //$CustomerOrderPaymentInfo->setCreditCardVerificationNumber($SQLResult[$i]['']);   // Nicht in Oxid
@@ -375,7 +373,7 @@ class CustomerOrders
     function fillBillingAdressMobileFromOxUser($UserId) {
         $database = new Database\Database;
 
-        $query = "SELECT OXMOBFON FROM oxuser WHERE OXID = {$UserId};";
+        $query = "SELECT OXMOBFON FROM oxuser WHERE OXID = '{$UserId}';";
 
         $SQLResult = $database->oxidStatement($query);
 
@@ -388,7 +386,7 @@ class CustomerOrders
 
 }
 
-//Testausgabe
+//Testausgabe umbauen auf Testscripts:
 $CustomerOrders = new CustomerOrders;
 
 $start = microtime(true);

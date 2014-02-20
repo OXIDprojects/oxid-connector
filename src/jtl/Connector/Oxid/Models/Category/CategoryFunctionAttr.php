@@ -2,7 +2,7 @@
 
 namespace jtl\Connector\Oxid\Models\Category;
 
-class CategoryfunctionAttr
+class CategoryFunctionAttr
 {
 
     private $id;
