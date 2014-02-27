@@ -2,8 +2,8 @@
 
 namespace jtl\Connector\Oxid\Utilities;
 
-use jtl\Connector\Oxid\Database,
-\jtl\Connector\Oxid\Config\Loader As ConfigLoader;
+use jtl\Connector\Oxid\Database;
+use jtl\Connector\Oxid\Config\Loader As ConfigLoader;
 
 /**
  * Summary of OxConfunctions
@@ -73,7 +73,7 @@ class OxConfunctions
         
         //Migrieren der "aLanguageParams" in die "aLanguages"
         foreach ($LanguageResult['aLanguages'] as $key => $value)
-        {
+        {                   
             $this->array_put_to_position($LanguageResult['aLanguages'][$key], $LanguageResult["aLanguageParams"][$key], 0, "name");
         }
         

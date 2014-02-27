@@ -1,100 +1,42 @@
 <?php
-/**
- * @copyright 2010-2013 JTL-Software GmbH
- * @package jtl\Connector\Magento
- */
 namespace jtl\Connector\Oxid\Controller;
 
-use \jtl\Core\Exception\TransactionException,
-\jtl\Core\Result\Transaction as TransactionResult,
-\jtl\Core\Rpc\Error,
-\jtl\Core\Utilities\className,
-\jtl\Connector\Magento\Mapper\Product as ProductMapper,
-\jtl\Connector\ModelContainer\ProductContainer,
-\jtl\Connector\Model\Statistic,
-\jtl\Connector\Result\Action,
-\jtl\Connector\Transaction\Handler as TransactionHandler;
+use \jtl\Core\Result\Transaction as TransactionResult;
+use \jtl\Core\Rpc\Error;
+use \jtl\Core\Exception\TransactionException;
+use \jtl\Core\Exception\DatabaseException;
+use \jtl\Connector\Transaction\Handler as TransactionHandler;
+use \jtl\Connector\Result\Action;
+use \jtl\Connector\Oxid\Mapper\Product as ProductMapper;
+use \jtl\Connector\Oxid\Controller\BaseController;
+use \jtl\Core\Model\QueryFilter;
 
-/**
- * Description of Product
- *
- * @access public
- * @author Christian Spoo <christian.spoo@jtl-software.com>
- */
-class Product extends AbstractController
-{
-    public function commit($params, $trid)
-    {
-
-    }
-
-    public function delete($params)
-    {
-
-    }
-
-    public function pull($params)
-    {
+class Product extends BaseController {    
+    
+    public function commit($params,$trid) {
         $action = new Action();
         $action->setHandled(true);
-
+        
         try {
-            $mapper = new ProductMapper();
-            $products = $mapper->pull();
-
-            $action->setResult($products);
+            $container = TransactionHandler::getContainer($this->getMethod()->getController(), $trid);
+            
+            $productMapper = new ProductMapper();
+            
+            $result = new TransactionResult();
+            $result->setTransactionId($trid);
+            
+            if($productMapper->updateAll($container)) {
+                $action->setResult($result->getPublic());
+            }
         }
-        catch (\Exception $e)
-		{
-            error_log(var_export($e, true));
-            $err = new Error();
-            $err->setCode(31337); //$e->getCode());
-            $err->setMessage('Internal error'); //$e->getMessage());
-            $action->setError($err);
-        }
-
-        return $action;
-    }
-
-    public function push($params)
-    {
-
-    }
-
-    public function statistic($params)
-    {
-        $action = new Action();
-        $action->setHandled(true);
-
-        try {
-            $mapper = new ProductMapper();
-
-            $statistic = new Statistic();
-            $statistic->_controllerName = lcfirst(className::getFromNS(get_called_class()));
-            $statistic->_available = $mapper->getAvailableCount();
-            $statistic->_pending = 0;
-
-            $action->setResult($statistic->getpublic(array('_fields', '_isEncrypted')));
-        }
-        catch (\Exception $exc)
-		{
+        catch (\Exception $exc) {
             $err = new Error();
             $err->setCode($exc->getCode());
             $err->setMessage($exc->getMessage());
             $action->setError($err);
         }
-
+        
         return $action;
     }
-
-    /**
-     * Summary of pull
-     * @param $params
-     */
-    public function pull($params)
-	{
-        $filter = new QueryFilter(); // Regulierung der Abfrage, damit nicht alle auf einmal gezogen werden.
-        $filter->set($params);
-        $products = $mapper->fetchAll($filter);
-    }
+	
 }

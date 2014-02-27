@@ -1,6 +1,5 @@
 <?php
 /**
- *
  * @copyright 2010-2014 JTL-Software GmbH
  */
 define("APP_DIR", __DIR__);

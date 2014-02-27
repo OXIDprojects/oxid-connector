@@ -2,16 +2,16 @@
 namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
-use jtl\Connector\ModelContainer\CategoryContainer;
+use jtl\Connector\ModelContainer\ProductContainer;
 
 /**
- * Summary of Category
+ * Summary of Product
  */
-class Category extends BaseMapper
+class Product extends BaseMapper
 {
     protected $_config = array
         (
-            "model" => "\\jtl\\Connector\\Model\\Category",
+            "model" => "\\jtl\\Connector\\Model\\Product",
             "table" => "",
             "mapPull" => array()
         );

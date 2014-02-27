@@ -2,16 +2,16 @@
 namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
-use jtl\Connector\ModelContainer\DeliveryNoteContainer;
+use jtl\Connector\ModelContainer\ImageContainer;
 
 /**
- * Summary of DeliveryNote
+ * Summary of Image
  */
-class DeliveryNote extends BaseMapper
+class Image extends BaseMapper
 {
     protected $_config = array
     (
-        "model" => "\\jtl\\Connector\\Model\\DeliveryNote",
+        "model" => "\\jtl\\Connector\\Model\\Image",
         "table" => "",
         "mapPull" => array()
     );

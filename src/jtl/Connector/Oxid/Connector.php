@@ -1,17 +1,17 @@
 <?php
 namespace jtl\Connector\Oxid;
 
-use \jtl\Core\Config\Config,
-\jtl\Core\Config\Loader\Json as ConfigJson,
-\jtl\Core\Config\Loader\System as ConfigSystem,
-\jtl\Core\Exception\TransactionException,
-\jtl\Core\Rpc\RequestPacket,
-\jtl\Connector\Base\Connector as BaseConnector,
-\jtl\Core\Utilities\RpcMethod,
-\jtl\Core\Controller\Controller as CoreController,
-\jtl\Connector\Transaction\Handler as TransactionHndler,
+use \jtl\Core\Config\Config;
+use \jtl\Core\Config\Loader\Json as ConfigJson;
+use \jtl\Core\Config\Loader\System as ConfigSystem;
+use \jtl\Core\Exception\TransactionException;
+use \jtl\Core\Rpc\RequestPacket;
+use \jtl\Connector\Base\Connector as BaseConnector;
+use \jtl\Core\Utilities\RpcMethod;
+use \jtl\Core\Controller\Controller as CoreController;
+use \jtl\Connector\Transaction\Handler as TransactionHndler;
 
-\jtl\Connector\Oxid\Config\Loader\Config as ConfigLoader;
+use \jtl\Connector\Oxid\Config\Loader\Config as ConfigLoader;
 
 class Connector extends BaseConnector
 {
@@ -33,7 +33,7 @@ class Connector extends BaseConnector
     public function canHandle()
     {
         $controller = RpcMethod::buildController($this->getMethod()->getController());
-        $class = "\\jtl\\Connector\\XTC\\Controller\\{$controller}";
+        $class = "\\jtl\\Connector\\Oxid\\Controller\\{$controller}";
 
         if (class_exists($class))
         {
