@@ -1,32 +1,36 @@
 <?php
 namespace jtl\Connector\Oxid;
 
-use \jtl\Core\Config\Config;
-use \jtl\Core\Config\Loader\Json as ConfigJson;
-use \jtl\Core\Config\Loader\System as ConfigSystem;
 use \jtl\Core\Exception\TransactionException;
+use \jtl\Core\Exception\DatabaseException;
 use \jtl\Core\Rpc\RequestPacket;
-use \jtl\Connector\Base\Connector as BaseConnector;
 use \jtl\Core\Utilities\RpcMethod;
 use \jtl\Core\Controller\Controller as CoreController;
-use \jtl\Connector\Transaction\Handler as TransactionHndler;
+use \jtl\Core\Database\Mysql;
 
-use \jtl\Connector\Oxid\Config\Loader\Config as ConfigLoader;
+use \jtl\Connector\Transaction\Handler as TransactionHandler;
+use \jtl\Connector\Session\SessionHelper;
+use \jtl\Connector\Base\Connector as BaseConnector;
+
+use jtl\Connector\Oxid\Config\Loader\Config as ConfigLoader;
 
 class Connector extends BaseConnector
 {
     protected $_controller;
     protected $_action;
 
-    protected function __construct()
+    protected function init()
     {
-        $this->initializeConfiguration();
-    }
-
-    protected function initializeConfiguration()
-    {
-        $config = null;
-
+        if (isset($_SESSION['config'])) 
+        {
+            $config = $_SESSION['config'];
+        }
+        Else
+        {
+            $config = new ConfigLoader();
+            $_SESSION['config'] = $config;
+        }
+        
     }
 
 

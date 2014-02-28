@@ -1,0 +1,21 @@
+{
+    "objects": [
+        {
+            "name": "Category",
+            "push": {
+                "supported": true,
+                "comment": ""
+            },
+            "pull": {
+                "supported": true,
+                "comment": "",
+                "properties": [
+                    "Id",
+                    "ParentCategoryId",
+                    "Sort",
+                    "Level"
+                ]
+            }
+        }
+    ]
+}

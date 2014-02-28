@@ -14,5 +14,8 @@ class ConfigGroup extends BaseMapper
             "model" => "\\jtl\\Connector\\Model\\ConfigGroup",
             "table" => "",
             "mapPull" => array()
+            
+            
+            
         );
 }
