@@ -20,9 +20,9 @@ class Config
         $oxidShopPath = "../../../../../../../oxid-shop/";
 
         $ConfDatei = "config.inc.php";
-        require_once($oxidShopPath . $ConfDatei);
+        include_once($oxidShopPath . $ConfDatei);
 
         $ConfkDatei = "core/oxconfk.php";
-        require_once($oxidShopPath . $ConfkDatei);
+        include_once($oxidShopPath . $ConfkDatei);
     }
 }
