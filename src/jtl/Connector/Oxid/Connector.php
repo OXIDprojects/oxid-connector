@@ -12,7 +12,7 @@ use \jtl\Connector\Transaction\Handler as TransactionHandler;
 use \jtl\Connector\Session\SessionHelper;
 use \jtl\Connector\Base\Connector as BaseConnector;
 
-use jtl\Connector\Oxid\Config\Loader\Config as ConfigLoader;
+use \jtl\Connector\Oxid\Config\Loader\Config as ConfigLoader;
 
 class Connector extends BaseConnector
 {
@@ -21,15 +21,33 @@ class Connector extends BaseConnector
 
     protected function init()
     {
-        if (isset($_SESSION['config'])) 
+        
+        $config = new Config();
+        
+        //if (isset($_SESSION['config'])) 
+        //{
+        //    $config = $_SESSION['config'];
+        //}
+        //Else
+        //{
+        //    $config = new ConfigLoader();
+        //    $_SESSION['config'] = $config;
+        //}
+        
+        
+        $db = Mysql::getInstance();
+        
+        if (!$db->isConnected())
         {
-            $config = $_SESSION['config'];
+            $db->connect(array(
+                "host" => $config->dbHost, 
+                "user" => $config->dbUser, 
+                "password" => $config->dbPwd, 
+                "name" => $config->dbName
+                ));
         }
-        Else
-        {
-            $config = new ConfigLoader();
-            $_SESSION['config'] = $config;
-        }
+        
+        $db->setNames();
         
     }
 
@@ -53,6 +71,7 @@ class Connector extends BaseConnector
     public function handle(RequestPacket $requestpacket)
     {
         $this->init();
+        
 
         $this->_controller->setMethod($this->getMethod());
 

@@ -18,7 +18,6 @@ class Specific
                 "_id" => "OXID",
                 "_name" => "OXTITLE"
             )
-            
         );
     
     //public function fetchAll($container,$type,$params=null)
