@@ -15,6 +15,7 @@ use \jtl\Connector\Oxid\Connector;
 
 $condir = __DIR__ . '/../vendor/jtl/connector/';
 define('CONNECTOR_DIR', $condir);
+define('ENDPOINT_DIR', realpath(__DIR__ . '/../../'));
 
 // Connector instance
 $connector = Connector::getInstance();

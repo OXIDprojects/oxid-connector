@@ -21,19 +21,7 @@ class Connector extends BaseConnector
 
     protected function init()
     {
-        
-        $config = new Config();
-        
-        //if (isset($_SESSION['config'])) 
-        //{
-        //    $config = $_SESSION['config'];
-        //}
-        //Else
-        //{
-        //    $config = new ConfigLoader();
-        //    $_SESSION['config'] = $config;
-        //}
-        
+        $config = new ConfigLoader;        
         
         $db = Mysql::getInstance();
         
@@ -46,9 +34,7 @@ class Connector extends BaseConnector
                 "name" => $config->dbName
                 ));
         }
-        
         $db->setNames();
-        
     }
 
 
