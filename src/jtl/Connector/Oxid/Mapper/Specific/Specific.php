@@ -7,7 +7,7 @@ use jtl\Connector\ModelContainer\SpecificContainer AS Container;
 /**
  * Summary of Specific
  */
-class Specific
+class Specific extends BaseMapper
 {
     protected $_config = array
         (
@@ -16,17 +16,9 @@ class Specific
             "pk" => "OXID",
             "mapPull" => array(
                 "_id" => "OXID",
-                "_name" => "OXTITLE"
+                "_sort" => 1
             )
-        );
-    
-    //public function fetchAll($container,$type,$params=null)
-    //{
-    //    $dbResult = $this->_db->query("SELECT * FROM oxattribute LIMIT {$params['offset']},{$params['limit']}");
-        
-    //    var_dump($dbResult);
-        
-    //}
+         );
 }
 
 

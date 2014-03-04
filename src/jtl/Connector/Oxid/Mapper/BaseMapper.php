@@ -1,8 +1,8 @@
 <?php
 namespace jtl\Connector\Oxid\Mapper;
 
-use jtl\Core\Database\Mysql;
-use jtl\Connector\Oxid\Config\Loader\Config;
+use \jtl\Core\Database\Mysql;
+use \jtl\Connector\Oxid\Config\Loader\Config;
 
 class BaseMapper 
 {
@@ -24,7 +24,7 @@ class BaseMapper
     
     public function __construct()
     {
-        $shopConfig = new Config\Config;
+        $shopConfig = new Config();
         
         $this->_db = Mysql::getInstance();
         $this->_config['shopConfig'] = $shopConfig;
@@ -74,7 +74,8 @@ class BaseMapper
         {
             $this->_db = Mysql::getInstance();
             $query = isset($this->_config['query']) ? $this->_config['query'] : 'SELECT * FROM '.$this->_config['table'];
-            $dbResult = $this->_db->query($query);   
+            $dbResult = $this->_db->query($query);
+            //var_dump($dbResult);
         }
      
         $return = array();

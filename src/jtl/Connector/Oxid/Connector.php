@@ -30,7 +30,7 @@ class Connector extends BaseConnector
             $db->connect(array(
                 "host" => $config->dbHost, 
                 "user" => $config->dbUser, 
-                "password" => $config->dbPwd, 
+                "password" => $config->dbPwd,
                 "name" => $config->dbName
                 ));
         }

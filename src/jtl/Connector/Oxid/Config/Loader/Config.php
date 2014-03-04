@@ -17,7 +17,7 @@ class Config extends BaseLoader
 {
     public function __construct()
     {
-        $oxidShopPath = ENDPOINT_DIR . "/oxid_michele/";
+        $oxidShopPath = ENDPOINT_DIR . "/oxid-shop/";
 
         $ConfDatei = "config.inc.php";
         include($oxidShopPath . $ConfDatei);
