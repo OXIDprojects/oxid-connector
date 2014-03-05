@@ -5,13 +5,13 @@ use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\ModelContainer\GlobalDataContainer;
 
 /**
- * Summary of ProductType
+ * Summary of Language
  */
-class ProductType extends BaseMapper
+class Language extends BaseMapper
 {
     protected $_config = array
         (
-            "model" => "\\jtl\\Connector\\Model\\ProductType",
+            "model" => "\\jtl\\Connector\\Model\\Language",
             "table" => "",
             "mapPull" => array()
         );

@@ -5,18 +5,13 @@ use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\ModelContainer\GlobalDataContainer;
 
 /**
- * Summary of Tax
+ * Summary of Currency
  */
-class Tax extends BaseMapper
+class Currency extends BaseMapper
 {
-    public $TaxClass = array();
-    public $TaxRate = array();
-    public $TaxZone = array();
-    public $TaxZoneCountry = array();
-
     protected $_config = array
      (
-         "model" => "\\jtl\\Connector\\Model\\Taxclass",
+         "model" => "\\jtl\\Connector\\Model\\Currency",
          "table" => "",
          "mapPull" => array()
      );

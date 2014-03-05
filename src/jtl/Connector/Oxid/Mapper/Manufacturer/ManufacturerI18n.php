@@ -5,20 +5,18 @@ use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\ModelContainer\ManufacturerContainer;
 
 /**
- * Summary of Manufacturer
+ * Summary of ManufacturerI18n
  */
-class Manufacturer extends BaseMapper
+class ManufacturerI18n extends BaseMapper
 {
     protected $_config = array
         (
-            "model" => "\\jtl\\Connector\\Model\\Manufacturer",
+            "model" => "\\jtl\\Connector\\Model\\ManufacturerI18n",
             "table" => "oxmanufacturers",
             "pk" => "OXID",
             "mapPull" => array
             (
-                "_id" => "OXID",
-                "_name" => "OXTITLE"
+                "_manufacturerId" => "OXID"
             )
         );
 }
-

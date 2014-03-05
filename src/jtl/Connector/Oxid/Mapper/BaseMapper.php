@@ -12,22 +12,23 @@ class BaseMapper
     
     private function map($data)
     {
-        foreach($this->_config['mapPull'] as $wawi => $shop) 
+        foreach($this->_config['mapPull'] as $wawi => $shop)
         {
-            $this->_model->$wawi;
+            $this->_model->$wawi = isset($data[$shop]) ? $data[$shop] : (isset($this->_config['shopConfig'][$shop]) ? $this->_config['shopConfig'][$shop] : $shop);
+            
             if(method_exists(get_class($this),$wawi))
-            {                
-                $this->_model->$wawi = $this->wawi($data);
+            {
+                $this->_model->$wawi = $this->$wawi($data);
             }
         }
     }
     
     public function __construct()
     {
-        $shopConfig = new Config();
+        //$shopConfig = new Config();
         
         $this->_db = Mysql::getInstance();
-        $this->_config['shopConfig'] = $shopConfig;
+        //$this->_config['shopConfig'] = new Config();
     }
     
     public function generate($data)
@@ -75,7 +76,6 @@ class BaseMapper
             $this->_db = Mysql::getInstance();
             $query = isset($this->_config['query']) ? $this->_config['query'] : 'SELECT * FROM '.$this->_config['table'];
             $dbResult = $this->_db->query($query);
-            //var_dump($dbResult);
         }
      
         $return = array();

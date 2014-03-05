@@ -5,35 +5,17 @@ use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\ModelContainer\SpecificContainer AS Container;
 
 /**
- * Summary of Specific
+ * Summary of SpecificI18n
  */
-class Specific extends BaseMapper
+class SpecificI18n extends BaseMapper
 {
     protected $_config = array
         (
-            "model" => "\\jtl\\Connector\\Model\\Specific",
+            "model" => "\\jtl\\Connector\\Model\\SpecificI18n",
             "table" => "oxattribute",
             "pk" => "OXID",
             "mapPull" => array(
-                "_id" => "OXID"
+                "_specificId" => "OXID",
             )
          );
 }
-
-
-// non mapped properties
-/*
-Specific:
-    global
-    sort
-    type
-  
-SpecificI18n:
-    SpecificId 
-    localeName
-    name
-  
-SpecificValueI18n:
-    localeName
-    
- */
