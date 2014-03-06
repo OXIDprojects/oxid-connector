@@ -85,10 +85,40 @@ class BaseController extends Controller
         
     }
 
+    /**
+     * (non-PHPdoc)
+     * @see \jtl\Core\Controller\IController::statistic()
+     */
     public function statistic($params) {
-		
-	}
-	
+        $reflect = new \ReflectionClass($this);
+        $class = "\\jtl\\Connector\\XTC\\Mapper\\{$reflect->getShortName()}";
+        
+        if(class_exists($class)) {
+            $action = new Action();
+            $action->setHandled(true);
+            
+            try {
+                $mapper = new $class();
+                
+                $statModel = new Statistic();
+                
+                $statModel->_available = $mapper->fetchCount();                
+                $statModel->_pending = 0;   
+                $statModel->_controllerName = lcfirst($class);
+                
+                $action->setResult($statModel->getPublic(array("_fields", "_isEncrypted")));
+            }
+            catch (\Exception $exc) {
+                $err = new Error();
+                $err->setCode($exc->getCode());
+                $err->setMessage($exc->getMessage());
+                $action->setError($err);
+            }
+            
+            return $action;
+        }
+    }
+    
 	public function push($params) {
 		
 	}

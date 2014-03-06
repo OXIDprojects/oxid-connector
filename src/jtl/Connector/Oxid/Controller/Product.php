@@ -1,17 +1,18 @@
 <?php
 namespace jtl\Connector\Oxid\Controller;
 
-use \jtl\Core\Result\Transaction as TransactionResult;
-use \jtl\Connector\Result\Action;
-use \jtl\Connector\ModelContainer\ProductContainer;
-
 use \jtl\Core\Rpc\Error;
+use \jtl\Core\Model\QueryFilter;
 use \jtl\Core\Exception\TransactionException;
 use \jtl\Core\Exception\DatabaseException;
+use \jtl\Core\Result\Transaction as TransactionResult;
+
+use \jtl\Connector\Result\Action;
+use \jtl\Connector\ModelContainer\ProductContainer;
 use \jtl\Connector\Transaction\Handler as TransactionHandler;
-use \jtl\Connector\Oxid\Mapper\Product\Product as ProductMapper;
+
 use \jtl\Connector\Oxid\Controller\BaseController;
-use \jtl\Core\Model\QueryFilter;
+use \jtl\Connector\Oxid\Mapper\Product\Product as ProductMapper;
 
 class Product extends BaseController
 {
@@ -24,9 +25,9 @@ class Product extends BaseController
         {
             $container = new ProductContainer();
             
-            $specificMapper = new ProductMapper();
+            $productMapper = new ProductMapper();
             
-            $specificMapper->fetchAll($container, 'product');
+            $productMapper->fetchAll($container, 'product');
             
             $result[] = $container->getPublic(array('items'), array('_fields'));
 			

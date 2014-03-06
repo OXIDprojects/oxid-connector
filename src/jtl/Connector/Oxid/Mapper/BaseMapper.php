@@ -99,6 +99,14 @@ class BaseMapper
         }
     }
     
+    public function fetchCount() {	    	
+	    $objs = $this->_db->query("SELECT count(*) as count FROM {$this->_config['table']} LIMIT 1", array("return" => "object"));
+	    if ($objs !== null) {
+	        return intval($objs[0]->count);
+	    }
+        
+	    return 0;
+	}
     
     /**
      * Summary of getLanguageIDs
@@ -204,5 +212,3 @@ class BaseMapper
     }
     
 }
-
-$Test = new BaseMapper();
