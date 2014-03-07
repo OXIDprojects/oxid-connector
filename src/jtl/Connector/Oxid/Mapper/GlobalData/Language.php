@@ -21,10 +21,8 @@ class Language extends BaseMapper
             $language->_nameEnglish = $value['name'];
             $language->_nameGerman = $value['name'];
             $language->_localeName = $value['name'];
-            $language->_isDefault = $value['default'];
             
             $container->add('language', $language->getPublic(array('_fields')));
         }
-    }
-    
+    }   
 }

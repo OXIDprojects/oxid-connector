@@ -54,3 +54,9 @@ class GlobalData extends BaseController
         
     }
 }
+
+/* non mapped class
+ * 
+ * - Warehouse
+ * 
+ */
