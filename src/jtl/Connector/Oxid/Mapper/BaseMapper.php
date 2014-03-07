@@ -114,15 +114,10 @@ class BaseMapper
      */
     public function getLanguageIDs()
     {   
-        $OxidConf = new ConfigLoader\Config;
-        $OxidConf->getConfigs();
-        
-        $database = new Database\Database;
-        
-        $query = " SELECT DECODE(OXVARVALUE, '{$OxidConf->getSConfigKey()}' ) AS OXVARVALUEDECODED FROM oxconfig " .
-                 " WHERE OXVARNAME = 'aLanguages' OR OXVARNAME = 'aLanguageParams' ";
-        
-        $SQLResult = $database->oxidStatement($query);  
+        $OxidConf = new Config();        
+                
+        $SQLResult = $this->_db->query(" SELECT DECODE(OXVARVALUE, '{$OxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
+                 " WHERE OXVARNAME = 'aLanguages' OR OXVARNAME = 'aLanguageParams' ");
         
         //Blob Felder aus OXCONFIG Tabelle Deserialisieren und in Array schreiben
         for ($i = 0; $i < count($SQLResult); $i++)
@@ -169,20 +164,22 @@ class BaseMapper
         $return = array();
         foreach ($array as $k => $v) 
         {   
-            // insert new object
+            // Füge neues Objekt hinzu
             if ($count == $position)
             {   
                 if (!$name) $name = $count;
                 $return[$name] = $object;
                 $inserted = true;
             }   
-            // insert old object
+            // Füge altes Objekt hinzu
             $return[$k] = $v; 
             $count++;
         }   
         if (!$name) $name = $count;
         if (!$inserted) $return[$name];
+        
         $array = $return;
+        
         return $array;
     }
     

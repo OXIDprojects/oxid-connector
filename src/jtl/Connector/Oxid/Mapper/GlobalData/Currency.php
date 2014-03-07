@@ -11,28 +11,10 @@ use jtl\Connector\Model\Currency AS CurrencyModel;
  * Summary of Currency
  */
 class Currency extends BaseMapper
-{
-    protected $_config = array
-     (
-         //"model" => "\\jtl\\Connector\\Model\\Currency",
-         //"table" => "oxconfig",
-         //"mapPull" => array(
-         //   "_id" => "id",
-         //   "_name" => "name",
-         //   "_nameHtml" => "symbol",
-         //   "_factor" => "rate",
-         //   "_delimiterCent" => "decimal_separator"
-         //   "_delimiterThousand" => "thousand_separator",
-         //)
-     );   
-    
-    
+{      
     public function fetchAll($container = null, $type = null, $params = array())
     {
         $currency = new CurrencyModel();
-        
-        //echo "<pre>";
-        //die(print_r($params[2]));
         
         foreach ($params as $value)
         {
@@ -45,24 +27,7 @@ class Currency extends BaseMapper
             
             $container->add('currency', $currency->getPublic(array('_fields')));
         }
-        
-        
     }
-    
-    //private function addAttributes($container,$data) {    	
-    //    foreach($this->_attributes as $jtl => $oxid) {
-    //        if(!empty($data[$oxid])) {
-    //            $currency = new CurrencyModel();
-                
-    //            $attrI18n->_localeName = $this->_localeName($data);
-    //            $attrI18n->_productAttrId = $jtl.'_'.$data['products_id'];
-    //            $attrI18n->_key = $jtl;
-    //            $attrI18n->_value = $data[$oxid];
-                
-    //            $container->add('product_attr_i18n', $attrI18n->getPublic(array('_fields')));
-    //        }
-    //    }   
-    //}
     
     /**
      * Summary of getCurrency
