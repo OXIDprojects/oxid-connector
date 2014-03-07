@@ -5,27 +5,19 @@ use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\ModelContainer\CategoryContainer;
 
 /**
- * Summary of Category
+ * Summary of CategoryAttr
  */
-class Category extends BaseMapper
+class CategoryAttr extends BaseMapper
 {
     protected $_config = array
         (
-            "model" => "\\jtl\\Connector\\Model\\Category",
-            "table" => "oxcategories",
+            "model" => "\\jtl\\Connector\\Model\\CategoryAttr",
+            "table" => "oxobject2attribute",
             "pk" => "OXID",
             "mapPull" => array(
                 "_id" => "OXID",
-                "_parentCategoryId" => "OXPARENTID",
+                "_categoryId" => "OXATTRID",
                 "_sort" => "OXSORT"
             )
        );
-    
 }
-
-
-
-/* non mapped properties
-Category:
-_level 
- */

@@ -21,8 +21,7 @@ class Specific extends BaseMapper
 }
 
 
-// non mapped properties
-/*
+/* non mapped properties
 Specific:
     global
     sort

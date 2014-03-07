@@ -16,7 +16,6 @@ class Company extends BaseMapper
             "pk" => "OXID",
             "mapPull" => array(
                 "_name" => "OXCOMPANY",
-                "_businessman" => null,
                 "_street" => "OXSTREET",
                 "_zipCode" => "OXZIP",
                 "_city" => "OXCITY",
@@ -28,10 +27,14 @@ class Company extends BaseMapper
                 "_bankCode" => "OXBANKCODE",
                 "_accountNumber" => "OXBANKNUMBER",
                 "_bankName" => "OXBANKNAME",
-                "_accountHolder" => null,
                 "_vatNumber" => "OXVATNUMBER",
                 "_iban" => "OXIBANNUMBER",
                 "_bic" => "OXBICCODE"
             )
         );
 }
+/* non mapped properties
+Company:
+_businessman
+_accountHolder
+ */

@@ -38,7 +38,7 @@ class Specific extends BaseController
             $specificMapper->fetchAll($container, 'specific');
             $specificI18nMapper->fetchAll($container, 'specific_i18n');
             $specificValueMapper->fetchAll($container, 'specific_value');
-            $specificValueI18nMapper->fetchAll($container, 'specific_value_i18n');
+            //$specificValueI18nMapper->fetchAll($container, 'specific_value_i18n');
             
             $result[] = $container->getPublic(array('items'), array('_fields'));
 			

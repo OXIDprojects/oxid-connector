@@ -16,6 +16,12 @@ class SpecificI18n extends BaseMapper
             "pk" => "OXID",
             "mapPull" => array(
                 "_specificId" => "OXID",
+                "_name" => "OXTITLE"
             )
          );
 }
+
+/* non mapped properties
+SpecificI18n:
+ 
+ */

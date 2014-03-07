@@ -3,7 +3,7 @@
         {
             "name": "Category",
             "push": {
-                "supported": true,
+                "supported": false,
                 "comment": ""
             },
             "pull": {
@@ -12,8 +12,203 @@
                 "properties": [
                     "Id",
                     "ParentCategoryId",
+                    "Sort"
+                ]
+            }
+        },
+        {
+            "name": "CategoryAttr",
+            "push": {
+                "supported": false,
+                "comment": ""
+            },
+            "pull": {
+                "supported": true,
+                "comment": "",
+                "properties": [
+                    "Id",
+                    "CategoryId",
+                    "Sort"
+                ]
+            }
+        },
+        {
+            "name": "Company",
+            "push": {
+                "supported": false,
+                "comment": ""
+            },
+            "pull": {
+                "supported": true,
+                "comment": "",
+                "properties": [
+                    "Name",
+                    "Street",
+                    "ZipCode",
+                    "City",
+                    "CountryIso",
+                    "Phone",
+                    "Fax",
+                    "EMail",
+                    "Www",
+                    "BankCode",
+                    "AccountNumber",
+                    "BankName",
+                    "AccountHolder",
+                    "VatNumber",
+                    "Iban",
+                    "Bic"
+                ]
+            }
+        },
+        {
+            "name": "Customer",
+            "push": {
+                "supported": false,
+                "comment": ""
+            },
+            "pull": {
+                "supported": true,
+                "comment": "",
+                "properties": [
+                    "Id",
+                    "CustomerGroupId",
+                    "CustomerNumber",
+                    "Salutation",
+                    "FirstName",
+                    "LastName",
+                    "Company",
+                    "DeliveryInstruction",
+                    "ZipCode",
+                    "City",
+                    "State",
+                    "Phone",
+                    "Mobile",
+                    "Fax",
+                    "EMail",
+                    "VatNumber",
+                    "Www",
+                    "HasNewsletterSubscription",
+                    "Birthday",
+                    "IsActive"
+                ]
+            }
+        },
+        {
+            "name": "Manufacturer",
+            "push": {
+                "supported": false,
+                "comment": ""
+            },
+            "pull": {
+                "supported": true,
+                "comment": "",
+                "properties": [
+                    "Id",
+                    "Name"
+                ]
+            }
+        },
+        {
+            "name": "ManufacturerI18n",
+            "push": {
+                "supported": false,
+                "comment": ""
+            },
+            "pull": {
+                "supported": true,
+                "comment": "",
+                "properties": [
+                    "ManufacturerId"
+                ]
+            }
+        },
+        {
+            "name": "Product",
+            "push": {
+                "supported": false,
+                "comment": ""
+            },
+            "pull": {
+                "supported": true,
+                "comment": "",
+                "properties": [
+                    "Id",
+                    "MasterProductId",
+                    "ManufacturerId",
+                    "UnitId",
+                    "Sku",
+                    "StockLevel",
+                    "MinimumOrderQuantity",
+                    "Ean",
+                    "ProductWeight",
+                    "RecommendedRetailPrice",
+                    "Keywords",
                     "Sort",
-                    "Level"
+                    "Created",
+                    "AvailableFrom",
+                    "ManufacturerNumber"
+                ]
+            }
+        },
+        {
+            "name": "ProductI18n",
+            "push": {
+                "supported": false,
+                "comment": ""
+            },
+            "pull": {
+                "supported": true,
+                "comment": "",
+                "properties": [
+                    "ProductId",
+                    "Name",
+                    "UrlPath",
+                    "Description",
+                    "ShortDescription"
+                ]
+            }
+        },
+        {
+            "name": "Specific",
+            "push": {
+                "supported": false,
+                "comment": ""
+            },
+            "pull": {
+                "supported": true,
+                "comment": "",
+                "properties": [
+                    "Id"
+                ]
+            }
+        },
+        {
+            "name": "SpecificI18n",
+            "push": {
+                "supported": false,
+                "comment": ""
+            },
+            "pull": {
+                "supported": true,
+                "comment": "",
+                "properties": [
+                    "SpecificId",
+                    "Name"
+                ]
+            }
+        },
+        {
+            "name": "SpecificValue",
+            "push": {
+                "supported": false,
+                "comment": ""
+            },
+            "pull": {
+                "supported": true,
+                "comment": "",
+                "properties": [
+                    "Id"
                 ]
             }
         }

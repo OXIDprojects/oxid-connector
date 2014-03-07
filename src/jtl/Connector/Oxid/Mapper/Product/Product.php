@@ -21,7 +21,6 @@ class Product extends BaseMapper
                     "_manufacturerId" => "OXMANUFACTURERID",
                     "_unitId" => "OXUNITNAME",
                     "_basePriceUnitId" => null,
-                    "_shippingClassId" => "",
                     "_sku" => "OXARTNUM",
                     "_stockLevel" => "OXSTOCK",
                     "_vat" => null,
@@ -35,17 +34,6 @@ class Product extends BaseMapper
                     "_availableFrom" => "OXACTIVEFROM",
                     "_manufacturerNumber" => "OXMPN",
                     "_isMasterProduct" => null,
-                    "_takeOffQuantity" => null,
-                    "_setArticleId" => null,
-                    "_upc" => null,
-                    "_originCountry" => null,
-                    "_epid" => null,
-                    "_productTypeId" => null,
-                    "_inflowQuantity" => null,
-                    "_inflowDate" => null,
-                    "_supplierStockLevel" => null,
-                    "_supplierDeliveryTime" => null,
-                    "_bestBefore" => null
                 )
         );
     
@@ -58,6 +46,8 @@ class Product extends BaseMapper
 
 /* non mapped properties
 Product:
+_deliveryStatus
+_shippingClassId
 _note
 _isTopProduct
 _shippingWeight
@@ -73,4 +63,15 @@ _asin
 _unNumber
 _hazardIdNumber
 _taric
- */
+_takeOffQuantity
+_setArticleId
+_upc
+_originCountry
+_epid
+_productTypeId
+_inflowQuantity
+_inflowDate
+_bestBefore
+_supplierStockLevel
+_supplierDeliveryTime
+*/

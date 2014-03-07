@@ -1,7 +1,6 @@
 <?php
 namespace jtl\Connector\Oxid\Controller;
 
-
 use \jtl\Core\Rpc\Error;
 use \jtl\Core\Model\QueryFilter;
 use \jtl\Core\Exception\TransactionException;
@@ -9,15 +8,17 @@ use \jtl\Core\Exception\DatabaseException;
 use \jtl\Core\Result\Transaction as TransactionResult;
 
 use \jtl\Connector\Result\Action;
-use \jtl\Connector\ModelContainer\GlobalDataContainer;
+use \jtl\Connector\ModelContainer\CategoryContainer;
 use \jtl\Connector\Transaction\Handler as TransactionHandler;
 
-use \jtl\Connector\Oxid\Mapper\GlobalData\Company as CompanyMapper;
-use \jtl\Connector\Oxid\Mapper\GlobalData\Currency as CurrencyMapper;
 use \jtl\Connector\Oxid\Controller\BaseController;
+use \jtl\Connector\Oxid\Mapper\Category\Category as CategoryMapper;
+use \jtl\Connector\Oxid\Mapper\Category\CategoryAttr as CategoryAttrMapper;
 
-
-class GlobalData extends BaseController
+/**
+ * Summary of Category
+ */
+class Category extends BaseController
 {
     public function pull($params)
     {
@@ -26,15 +27,15 @@ class GlobalData extends BaseController
         
         try
         {
-            $container = new GlobalDataContainer();
+            $container = new CategoryContainer();
             
-            $companyMapper = new CompanyMapper();
-            $currencyMapper = new CurrencyMapper();
+            $categoryMapper = new CategoryMapper();
+            $categoryAttrMapper = new CategoryAttrMapper();
             
-            $companyMapper->fetchAll($container, 'company');
-            $currencyMapper->fetchAll($container, 'currency', $currencyMapper->getCurrency());
             
-                        
+            $categoryMapper->fetchAll($container, 'category');
+            $categoryAttrMapper->fetchAll($container, 'category_attr');
+            
             $result[] = $container->getPublic(array('items'), array('_fields'));
 			
 			$action->setResult($result);

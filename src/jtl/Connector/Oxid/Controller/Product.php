@@ -13,6 +13,7 @@ use \jtl\Connector\Transaction\Handler as TransactionHandler;
 
 use \jtl\Connector\Oxid\Controller\BaseController;
 use \jtl\Connector\Oxid\Mapper\Product\Product as ProductMapper;
+use jtl\Connector\Oxid\Mapper\Product\ProductI18n as ProductI18nMapper;
 
 class Product extends BaseController
 {
@@ -25,9 +26,15 @@ class Product extends BaseController
         {
             $container = new ProductContainer();
             
-            $productMapper = new ProductMapper();
+            $productMapper = new ProductMapper();          
+            $productI18nMapper = new ProductI18nMapper();
             
             $productMapper->fetchAll($container, 'product');
+            
+            $productI18nMapper->fetchAll($container, 'product_i18n', array('query' => "SELECT oxarticles.*, oxartextends.OXLONGDESC" .
+                                                                                    " FROM oxarticles" .
+                                                                                    " INNER JOIN oxartextends" .
+                                                                                    " ON oxarticles.OXID = oxartextends.OXID;"));
             
             $result[] = $container->getPublic(array('items'), array('_fields'));
 			

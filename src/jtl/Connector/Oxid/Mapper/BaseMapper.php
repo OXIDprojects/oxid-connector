@@ -152,7 +152,6 @@ class BaseMapper
         //Nach Migration "aLanguageParams" aus Array schmeiﬂen
         unset($LanguageResult["aLanguageParams"]);
         
-        
         return $LanguageResult['aLanguages'];
     }   
     

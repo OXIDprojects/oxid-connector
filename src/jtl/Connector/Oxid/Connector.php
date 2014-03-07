@@ -1,16 +1,17 @@
 <?php
 namespace jtl\Connector\Oxid;
 
-use \jtl\Core\Exception\TransactionException;
-use \jtl\Core\Exception\DatabaseException;
+use \jtl\Core\Database\Mysql;
 use \jtl\Core\Rpc\RequestPacket;
 use \jtl\Core\Utilities\RpcMethod;
+use \jtl\Core\Exception\DatabaseException;
+use \jtl\Core\Exception\TransactionException;
 use \jtl\Core\Controller\Controller as CoreController;
-use \jtl\Core\Database\Mysql;
 
-use \jtl\Connector\Transaction\Handler as TransactionHandler;
 use \jtl\Connector\Session\SessionHelper;
 use \jtl\Connector\Base\Connector as BaseConnector;
+use \jtl\Connector\Transaction\Handler as TransactionHandler;
+
 
 use \jtl\Connector\Oxid\Config\Loader\Config as ConfigLoader;
 
@@ -73,23 +74,23 @@ class Connector extends BaseConnector
         }
     }
 
-    public function getController()
-    {
-        return $this->_controller;
-    }
+    //public function getController()
+    //{
+    //    return $this->_controller;
+    //}
 
-    public function setController(CoreController $controller)
-    {
-        $this->_controller = $controller;
-    }
+    //public function setController(CoreController $controller)
+    //{
+    //    $this->_controller = $controller;
+    //}
 
-    public function getAction()
-    {
-        return $this->_action;
-    }
+    //public function getAction()
+    //{
+    //    return $this->_action;
+    //}
 
-    public function setAction($action)
-    {
-        $this->_action = $action;
-    }
+    //public function setAction($action)
+    //{
+    //    $this->_action = $action;
+    //}
 }

@@ -91,7 +91,7 @@ class BaseController extends Controller
      */
     public function statistic($params) {
         $reflect = new \ReflectionClass($this);
-        $class = "\\jtl\\Connector\\XTC\\Mapper\\{$reflect->getShortName()}";
+        $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}";
         
         if(class_exists($class)) {
             $action = new Action();

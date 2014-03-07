@@ -38,3 +38,17 @@ class Customer extends BaseMapper
         )
     );
 }
+/* non mapped properties
+Customer:
+_title
+_street
+_extraAddressLine
+_countryIso
+_accountCredit
+_discount
+_origin
+_created
+_modified
+_isFetched
+_hasCustomerAccount
+ */
