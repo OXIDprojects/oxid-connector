@@ -54,10 +54,10 @@ class Currency extends BaseMapper
 
                 switch ($k)
                 {
-                    case "0":
+                    case 0:
                         $new_key = "name";
                         break;
-                    case "1":
+                    case 1:
                         $new_key = "rate";
                         break;
                     case 2:
