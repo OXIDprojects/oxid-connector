@@ -21,7 +21,7 @@ class CustomerOrderShippingAddress extends BaseMapper
             "_lastName" => "OXDELLNAME",
             "_company" => "OXDELCOMPANY",
             "_deliveryInstruction" => "OXDELADDINFO",
-            "_street" => "OXDELSTREET", // OXDELSTREETNR
+            "_street" => null,
             "_zipCode" => "OXDELZIP",
             "_city" => "OXDELCITY",
             "_state" => "OXDELSTATEID",
@@ -30,6 +30,10 @@ class CustomerOrderShippingAddress extends BaseMapper
             "_fax" => "OXDELFAX"
         )
     );
+    
+    public function _street($data) {
+    	return "{$data['OXDELSTREET']}  {$data['OXDELSTREETNR']}";
+    }
 }
 /* non mapped properties
 CustomerOrderShippingAddress:

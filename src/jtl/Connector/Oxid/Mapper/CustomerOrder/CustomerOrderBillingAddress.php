@@ -1,6 +1,8 @@
 <?php
 namespace jtl\Connector\Oxid\Mapper\CustomerOrder;
 
+use jtl\Core\Utilities\ClassName as ClassNameUtility;
+
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\ModelContainer\CustomerOrderContainer;
 
@@ -21,7 +23,7 @@ class CustomerOrderBillingAddress extends BaseMapper
             "_lastName" => "OXBILLLNAME",
             "_company" => "OXBILLCOMPANY",
             "_deliveryInstruction" => "OXBILLADDINFO",
-            "_street" => "OXBILLSTREET", // OXBILLSTREETNR
+            "_street" => null,
             "_zipCode" => "OXBILLZIP",
             "_city" => "OXBILLCITY",
             "_state" => "OXBILLSTATEID",
@@ -31,6 +33,10 @@ class CustomerOrderBillingAddress extends BaseMapper
             "_eMail" => "OXBILLEMAIL",
         )
     );
+    
+    public function _street($data) {
+    	return "{$data['OXBILLSTREET']}  {$data['OXBILLSTREETNR']}";
+    }
 }
 /* non mapped properties
 CustomerOrderBillingAddress:

@@ -15,6 +15,7 @@ use jtl\Connector\Transaction\Handler as TransactionHandler;
 use jtl\Connector\Oxid\Mapper\GlobalData\Company as CompanyMapper;
 use jtl\Connector\Oxid\Mapper\GlobalData\Currency as CurrencyMapper;
 use jtl\Connector\Oxid\Mapper\GlobalData\Language as LanguageMapper;
+use jtl\Connector\Oxid\Mapper\GlobalData\FileDownload as FileDownloadMapper;
 use jtl\Connector\Oxid\Controller\BaseController;
 
 
@@ -32,12 +33,13 @@ class GlobalData extends BaseController
             $companyMapper = new CompanyMapper();
             $currencyMapper = new CurrencyMapper();
             $languageMapper = new LanguageMapper();
-            
+            $fileDownloadMapper = new FileDownloadMapper();
+                       
             $companyMapper->fetchAll($container, 'company');
+            $fileDownloadMapper->fetchAll($container, 'file_download');
             $currencyMapper->fetchAll($container, 'currency', $currencyMapper->getCurrency());
             $languageMapper->fetchAll($container, 'language', $languageMapper->getLanguageIDs());
-            
-                        
+             
             $result[] = $container->getPublic(array('items'), array('_fields'));
 			
 			$action->setResult($result);
