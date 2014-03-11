@@ -109,6 +109,47 @@ class BaseMapper
 	}
     
     /**
+     * Summary of checkShowNetPrice
+     * Prüfe ob Option "Nettopreise Anzeigen" gesetzt ist (B2B)
+     * @return Boolean
+     */
+    public function checkShowNetPrice()
+    {   
+        if($this->getConfigFile('blShowNetPrice') == 0)
+        {
+            return true;
+        }   
+        return false;
+    }
+    
+    /**
+     * Summary of getDefaultVAT
+     * Gibt den hinterlegten Standard MwSt-Satz zurück
+     * @return DefaultVat Integer
+     */
+    public function getDefaultVAT()
+    {   
+        return $this->getConfigFile('dDefaultVAT');
+    }
+    
+    /**
+     * Summary of getConfigFile
+     * Gibt aus der Oxid-Konfig-Tabelle
+     * das BLOB Feld unverschlüsselt zurück.
+     * @param $OxVarName
+     * @return BLOB
+     */
+    public function getConfigFile($OxVarName)
+    {
+        $OxidConf = new Config();
+        
+        $SQLResult = $this->_db->query(" SELECT DECODE(OXVARVALUE, '{$OxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
+                                       " WHERE OXVARNAME = '{$OxVarName}'");
+        
+        return $SQLResult[0]['OXVARVALUEDECODED'];
+    }
+    
+    /**
      * Summary of getLanguageIDs
      * @return array
      */

@@ -3,33 +3,35 @@ namespace jtl\Connector\Oxid\Mapper\GlobalData;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\ModelContainer\GlobalDataContainer;
-use jtl\Connector\Model\FileDownload as FileDownloadModel;
 
 /**
  * Summary of FileDownload
  */
 class FileDownload extends BaseMapper
-{
-    public function fetchAll($container = null, $type = null, $params = array())
-    {
-        $fileDownload = new FileDownloadModel();
-        
-        foreach ($params as $value)
+{  
+    protected $_config = array
+    (
+     "model" => "\\jtl\\Connector\\Model\\FileDownload",
+        "table" => "oxfiles",
+        "pk" => "OXID",
+        "mapPull" => array(
+            "_id" => "OXID",
+            "_maxDownloads" => "OXMAXDOWNLOADS",
+            "_maxDays" => null,
+            "_created" => "OXTIMESTAMP"
+        )
+    );
+    
+    public function _maxDays($data) {
+    	// Muss noch durch 24 und aufgerundet werden!
+        if(isset($data['OXLINKEXPTIME']))
         {
-            $fileDownload->_id = $value['OXID'];
-            $fileDownload->_maxDownloads = $value['OXMAXDOWNLOADS'];
-            $fileDownload->_created = $value['OXTIMESTAMP'];
-            
-            // Muss noch durch 24 und aufgerundet werden!
-            if(isset($value['OXLINKEXPTIME']))
-            {
-                $MaxDays = round($value['OXLINKEXPTIME'] / 24);
-                $fileDownload->_maxDays = $MaxDays;
-            }
-
-            $container->add('file_download', $fileDownload->getPublic(array('_fields')));
+            $MaxDays = round($data['OXLINKEXPTIME'] / 24);
+            return $MaxDays;
+        }else{
+            return null;
         }
-    }
+    }          
 }
 
 /* non mapped properties
@@ -37,3 +39,4 @@ class FileDownload extends BaseMapper
  * _sort
  * _previewPath
  * _path
+ */
