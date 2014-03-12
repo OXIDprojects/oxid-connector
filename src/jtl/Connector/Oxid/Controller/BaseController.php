@@ -1,14 +1,17 @@
 <?php
 namespace jtl\Connector\Oxid\Controller;
 
-use jtl\Core\Controller\Controller;
-use jtl\Core\Database\Mysql;
-use jtl\Connector\Result\Action;
-use jtl\Core\Model\QueryFilter;
-use jtl\Connector\Transaction\Handler as TransactionHandler;
-use jtl\Core\Result\Transaction as TransactionResult;
-use jtl\Core\Exception\TransactionException;
 use jtl\Core\Rpc\Error;
+use jtl\Core\Database\Mysql;
+use jtl\Core\Model\QueryFilter;
+use jtl\Core\Utilities\ClassName;
+use jtl\Core\Controller\Controller;
+use jtl\Core\Exception\TransactionException;
+use jtl\Core\Result\Transaction as TransactionResult;
+
+use jtl\Connector\Result\Action;
+use jtl\Connector\Model\Statistic;
+use jtl\Connector\Transaction\Handler as TransactionHandler;
 
 class BaseController extends Controller
 {
@@ -18,6 +21,10 @@ class BaseController extends Controller
         $this->_db = Mysql::getInstance();		 
 	}	
 	
+	/**
+	 * (non-PHPdoc)
+	 * @see \jtl\Core\Controller\IController::pull()
+	 */
     public function pull($params) {
         $reflect = new \ReflectionClass($this);
         $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}";
@@ -50,6 +57,12 @@ class BaseController extends Controller
         }
     }
 	
+    /**
+     * 
+     * @param unknown $params
+     * @param unknown $trid
+     * @return \jtl\Connector\Result\Action
+     */
     public function commit($params,$trid) {
         $reflect = new \ReflectionClass($this);
         $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}";
@@ -81,6 +94,10 @@ class BaseController extends Controller
         }
     }
     
+    /**
+     * (non-PHPdoc)
+     * @see \jtl\Core\Controller\IController::delete()
+     */
 	public function delete($params) {
         
     }
@@ -104,7 +121,7 @@ class BaseController extends Controller
                 
                 $statModel->_available = $mapper->fetchCount();                
                 $statModel->_pending = 0;   
-                $statModel->_controllerName = lcfirst($class);
+                $statModel->_controllerName = lcfirst($reflect->getShortName());
                 
                 $action->setResult($statModel->getPublic(array("_fields", "_isEncrypted")));
             }
@@ -118,7 +135,11 @@ class BaseController extends Controller
             return $action;
         }
     }
-    
+	
+	/**
+	 * (non-PHPdoc)
+	 * @see \jtl\Core\Controller\IController::push()
+	 */
 	public function push($params) {
 		
 	}
