@@ -1,18 +1,18 @@
 <?php
 namespace jtl\Connector\Oxid\Controller;
 
-use \jtl\Core\Result\Transaction as TransactionResult;
-use \jtl\Connector\Result\Action;
+use jtl\Core\Result\Transaction as TransactionResult;
+use jtl\Connector\Result\Action;
 use jtl\Connector\ModelContainer\CustomerContainer;
 
-use \jtl\Core\Rpc\Error;
-use \jtl\Core\Exception\TransactionException;
-use \jtl\Core\Exception\DatabaseException;
-use \jtl\Connector\Transaction\Handler as TransactionHandler;
-use \jtl\Connector\Oxid\Mapper\Customer\Customer as CustomerMapper;
+use jtl\Core\Rpc\Error;
+use jtl\Core\Exception\TransactionException;
+use jtl\Core\Exception\DatabaseException;
+use jtl\Connector\Transaction\Handler as TransactionHandler;
+use jtl\Connector\Oxid\Mapper\Customer\Customer as CustomerMapper;
 use jtl\Connector\Oxid\Mapper\Customer\CustomerAttr As CustomerAttrMapper;
-use \jtl\Connector\Oxid\Controller\BaseController;
-use \jtl\Core\Model\QueryFilter;
+use jtl\Connector\Oxid\Controller\BaseController;
+use jtl\Core\Model\QueryFilter;
 
 class Customer extends BaseController
 {

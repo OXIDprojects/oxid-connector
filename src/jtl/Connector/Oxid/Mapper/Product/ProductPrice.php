@@ -17,19 +17,31 @@ class ProductPrice extends BaseMapper
             "mapPull" => array
                 (
                     "_productId" => "OXID",
-                    "_netPrice" => "TODO", //ToDo
-                    "_quantity" => "TODO" // ToDo
+                    "_netPrice" => null
                 )
         );
     
     public function _netPrice($data) {
     	
+        $oxPrice = $data['OXPRICE'];
         
-        return $NettoPrice;
+        if($this->checkEnterNetPrice()){
+            $netPrice = $oxPrice;
+        }else{
+            if(isset($data['OXVAT'])){
+                $netPrice = round($oxPrice / "1.{$data['OXVAT']}", 2);
+            }else{
+                $netPrice = round($oxPrice / "1.{$this->getDefaultVAT()}", 2);
+            }
+        }
+        $netPrice = floatval($netPrice);
+        
+        return $netPrice;
     }
 }
 
 /* non mapped properties
 ProductPrice:
 _customerGroupId
+_quantity
  */

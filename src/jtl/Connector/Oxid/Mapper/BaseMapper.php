@@ -1,8 +1,8 @@
 <?php
 namespace jtl\Connector\Oxid\Mapper;
 
-use \jtl\Core\Database\Mysql;
-use \jtl\Connector\Oxid\Config\Loader\Config;
+use jtl\Core\Database\Mysql;
+use jtl\Connector\Oxid\Config\Loader\Config;
 
 class BaseMapper 
 {
@@ -108,6 +108,22 @@ class BaseMapper
 	    return 0;
 	}
     
+    
+    /**
+     * Summary of checkEnterNetPrice
+     * Prüfe ob Option "Artikelpreise netto eingeben" gesetzt ist
+     * @return Boolean
+     */
+    public function checkEnterNetPrice()
+    {   
+        if($this->getConfigFile('blEnterNetPrice') == 1)
+        {
+            return true;
+        }   
+        return false;
+    }
+    
+    
     /**
      * Summary of checkShowNetPrice
      * Prüfe ob Option "Nettopreise Anzeigen" gesetzt ist (B2B)
@@ -115,12 +131,13 @@ class BaseMapper
      */
     public function checkShowNetPrice()
     {   
-        if($this->getConfigFile('blShowNetPrice') == 0)
+        if($this->getConfigFile('blShowNetPrice') == 1)
         {
             return true;
         }   
         return false;
     }
+    
     
     /**
      * Summary of getDefaultVAT
@@ -131,6 +148,7 @@ class BaseMapper
     {   
         return $this->getConfigFile('dDefaultVAT');
     }
+    
     
     /**
      * Summary of getConfigFile
@@ -148,6 +166,7 @@ class BaseMapper
         
         return $SQLResult[0]['OXVARVALUEDECODED'];
     }
+    
     
     /**
      * Summary of getLanguageIDs
@@ -190,6 +209,7 @@ class BaseMapper
         
         return $LanguageResult['aLanguages'];
     }   
+    
     
     /**
      * Summary of array_put_to_position

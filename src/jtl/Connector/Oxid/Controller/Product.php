@@ -1,19 +1,20 @@
 <?php
 namespace jtl\Connector\Oxid\Controller;
 
-use \jtl\Core\Rpc\Error;
-use \jtl\Core\Model\QueryFilter;
-use \jtl\Core\Exception\TransactionException;
-use \jtl\Core\Exception\DatabaseException;
-use \jtl\Core\Result\Transaction as TransactionResult;
+use jtl\Core\Rpc\Error;
+use jtl\Core\Model\QueryFilter;
+use jtl\Core\Exception\TransactionException;
+use jtl\Core\Exception\DatabaseException;
+use jtl\Core\Result\Transaction as TransactionResult;
 
-use \jtl\Connector\Result\Action;
-use \jtl\Connector\ModelContainer\ProductContainer;
-use \jtl\Connector\Transaction\Handler as TransactionHandler;
+use jtl\Connector\Result\Action;
+use jtl\Connector\ModelContainer\ProductContainer;
+use jtl\Connector\Transaction\Handler as TransactionHandler;
 
-use \jtl\Connector\Oxid\Controller\BaseController;
-use \jtl\Connector\Oxid\Mapper\Product\Product as ProductMapper;
+use jtl\Connector\Oxid\Controller\BaseController;
+use jtl\Connector\Oxid\Mapper\Product\Product as ProductMapper;
 use jtl\Connector\Oxid\Mapper\Product\ProductI18n as ProductI18nMapper;
+use jtl\Connector\Oxid\Mapper\Product\ProductPrice as ProductPriceMapper;
 
 class Product extends BaseController
 {
@@ -28,6 +29,7 @@ class Product extends BaseController
             
             $productMapper = new ProductMapper();          
             $productI18nMapper = new ProductI18nMapper();
+            $productPriceMapper = new ProductPriceMapper();
             
             $productMapper->fetchAll($container, 'product');
             
@@ -35,6 +37,8 @@ class Product extends BaseController
                                                                                     " FROM oxarticles" .
                                                                                     " INNER JOIN oxartextends" .
                                                                                     " ON oxarticles.OXID = oxartextends.OXID;"));
+            
+            $productPriceMapper->fetchAll($container, 'product_price');
             
             $result[] = $container->getPublic(array('items'), array('_fields'));
 			

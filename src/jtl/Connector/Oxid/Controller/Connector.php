@@ -3,12 +3,10 @@
  * @copyright 2010-2014 JTL-Software GmbH
  * @package jtl\Connector\Oxid\Controller
  */
+namespace jtl\Connector\Oxid\Controller;use jtl\Connector\Result\Action;
 
-namespace jtl\Connector\Oxid\Controller;
-
-use \jtl\Connector\Result\Action;
-use \jtl\Core\Rpc\Error;
-use \jtl\Connector\Oxid\Controller\BaseController;
+use jtl\Core\Rpc\Error;
+use jtl\Connector\Oxid\Controller\BaseController;
 
 /**
  * Connector Controller

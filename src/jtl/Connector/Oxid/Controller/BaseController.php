@@ -1,14 +1,14 @@
 <?php
 namespace jtl\Connector\Oxid\Controller;
 
-use \jtl\Core\Controller\Controller;
-use \jtl\Core\Database\Mysql;
-use \jtl\Connector\Result\Action;
-use \jtl\Core\Model\QueryFilter;
-use \jtl\Connector\Transaction\Handler as TransactionHandler;
-use \jtl\Core\Result\Transaction as TransactionResult;
-use \jtl\Core\Exception\TransactionException;
-use \jtl\Core\Rpc\Error;
+use jtl\Core\Controller\Controller;
+use jtl\Core\Database\Mysql;
+use jtl\Connector\Result\Action;
+use jtl\Core\Model\QueryFilter;
+use jtl\Connector\Transaction\Handler as TransactionHandler;
+use jtl\Core\Result\Transaction as TransactionResult;
+use jtl\Core\Exception\TransactionException;
+use jtl\Core\Rpc\Error;
 
 class BaseController extends Controller
 {

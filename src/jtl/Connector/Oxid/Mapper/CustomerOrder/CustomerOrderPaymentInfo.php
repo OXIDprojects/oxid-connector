@@ -1,11 +1,11 @@
 <?php
 namespace jtl\Connector\Oxid\Mapper\CustomerOrder;
 
-use \jtl\Connector\Oxid\Mapper\BaseMapper;
-use \jtl\Connector\Oxid\Config\Loader\Config;
+use jtl\Connector\Oxid\Mapper\BaseMapper;
+use jtl\Connector\Oxid\Config\Loader\Config;
 
-use \jtl\Connector\ModelContainer\CustomerOrderContainer;
-use \jtl\Connector\Model\CustomerOrderPaymentInfo as CustomerOrderPaymentInfoModel;
+use jtl\Connector\ModelContainer\CustomerOrderContainer;
+use jtl\Connector\Model\CustomerOrderPaymentInfo as CustomerOrderPaymentInfoModel;
 
 /**
  * Summary of CustomerOrderPaymentInfo 
