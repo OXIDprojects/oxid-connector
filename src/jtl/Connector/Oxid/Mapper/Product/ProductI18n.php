@@ -23,22 +23,38 @@ class ProductI18n extends BaseMapper
             {
                 $langBaseId = $language['baseId'];
                 
-                if($language['default'] == 1){
-                    $ProductI18nModel->_localeName = $language['name'];
-                    $ProductI18nModel->_productId = $value['OXID'];
-                    $ProductI18nModel->_name = $value['OXTITLE'];
-                    $ProductI18nModel->_urlPath = $value['OXEXTURL'];
-                    $ProductI18nModel->_description = $value['OXLONGDESC'];
-                    $ProductI18nModel->_shortDescription = $value['OXSHORTDESC'];
+                if(!isset($language['default']) or $language['default'] == 1)
+                {   
+                    if(!empty($value['OXTITLE']) or
+                       !empty($value['OXEXTURL']) or 
+                       !empty($value['OXLONGDESC']) or 
+                       !empty($value['OXSHORTDESC']))
+                    {
+                        $ProductI18nModel->_localeName = $language['name'];
+                        $ProductI18nModel->_productId = $value['OXID'];
+                        $ProductI18nModel->_name = $value['OXTITLE'];
+                        $ProductI18nModel->_urlPath = $value['OXEXTURL'];
+                        $ProductI18nModel->_description = $value['OXLONGDESC'];
+                        $ProductI18nModel->_shortDescription = $value['OXSHORTDESC'];
+                        
+                        $container->add('product_i18n', $ProductI18nModel->getPublic(array('_fields')));
+                    }
                 }else{
-                    $ProductI18nModel->_localeName = $language['name'];
-                    $ProductI18nModel->_productId = $value['OXID'];
-                    $ProductI18nModel->_name = $value["OXTITLE_{$langBaseId}"];
-                    $ProductI18nModel->_urlPath = $value["OXURLDESC_{$langBaseId}"];
-                    $ProductI18nModel->_description = $value["OXLONGDESC_{$langBaseId}"];
-                    $ProductI18nModel->_shortDescription = $value["OXSHORTDESC_{$langBaseId}"];
+                    if(!empty($value["OXTITLE_{$langBaseId}"]) or
+                       !empty($value["OXURLDESC_{$langBaseId}"]) or
+                       !empty($value["OXLONGDESC_{$langBaseId}"]) or
+                       !empty($value["OXSHORTDESC_{$langBaseId}"]))
+                    {
+                        $ProductI18nModel->_localeName = $language['name'];
+                        $ProductI18nModel->_productId = $value['OXID'];
+                        $ProductI18nModel->_name = $value["OXTITLE_{$langBaseId}"];
+                        $ProductI18nModel->_urlPath = $value["OXURLDESC_{$langBaseId}"];
+                        $ProductI18nModel->_description = $value["OXLONGDESC_{$langBaseId}"];
+                        $ProductI18nModel->_shortDescription = $value["OXSHORTDESC_{$langBaseId}"];
+                        
+                        $container->add('product_i18n', $ProductI18nModel->getPublic(array('_fields')));                    
+                    }
                 }
-                $container->add('product_i18n', $ProductI18nModel->getPublic(array('_fields')));
             }   
         }
     }
