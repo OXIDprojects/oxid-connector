@@ -58,7 +58,7 @@ class CustomerOrderPaymentInfo  extends BaseMapper
     }
     
     public function getPaymentInfo()
-    {
+    {   
         $OxidConf = new Config();
         
         $SQLResult = $this->_db->query("SELECT OXID, OXUSERID,  " .

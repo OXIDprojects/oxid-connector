@@ -99,10 +99,16 @@ class BaseMapper
         }
     }
     
+    //ToDo Herr Berger!!!
     public function fetchCount() {	    	
-	    $objs = $this->_db->query("SELECT count(*) as count FROM {$this->_config['table']} LIMIT 1", array("return" => "object"));
-	    if ($objs !== null) {
-	        return intval($objs[0]->count);
+	    //$objs = $this->_db->query("SELECT count(*) as count FROM {$this->_config['table']} LIMIT 1", array("return" => "object"));
+        
+        $objs = $this->_db->query("SELECT count(*) as count FROM oxarticles LIMIT 1", array("return" => "object"));
+        
+        die(print_r($objs));
+        
+	    if ($objs !== null) {      
+            return intval($objs[0]->count);
 	    }
         
 	    return 0;

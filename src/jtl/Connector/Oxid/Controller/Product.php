@@ -33,10 +33,7 @@ class Product extends BaseController
             
             $productMapper->fetchAll($container, 'product');
             
-            $productI18nMapper->fetchAll($container, 'product_i18n', array('query' => "SELECT oxarticles.*, oxartextends.OXLONGDESC" .
-                                                                                    " FROM oxarticles" .
-                                                                                    " INNER JOIN oxartextends" .
-                                                                                    " ON oxarticles.OXID = oxartextends.OXID;"));
+            $productI18nMapper->fetchAll($container, 'product_i18n', $productI18nMapper->getProductI18n());
             
             $productPriceMapper->fetchAll($container, 'product_price');
             

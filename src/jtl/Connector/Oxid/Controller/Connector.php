@@ -31,7 +31,7 @@ class Connector extends BaseController
             'CustomerOrder',
             //'DeliveryNote',
             'GlobalData',
-            'Image',
+            //'Image',
             'Product',
             'Manufacturer',
             'Specific'
