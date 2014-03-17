@@ -168,49 +168,6 @@
                     "ShortDescription"
                 ]
             }
-        },
-        {
-            "name": "Specific",
-            "push": {
-                "supported": false,
-                "comment": ""
-            },
-            "pull": {
-                "supported": true,
-                "comment": "",
-                "properties": [
-                    "Id"
-                ]
-            }
-        },
-        {
-            "name": "SpecificI18n",
-            "push": {
-                "supported": false,
-                "comment": ""
-            },
-            "pull": {
-                "supported": true,
-                "comment": "",
-                "properties": [
-                    "SpecificId",
-                    "Name"
-                ]
-            }
-        },
-        {
-            "name": "SpecificValue",
-            "push": {
-                "supported": false,
-                "comment": ""
-            },
-            "pull": {
-                "supported": true,
-                "comment": "",
-                "properties": [
-                    "Id"
-                ]
-            }
         }
     ]
 }

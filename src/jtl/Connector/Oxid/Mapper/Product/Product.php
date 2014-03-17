@@ -33,7 +33,7 @@ class Product extends BaseMapper
                     "_created" => "OXINSERT",
                     "_availableFrom" => "OXACTIVEFROM",
                     "_manufacturerNumber" => "OXMPN",
-                    "_isMasterProduct" => null,
+                    "_isMasterProduct" => null
                 )
         );
     

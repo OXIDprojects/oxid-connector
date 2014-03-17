@@ -2,22 +2,36 @@
 namespace jtl\Connector\Oxid\Mapper\Category;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
+use jtl\Connector\Oxid\Config\Loader\Config;
 use jtl\Connector\ModelContainer\CategoryContainer;
+use jtl\Connector\Model\CategoryAttr as CategoryAttrModel;
 
 /**
  * Summary of CategoryAttr
  */
 class CategoryAttr extends BaseMapper
 {
-    protected $_config = array
-        (
-            "model" => "\\jtl\\Connector\\Model\\CategoryAttr",
-            "table" => "oxobject2attribute",
-            "pk" => "OXID",
-            "mapPull" => array(
-                "_id" => "OXID",
-                "_categoryId" => "OXATTRID",
-                "_sort" => "OXSORT"
-            )
-       );
+    public function fetchAll($container = null, $type = null, $params = array())
+    {
+        $categoryAttrModel = new CategoryAttrModel();  
+        
+        foreach ($params as $value)
+        {
+            $categoryAttrModel->_id = $value['OXID'];
+            $categoryAttrModel->_categoryId = $value['OXOBJECTID'];
+            $categoryAttrModel->_sort = $value['OXSORT'];
+        }
+        
+        $container->add('category_attr', $categoryAttrModel->getPublic(array('_fields')));
+    }
+    
+    public function getCategoryAttr()
+    {
+        $oxidConf = new Config();
+        
+        $sqlResult = $this->_db->query(" SELECT * FROM oxcategory2attribute " .
+                                       " INNER JOIN oxattribute " .
+                                       " ON oxcategory2attribute.OXATTRID = oxattribute.OXID;");
+        return $sqlResult;
+    }    
 }

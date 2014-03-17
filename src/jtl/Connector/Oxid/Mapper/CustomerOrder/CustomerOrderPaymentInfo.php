@@ -59,24 +59,24 @@ class CustomerOrderPaymentInfo  extends BaseMapper
     
     public function getPaymentInfo()
     {   
-        $OxidConf = new Config();
+        $oxidConf = new Config();
         
-        $SQLResult = $this->_db->query("SELECT OXID, OXUSERID,  " .
+        $sqlResult = $this->_db->query("SELECT OXID, OXUSERID,  " .
                                         " DECODE(OXVALUE, 'sd45DF09_sdlk09239DD') AS OXVALUEDECODED " .
                                         " FROM oxuserpayments");        
         
         //Hole alle PaymentInfos pro Bestellung
-        for ($i = 0; $i < count($SQLResult); $i++)
+        for ($i = 0; $i < count($sqlResult); $i++)
         {          
-            if($SQLResult[$i]['OXVALUEDECODED'])
+            if($sqlResult[$i]['OXVALUEDECODED'])
             {
-                $PaymentInfoArr = explode("@@", $SQLResult[$i]['OXVALUEDECODED']);
-                unset($PaymentInfoArr[4]);
+                $paymentInfoArr = explode("@@", $sqlResult[$i]['OXVALUEDECODED']);
+                unset($paymentInfoArr[4]);
                 
                 //Vergebe neue Key Parameter
-                foreach ($PaymentInfoArr as $k => $v) 
+                foreach ($paymentInfoArr as $k => $v) 
                 {
-                    unset ($PaymentInfoArr[$k]);
+                    unset ($paymentInfoArr[$k]);
 
                     switch ($k)
                     {
@@ -101,41 +101,41 @@ class CustomerOrderPaymentInfo  extends BaseMapper
                             $v = $new_arr[1];
                             break;
                     }
-                    $PaymentInfoArr[$new_key] = $v;
+                    $paymentInfoArr[$new_key] = $v;
                 }
                 
                 //Füge Array PaymentInformationen hinzu
-                $SQLResult[$i] = $SQLResult[$i] + $PaymentInfoArr;
+                $sqlResult[$i] = $sqlResult[$i] + $paymentInfoArr;
                 
             }
             //Entferne Spalte OxValueDecoded
-            unset($SQLResult[$i]['OXVALUEDECODED']);
+            unset($sqlResult[$i]['OXVALUEDECODED']);
         }      
-        return $SQLResult;
+        return $sqlResult;
     }
     
     /**
      * Summary of checkIBAN
      * Prüft ob es sich um eine IBAN Nummer handelt
-     * @param $IBAN
+     * @param $iban
      * @return Boolean
      */
-    public function checkIBAN($IBAN = "")
+    public function checkIBAN($iban = "")
 	{
-        $IBAN = preg_replace('/\s*/i', '', $IBAN);
-        return preg_match('/[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}/i', $IBAN);
+        $iban = preg_replace('/\s*/i', '', $iban);
+        return preg_match('/[a-zA-Z]{2}[0-9]{2}[a-zA-Z0-9]{4}[0-9]{7}([a-zA-Z0-9]?){0,16}/i', $iban);
     }
 
     /**
      * Summary of checkBIC
      * Prüft ob es sich um eine BIC Nummer handelt
-     * @param $BIC
+     * @param $bic
      * @return Boolean
      */
-    public function checkBIC($BIC = "")
+    public function checkBIC($bic = "")
 	{
-        $BIC = preg_replace('/\s*/i', '', $BIC);
-        return preg_match('/([a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?)/i', $BIC);
+        $bic = preg_replace('/\s*/i', '', $bic);
+        return preg_match('/([a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?)/i', $bic);
     }
 }
 /* non mapped properties

@@ -35,9 +35,9 @@ class Currency extends BaseMapper
      */
     public function getCurrency()
     {   
-        $OxidConf = new Config();
+        $oxidConf = new Config();
         
-        $SQLResult = $this->_db->query("SELECT DECODE(OXVARVALUE, '{$OxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
+        $sqlResult = $this->_db->query("SELECT DECODE(OXVARVALUE, '{$oxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
                                    "WHERE OXVARNAME = 'aCurrencies' ");
         
         $currencyArr = unserialize($SQLResult[0]['OXVARVALUEDECODED']);       
@@ -45,12 +45,12 @@ class Currency extends BaseMapper
         for ($i = 0; $i < Count($currencyArr); $i++)
         {
             //Splite Currency Informationen in ein Array
-            $CurrencyResult[$i] = explode("@", $currencyArr[$i]);
-            $CurrencyResult[$i][] = $i;
+            $currencyResult[$i] = explode("@", $currencyArr[$i]);
+            $currencyResult[$i][] = $i;
             
             //Vergebe neue Key Parameter
-            foreach ($CurrencyResult[$i] as $k => $v) {
-                unset ($CurrencyResult[$i][$k]);
+            foreach ($currencyResult[$i] as $k => $v) {
+                unset ($currencyResult[$i][$k]);
 
                 switch ($k)
                 {
@@ -77,10 +77,10 @@ class Currency extends BaseMapper
                         break;
                 }    
 
-                $CurrencyResult[$i][$new_key] = $v;
+                $currencyResult[$i][$new_key] = $v;
             } 
         }
         
-        return $CurrencyResult;
+        return $currencyResult;
     }
 }

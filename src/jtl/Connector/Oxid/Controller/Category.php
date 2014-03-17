@@ -15,6 +15,7 @@ use jtl\Connector\Oxid\Controller\BaseController;
 use jtl\Connector\Oxid\Mapper\Category\Category as CategoryMapper;
 use jtl\Connector\Oxid\Mapper\Category\CategoryAttr as CategoryAttrMapper;
 use jtl\Connector\Oxid\Mapper\Category\CategoryI18n as CategoryI18nMapper;
+use jtl\Connector\Oxid\Mapper\Category\CategoryAttrI18n as CategoryAttrI18nMapper;
 
 /**
  * Summary of Category
@@ -33,10 +34,12 @@ class Category extends BaseController
             $categoryMapper = new CategoryMapper();
             $categoryAttrMapper = new CategoryAttrMapper();
             $categoryI18nMapper = new CategoryI18nMapper();
+            $categoryAttrI18nMapper = new CategoryAttrI18nMapper();
                         
             $categoryMapper->fetchAll($container, 'category');
-            $categoryAttrMapper->fetchAll($container, 'category_attr');
+            $categoryAttrMapper->fetchAll($container, 'category_attr', $categoryAttrMapper->getCategoryAttr());
             $categoryI18nMapper->fetchAll($container, 'category_i18n', $categoryI18nMapper->getCategoryI18n());
+            $categoryAttrI18nMapper->fetchAll($container, 'category_attr_i18n', $categoryAttrI18nMapper->getCategoryAttrI18n());
             
             $result[] = $container->getPublic(array('items'), array('_fields'));
 			
@@ -54,3 +57,10 @@ class Category extends BaseController
         
     }
 }
+
+/* non mapped Class
+Category:
+ * CategoryFunctionAttr
+ * CategoryInvisibility
+ * CategoryCustomerGroup
+ */

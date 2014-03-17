@@ -13,13 +13,13 @@ class CategoryI18n extends BaseMapper
 {
     public function fetchAll($container = null, $type = null, $params = array())
     {
-        $CategoryI18nModel = new CategoryI18nModel();       
-        $Languages = $this->getLanguageIDs();
+        $categoryI18nModel = new CategoryI18nModel();       
+        $languages = $this->getLanguageIDs();
         
         foreach ($params as $value)
         {
             //Pro Sprache
-            foreach ($Languages as $language)
+            foreach ($languages as $language)
             {
                 $langBaseId = $language['baseId'];
                 
@@ -28,25 +28,25 @@ class CategoryI18n extends BaseMapper
                     if(!empty($value['OXTITLE']) or
                        !empty($value['OXLONGDESC']))
                     {
-                        $CategoryI18nModel->_localeName = $language['name'];
-                        $CategoryI18nModel->_categoryId = $value['OXID'];
-                        $CategoryI18nModel->_name = $value['OXTITLE'];
-                        $CategoryI18nModel->_urlPath = $value['OXEXTLINK'];
-                        $CategoryI18nModel->_description = $value['OXLONGDESC'];
+                        $categoryI18nModel->_localeName = $language['name'];
+                        $categoryI18nModel->_categoryId = $value['OXID'];
+                        $categoryI18nModel->_name = $value['OXTITLE'];
+                        $categoryI18nModel->_urlPath = $value['OXEXTLINK'];
+                        $categoryI18nModel->_description = $value['OXLONGDESC'];
                                                 
-                        $container->add('category_i18n', $CategoryI18nModel->getPublic(array('_fields')));
+                        $container->add('category_i18n', $categoryI18nModel->getPublic(array('_fields')));
                     }
                 }else{
                     if(!empty($value["OXTITLE_{$langBaseId}"]) or
                        !empty($value["OXLONGDESC_{$langBaseId}"]))
                     {
-                        $CategoryI18nModel->_localeName = $language['name'];
-                        $CategoryI18nModel->_categoryId = $value['OXID'];
-                        $CategoryI18nModel->_name = $value["OXTITLE_{$langBaseId}"];
-                        $CategoryI18nModel->_urlPath = $value["OXEXTLINK"];
-                        $CategoryI18nModel->_description = $value["OXLONGDESC_{$langBaseId}"];
+                        $categoryI18nModel->_localeName = $language['name'];
+                        $categoryI18nModel->_categoryId = $value['OXID'];
+                        $categoryI18nModel->_name = $value["OXTITLE_{$langBaseId}"];
+                        $categoryI18nModel->_urlPath = $value["OXEXTLINK"];
+                        $categoryI18nModel->_description = $value["OXLONGDESC_{$langBaseId}"];
                         
-                        $container->add('category_i18n', $CategoryI18nModel->getPublic(array('_fields')));                    
+                        $container->add('category_i18n', $categoryI18nModel->getPublic(array('_fields')));                    
                     }
                 }
             }   
@@ -55,16 +55,16 @@ class CategoryI18n extends BaseMapper
     
     public function getCategoryI18n()
     {
-        $OxidConf = new Config();
+        $oxidConf = new Config();
         
-        $SQLResult = $this->_db->query("SELECT * " .
+        $sqlResult = $this->_db->query("SELECT * " .
                                         " FROM oxcategories;");
-        return $SQLResult;
+        return $sqlResult;
     }
 }
 
 /* non mapped properties
-Category:
+CategoryI18n:
  * _metaDescription 
  * _metaKeywords
  * _titleTag
