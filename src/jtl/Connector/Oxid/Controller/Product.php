@@ -5,10 +5,10 @@ use jtl\Core\Rpc\Error;
 use jtl\Core\Model\QueryFilter;
 use jtl\Core\Exception\TransactionException;
 use jtl\Core\Exception\DatabaseException;
-use jtl\Core\Result\Transaction as TransactionResult;
 
 use jtl\Connector\Result\Action;
 use jtl\Connector\ModelContainer\ProductContainer;
+use jtl\Connector\Result\Transaction as TransactionResult;
 use jtl\Connector\Transaction\Handler as TransactionHandler;
 
 use jtl\Connector\Oxid\Controller\BaseController;

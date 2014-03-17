@@ -11,14 +11,14 @@ use jtl\Core\Result\Transaction as TransactionResult;
 
 use jtl\Connector\Result\Action;
 use jtl\Connector\Model\Statistic;
-use jtl\Connector\Transaction\Handler as TransactionHandler;
+use jtl\Connector\ModelContainer\MainContainer;
 
 class BaseController extends Controller
 {
     protected $_db;
     
 	public function __construct() {
-        $this->_db = Mysql::getInstance();		 
+        $this->_db = Mysql::getInstance();
 	}	
 	
 	/**
@@ -72,7 +72,7 @@ class BaseController extends Controller
             $action->setHandled(true);
             
             try {
-                $container = TransactionHandler::getContainer($this->getMethod()->getController(), $trid);
+                $container = MainContainer::getContainer($this->getMethod()->getController(), $trid);
                 
                 $mapper = new $class();
                 
