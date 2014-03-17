@@ -28,10 +28,10 @@ class Manufacturer extends BaseController
             $container = new ManufacturerContainer();
             
             $manufacturerMapper = new ManufacturerMapper();
-            //$manufacturerI18nMapper = new ManufacturerI18nMapper();
+            $manufacturerI18nMapper = new ManufacturerI18nMapper();
             
             $manufacturerMapper->fetchAll($container, 'manufacturer');
-            //$manufacturerI18nMapper->fetchAll($container, 'manufacturerI18n');
+            $manufacturerI18nMapper->fetchAll($container, 'manufacturerI18n', $manufacturerI18nMapper->getManufacturerI18n());
             
             $result[] = $container->getPublic(array('items'), array('_fields'));
 			

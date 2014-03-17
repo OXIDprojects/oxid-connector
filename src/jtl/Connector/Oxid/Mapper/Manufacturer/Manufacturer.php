@@ -22,3 +22,9 @@ class Manufacturer extends BaseMapper
         );
 }
 
+/* non mapped properties
+Manufacturer:
+ * _www
+ * _sort 
+ * _urlPath
+ */
