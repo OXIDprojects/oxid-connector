@@ -16,8 +16,10 @@ use jtl\Connector\Oxid\Mapper\GlobalData\Company as CompanyMapper;
 use jtl\Connector\Oxid\Mapper\GlobalData\Currency as CurrencyMapper;
 use jtl\Connector\Oxid\Mapper\GlobalData\Language as LanguageMapper;
 use jtl\Connector\Oxid\Mapper\GlobalData\FileDownload as FileDownloadMapper;
+use jtl\Connector\Oxid\Mapper\GlobalData\CustomerGroup as CustomerGroupMapper;
+use jtl\Connector\Oxid\Mapper\GlobalData\ShippingClass as ShippingClassMapper;
 use jtl\Connector\Oxid\Mapper\GlobalData\FileDownloadI18n as FileDownloadI18nMapper;
-
+use jtl\Connector\Oxid\Mapper\GlobalData\CustomerGroupI18n as CustomerGroupI18nMapper;
 
 class GlobalData extends BaseController
 {
@@ -34,13 +36,19 @@ class GlobalData extends BaseController
             $languageMapper = new LanguageMapper();
             $currencyMapper = new CurrencyMapper();
             $fileDownloadMapper = new FileDownloadMapper();
+            $customerGroupMapper = new CustomerGroupMapper();
+            $shippingClassMapper = new ShippingClassMapper();
             $fileDownloadI18nMapper = new FileDownloadI18nMapper();
+            $customerGroupI18nMapper = new CustomerGroupI18nMapper();
                        
             $companyMapper->fetchAll($container, 'company');
             $languageMapper->fetchAll($container, 'language', $languageMapper->getLanguageIDs());
             $currencyMapper->fetchAll($container, 'currency', $currencyMapper->getCurrency());
             $fileDownloadMapper->fetchAll($container, 'file_download');
+            $customerGroupMapper->fetchAll($container, 'customer_group');
+            $shippingClassMapper->fetchAll($container, 'shipping_class');
             $fileDownloadI18nMapper->fetchAll($container, 'file_download_i18n');
+            $customerGroupI18nMapper->fetchAll($container, 'customer_group_i18n', $customerGroupI18nMapper->getCustomerGroupI18n());
             
             $result[] = $container->getPublic(array('items'), array('_fields'));
 			
@@ -61,4 +69,5 @@ class GlobalData extends BaseController
 /* non mapped class
  * - Warehouse
  * - WarehouseI18n
+ * - CustomerGroupAttr
  */

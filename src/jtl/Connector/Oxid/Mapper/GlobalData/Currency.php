@@ -40,7 +40,7 @@ class Currency extends BaseMapper
         $sqlResult = $this->_db->query("SELECT DECODE(OXVARVALUE, '{$oxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
                                    "WHERE OXVARNAME = 'aCurrencies' ");
         
-        $currencyArr = unserialize($SQLResult[0]['OXVARVALUEDECODED']);       
+        $currencyArr = unserialize($sqlResult[0]['OXVARVALUEDECODED']);       
         
         for ($i = 0; $i < Count($currencyArr); $i++)
         {
