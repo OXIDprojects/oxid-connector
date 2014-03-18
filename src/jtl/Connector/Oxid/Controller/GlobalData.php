@@ -13,6 +13,7 @@ use jtl\Connector\Transaction\Handler as TransactionHandler;
 
 use jtl\Connector\Oxid\Controller\BaseController;
 use jtl\Connector\Oxid\Mapper\GlobalData\Company as CompanyMapper;
+use jtl\Connector\Oxid\Mapper\GlobalData\TaxRate as TaxRateMapper;
 use jtl\Connector\Oxid\Mapper\GlobalData\Currency as CurrencyMapper;
 use jtl\Connector\Oxid\Mapper\GlobalData\Language as LanguageMapper;
 use jtl\Connector\Oxid\Mapper\GlobalData\FileDownload as FileDownloadMapper;
@@ -33,6 +34,7 @@ class GlobalData extends BaseController
             $container = new GlobalDataContainer();
             
             $companyMapper = new CompanyMapper();
+            $taxRateMapper = new TaxRateMapper();
             $languageMapper = new LanguageMapper();
             $currencyMapper = new CurrencyMapper();
             $fileDownloadMapper = new FileDownloadMapper();
@@ -42,6 +44,7 @@ class GlobalData extends BaseController
             $customerGroupI18nMapper = new CustomerGroupI18nMapper();
                        
             $companyMapper->fetchAll($container, 'company');
+            $taxRateMapper->fetchAll($container, 'tax_rate', $taxRateMapper->getTaxRate());
             $languageMapper->fetchAll($container, 'language', $languageMapper->getLanguageIDs());
             $currencyMapper->fetchAll($container, 'currency', $currencyMapper->getCurrency());
             $fileDownloadMapper->fetchAll($container, 'file_download');
@@ -62,7 +65,6 @@ class GlobalData extends BaseController
             $action->setError($err);
         }
         return $action;
-        
     }
 }
 
@@ -70,4 +72,10 @@ class GlobalData extends BaseController
  * - Warehouse
  * - WarehouseI18n
  * - CustomerGroupAttr
+ * - DeliveryStatus
+ * - CrossSellingGroup
+ * - Unit
+ * - TaxZone
+ * - TaxZoneCountry
+ * - TaxClass
  */
