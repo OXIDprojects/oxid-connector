@@ -78,4 +78,10 @@ class GlobalData extends BaseController
  * - TaxZone
  * - TaxZoneCountry
  * - TaxClass
+ * - ProductType
+ * - ConfigGroup
+ * - ConfigGroupI18n
+ * - ConfigItem
+ * - ConfigItemI18n
+ * - ConfigItemPrice
  */

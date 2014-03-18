@@ -21,6 +21,7 @@ class Customer extends BaseMapper
             "_firstName" => "OXFNAME",
             "_lastName" => "OXLNAME",
             "_company" => "OXCOMPANY",
+            "_street" => null,
             "_deliveryInstruction" => "OXADDINFO",
             "_zipCode" => "OXZIP",
             "_city" => "OXCITY",
@@ -34,21 +35,23 @@ class Customer extends BaseMapper
             "_hasNewsletterSubscription" => "OXDBOPTIN",
             "_birthday" => "OXBIRTHDATE",
             "_created" => "OXCREATE",
+            "_modified" => "OXTIMESTAMP",
             "_IsActive" => "OXACTIVE"
         )
     );
+    
+    public function _street($data) {
+    	return "{$data['OXSTREET']}  {$data['OXSTREETNR']}";
+    }
 }
 /* non mapped properties
 Customer:
 _title
-_street
 _extraAddressLine
 _countryIso
 _accountCredit
 _discount
 _origin
-_created
-_modified
 _isFetched
 _hasCustomerAccount
  */

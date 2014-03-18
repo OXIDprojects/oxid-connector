@@ -13,6 +13,7 @@ class CustomerOrderShippingAddress extends BaseMapper
     (
      "model" => "\\jtl\\Connector\\Model\\CustomerOrderShippingAddress",
         "table" => "oxorder",
+        "pk" => "OXID",
         "mapPull" => array(
             "_id" => "OXID",
             "_customerId" => "OXUSERID",

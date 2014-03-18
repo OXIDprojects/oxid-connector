@@ -26,7 +26,6 @@ class CustomerOrder extends BaseMapper
             "_orderNumber" => "OXMOBFON",
             "_shippingDate" => "OXSENDDATE",
             "_paymentDate" => "OXPAID",
-            "_ratingNotificationDate" => "",
             "_tracking" => "OXTRACKCODE",
             "_note" => "OXREMARK",
             "_trackingURL" => "OXTRACKCODE",

@@ -13,6 +13,7 @@ use jtl\Connector\Transaction\Handler as TransactionHandler;
 
 use jtl\Connector\Oxid\Controller\BaseController;
 use jtl\Connector\Oxid\Mapper\CustomerOrder\CustomerOrder as CustomerOrderMapper;
+use jtl\Connector\Oxid\Mapper\CustomerOrder\CustomerOrderItem as CustomerOrderItemMapper;
 use jtl\Connector\Oxid\Mapper\CustomerOrder\CustomerOrderPaymentInfo as CustomerOrderPaymentInfoMapper;
 use jtl\Connector\Oxid\Mapper\CustomerOrder\CustomerOrderShippingAddress as CustomerOrderShippingAddressMapper;
 use jtl\Connector\Oxid\Mapper\CustomerOrder\CustomerOrderBillingAddress as CustomerOrderBillingAddressMapper;
@@ -30,11 +31,13 @@ class CustomerOrder extends BaseController
             $container = new CustomerOrderContainer();
             
             $customerOrderMapper = new CustomerOrderMapper();
+            $customerOrderItemMapper = new CustomerOrderItemMapper();
             $customerOrderShippingAddressMapper = new CustomerOrderShippingAddressMapper();
             $customerOrderBillingAddressMapper = new CustomerOrderBillingAddressMapper();
             $customerOrderPaymentInfoMapper = new CustomerOrderPaymentInfoMapper();
             
             $customerOrderMapper->fetchAll($container, 'customer_order');
+            $customerOrderItemMapper->fetchAll($container, 'customer_order_item', array('query' => "SELECT * FROM oxorderarticles ORDER BY OXORDERID DESC"));
             $customerOrderShippingAddressMapper->fetchAll($container, 'customer_order_shipping_address');
             $customerOrderBillingAddressMapper->fetchAll($container, 'customer_order_billing_address');
             $customerOrderPaymentInfoMapper->fetchAll($container, 'customer_order_payment_info', $customerOrderPaymentInfoMapper->getPaymentInfo());
@@ -55,3 +58,8 @@ class CustomerOrder extends BaseController
         
     }
 }
+
+/* non mapped class
+ * - CustomerOrderAttr
+ * - CustomerOrderItemVariation
+ */

@@ -28,14 +28,12 @@ class Customer extends BaseController
             $container = new CustomerContainer();
             
             $customerMapper = new CustomerMapper();
-            //CustomerAttrMapper = new CustomerAttrMapper();
             
             $customerMapper->fetchAll($container, 'customer', array('query' => "SELECT oxuser.*," .
                                                                                 " oxnewssubscribed.OXDBOPTIN" .
                                                                                 " FROM oxuser" .
                                                                                 " INNER JOIN oxnewssubscribed" .
                                                                                 " ON oxuser.OXID = oxnewssubscribed.OXUSERID;"));
-            //CustomerAttrMapper->fetchAll($container, 'CustomerAttrMapper');
             
             $result[] = $container->getPublic(array('items'), array('_fields'));
 			
@@ -53,3 +51,7 @@ class Customer extends BaseController
         
     }
 }
+
+/* non mapped class
+ * - CustomerAttr
+ */
