@@ -1,173 +1,249 @@
 {
-    "objects": [
-        {
-            "name": "Category",
-            "push": {
-                "supported": false,
-                "comment": ""
-            },
-            "pull": {
-                "supported": true,
-                "comment": "",
-                "properties": [
-                    "Id",
-                    "ParentCategoryId",
-                    "Sort"
-                ]
+    "version": "1.0",
+    "container": {
+        "category": {
+            "comment": "",
+            "supported": true,
+            "transactional": true,
+            "objects": {
+                "category": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                },
+                "categoryI18n": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                },
+                "categoryAttr": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                },
+                "categoryAttrI18n": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                }
             }
         },
-        {
-            "name": "CategoryAttr",
-            "push": {
-                "supported": false,
-                "comment": ""
-            },
-            "pull": {
-                "supported": true,
-                "comment": "",
-                "properties": [
-                    "Id",
-                    "CategoryId",
-                    "Sort"
-                ]
+        "customer": {
+            "comment": "",
+            "supported": true,
+            "transactional": true,
+            "objects": {
+                "customer": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                }
             }
         },
-        {
-            "name": "Company",
-            "push": {
-                "supported": false,
-                "comment": ""
-            },
-            "pull": {
-                "supported": true,
-                "comment": "",
-                "properties": [
-                    "Name",
-                    "Street",
-                    "ZipCode",
-                    "City",
-                    "CountryIso",
-                    "Phone",
-                    "Fax",
-                    "EMail",
-                    "Www",
-                    "BankCode",
-                    "AccountNumber",
-                    "BankName",
-                    "AccountHolder",
-                    "VatNumber",
-                    "Iban",
-                    "Bic"
-                ]
+        "globalData": {
+            "comment": "",
+            "supported": true,
+            "transactional": true,
+            "objects": {
+                "company": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                },
+                "currency": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                },
+                "customerGroup": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                },
+                "customerGroupI18n": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                },
+                "language": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                },
+                "fileDownload": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                },
+                "fileDownloadI18n": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                },
+                "taxRate": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                },
+                "shippingClass": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                }
             }
         },
-        {
-            "name": "Customer",
-            "push": {
-                "supported": false,
-                "comment": ""
-            },
-            "pull": {
-                "supported": true,
-                "comment": "",
-                "properties": [
-                    "Id",
-                    "CustomerGroupId",
-                    "CustomerNumber",
-                    "Salutation",
-                    "FirstName",
-                    "LastName",
-                    "Company",
-                    "DeliveryInstruction",
-                    "ZipCode",
-                    "City",
-                    "State",
-                    "Phone",
-                    "Mobile",
-                    "Fax",
-                    "EMail",
-                    "VatNumber",
-                    "Www",
-                    "HasNewsletterSubscription",
-                    "Birthday",
-                    "IsActive"
-                ]
-            }
-        },
-        {
-            "name": "Manufacturer",
-            "push": {
-                "supported": false,
-                "comment": ""
-            },
-            "pull": {
-                "supported": true,
-                "comment": "",
-                "properties": [
-                    "Id",
-                    "Name"
-                ]
-            }
-        },
-        {
-            "name": "ManufacturerI18n",
-            "push": {
-                "supported": false,
-                "comment": ""
-            },
-            "pull": {
-                "supported": true,
-                "comment": "",
-                "properties": [
-                    "ManufacturerId"
-                ]
-            }
-        },
-        {
-            "name": "Product",
-            "push": {
-                "supported": false,
-                "comment": ""
-            },
-            "pull": {
-                "supported": true,
-                "comment": "",
-                "properties": [
-                    "Id",
-                    "MasterProductId",
-                    "ManufacturerId",
-                    "UnitId",
-                    "Sku",
-                    "StockLevel",
-                    "MinimumOrderQuantity",
-                    "Ean",
-                    "ProductWeight",
-                    "RecommendedRetailPrice",
-                    "Keywords",
-                    "Sort",
-                    "Created",
-                    "AvailableFrom",
-                    "ManufacturerNumber"
-                ]
-            }
-        },
-        {
-            "name": "ProductI18n",
-            "push": {
-                "supported": false,
-                "comment": ""
-            },
-            "pull": {
-                "supported": true,
-                "comment": "",
-                "properties": [
-                    "ProductId",
-                    "Name",
-                    "UrlPath",
-                    "Description",
-                    "ShortDescription"
-                ]
+        "product": {
+            "comment": "",
+            "supported": true,
+            "transactional": true,
+            "objects": {
+                "product": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                },
+                "product2Category": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                },
+                "productI18n": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                },
+                "productPrice": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": false,
+                        "comment": "",
+                        "properties": [
+                        ]
+                    }
+                }
             }
         }
-    ]
+    }
 }

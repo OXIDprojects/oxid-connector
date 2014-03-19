@@ -17,6 +17,10 @@ use jtl\Connector\Oxid\Mapper\Product\Product as ProductMapper;
 use jtl\Connector\Oxid\Mapper\Product\ProductI18n as ProductI18nMapper;
 use jtl\Connector\Oxid\Mapper\Product\ProductPrice as ProductPriceMapper;
 use jtl\Connector\Oxid\Mapper\Product\Product2Category as Product2CategoryMapper;
+use jtl\Connector\Oxid\Mapper\Product\ProductVariation as ProductVariationMapper;
+use jtl\Connector\Oxid\Mapper\Product\ProductVariationI18n as ProductVariationI18nMapper;
+use jtl\Connector\Oxid\Mapper\Product\CrossSelling as CrossSellingMapper;
+use jtl\Connector\Oxid\Mapper\Product\ProductWarehouseInfo as ProductWarehouseInfoMapper;
 
 class Product extends BaseController
 {
@@ -34,12 +38,20 @@ class Product extends BaseController
             $productI18nMapper = new ProductI18nMapper();
             $productPriceMapper = new ProductPriceMapper();
             $product2CategoryMapper = new Product2CategoryMapper();
+            $productVariationMapper = new ProductVariationMapper();
+            $productVariationI18nMapper = new ProductVariationI18nMapper();
+            $crossSellingMapper = new CrossSellingMapper();
+            $productWarehouseInfoMapper = new ProductWarehouseInfoMapper();
             
             $productFileDownloadMapper->fetchAll($container, 'product_file_download');
             $productMapper->fetchAll($container, 'product');
-            $productI18nMapper->fetchAll($container, 'product_i18n', $productI18nMapper->getProductI18n());           
+            $productI18nMapper->fetchAll($container, 'product_i18n', $productI18nMapper->getProductI18n());
             $productPriceMapper->fetchAll($container, 'product_price');
             $product2CategoryMapper->fetchAll($container, 'product2_category');
+            $productVariationMapper->fetchAll($container, 'product_variation', $productVariationMapper->getProductVariation());
+            $productVariationI18nMapper->fetchAll($container, 'product_variation_i18n', $productVariationI18nMapper->getProductVariationI18n());
+            $crossSellingMapper->fetchAll($container, 'cross_selling');
+            $productWarehouseInfoMapper->fetchAll($container, 'product_warehouse_info');
             
             $result[] = $container->getPublic(array('items'), array('_fields'));
 			
@@ -60,4 +72,18 @@ class Product extends BaseController
 
 /* non mapped class
  * - ProductSpecialPrice
+ * - ProductAttr
+ * - ProductAttrI18n
+ * - ProductInvisibility
+ * - ProductFunctionAttr
+ * - ProductVariationInvisibility
+ * - ProductVariationValue
+ * - ProductVariationValueI18n
+ * - ProductVariationValueExtraCharge
+ * - ProductVariationValueInvisibility
+ * - ProductVariationValueDependency
+ * - ProductVarCombination
+ * - ProductSpecific
+ * - MediaFileAttr
+ * - ProductConfigGroup
  */
