@@ -39,13 +39,13 @@ class Product extends BaseController
             $productMapper->fetchAll($container, 'product');
             $productI18nMapper->fetchAll($container, 'product_i18n', $productI18nMapper->getProductI18n());           
             $productPriceMapper->fetchAll($container, 'product_price');
-            $product2CategoryMapper->fetchAll($container, 'product_2_category');
+            $product2CategoryMapper->fetchAll($container, 'product2_category');
             
             $result[] = $container->getPublic(array('items'), array('_fields'));
 			
             $action->setResult($result);
         }
-        catch (\Exception $exc) 
+        catch (\Exception $exc)
         {
             $err = new Error();
             $err->setCode($exc->getCode());
