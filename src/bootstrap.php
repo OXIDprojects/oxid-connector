@@ -16,6 +16,7 @@ use jtl\Connector\Oxid\Connector;
 $condir = __DIR__ . '/../vendor/jtl/connector/';
 define('CONNECTOR_DIR', $condir);
 define('ENDPOINT_DIR', realpath(__DIR__ . '/../../'));
+define('OXID_DIR', ENDPOINT_DIR . "/oxid-shop/");
 
 // Connector instance
 $connector = Connector::getInstance();

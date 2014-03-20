@@ -21,6 +21,7 @@ use jtl\Connector\Oxid\Mapper\Product\ProductVariation as ProductVariationMapper
 use jtl\Connector\Oxid\Mapper\Product\ProductVariationI18n as ProductVariationI18nMapper;
 use jtl\Connector\Oxid\Mapper\Product\CrossSelling as CrossSellingMapper;
 use jtl\Connector\Oxid\Mapper\Product\ProductWarehouseInfo as ProductWarehouseInfoMapper;
+use jtl\Connector\Oxid\Mapper\Product\MediaFile as MediaFileMapper;
 
 class Product extends BaseController
 {
@@ -42,6 +43,7 @@ class Product extends BaseController
             $productVariationI18nMapper = new ProductVariationI18nMapper();
             $crossSellingMapper = new CrossSellingMapper();
             $productWarehouseInfoMapper = new ProductWarehouseInfoMapper();
+            $mediaFileMapper = new MediaFileMapper();
             
             $productFileDownloadMapper->fetchAll($container, 'product_file_download');
             $productMapper->fetchAll($container, 'product');
@@ -52,6 +54,7 @@ class Product extends BaseController
             $productVariationI18nMapper->fetchAll($container, 'product_variation_i18n', $productVariationI18nMapper->getProductVariationI18n());
             $crossSellingMapper->fetchAll($container, 'cross_selling');
             $productWarehouseInfoMapper->fetchAll($container, 'product_warehouse_info');
+            $mediaFileMapper->fetchAll($container, 'media_file', $mediaFileMapper->getMediaFile());
             
             $result[] = $container->getPublic(array('items'), array('_fields'));
 			

@@ -17,12 +17,10 @@ class Config extends BaseLoader
 {
     public function __construct()
     {
-        $oxidShopPath = ENDPOINT_DIR . "/oxid-shop/";
-
         $ConfDatei = "config.inc.php";
-        include($oxidShopPath . $ConfDatei);
+        include(OXID_DIR . $ConfDatei);
 
         $ConfkDatei = "core/oxconfk.php";
-        include($oxidShopPath . $ConfkDatei);
+        include(OXID_DIR . $ConfkDatei);
     }
 }
