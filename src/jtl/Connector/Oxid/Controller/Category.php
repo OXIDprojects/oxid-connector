@@ -7,6 +7,7 @@ use jtl\Core\Exception\DatabaseException;
 use jtl\Core\Exception\TransactionException;
 
 use jtl\Connector\Result\Action;
+use jtl\Connector\Model\Statistic;
 use jtl\Connector\ModelContainer\CategoryContainer;
 use jtl\Connector\Result\Transaction as TransactionResult;
 use jtl\Connector\Transaction\Handler as TransactionHandler;
@@ -56,6 +57,33 @@ class Category extends BaseController
         return $action;
         
     }
+    
+    public function statistic($params)
+    {
+        $action = new Action();
+        $action->setHandled(true);
+        
+        try {
+            $categoryMapper = new CategoryMapper();
+            
+            $statistic = new Statistic();
+            $statistic->_controllerName = lcfirst(ClassName::getFromNS(get_called_class()));
+            $statistic->_available = $categoryMapper->getAvailableCount();
+            $statistic->_pending = 0;
+
+            $action->setResult($statistic->getPublic(array('_fields', '_isEncrypted')));
+        }
+        catch (\Exception $exc) {
+            $err = new Error();
+            $err->setCode($exc->getCode());
+            $err->setMessage($exc->getMessage());
+            $action->setError($err);
+        }
+        
+        return $action;
+    }
+    
+    
 }
 
 /* non mapped Class

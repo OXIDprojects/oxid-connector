@@ -35,7 +35,7 @@ class Connector extends BaseController
             //'Image',
             'Product',
             'Manufacturer',
-            'Specific'
+            //'Specific'
         );
         
         if($params !== null && $params) {

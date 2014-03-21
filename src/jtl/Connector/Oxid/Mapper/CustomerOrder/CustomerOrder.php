@@ -35,6 +35,15 @@ class CustomerOrder extends BaseMapper
             "_paymentModuleId" => "OXPAYMENTID"
         )
     );
+    
+    public function getAvailableCount()
+    {
+        $oxidConf = new Config();
+        
+        $sqlCount = $this->_db->query(" SELECT COUNT(*) FROM oxorder;");
+
+        return $sqlCount;
+    }
 }
 /* non mapped properties
 CustomerOrder:

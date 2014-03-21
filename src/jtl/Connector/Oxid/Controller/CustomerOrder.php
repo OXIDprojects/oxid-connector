@@ -57,6 +57,32 @@ class CustomerOrder extends BaseController
         return $action;
         
     }
+    
+    public function statistic($params)
+    {
+        $action = new Action();
+        $action->setHandled(true);
+        
+        try {
+            $customerOrderMapper = new CustomerOrderMapper();
+            
+            $statistic = new Statistic();
+            $statistic->_controllerName = lcfirst(ClassName::getFromNS(get_called_class()));
+            $statistic->_available = $customerOrderMapper->getAvailableCount();
+            $statistic->_pending = 0;
+
+            $action->setResult($statistic->getPublic(array('_fields', '_isEncrypted')));
+        }
+        catch (\Exception $exc) {
+            $err = new Error();
+            $err->setCode($exc->getCode());
+            $err->setMessage($exc->getMessage());
+            $action->setError($err);
+        }
+        
+        return $action;
+    }
+    
 }
 
 /* non mapped class

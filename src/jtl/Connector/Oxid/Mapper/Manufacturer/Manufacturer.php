@@ -20,6 +20,15 @@ class Manufacturer extends BaseMapper
                 "_name" => "OXTITLE"
             )
         );
+    
+    public function getAvailableCount()
+    {
+        $oxidConf = new Config();
+        
+        $sqlCount = $this->_db->query(" SELECT COUNT(*) FROM oxmanufacturers;");
+
+        return $sqlCount;
+    }
 }
 
 /* non mapped properties

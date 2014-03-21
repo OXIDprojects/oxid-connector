@@ -1,7 +1,9 @@
 <?php
 namespace jtl\Connector\Oxid\Mapper\Category;
 
+
 use jtl\Connector\Oxid\Mapper\BaseMapper;
+use jtl\Connector\Oxid\Config\Loader\Config;
 use jtl\Connector\ModelContainer\CategoryContainer;
 
 /**
@@ -21,9 +23,16 @@ class Category extends BaseMapper
             )
        );
     
+    
+    public function getAvailableCount()
+    {           
+        $oxidConf = new Config();
+        
+        $sqlCount = $this->_db->query(" SELECT COUNT(*) FROM oxcategories;");
+
+        return $sqlCount;
+    }
 }
-
-
 
 /* non mapped properties
 Category:

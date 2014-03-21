@@ -43,6 +43,15 @@ class Customer extends BaseMapper
     public function _street($data) {
     	return "{$data['OXSTREET']}  {$data['OXSTREETNR']}";
     }
+    
+    public function getAvailableCount()
+    {
+        $oxidConf = new Config();
+        
+        $sqlCount = $this->_db->query(" SELECT COUNT(*) FROM oxuser;");
+
+        return $sqlCount;
+    }
 }
 /* non mapped properties
 Customer:

@@ -36,6 +36,15 @@ class Product extends BaseMapper
                     "_isMasterProduct" => null
                 )
         );
+
+    public function getAvailableCount()
+    {
+        $oxidConf = new Config();
+        
+        $sqlCount = $this->_db->query(" SELECT COUNT(*) FROM oxarticles;");
+
+        return $sqlCount;
+    }
     
     //_vat = OXVAT(Spezielle MwSt) Normale MwSt in Currency-Blob "oxconfig"
     //_basePriceUnitId = Preis wird bereits in der Artikel Tabelle vergeben.
