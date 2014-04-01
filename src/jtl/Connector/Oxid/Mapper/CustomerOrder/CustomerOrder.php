@@ -33,17 +33,29 @@ class CustomerOrder extends BaseMapper
             "_status" => "OXBILLSTATEID",
             "_created" => "OXORDERDATE",
             "_paymentModuleId" => "OXPAYMENTID"
+        ),
+        "mapPush" => array(
+            "OXID" => "_id",
+            "OXUSERID" => "_customerId",
+            "OXDELTYPE" => "_shippingMethodId",
+            "OXLANG" => "_localeName",
+            "OXCURRENCY" => "_currencyIso",
+            "OXORDERDATE" => "_estimatedDeliveryDate",
+            "OXVOUCHERDISCOUNT" => "_credit",
+            "OXARTVATPRICE1" => "_totalSum",
+            "OXDELTYPE" => "_shippingMethodName",
+            "OXMOBFON" => "_orderNumber",
+            "OXSENDDATE" => "_shippingDate",
+            "OXPAID" => "_paymentDate",
+            "OXTRACKCODE" => "_tracking",
+            "OXREMARK" => "_note",
+            "OXTRACKCODE" => "_trackingURL",
+            "OXIP" => "_ip",
+            "OXBILLSTATEID" => "_status",
+            "OXORDERDATE" => "_created",
+            "OXPAYMENTID" => "_paymentModuleId"
         )
     );
-    
-    public function getAvailableCount()
-    {
-        $oxidConf = new Config();
-        
-        $sqlCount = $this->_db->query(" SELECT COUNT(*) FROM oxorder;");
-
-        return $sqlCount;
-    }
 }
 /* non mapped properties
 CustomerOrder:

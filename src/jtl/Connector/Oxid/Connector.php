@@ -73,25 +73,4 @@ class Connector extends BaseConnector
             throw new TransactionException("Only main controller can handle commit actions");
         }
     }
-    /*
-    public function getController()
-    {
-        return $this->_controller;
-    }
-
-    public function setController(CoreController $controller)
-    {
-        $this->_controller = $controller;
-    }
-
-    public function getAction()
-    {
-        return $this->_action;
-    }
-
-    public function setAction($action)
-    {
-        $this->_action = $action;
-    }
-    */
 }

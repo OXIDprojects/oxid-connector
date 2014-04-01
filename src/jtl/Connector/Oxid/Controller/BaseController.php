@@ -72,16 +72,13 @@ class BaseController extends Controller
             $action->setHandled(true);
             
             try {
-                $container = MainContainer::getContainer($this->getMethod()->getController(), $trid);
+                $container = TransactionHandler::getContainer($this->getMethod()->getController(), $trid);
                 
                 $mapper = new $class();
                 
-                $result = new TransactionResult();
-                $result->setTransactionId($trid);
-                
-                if($mapper->updateAll($container)) {
-                    $action->setResult($result->getPublic());
-                }
+                $result = $mapper->updateAll($container,$trid);
+             
+                $action->setResult($result->getPublic());
             }
             catch (\Exception $exc) {
                 $err = new Error();
@@ -108,7 +105,7 @@ class BaseController extends Controller
      */
     public function statistic($params) {
         $reflect = new \ReflectionClass($this);
-        $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}";
+        $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}\\{$reflect->getShortName()}";
         
         if(class_exists($class)) {
             $action = new Action();
@@ -119,8 +116,11 @@ class BaseController extends Controller
                 
                 $statModel = new Statistic();
                 
-                $statModel->_available = $mapper->fetchCount();                
-                $statModel->_pending = 0;   
+                $statModel->_available = $mapper->fetchCount();
+                
+                
+                
+                $statModel->_pending = 0;
                 $statModel->_controllerName = lcfirst($reflect->getShortName());
                 
                 $action->setResult($statModel->getPublic(array("_fields", "_isEncrypted")));
@@ -131,7 +131,6 @@ class BaseController extends Controller
                 $err->setMessage($exc->getMessage());
                 $action->setError($err);
             }
-            
             return $action;
         }
     }
@@ -143,5 +142,4 @@ class BaseController extends Controller
 	public function push($params) {
 		
 	}
-	
 }

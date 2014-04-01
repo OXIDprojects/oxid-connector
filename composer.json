@@ -4,25 +4,13 @@
     "description": "Oxid Connector PHP 5.3 based on jtl/connector",
     "keywords": ["jtl", "Oxid", "Connector"],
     "homepage": "http://www.jtl-software.de",
-    "license": "GPL",
+    "license": "LGPL",
     "authors": [
         {
             "name": "JTL-Software GmbH",
             "email": "info@jtl-software.de",
             "homepage": "http://www.jtl-software.de",
             "role": "Founder"
-        }
-    ],
-    "repositories": [
-        {
-            "type": "git",
-            "url": "git@gitlab.jtl-software.de:jtl-software-gmbh/jtlconnector.git",
-            "reference": "origin/master"
-        },
-        {
-            "type": "git",
-            "url": "git@gitlab.jtl-software.de:jtl-software-gmbh/jtlcore.git",
-            "reference": "origin/master"
         }
     ],
     "require": {

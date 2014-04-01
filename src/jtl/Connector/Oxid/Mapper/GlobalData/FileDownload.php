@@ -23,7 +23,6 @@ class FileDownload extends BaseMapper
     );
     
     public function _maxDays($data) {
-    	// Muss noch durch 24 und aufgerundet werden!
         if(isset($data['OXLINKEXPTIME']))
         {
             $maxDays = round($data['OXLINKEXPTIME'] / 24);

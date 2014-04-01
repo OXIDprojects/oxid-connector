@@ -2,6 +2,7 @@
 namespace jtl\Connector\Oxid\Mapper\Product;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
+use jtl\Connector\Oxid\Config\Loader\Config;
 use jtl\Connector\ModelContainer\ProductContainer;
 
 /**
@@ -36,15 +37,20 @@ class Product extends BaseMapper
                     "_isMasterProduct" => null
                 )
         );
-
-    public function getAvailableCount()
-    {
-        $oxidConf = new Config();
-        
-        $sqlCount = $this->_db->query(" SELECT COUNT(*) FROM oxarticles;");
-
-        return $sqlCount;
-    }
+    
+    public function _isMasterProduct($data)
+    {            
+            $oxidConf = new Config();
+            
+            $sqlResult = $this->_db->query("SELECT Count(OXPARENTID) AS ParentCount FROM oxid_michele.oxarticles
+                                            WHERE OXPARENTID = '{$data['OXID']}';");
+            
+            if(($sqlResult[0]['ParentCount'] != 0))
+            {
+                return true;    
+            }            
+        return false;
+    }   
     
     //_vat = OXVAT(Spezielle MwSt) Normale MwSt in Currency-Blob "oxconfig"
     //_basePriceUnitId = Preis wird bereits in der Artikel Tabelle vergeben.

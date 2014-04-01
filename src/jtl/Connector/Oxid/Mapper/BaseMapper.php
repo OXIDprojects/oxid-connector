@@ -77,7 +77,7 @@ class BaseMapper
             $query = isset($this->_config['query']) ? $this->_config['query'] : 'SELECT * FROM '.$this->_config['table'];
             $dbResult = $this->_db->query($query);
         }
-     
+        
         $return = array();
         
         foreach($dbResult as $data)
@@ -99,21 +99,15 @@ class BaseMapper
         }
     }
     
-    //ToDo Herr Berger!!!
     public function fetchCount() {	    	
-	    //$objs = $this->_db->query("SELECT count(*) as count FROM {$this->_config['table']} LIMIT 1", array("return" => "object"));
+	    $objs = $this->_db->query("SELECT count(*) as count FROM {$this->_config['table']} LIMIT 1", array("return" => "object"));
         
-        $objs = $this->_db->query("SELECT count(*) as count FROM oxarticles LIMIT 1", array("return" => "object"));
-        
-        die(print_r($objs));
-        
-	    if ($objs !== null) {      
-            return intval($objs[0]->count);
+        if ($objs !== null) {
+	        return intval($objs[0]->count);
 	    }
         
 	    return 0;
 	}
-    
     
     /**
      * Summary of checkEnterNetPrice
@@ -181,7 +175,7 @@ class BaseMapper
     public function getLanguageIDs()
     {   
         $OxidConf = new Config();        
-                
+        
         $SQLResult = $this->_db->query(" SELECT DECODE(OXVARVALUE, '{$OxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
                  " WHERE OXVARNAME = 'aLanguages' OR OXVARNAME = 'aLanguageParams' ");
         
@@ -199,14 +193,14 @@ class BaseMapper
                 default:
                     $VarName = "No VarName";
                     break;
-            }                
+            }
             
             $LanguageResult[$VarName] = unserialize($SQLResult[$i]['OXVARVALUEDECODED']);
         }
         
         //Migrieren der "aLanguageParams" in die "aLanguages"
         foreach ($LanguageResult['aLanguages'] as $key => $value)
-        {                   
+        {
             $this->array_put_to_position($LanguageResult['aLanguages'][$key], $LanguageResult["aLanguageParams"][$key], 0, "name");
         }
         
@@ -214,7 +208,7 @@ class BaseMapper
         unset($LanguageResult["aLanguageParams"]);
         
         return $LanguageResult['aLanguages'];
-    }   
+    }
     
     
     /**
@@ -230,23 +224,23 @@ class BaseMapper
         $count = 0;
         $return = array();
         foreach ($array as $k => $v) 
-        {   
+        {
             // Füge neues Objekt hinzu
             if ($count == $position)
-            {   
+            {
                 if (!$name) $name = $count;
                 $return[$name] = $object;
                 $inserted = true;
-            }   
+            }
             // Füge altes Objekt hinzu
             $return[$k] = $v; 
             $count++;
-        }   
+        }
         if (!$name) $name = $count;
         if (!$inserted) $return[$name];
         
         $array = $return;
         
         return $array;
-    }    
+    }
 }

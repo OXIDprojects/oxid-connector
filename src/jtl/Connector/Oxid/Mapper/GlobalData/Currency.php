@@ -84,3 +84,10 @@ class Currency extends BaseMapper
         return $currencyResult;
     }
 }
+
+/* non mapped properties
+Currency:
+ * _iso
+ * _isDefault
+ * _hasCurrencySignBeforeValue
+ */

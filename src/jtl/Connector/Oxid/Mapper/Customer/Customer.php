@@ -15,7 +15,6 @@ class Customer extends BaseMapper
         "table" => "oxuser",
         "mapPull" => array(
             "_id" => "OXID",
-            "_customerGroupId" => "0",
             "_customerNumber" => "OXCUSTNR",
             "_salutation" => "OXSAL",
             "_firstName" => "OXFNAME",
@@ -37,6 +36,31 @@ class Customer extends BaseMapper
             "_created" => "OXCREATE",
             "_modified" => "OXTIMESTAMP",
             "_IsActive" => "OXACTIVE"
+        ),
+        "mapPush" => array(
+            "OXID" => "_id",
+            "OXCUSTNR" => "_customerNumber",
+            "OXSAL" => "_salutation",
+            "OXFNAME" => "_firstName",
+            "OXLNAME" => "_lastName",
+            "OXCOMPANY" => "_company",
+            "OXSTREET" => null,
+            "OXSTREETNR" => null,
+            "OXADDINFO" => "_deliveryInstruction",
+            "OXZIP" => "_zipCode",
+            "OXCITY" => "_city",
+            "OXSTATEID" => "_state",
+            "OXPRIVFON" => "_phone",
+            "OXMOBFON" => "_mobile",
+            "OXFAX" => "_fax",
+            "OXUSERNAME" => "_eMail",
+            "OXUSTID" => "_vatNumber",
+            "OXURL" => "_www",
+            "OXDBOPTIN" => "_hasNewsletterSubscription",
+            "OXBIRTHDATE" => "_birthday",
+            "OXCREATE" => "_created",
+            "OXTIMESTAMP" => "_modified",
+            "OXACTIVE" => "_IsActive"
         )
     );
     
@@ -44,17 +68,21 @@ class Customer extends BaseMapper
     	return "{$data['OXSTREET']}  {$data['OXSTREETNR']}";
     }
     
-    public function getAvailableCount()
+    public function OXSTREET($data)
     {
-        $oxidConf = new Config();
-        
-        $sqlCount = $this->_db->query(" SELECT COUNT(*) FROM oxuser;");
-
-        return $sqlCount;
+        preg_match('/^[a-z ]*/i', $data['_street'], $result);
+        return  $result[0];
+    }
+    
+    public function OXSTREETNR($data)
+    {
+        preg_match('/[0-9].*/i', $data['_street'], $result);
+        return  $result[0];
     }
 }
 /* non mapped properties
 Customer:
+_customerGroupId
 _title
 _extraAddressLine
 _countryIso

@@ -21,7 +21,17 @@ class CustomerOrderItem extends BaseMapper
             "_price" => "OXPRICE",
             "_vat" => "OXVAT",
             "_quantity" => "OXAMOUNT",
-            "_configItemId" => "OXSELVARIANT",
+            "_configItemId" => "OXSELVARIANT"
+        ),
+        "mapPush" => array(
+            "OXID" => "_id",
+            "OXARTID" => "_productId",
+            "OXORDERID" => "_customerOrderId",
+            "OXTITLE" => "_name",
+            "OXPRICE" => "_price",
+            "OXVAT" => "_vat",
+            "OXAMOUNT" => "_quantity",
+            "OXSELVARIANT" => "_configItemId"
         )
     );
 }

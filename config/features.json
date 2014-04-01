@@ -12,9 +12,12 @@
                         "comment": ""
                     },
                     "pull": {
-                        "supported": false,
+                        "supported": true,
                         "comment": "",
                         "properties": [
+                            "Id",
+                            "ParentCategoryId",
+                            "Sort"
                         ]
                     }
                 },
@@ -24,9 +27,14 @@
                         "comment": ""
                     },
                     "pull": {
-                        "supported": false,
+                        "supported": true,
                         "comment": "",
                         "properties": [
+                            "LocaleName",
+                            "CategoryId",
+                            "Name",
+                            "UrlPath",
+                            "Description"
                         ]
                     }
                 },
@@ -36,9 +44,12 @@
                         "comment": ""
                     },
                     "pull": {
-                        "supported": false,
+                        "supported": true,
                         "comment": "",
                         "properties": [
+                            "Id",
+                            "CategoryId",
+                            "Sort"
                         ]
                     }
                 },
@@ -48,9 +59,12 @@
                         "comment": ""
                     },
                     "pull": {
-                        "supported": false,
+                        "supported": true,
                         "comment": "",
                         "properties": [
+                            "LocaleName",
+                            "CategoryAttrId",
+                            "Value"
                         ]
                     }
                 }
@@ -67,9 +81,163 @@
                         "comment": ""
                     },
                     "pull": {
-                        "supported": false,
+                        "supported": true,
                         "comment": "",
                         "properties": [
+                            "Id",
+                            "CustomerGroupId",
+                            "CustomerNumber",
+                            "Salutation",
+                            "FirstName",
+                            "LastName",
+                            "Company",
+                            "Street",
+                            "DeliveryInstruction",
+                            "ZipCode",
+                            "City",
+                            "State",
+                            "Phone",
+                            "Mobile",
+                            "Fax",
+                            "EMail",
+                            "VatNumber",
+                            "Www",
+                            "HasNewsletterSubscription",
+                            "Birthday",
+                            "Created",
+                            "Modified",
+                            "IsActive"
+                        ]
+                    }
+                }
+            }
+        },
+        "customerOrder": {
+            "comment": "",
+            "supported": true,
+            "transactional": true,
+            "objects": {
+                "customerOrder": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "Id",
+                            "CustomerId",
+                            "ShippingAddressId",
+                            "LocaleName",
+                            "CurrencyIso",
+                            "EstimatedDeliveryDate",
+                            "Credit",
+                            "TotalSum",
+                            "ShippingMethodName",
+                            "OrderNumber",
+                            "ShippingDate",
+                            "PaymentDate",
+                            "Tracking",
+                            "Note",
+                            "TrackingURL",
+                            "Ip",
+                            "Status",
+                            "Created",
+                            "PaymentModuleId"
+                        ]
+                    }
+                },
+                "customerOrderItem": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "Id",
+                            "ProductId",
+                            "CustomerOrderId",
+                            "Name",
+                            "Price",
+                            "Vat",
+                            "Quantity",
+                            "ConfigItemId"
+                        ]
+                    }
+                },
+                "customerOrderPaymentInfo": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "Id",
+                            "CustomerOrderId",
+                            "BankName",
+                            "BankCode",
+                            "AccountHolder",
+                            "AccountNumber",
+                            "Iban",
+                            "Bic"
+                        ]
+                    }
+                },
+                "customerOrderShippingAddress": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "Id",
+                            "CustomerId",
+                            "Salutation",
+                            "FirstName",
+                            "LastName",
+                            "Company",
+                            "DeliveryInstruction",
+                            "Street",
+                            "ZipCode",
+                            "City",
+                            "State",
+                            "CountryIso",
+                            "Phone",
+                            "Fax"
+                        ]
+                    }
+                },
+                "customerOrderBillingAddress": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "Id",
+                            "CustomerId",
+                            "Salutation",
+                            "FirstName",
+                            "LastName",
+                            "Company",
+                            "DeliveryInstruction",
+                            "Street",
+                            "ZipCode",
+                            "City",
+                            "State",
+                            "CountryIso",
+                            "Phone",
+                            "Fax",
+                            "EMail"
                         ]
                     }
                 }
@@ -86,45 +254,24 @@
                         "comment": ""
                     },
                     "pull": {
-                        "supported": false,
+                        "supported": true,
                         "comment": "",
                         "properties": [
-                        ]
-                    }
-                },
-                "currency": {
-                    "push": {
-                        "supported": false,
-                        "comment": ""
-                    },
-                    "pull": {
-                        "supported": false,
-                        "comment": "",
-                        "properties": [
-                        ]
-                    }
-                },
-                "customerGroup": {
-                    "push": {
-                        "supported": false,
-                        "comment": ""
-                    },
-                    "pull": {
-                        "supported": false,
-                        "comment": "",
-                        "properties": [
-                        ]
-                    }
-                },
-                "customerGroupI18n": {
-                    "push": {
-                        "supported": false,
-                        "comment": ""
-                    },
-                    "pull": {
-                        "supported": false,
-                        "comment": "",
-                        "properties": [
+                            "Name",
+                            "Street",
+                            "ZipCode",
+                            "City",
+                            "CountryIso",
+                            "Phone",
+                            "Fax",
+                            "EMail",
+                            "Www",
+                            "BankCode",
+                            "AccountNumber",
+                            "BankName",
+                            "VatNumber",
+                            "Iban",
+                            "Bic"
                         ]
                     }
                 },
@@ -134,33 +281,60 @@
                         "comment": ""
                     },
                     "pull": {
-                        "supported": false,
+                        "supported": true,
                         "comment": "",
                         "properties": [
+                            "Id",
+                            "NameEnglish",
+                            "NameGerman",
+                            "LocaleName",
+                            "IsDefault"
                         ]
                     }
                 },
-                "fileDownload": {
+                "currency": {
                     "push": {
                         "supported": false,
                         "comment": ""
                     },
                     "pull": {
-                        "supported": false,
+                        "supported": true,
                         "comment": "",
                         "properties": [
+                            "Id",
+                            "Name",
+                            "NameHtml",
+                            "Factor",
+                            "DelimiterCent",
+                            "DelimiterThousand"
                         ]
                     }
                 },
-                "fileDownloadI18n": {
+                "customerGroup": {
                     "push": {
                         "supported": false,
                         "comment": ""
                     },
                     "pull": {
-                        "supported": false,
+                        "supported": true,
                         "comment": "",
                         "properties": [
+                            "Id"
+                        ]
+                    }
+                },
+                "customerGroupI18n": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "LocaleName",
+                            "CustomerGroupId",
+                            "Name"
                         ]
                     }
                 },
@@ -170,9 +344,11 @@
                         "comment": ""
                     },
                     "pull": {
-                        "supported": false,
+                        "supported": true,
                         "comment": "",
                         "properties": [
+                            "Id",
+                            "Rate"
                         ]
                     }
                 },
@@ -182,9 +358,42 @@
                         "comment": ""
                     },
                     "pull": {
-                        "supported": false,
+                        "supported": true,
                         "comment": "",
                         "properties": [
+                            "Id",
+                            "Name"
+                        ]
+                    }
+                },
+                "fileDownload": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "Id",
+                            "MaxDownloads",
+                            "MaxDays",
+                            "Created"
+                        ]
+                    }
+                },
+                "fileDownloadI18n": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "FileDownloadId",
+                            "LocaleName",
+                            "Name"
                         ]
                     }
                 }
@@ -195,27 +404,47 @@
             "supported": true,
             "transactional": true,
             "objects": {
+                "productFileDownload": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "ProductId",
+                            "FileDownloadId"
+                        ]
+                    }
+                },
                 "product": {
                     "push": {
                         "supported": false,
                         "comment": ""
                     },
                     "pull": {
-                        "supported": false,
+                        "supported": true,
                         "comment": "",
                         "properties": [
-                        ]
-                    }
-                },
-                "product2Category": {
-                    "push": {
-                        "supported": false,
-                        "comment": ""
-                    },
-                    "pull": {
-                        "supported": false,
-                        "comment": "",
-                        "properties": [
+                            "Id",
+                            "MasterProductId",
+                            "ManufacturerId",
+                            "UnitId",
+                            "BasePriceUnitId",
+                            "Sku",
+                            "StockLevel",
+                            "Vat",
+                            "MinimumOrderQuantity",
+                            "Ean",
+                            "ProductWeight",
+                            "RecommendedRetailPrice",
+                            "Keywords",
+                            "Sort",
+                            "Created",
+                            "AvailableFrom",
+                            "ManufacturerNumber",
+                            "IsMasterProduct"
                         ]
                     }
                 },
@@ -225,9 +454,15 @@
                         "comment": ""
                     },
                     "pull": {
-                        "supported": false,
+                        "supported": true,
                         "comment": "",
                         "properties": [
+                            "LocaleName",
+                            "ProductId",
+                            "Name",
+                            "UrlPath",
+                            "Description",
+                            "ShortDescription"
                         ]
                     }
                 },
@@ -237,9 +472,104 @@
                         "comment": ""
                     },
                     "pull": {
-                        "supported": false,
+                        "supported": true,
                         "comment": "",
                         "properties": [
+                            "ProductId",
+                            "NetPrice"
+                        ]
+                    }
+                },
+                "product2Category": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "Id",
+                            "CategoryId",
+                            "ProductId"
+                        ]
+                    }
+                },
+                "productVariation": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "Id",
+                            "ProductId",
+                            "Sort"
+                        ]
+                    }
+                },
+                "productVariationI18n": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "LocaleName",
+                            "ProductVariationId",
+                            "Name"
+                        ]
+                    }
+                },
+                "crossSelling": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "Id",
+                            "CrossSellingProductId",
+                            "ProductId"
+                        ]
+                    }
+                },
+                "productWarehouseInfo": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "ProductId",
+                            "StockLevel",
+                            "InflowDate"
+                        ]
+                    }
+                },
+                "mediaFile": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "Id",
+                            "ProductId",
+                            "Path",
+                            "Url",
+                            "Type",
+                            "Sort"
                         ]
                     }
                 }

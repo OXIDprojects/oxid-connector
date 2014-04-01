@@ -35,3 +35,9 @@ class ProductVariation extends BaseMapper
         return $sqlResult;
     }
 }
+
+/* non mapped properties
+ProductVariation:
+ * - _type
+ * 
+ */

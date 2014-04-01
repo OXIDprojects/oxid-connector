@@ -30,12 +30,43 @@ class CustomerOrderBillingAddress extends BaseMapper
             "_countryIso" => "OXBILLCOUNTRYID",
             "_phone" => "OXBILLFON",
             "_fax" => "OXBILLFAX",
-            "_eMail" => "OXBILLEMAIL",
+            "_eMail" => "OXBILLEMAIL"
+        ),
+        "mapPush" => array(
+            "OXID" => "_id",
+            "OXUSERID" => "_customerId",
+            "OXBILLSAL" => "_salutation",
+            "OXBILLFNAME" => "_firstName",
+            "OXBILLLNAME" => "_lastName",
+            "OXBILLCOMPANY" => "_company",
+            "OXBILLADDINFO" => "_deliveryInstruction",
+            "OXBILLSTREET" => null,
+            "OXBILLSTREETNR" => null,
+            "OXBILLZIP" => "_zipCode",
+            "OXBILLCITY" => "_city",
+            "OXBILLSTATEID" => "_state",
+            "OXBILLCOUNTRYID" => "_countryIso",
+            "OXBILLFON" => "_phone",
+            "OXBILLFAX" => "_fax",
+            "OXBILLEMAIL" => "_eMail"
         )
     );
     
-    public function _street($data) {
+    public function _street($data) 
+    {
     	return "{$data['OXBILLSTREET']}  {$data['OXBILLSTREETNR']}";
+    }
+    
+    public function OXBILLSTREET($data)
+    {
+        preg_match('/^[a-z ]*/i', $data['_street'], $result);
+        return  $result[0];
+    }
+    
+    public function OXBILLSTREETNR($data)
+    {
+        preg_match('/[0-9].*/i', $data['_street'], $result);
+        return  $result[0];
     }
 }
 /* non mapped properties
@@ -43,7 +74,4 @@ CustomerOrderBillingAddress:
 _title
 _extraAddressLine
 _mobile
-
-
-
  */

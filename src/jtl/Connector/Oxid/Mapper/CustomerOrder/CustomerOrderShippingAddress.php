@@ -29,11 +29,41 @@ class CustomerOrderShippingAddress extends BaseMapper
             "_countryIso" => "OXDELCOUNTRYID",
             "_phone" => "OXDELFON",
             "_fax" => "OXDELFAX"
+        ),
+        "mapPush" => array(
+            "OXID" => "_id",
+            "OXUSERID" => "_customerId",
+            "OXDELSAL" => "_salutation",
+            "OXDELFNAME" => "_firstName",
+            "OXDELLNAME" => "_lastName",
+            "OXDELCOMPANY" => "_company",
+            "OXDELADDINFO" => "_deliveryInstruction",
+            "OXDELSTREET" => null,
+            "OXDELSTREETNR" => null,
+            "OXDELZIP" => "_zipCode",
+            "OXDELCITY" => "_city",
+            "OXDELSTATEID" => "_state",
+            "OXDELCOUNTRYID" => "_countryIso",
+            "OXDELFON" => "_phone",
+            "OXDELFAX" => "_fax"
         )
     );
     
-    public function _street($data) {
+    public function _street($data) 
+    {
     	return "{$data['OXDELSTREET']}  {$data['OXDELSTREETNR']}";
+    }
+    
+    public function OXDELSTREET($data)
+    {
+        preg_match('/^[a-z ]*/i', $data['_street'], $result);
+        return  $result[0];
+    }
+    
+    public function OXDELSTREETNR($data)
+    {
+        preg_match('/[0-9].*/i', $data['_street'], $result);
+        return  $result[0];
     }
 }
 /* non mapped properties

@@ -22,16 +22,6 @@ class Category extends BaseMapper
                 "_sort" => "OXSORT"
             )
        );
-    
-    
-    public function getAvailableCount()
-    {           
-        $oxidConf = new Config();
-        
-        $sqlCount = $this->_db->query(" SELECT COUNT(*) FROM oxcategories;");
-
-        return $sqlCount;
-    }
 }
 
 /* non mapped properties
