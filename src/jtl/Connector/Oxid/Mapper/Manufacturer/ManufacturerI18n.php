@@ -44,7 +44,7 @@ class ManufacturerI18n extends BaseMapper
                         $manufacturerI18nModel->_description = $value["OXSHORTDESC_{$langBaseId}"];
                         $manufacturerI18nModel->_titleTag = $value["OXTITLE_{$langBaseId}"];
                         
-                        $container->add('manufacturer_i18n', $manufacturerI18nModel->getPublic(array('_fields')));                    
+                        $container->add('manufacturer_i18n', $manufacturerI18nModel->getPublic(array('_fields')));
                     }
                 }
             }   

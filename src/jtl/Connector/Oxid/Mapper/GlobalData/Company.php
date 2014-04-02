@@ -30,6 +30,23 @@ class Company extends BaseMapper
                 "_vatNumber" => "OXVATNUMBER",
                 "_iban" => "OXIBANNUMBER",
                 "_bic" => "OXBICCODE"
+            ),
+            "mapPush" => array(
+                "OXCOMPANY" => "_name",
+                "OXSTREET" => "_street",
+                "OXZIP" => "_zipCode",
+                "OXCITY" => "_city",
+                "OXCOUNTRY" => "_countryIso",
+                "OXTELEFON" => "_phone",
+                "OXTELEFAX" => "_fax",
+                "OXINFOEMAIL" => "_eMail",
+                "OXURL" => "_www",
+                "OXBANKCODE" => "_bankCode",
+                "OXBANKNUMBER" => "_accountNumber",
+                "OXBANKNAME" => "_bankName",
+                "OXVATNUMBER" => "_vatNumber",
+                "OXIBANNUMBER" => "_iban",
+                "OXBICCODE" => "_bic"           
             )
         );
 }

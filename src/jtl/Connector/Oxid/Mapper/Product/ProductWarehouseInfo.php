@@ -19,6 +19,12 @@ class ProductWarehouseInfo extends BaseMapper
                     "_productId" => "OXID",
                     "_stockLevel" => "OXSTOCK",
                     "_inflowDate" => "OXDELIVERY"
+                ),
+            "mapPush" => array
+                (
+                    "OXID" => "_productId",
+                    "OXSTOCK" => "_stockLevel",
+                    "OXDELIVERY" => "_inflowDate"
                 )
         );
 }

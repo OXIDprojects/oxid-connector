@@ -15,9 +15,14 @@ class ProductFileDownload extends BaseMapper
             "table" => "oxfiles",
             "PK" => "OXID",
             "mapPull" => array
-                (
-                    "_productId" => "OXARTID",
-                    "_fileDownloadId" => "OXID"
-                )
+            (
+                "_productId" => "OXARTID",
+                "_fileDownloadId" => "OXID"
+            ),
+            "mapPush" => array
+            (
+                "OXARTID" => "_productId",
+                "OXID" => "_fileDownloadId"
+            )
         );
 }

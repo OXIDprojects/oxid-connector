@@ -16,6 +16,9 @@ class CustomerGroup extends BaseMapper
                 "pk" => "OXID",
                 "mapPull" => array(
                     "_id" => "OXID"
+                ),
+                "mapPush" => array(
+                    "OXID" => "_id"
                 )
             );
 }

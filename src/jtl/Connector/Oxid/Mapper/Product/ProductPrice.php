@@ -18,7 +18,12 @@ class ProductPrice extends BaseMapper
                 (
                     "_productId" => "OXID",
                     "_netPrice" => null
-                )
+                ),
+            "mapPush" => array
+            (
+                "OXID" => "_productId",
+                "OXPRICE" => null
+            )
         );
     
     public function _netPrice($data) {
@@ -38,6 +43,14 @@ class ProductPrice extends BaseMapper
         
         return $netPrice;
     }
+    
+    
+    public function OXPRICE($data)
+    {
+        //ToDO!!!
+    }
+    
+    
 }
 
 /* non mapped properties

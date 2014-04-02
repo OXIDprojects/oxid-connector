@@ -35,7 +35,24 @@ class Product extends BaseMapper
                     "_availableFrom" => "OXACTIVEFROM",
                     "_manufacturerNumber" => "OXMPN",
                     "_isMasterProduct" => null
-                )
+                ),
+               "mapPush" => array(
+                    "OXID" => "_id",
+                    "OXPARENTID" => "_masterProductId",
+                    "OXMANUFACTURERID" => "_manufacturerId",
+                    "OXUNITNAME" => "_unitId",
+                    "OXARTNUM" => "_sku",
+                    "OXSTOCK" => "_stockLevel",
+                    "OXUNITQUANTITY" => "_minimumOrderQuantity",
+                    "OXEAN" => "_ean",
+                    "OXWEIGHT" => "_productWeight",
+                    "OXTPRICE" => "_recommendedRetailPrice",
+                    "OXSEARCHKEYS" => "_keywords",
+                    "OXSORT" => "_sort",
+                    "OXINSERT" => "_created",
+                    "OXACTIVEFROM" => "_availableFrom",
+                    "OXMPN" => "_manufacturerNumber"
+               )
         );
     
     public function _isMasterProduct($data)
@@ -47,7 +64,7 @@ class Product extends BaseMapper
             
             if(($sqlResult[0]['ParentCount'] != 0))
             {
-                return true;    
+                return true;
             }            
         return false;
     }   
@@ -55,8 +72,6 @@ class Product extends BaseMapper
     //_vat = OXVAT(Spezielle MwSt) Normale MwSt in Currency-Blob "oxconfig"
     //_basePriceUnitId = Preis wird bereits in der Artikel Tabelle vergeben.
     //_basePriceDivisor ?
-    
-    //_isMasterProduct Wenn Artikel in ParentId eingetragen wurde ist der Artikel ein Materartikel in Oxid
 }
 
 /* non mapped properties

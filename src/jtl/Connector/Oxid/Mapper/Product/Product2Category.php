@@ -19,6 +19,11 @@ class Product2Category extends BaseMapper
                     "_id" => "OXID",
                     "_categoryId" => "OXCATNID",
                     "_productId" => "OXOBJECTID"
-                )
+                ),
+            "mapPush" => array(
+                "OXID" => "_id",
+                "OXCATNID" => "_categoryId",
+                "OXOBJECTID" => "_productId"
+            )   
         );
 }

@@ -19,6 +19,13 @@ class FileDownload extends BaseMapper
             "_maxDownloads" => "OXMAXDOWNLOADS",
             "_maxDays" => null,
             "_created" => "OXTIMESTAMP"
+        ),
+        "mapPush" => array(
+            "OXID" => "_id",
+            "OXMAXDOWNLOADS" => "_maxDownloads",
+            "OXLINKEXPTIME" => null,
+            "OXTIMESTAMP" => "_created"
+        
         )
     );
     
@@ -30,7 +37,12 @@ class FileDownload extends BaseMapper
         }else{
             return null;
         }
-    }          
+    }
+    
+    public function OXLINKEXPTIME($data) 
+    {
+        
+    }
 }
 
 /* non mapped properties

@@ -25,6 +25,11 @@ class ProductVariation extends BaseMapper
         }
     }
     
+     public function updateAll($container, $trid=null)
+     {
+        
+     }
+    
     public function getProductVariation()
     {
         $oxidConf = new Config();

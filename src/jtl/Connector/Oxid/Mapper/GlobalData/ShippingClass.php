@@ -17,6 +17,10 @@ protected $_config = array
             "mapPull" => array(
                 "_id" => "OXID",
                 "_name" => "OXTITLE"
+            ),
+            "mapPush" => array(
+                "OXID" => "_id",
+                "OXTITLE" => "_name"
             )
         );
 }

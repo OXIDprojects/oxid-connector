@@ -18,6 +18,10 @@ class Manufacturer extends BaseMapper
             (
                 "_id" => "OXID",
                 "_name" => "OXTITLE"
+            ),
+            "mapPush" => array(
+                "OXID" => "_id",
+                "OXTITLE" => "_name"
             )
         );
 }

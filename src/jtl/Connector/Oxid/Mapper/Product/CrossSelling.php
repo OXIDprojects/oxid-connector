@@ -19,6 +19,11 @@ class CrossSelling extends BaseMapper
                     "_id" => "OXID",
                     "_crossSellingProductId" => "OXARTICLENID",
                     "_productId" => "OXOBJECTID"
+                ),
+                "mapPush" => array(                
+                    "OXID" => "_id",
+                    "OXARTICLENID" => "_crossSellingProductId",
+                    "OXOBJECTID" => "_productId"
                 )
         );
 }
