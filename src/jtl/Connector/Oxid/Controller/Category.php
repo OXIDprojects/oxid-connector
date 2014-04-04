@@ -47,7 +47,7 @@ class Category extends BaseController
 			
 			$action->setResult($result);
         }
-        catch (\Exception $exc) 
+        catch (\Exception $exc)
         {
             $err = new Error();
             $err->setCode($exc->getCode());
@@ -56,6 +56,11 @@ class Category extends BaseController
         }
         
         return $action;
+        
+    }
+    
+    public function push($params)
+    {
         
     }
 }

@@ -15,10 +15,10 @@ class ProductPrice extends BaseMapper
             "table" => "oxarticles",
             "PK" => "OXID",
             "mapPull" => array
-                (
-                    "_productId" => "OXID",
-                    "_netPrice" => null
-                ),
+            (
+                "_productId" => "OXID",
+                "_netPrice" => null
+            ),
             "mapPush" => array
             (
                 "OXID" => "_productId",
@@ -47,7 +47,8 @@ class ProductPrice extends BaseMapper
     
     public function OXPRICE($data)
     {
-        //ToDO!!!
+        //Testen
+        return $data['_netPrice'] * "1,{$data['_vat']}";
     }
     
     

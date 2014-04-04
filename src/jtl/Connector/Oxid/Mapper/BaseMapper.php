@@ -167,6 +167,23 @@ class BaseMapper
         return $SQLResult[0]['OXVARVALUEDECODED'];
     }
     
+    /**
+     * Summary of stringToDateTime
+     * Formatiert einen TimeString
+     * zu einem DateTime um.
+     * @param $string
+     * @return $dateTime
+     */
+    public function stringToDateTime($string)
+    {
+        
+        $timestamp = strtotime($string);
+        $dateTime = date("c", $timestamp);
+        
+        return $dateTime;
+    }
+
+    
     
     /**
      * Summary of getLanguageIDs

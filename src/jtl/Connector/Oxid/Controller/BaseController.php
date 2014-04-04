@@ -118,8 +118,6 @@ class BaseController extends Controller
                 
                 $statModel->_available = $mapper->fetchCount();
                 
-                
-                
                 $statModel->_pending = 0;
                 $statModel->_controllerName = lcfirst($reflect->getShortName());
                 

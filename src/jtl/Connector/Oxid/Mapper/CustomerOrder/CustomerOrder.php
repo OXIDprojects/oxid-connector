@@ -19,19 +19,19 @@ class CustomerOrder extends BaseMapper
             "_shippingMethodId" => "OXDELTYPE",
             "_localeName" => "OXLANG",
             "_currencyIso" => "OXCURRENCY",
-            "_estimatedDeliveryDate" => "OXORDERDATE",
+            "_estimatedDeliveryDate" => null,
             "_credit" => "OXVOUCHERDISCOUNT",
             "_totalSum" => "OXARTVATPRICE1",
             "_shippingMethodName" => "OXDELTYPE",
             "_orderNumber" => "OXMOBFON",
-            "_shippingDate" => "OXSENDDATE",
-            "_paymentDate" => "OXPAID",
+            "_shippingDate" => null,
+            "_paymentDate" => null,
             "_tracking" => "OXTRACKCODE",
             "_note" => "OXREMARK",
             "_trackingURL" => "OXTRACKCODE",
             "_ip" => "OXIP",
             "_status" => "OXBILLSTATEID",
-            "_created" => "OXORDERDATE",
+            "_created" => null,
             "_paymentModuleId" => "OXPAYMENTID"
         ),
         "mapPush" => array(
@@ -56,6 +56,28 @@ class CustomerOrder extends BaseMapper
             "OXPAYMENTID" => "_paymentModuleId"
         )
     );
+    
+    
+    public function _estimatedDeliveryDate($data)
+    {
+        return $this->stringToDateTime($data['OXORDERDATE']);
+    }
+    
+    public function _shippingDate($data)
+    {
+        return $this->stringToDateTime($data['OXSENDDATE']);
+    }
+    
+    public function _paymentDate($data)
+    {
+        return $this->stringToDateTime($data['OXPAID']);
+    }
+    
+    public function _created($data)
+    {
+        return $this->stringToDateTime($data['OXORDERDATE']);
+    }
+    
 }
 /* non mapped properties
 CustomerOrder:

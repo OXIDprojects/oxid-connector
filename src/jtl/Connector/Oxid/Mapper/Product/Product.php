@@ -32,7 +32,7 @@ class Product extends BaseMapper
                     "_keywords" => "OXSEARCHKEYS",
                     "_sort" => "OXSORT",
                     "_created" => "OXINSERT",
-                    "_availableFrom" => "OXACTIVEFROM",
+                    "_availableFrom" => null,
                     "_manufacturerNumber" => "OXMPN",
                     "_isMasterProduct" => null
                 ),
@@ -55,6 +55,16 @@ class Product extends BaseMapper
                )
         );
     
+    public function _created($data)
+    {
+        return $this->stringToDateTime($data['OXINSERT']);
+    }
+    
+    public function _availableFrom($data)
+    {
+        return $this->stringToDateTime($data['OXACTIVEFROM']);
+    }
+    
     public function _isMasterProduct($data)
     {            
             $oxidConf = new Config();
@@ -69,7 +79,18 @@ class Product extends BaseMapper
         return false;
     }   
     
-    //_vat = OXVAT(Spezielle MwSt) Normale MwSt in Currency-Blob "oxconfig"
+    //ToDo!
+    //public function _vat($data)
+    //{
+    //    if(!empty($data['OXVAT']))
+    //    {
+    //        return $data['OXVAT'];
+    //    }else{
+    //        die(print_r($this->getDefaultVAT));
+    //        return $this->getDefaultVAT;
+    //    }
+    //}
+    
     //_basePriceUnitId = Preis wird bereits in der Artikel Tabelle vergeben.
     //_basePriceDivisor ?
 }

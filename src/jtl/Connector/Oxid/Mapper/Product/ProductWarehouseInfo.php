@@ -18,7 +18,7 @@ class ProductWarehouseInfo extends BaseMapper
                 (
                     "_productId" => "OXID",
                     "_stockLevel" => "OXSTOCK",
-                    "_inflowDate" => "OXDELIVERY"
+                    "_inflowDate" => null
                 ),
             "mapPush" => array
                 (
@@ -27,6 +27,11 @@ class ProductWarehouseInfo extends BaseMapper
                     "OXDELIVERY" => "_inflowDate"
                 )
         );
+    
+    public function _inflowDate($data)
+    {
+        return $this->stringToDateTime($data['OXDELIVERY']);
+    }
 }
 
 /* non mapped properties

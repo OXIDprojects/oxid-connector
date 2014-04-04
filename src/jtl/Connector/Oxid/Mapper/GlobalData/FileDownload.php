@@ -25,7 +25,6 @@ class FileDownload extends BaseMapper
             "OXMAXDOWNLOADS" => "_maxDownloads",
             "OXLINKEXPTIME" => null,
             "OXTIMESTAMP" => "_created"
-        
         )
     );
     
@@ -41,7 +40,18 @@ class FileDownload extends BaseMapper
     
     public function OXLINKEXPTIME($data) 
     {
-        
+        if(isset($data['_maxDays']))
+        {
+            $maxTime = round($data['OXLINKEXPTIME'] * 24);
+            return $maxTime;
+        }else{
+            return null;    
+        }
+    }
+    
+    public function _created($data)
+    {
+        return $this->stringToDateTime($data['OXTIMESTAMP']);
     }
 }
 

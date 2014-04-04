@@ -32,9 +32,9 @@ class Customer extends BaseMapper
             "_vatNumber" => "OXUSTID",
             "_www" => "OXURL",
             "_hasNewsletterSubscription" => "OXDBOPTIN",
-            "_birthday" => "OXBIRTHDATE",
-            "_created" => "OXCREATE",
-            "_modified" => "OXTIMESTAMP",
+            "_birthday" => null,
+            "_created" => null,
+            "_modified" => null,
             "_IsActive" => "OXACTIVE"
         ),
         "mapPush" => array(
@@ -64,8 +64,25 @@ class Customer extends BaseMapper
         )
     );
     
-    public function _street($data) {
+    //ToDO!
+    public function _street($data)
+    {
     	return "{$data['OXSTREET']}  {$data['OXSTREETNR']}";
+    }
+    
+    public function _birthday($data)
+    {
+        return $this->stringToDateTime($data['OXBIRTHDATE']);
+    }
+    
+    public function _created($data)
+    {
+        return $this->stringToDateTime($data['OXCREATE']);
+    }
+    
+    public function _modified($data)
+    {
+        return $this->stringToDateTime($data['OXTIMESTAMP']);
     }
     
     public function OXSTREET($data)
