@@ -46,10 +46,36 @@ class CategoryI18n extends BaseMapper
                         $categoryI18nModel->_urlPath = $value["OXEXTLINK"];
                         $categoryI18nModel->_description = $value["OXLONGDESC_{$langBaseId}"];
                         
-                        $container->add('category_i18n', $categoryI18nModel->getPublic(array('_fields')));                    
+                        $container->add('category_i18n', $categoryI18nModel->getPublic(array('_fields')));
                     }
                 }
             }   
+        }
+    }
+    
+    public function updateAll($container, $trid=null) {
+        $result = new TransactionResult();
+        $result->setTransactionId($trid);
+        
+        foreach ($container->get('categoryI18n') as $categoryI18n)
+        {
+            $obj = $this->mapDB($categoryI18n);
+            
+            $entry = new \stdClass();
+            
+            $entry->OXID = $categoryI18n->_categoryId;
+            $entry->OXTITLE = $categoryI18n->_value;
+            $entry->OXEXTLINK = $categoryI18n->_urlPath;
+            $entry->OXLONGDESC = $categoryI18n->_description;
+        }
+        
+        if(!empty($obj->OXID))
+        {
+            $this->_db->updateRow($obj, $this->_config['table'],$this->_config['pk'],$obj->customers_id);
+            $result->setId($obj->customers_id);
+            $result->setAction(TransactionResult::ACTION_UPDATE);
+        }else{
+            $result->setAction(TransactionResult::ACTION_CREATE);
         }
     }
     

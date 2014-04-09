@@ -74,7 +74,7 @@ class CustomerOrder extends BaseMapper
     }
     
     public function _created($data)
-    {
+    {   
         return $this->stringToDateTime($data['OXORDERDATE']);
     }
     
@@ -86,6 +86,6 @@ _billingAddressId
 _session
 _shippingInfo
 _ratingNotificationDate
-_logistic
+_carrierName
 _isFetched
  */

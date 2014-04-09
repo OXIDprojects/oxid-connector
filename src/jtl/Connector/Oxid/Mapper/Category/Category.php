@@ -20,6 +20,11 @@ class Category extends BaseMapper
                 "_id" => "OXID",
                 "_parentCategoryId" => "OXPARENTID",
                 "_sort" => "OXSORT"
+            ),
+            "mapPush" => array(
+                "OXID" => "_id",
+                "OXPARENTID" => "_parentCategoryId",
+                "OXSORT" => "_sort"        
             )
        );
 }

@@ -2,7 +2,9 @@
 namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Core\Database\Mysql;
+use jtl\Core\Utilities\Date as DateUtil;
 use jtl\Connector\Oxid\Config\Loader\Config;
+
 
 class BaseMapper 
 {
@@ -177,10 +179,13 @@ class BaseMapper
     public function stringToDateTime($string)
     {
         
-        $timestamp = strtotime($string);
-        $dateTime = date("c", $timestamp);
-        
-        return $dateTime;
+        $dateTime = (new \DateTime($string))->format('c');
+        if($dateTime == "-001-11-30T00:00:00+01:00")
+        {
+            return null;
+        }else{
+            return $dateTime;
+        }
     }
 
     

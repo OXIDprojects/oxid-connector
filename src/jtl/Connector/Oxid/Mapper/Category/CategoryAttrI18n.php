@@ -1,10 +1,14 @@
 <?php
 namespace jtl\Connector\Oxid\Mapper\Category;
 
+use jtl\Core\Utilities;
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
 use jtl\Connector\ModelContainer\CategoryContainer;
+use jtl\Connector\Result\Transaction as TransactionResult;
 use jtl\Connector\Model\CategoryAttrI18n as CategoryAttrI18nModel;
+
+
 
 /**
  * Summary of CategoryAttrI18n
@@ -44,6 +48,30 @@ class CategoryAttrI18n extends BaseMapper
                     }
                 }
             }   
+        }
+    }
+    
+    public function updateAll($container, $trid=null) {
+        $result = new TransactionResult();
+        $result->setTransactionId($trid);
+        
+        foreach ($container->get('categoryAttrI18n') as $categoryAttrI18n)
+        {
+            $obj = $this->mapDB($categoryAttrI18n);
+            
+            $entry = new \stdClass();
+            $entry->OXID = $categoryAttrI18n->_categoryAttrId;
+            $entry->OXTITLE = $categoryAttrI18n->_value;
+        }
+        
+        if(!empty($obj->OXID))
+        {
+            $this->_db->updateRow($obj, $this->_config['table'],$this->_config['pk'],$obj->customers_id);
+            $result->setId($obj->customers_id);
+            $result->setAction(TransactionResult::ACTION_UPDATE);
+        }else{
+            $result->setAction(TransactionResult::ACTION_CREATE);
+            
         }
     }
     

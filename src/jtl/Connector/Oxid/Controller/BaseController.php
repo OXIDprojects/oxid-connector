@@ -121,7 +121,7 @@ class BaseController extends Controller
                 $statModel->_pending = 0;
                 $statModel->_controllerName = lcfirst($reflect->getShortName());
                 
-                $action->setResult($statModel->getPublic(array("_fields", "_isEncrypted")));
+                $action->setResult($statModel->getPublic(array("_fields")));
             }
             catch (\Exception $exc) {
                 $err = new Error();

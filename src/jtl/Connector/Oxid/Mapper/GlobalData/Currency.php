@@ -16,17 +16,22 @@ class Currency extends BaseMapper
     {
         $currency = new CurrencyModel();
         
-        foreach ($params as $value)
+        for ($i = 0; $i < count($params); $i++)
         {
-            $currency->_id = $value['id'];
-            $currency->_name = $value['name'];
-            $currency->_nameHtml = $value['symbol'];
-            $currency->_factor = $value['rate'];
-            $currency->_delimiterCent = $value['decimal_separator'];
-            $currency->_delimiterThousand = $value['thousand_separator'];
+            if($i == 0)
+            {
+                $currency->_isDefault = True;
+            }
+            $currency->_id = $params[$i]['id'];
+            $currency->_name = $params[$i]['name'];
+            $currency->_nameHtml = $params[$i]['symbol'];
+            $currency->_factor = $params[$i]['rate'];
+            $currency->_delimiterCent = $params[$i]['decimal_separator'];
+            $currency->_delimiterThousand = $params[$i]['thousand_separator'];
             
             $container->add('currency', $currency->getPublic(array('_fields')));
         }
+        
     }
     
     /**
@@ -88,6 +93,5 @@ class Currency extends BaseMapper
 /* non mapped properties
 Currency:
  * _iso
- * _isDefault
  * _hasCurrencySignBeforeValue
  */

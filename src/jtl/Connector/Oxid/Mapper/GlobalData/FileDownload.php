@@ -18,7 +18,7 @@ class FileDownload extends BaseMapper
             "_id" => "OXID",
             "_maxDownloads" => "OXMAXDOWNLOADS",
             "_maxDays" => null,
-            "_created" => "OXTIMESTAMP"
+            "_created" => null
         ),
         "mapPush" => array(
             "OXID" => "_id",
@@ -38,14 +38,14 @@ class FileDownload extends BaseMapper
         }
     }
     
-    public function OXLINKEXPTIME($data) 
+    public function OXLINKEXPTIME($data)
     {
         if(isset($data['_maxDays']))
         {
             $maxTime = round($data['OXLINKEXPTIME'] * 24);
             return $maxTime;
         }else{
-            return null;    
+            return null;
         }
     }
     
