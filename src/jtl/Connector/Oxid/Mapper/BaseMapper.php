@@ -3,6 +3,7 @@ namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Core\Database\Mysql;
 use jtl\Core\Utilities\Date as DateUtil;
+use jtl\Core\Utilities\Language as LangUtil;
 use jtl\Connector\Oxid\Config\Loader\Config;
 
 
@@ -223,6 +224,7 @@ class BaseMapper
         //Migrieren der "aLanguageParams" in die "aLanguages"
         foreach ($LanguageResult['aLanguages'] as $key => $value)
         {
+            $LanguageResult['aLanguages'][$key] = array_merge($LanguageResult['aLanguages'][$key], array("code"=>$key));
             $this->array_put_to_position($LanguageResult['aLanguages'][$key], $LanguageResult["aLanguageParams"][$key], 0, "name");
         }
         
@@ -264,5 +266,25 @@ class BaseMapper
         $array = $return;
         
         return $array;
+    }
+    
+    /**
+     * Summary of getLocalCode
+     * @param $localCode
+     * @return $localCode
+     */
+    public function getLocalCode($localCode)
+    {
+        $LangUtil = new LangUtil();  
+        
+        $localCode = $LangUtil->map("", $localCode);
+        
+        if(!$localCode)
+        {
+            return null;
+        }else{
+            return $localCode;
+        }
+        
     }
 }

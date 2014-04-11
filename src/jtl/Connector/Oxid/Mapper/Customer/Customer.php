@@ -64,7 +64,6 @@ class Customer extends BaseMapper
         )
     );
     
-    //ToDO!
     public function _street($data)
     {
     	return "{$data['OXSTREET']}  {$data['OXSTREETNR']}";

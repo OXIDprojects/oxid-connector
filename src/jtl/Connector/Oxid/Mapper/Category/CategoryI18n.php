@@ -16,40 +16,47 @@ class CategoryI18n extends BaseMapper
         $categoryI18nModel = new CategoryI18nModel();       
         $languages = $this->getLanguageIDs();
         
+        
         foreach ($params as $value)
         {
             //Pro Sprache
             foreach ($languages as $language)
-            {
+            {       
                 $langBaseId = $language['baseId'];
                 
                 if(!isset($language['default']) or $language['default'] == 1)
                 {   
-                    if(!empty($value['OXTITLE']) or
-                       !empty($value['OXLONGDESC']))
+                    if($this->getLocalCode($language['code']))
                     {
-                        $categoryI18nModel->_localeName = $language['name'];
-                        $categoryI18nModel->_categoryId = $value['OXID'];
-                        $categoryI18nModel->_name = $value['OXTITLE'];
-                        $categoryI18nModel->_urlPath = $value['OXEXTLINK'];
-                        $categoryI18nModel->_description = $value['OXLONGDESC'];
-                                                
-                        $container->add('category_i18n', $categoryI18nModel->getPublic(array('_fields')));
+                        if(!empty($value['OXTITLE']) or
+                           !empty($value['OXLONGDESC']))
+                        {
+                            $categoryI18nModel->_localeName = $this->getLocalCode($language['code']);
+                            $categoryI18nModel->_categoryId = $value['OXID'];
+                            $categoryI18nModel->_name = $value['OXTITLE'];
+                            $categoryI18nModel->_urlPath = $value['OXEXTLINK'];
+                            $categoryI18nModel->_description = $value['OXLONGDESC'];
+                            
+                            $container->add('category_i18n', $categoryI18nModel->getPublic(array('_fields')));
+                        }    
                     }
                 }else{
-                    if(!empty($value["OXTITLE_{$langBaseId}"]) or
-                       !empty($value["OXLONGDESC_{$langBaseId}"]))
+                    if($this->getLocalCode($language['code']))
                     {
-                        $categoryI18nModel->_localeName = $language['name'];
-                        $categoryI18nModel->_categoryId = $value['OXID'];
-                        $categoryI18nModel->_name = $value["OXTITLE_{$langBaseId}"];
-                        $categoryI18nModel->_urlPath = $value["OXEXTLINK"];
-                        $categoryI18nModel->_description = $value["OXLONGDESC_{$langBaseId}"];
-                        
-                        $container->add('category_i18n', $categoryI18nModel->getPublic(array('_fields')));
+                        if(!empty($value["OXTITLE_{$langBaseId}"]) or
+                           !empty($value["OXLONGDESC_{$langBaseId}"]))
+                        {
+                            $categoryI18nModel->_localeName = $this->getLocalCode($language['code']);
+                            $categoryI18nModel->_categoryId = $value['OXID'];
+                            $categoryI18nModel->_name = $value["OXTITLE_{$langBaseId}"];
+                            $categoryI18nModel->_urlPath = $value["OXEXTLINK"];
+                            $categoryI18nModel->_description = $value["OXLONGDESC_{$langBaseId}"];
+                            
+                            $container->add('category_i18n', $categoryI18nModel->getPublic(array('_fields')));
+                        }
                     }
                 }
-            }   
+            }
         }
     }
     
