@@ -25,22 +25,28 @@ class ProductVariationI18n extends BaseMapper
                 
                 if(!isset($language['default']) or $language['default'] == 1)
                 {   
-                    if(!empty($value['OXTITLE']))
+                    if($this->getLocalCode($language['code']))
                     {
-                        $productVariationI18nModel->_localeName = $language['name'];
-                        $productVariationI18nModel->_productVariationId = $value['OXOBJECTID'];
-                        $productVariationI18nModel->_name = $value['OXTITLE'];
-                        
-                        $container->add('product_variation_i18n', $productVariationI18nModel->getPublic(array('_fields')));
+                        if(!empty($value['OXTITLE']))
+                        {
+                            $productVariationI18nModel->_localeName = $this->getLocalCode($language['code']);
+                            $productVariationI18nModel->_productVariationId = $value['OXOBJECTID'];
+                            $productVariationI18nModel->_name = $value['OXTITLE'];
+                            
+                            $container->add('product_variation_i18n', $productVariationI18nModel->getPublic(array('_fields')));
+                        }
                     }
                 }else{
-                    if(!empty($value["OXTITLE_{$langBaseId}"]))
+                    if($this->getLocalCode($language['code']))
                     {
-                        $productVariationI18nModel->_localeName = $language['name'];
-                        $productVariationI18nModel->_productVariationId = $value['OXOBJECTID'];
-                        $productVariationI18nModel->_name = $value["OXTITLE_{$langBaseId}"];
-                        
-                        $container->add('product_variation_i18n', $productVariationI18nModel->getPublic(array('_fields')));
+                        if(!empty($value["OXTITLE_{$langBaseId}"]))
+                        {
+                            $productVariationI18nModel->_localeName = $this->getLocalCode($language['code']);
+                            $productVariationI18nModel->_productVariationId = $value['OXOBJECTID'];
+                            $productVariationI18nModel->_name = $value["OXTITLE_{$langBaseId}"];
+                            
+                            $container->add('product_variation_i18n', $productVariationI18nModel->getPublic(array('_fields')));
+                        }
                     }
                 }
             }   

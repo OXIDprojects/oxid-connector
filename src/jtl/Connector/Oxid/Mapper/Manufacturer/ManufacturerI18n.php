@@ -25,26 +25,32 @@ class ManufacturerI18n extends BaseMapper
                 
                 if(!isset($language['default']) or $language['default'] == 1)
                 {   
-                    if(!empty($value['OXTITLE']) or
-                       !empty($value['OXSHORTDESC']))
+                    if($this->getLocalCode($language['code']))
                     {
-                        $manufacturerI18nModel->_manufacturerId = $value['OXID'];
-                        $manufacturerI18nModel->_localeName = $language['name'];
-                        $manufacturerI18nModel->_description = $value['OXSHORTDESC'];
-                        $manufacturerI18nModel->_titleTag = $value['OXTITLE'];
-                        
-                        $container->add('manufacturer_i18n', $manufacturerI18nModel->getPublic(array('_fields')));
+                        if(!empty($value['OXTITLE']) or
+                           !empty($value['OXSHORTDESC']))
+                        {
+                            $manufacturerI18nModel->_manufacturerId = $value['OXID'];
+                            $manufacturerI18nModel->_localeName = $this->getLocalCode($language['code']);
+                            $manufacturerI18nModel->_description = $value['OXSHORTDESC'];
+                            $manufacturerI18nModel->_titleTag = $value['OXTITLE'];
+                            
+                            $container->add('manufacturer_i18n', $manufacturerI18nModel->getPublic(array('_fields')));
+                        }
                     }
                 }else{
-                    if(!empty($value["OXTITLE_{$langBaseId}"]) or
-                       !empty($value["OXSHORTDESC_{$langBaseId}"]))
+                    if($this->getLocalCode($language['code']))
                     {
-                        $manufacturerI18nModel->_manufacturerId = $value['OXID'];
-                        $manufacturerI18nModel->_localeName = $language['name'];
-                        $manufacturerI18nModel->_description = $value["OXSHORTDESC_{$langBaseId}"];
-                        $manufacturerI18nModel->_titleTag = $value["OXTITLE_{$langBaseId}"];
-                        
-                        $container->add('manufacturer_i18n', $manufacturerI18nModel->getPublic(array('_fields')));
+                        if(!empty($value["OXTITLE_{$langBaseId}"]) or
+                           !empty($value["OXSHORTDESC_{$langBaseId}"]))
+                        {
+                            $manufacturerI18nModel->_manufacturerId = $value['OXID'];
+                            $manufacturerI18nModel->_localeName = $this->getLocalCode($language['code']);
+                            $manufacturerI18nModel->_description = $value["OXSHORTDESC_{$langBaseId}"];
+                            $manufacturerI18nModel->_titleTag = $value["OXTITLE_{$langBaseId}"];
+                            
+                            $container->add('manufacturer_i18n', $manufacturerI18nModel->getPublic(array('_fields')));
+                        }
                     }
                 }
             }   

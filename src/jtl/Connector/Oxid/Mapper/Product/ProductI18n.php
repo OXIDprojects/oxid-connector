@@ -25,34 +25,40 @@ class ProductI18n extends BaseMapper
                 
                 if(!isset($language['default']) or $language['default'] == 1)
                 {   
-                    if(!empty($value['OXTITLE']) or
-                       !empty($value['OXEXTURL']) or 
-                       !empty($value['OXLONGDESC']) or 
-                       !empty($value['OXSHORTDESC']))
+                    if($this->getLocalCode($language['code']))
                     {
-                        $productI18nModel->_localeName = $language['name'];
-                        $productI18nModel->_productId = $value['OXID'];
-                        $productI18nModel->_name = $value['OXTITLE'];
-                        $productI18nModel->_urlPath = $value['OXEXTURL'];
-                        $productI18nModel->_description = $value['OXLONGDESC'];
-                        $productI18nModel->_shortDescription = $value['OXSHORTDESC'];
-                        
-                        $container->add('product_i18n', $productI18nModel->getPublic(array('_fields')));
+                        if(!empty($value['OXTITLE']) or
+                           !empty($value['OXEXTURL']) or 
+                           !empty($value['OXLONGDESC']) or 
+                           !empty($value['OXSHORTDESC']))
+                        {
+                            $productI18nModel->_localeName = $this->getLocalCode($language['code']);
+                            $productI18nModel->_productId = $value['OXID'];
+                            $productI18nModel->_name = $value['OXTITLE'];
+                            $productI18nModel->_urlPath = $value['OXEXTURL'];
+                            $productI18nModel->_description = $value['OXLONGDESC'];
+                            $productI18nModel->_shortDescription = $value['OXSHORTDESC'];
+                            
+                            $container->add('product_i18n', $productI18nModel->getPublic(array('_fields')));
+                        }
                     }
                 }else{
-                    if(!empty($value["OXTITLE_{$langBaseId}"]) or
-                       !empty($value["OXURLDESC_{$langBaseId}"]) or
-                       !empty($value["OXLONGDESC_{$langBaseId}"]) or
-                       !empty($value["OXSHORTDESC_{$langBaseId}"]))
+                    if($this->getLocalCode($language['code']))
                     {
-                        $productI18nModel->_localeName = $language['name'];
-                        $productI18nModel->_productId = $value['OXID'];
-                        $productI18nModel->_name = $value["OXTITLE_{$langBaseId}"];
-                        $productI18nModel->_urlPath = $value["OXURLDESC_{$langBaseId}"];
-                        $productI18nModel->_description = $value["OXLONGDESC_{$langBaseId}"];
-                        $productI18nModel->_shortDescription = $value["OXSHORTDESC_{$langBaseId}"];
-                        
-                        $container->add('product_i18n', $productI18nModel->getPublic(array('_fields')));                    
+                        if(!empty($value["OXTITLE_{$langBaseId}"]) or
+                           !empty($value["OXURLDESC_{$langBaseId}"]) or
+                           !empty($value["OXLONGDESC_{$langBaseId}"]) or
+                           !empty($value["OXSHORTDESC_{$langBaseId}"]))
+                        {
+                            $productI18nModel->_localeName = $this->getLocalCode($language['code']);
+                            $productI18nModel->_productId = $value['OXID'];
+                            $productI18nModel->_name = $value["OXTITLE_{$langBaseId}"];
+                            $productI18nModel->_urlPath = $value["OXURLDESC_{$langBaseId}"];
+                            $productI18nModel->_description = $value["OXLONGDESC_{$langBaseId}"];
+                            $productI18nModel->_shortDescription = $value["OXSHORTDESC_{$langBaseId}"];
+                            
+                            $container->add('product_i18n', $productI18nModel->getPublic(array('_fields')));                    
+                        }
                     }
                 }
             }   

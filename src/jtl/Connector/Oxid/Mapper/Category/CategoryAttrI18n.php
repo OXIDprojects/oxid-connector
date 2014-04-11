@@ -29,22 +29,28 @@ class CategoryAttrI18n extends BaseMapper
                 
                 if(!isset($language['default']) or $language['default'] == 1)
                 {   
-                    if(!empty($value['OXTITLE']))
+                    if($this->getLocalCode($language['code']))
                     {
-                        $categoryAttrI18nModel->_localeName = $language['name'];
-                        $categoryAttrI18nModel->_categoryAttrId = $value['OXID'];
-                        $categoryAttrI18nModel->_value = $value['OXTITLE'];
-                        
-                        $container->add('category_attr_i18n', $categoryAttrI18nModel->getPublic(array('_fields')));
+                        if(!empty($value['OXTITLE']))
+                        {
+                            $categoryAttrI18nModel->_localeName = $this->getLocalCode($language['code']);
+                            $categoryAttrI18nModel->_categoryAttrId = $value['OXID'];
+                            $categoryAttrI18nModel->_value = $value['OXTITLE'];
+                            
+                            $container->add('category_attr_i18n', $categoryAttrI18nModel->getPublic(array('_fields')));
+                        }
                     }
                 }else{
-                    if(!empty($value["OXTITLE_{$langBaseId}"]))
+                    if($this->getLocalCode($language['code']))
                     {
-                        $categoryAttrI18nModel->_localeName = $language['name'];
-                        $categoryAttrI18nModel->_categoryAttrId = $value['OXID'];
-                        $categoryAttrI18nModel->_value = $value["OXTITLE_{$langBaseId}"];
-                        
-                        $container->add('category_attr_i18n', $categoryAttrI18nModel->getPublic(array('_fields')));
+                        if(!empty($value["OXTITLE_{$langBaseId}"]))
+                        {
+                            $categoryAttrI18nModel->_localeName = $this->getLocalCode($language['code']);
+                            $categoryAttrI18nModel->_categoryAttrId = $value['OXID'];
+                            $categoryAttrI18nModel->_value = $value["OXTITLE_{$langBaseId}"];
+                            
+                            $container->add('category_attr_i18n', $categoryAttrI18nModel->getPublic(array('_fields')));
+                        }
                     }
                 }
             }   

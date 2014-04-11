@@ -16,12 +16,10 @@ class FileDownloadI18n extends BaseMapper
         "pk" => "OXID",
         "mapPull" => array(
             "_fileDownloadId" => "OXID",
-            "_localeName" => "OXFILENAME",
             "_name" => "OXFILENAME"
         ),
         "mapPush" => array(
             "OXID" => "_fileDownloadId",
-            "OXFILENAME" => "_localeName",
             "OXFILENAME" => "_name"
         )
     );    
