@@ -22,7 +22,7 @@ class TaxRate extends BaseMapper
             $taxRate->_id = $value['OXID'];
             $taxRate->_rate = $value['OXVARVALUEDECODED'];
             
-            $container->add('tax_rate', $taxRate->getPublic(array('_fields')));
+            $container->add('tax_rate', $this->editEmptyStringToNull($taxRate->getPublic(), false));
         }
     }
     

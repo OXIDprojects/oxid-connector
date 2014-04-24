@@ -35,7 +35,7 @@ class Customer extends BaseController
                                                                                 " INNER JOIN oxnewssubscribed" .
                                                                                 " ON oxuser.OXID = oxnewssubscribed.OXUSERID;"));
             
-            $result[] = $container->getPublic(array('items'), array('_fields'));
+            $result[] = $container->getPublic(array('items'));
 			
             $action->setResult($result);
         }

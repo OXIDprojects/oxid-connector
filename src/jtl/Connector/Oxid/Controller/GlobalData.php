@@ -53,7 +53,7 @@ class GlobalData extends BaseController
             $fileDownloadI18nMapper->fetchAll($container, 'file_download_i18n');
             $customerGroupI18nMapper->fetchAll($container, 'customer_group_i18n', $customerGroupI18nMapper->getCustomerGroupI18n());
             
-            $result[] = $container->getPublic(array('items'), array('_fields'));
+            $result[] = $container->getPublic(array('items'));
 			
 			$action->setResult($result);
         }

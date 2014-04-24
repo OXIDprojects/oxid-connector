@@ -43,7 +43,7 @@ class Category extends BaseController
             $categoryI18nMapper->fetchAll($container, 'category_i18n', $categoryI18nMapper->getCategoryI18n());
             $categoryAttrI18nMapper->fetchAll($container, 'category_attr_i18n', $categoryAttrI18nMapper->getCategoryAttrI18n());
             
-            $result[] = $container->getPublic(array('items'), array('_fields'));
+            $result[] = $container->getPublic(array('items'));
 			
 			$action->setResult($result);
         }

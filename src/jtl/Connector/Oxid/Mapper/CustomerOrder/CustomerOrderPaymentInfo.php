@@ -53,7 +53,7 @@ class CustomerOrderPaymentInfo  extends BaseMapper
                 }
             }
             
-            $container->add('customer_order_payment_info', $customerOrderPaymentInfo->getPublic(array('_fields')));
+            $container->add('customer_order_payment_info', $this->editEmptyStringToNull($customerOrderPaymentInfo->getPublic(), false));
         }
     }
     

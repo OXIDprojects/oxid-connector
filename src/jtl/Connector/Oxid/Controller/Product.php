@@ -56,7 +56,7 @@ class Product extends BaseController
             $productWarehouseInfoMapper->fetchAll($container, 'product_warehouse_info');
             $mediaFileMapper->fetchAll($container, 'media_file', $mediaFileMapper->getMediaFile());
             
-            $result[] = $container->getPublic(array('items'), array('_fields'));
+            $result[] = $container->getPublic(array('items'));
 			
             $action->setResult($result);
         }

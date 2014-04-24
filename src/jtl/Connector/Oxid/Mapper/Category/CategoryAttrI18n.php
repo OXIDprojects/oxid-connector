@@ -36,8 +36,8 @@ class CategoryAttrI18n extends BaseMapper
                             $categoryAttrI18nModel->_localeName = $this->getLocalCode($language['code']);
                             $categoryAttrI18nModel->_categoryAttrId = $value['OXID'];
                             $categoryAttrI18nModel->_value = $value['OXTITLE'];
-                            
-                            $container->add('category_attr_i18n', $categoryAttrI18nModel->getPublic(array('_fields')));
+                                                      
+                            $container->add('category_attr_i18n', $this->editEmptyStringToNull($categoryAttrI18nModel->getPublic(), false));
                         }
                     }
                 }else{
@@ -49,7 +49,7 @@ class CategoryAttrI18n extends BaseMapper
                             $categoryAttrI18nModel->_categoryAttrId = $value['OXID'];
                             $categoryAttrI18nModel->_value = $value["OXTITLE_{$langBaseId}"];
                             
-                            $container->add('category_attr_i18n', $categoryAttrI18nModel->getPublic(array('_fields')));
+                            $container->add('category_attr_i18n', $this->editEmptyStringToNull($categoryAttrI18nModel->getPublic(), false));
                         }
                     }
                 }

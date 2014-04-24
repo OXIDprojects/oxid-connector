@@ -29,7 +29,7 @@ class Currency extends BaseMapper
             $currency->_delimiterCent = $params[$i]['decimal_separator'];
             $currency->_delimiterThousand = $params[$i]['thousand_separator'];
             
-            $container->add('currency', $currency->getPublic(array('_fields')));
+            $container->add('currency', $this->editEmptyStringToNull($currency->getPublic(), false));
         }
         
     }
@@ -42,7 +42,7 @@ class Currency extends BaseMapper
     {   
         $oxidConf = new Config();
         
-        $sqlResult = $this->_db->query("SELECT DECODE(OXVARVALUE, '{$oxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
+        $sqlResult = $this->_db->query("SELECT DECODE(OXVARVALUE, '{$oxidConf->sConfigKey}') AS OXVARVALUEDECODED FROM oxconfig " .
                                    "WHERE OXVARNAME = 'aCurrencies' ");
         
         $currencyArr = unserialize($sqlResult[0]['OXVARVALUEDECODED']);       

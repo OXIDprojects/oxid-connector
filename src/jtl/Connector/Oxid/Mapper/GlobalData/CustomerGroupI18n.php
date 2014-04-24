@@ -24,23 +24,29 @@ class CustomerGroupI18n extends BaseMapper
                 $langBaseId = $language['baseId'];
                 
                 if(!isset($language['default']) or $language['default'] == 1)
-                {   
-                    if(!empty($value['OXTITLE']))
+                { 
+                    if($this->getLocalCode($language['code']))
                     {
-                        $customerGroupI18nModel->_localeName = $language['name'];
-                        $customerGroupI18nModel->_customerGroupId = $value['OXID'];
-                        $customerGroupI18nModel->_name = $value['OXTITLE'];
-                        
-                        $container->add('customer_group_i18n', $customerGroupI18nModel->getPublic(array('_fields')));
+                        if(!empty($value['OXTITLE']))
+                        {
+                            $customerGroupI18nModel->_localeName = $this->getLocalCode($language['code']);
+                            $customerGroupI18nModel->_customerGroupId = $value['OXID'];
+                            $customerGroupI18nModel->_name = $value['OXTITLE'];
+                            
+                            $container->add('customer_group_i18n', $this->editEmptyStringToNull($customerGroupI18nModel->getPublic(), false));
+                        }
                     }
                 }else{
-                    if(!empty($value["OXTITLE_{$langBaseId}"]))
+                    if($this->getLocalCode($language['code']))
                     {
-                        $customerGroupI18nModel->_localeName = $language['name'];
-                        $customerGroupI18nModel->_customerGroupId = $value['OXID'];
-                        $customerGroupI18nModel->_name = $value["OXTITLE_{$langBaseId}"];
-                        
-                        $container->add('customer_group_i18n', $customerGroupI18nModel->getPublic(array('_fields')));                    
+                        if(!empty($value["OXTITLE_{$langBaseId}"]))
+                        {
+                            $customerGroupI18nModel->_localeName = $this->getLocalCode($language['code']);
+                            $customerGroupI18nModel->_customerGroupId = $value['OXID'];
+                            $customerGroupI18nModel->_name = $value["OXTITLE_{$langBaseId}"];
+                            
+                            $container->add('customer_group_i18n', $this->editEmptyStringToNull($customerGroupI18nModel->getPublic(), false));                    
+                        }
                     }
                 }
             }   

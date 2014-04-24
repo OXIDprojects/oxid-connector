@@ -13,7 +13,7 @@ class CategoryI18n extends BaseMapper
 {
     public function fetchAll($container = null, $type = null, $params = array())
     {
-        $categoryI18nModel = new CategoryI18nModel();       
+        $categoryI18nModel = new CategoryI18nModel();
         $languages = $this->getLanguageIDs();
         
         
@@ -36,8 +36,8 @@ class CategoryI18n extends BaseMapper
                             $categoryI18nModel->_name = $value['OXTITLE'];
                             $categoryI18nModel->_urlPath = $value['OXEXTLINK'];
                             $categoryI18nModel->_description = $value['OXLONGDESC'];
-                            
-                            $container->add('category_i18n', $categoryI18nModel->getPublic(array('_fields')));
+                                                      
+                            $container->add('category_i18n', $this->editEmptyStringToNull($categoryI18nModel->getPublic(), false));
                         }    
                     }
                 }else{
@@ -52,7 +52,7 @@ class CategoryI18n extends BaseMapper
                             $categoryI18nModel->_urlPath = $value["OXEXTLINK"];
                             $categoryI18nModel->_description = $value["OXLONGDESC_{$langBaseId}"];
                             
-                            $container->add('category_i18n', $categoryI18nModel->getPublic(array('_fields')));
+                            $container->add('category_i18n', $this->editEmptyStringToNull($categoryI18nModel->getPublic(), false));
                         }
                     }
                 }

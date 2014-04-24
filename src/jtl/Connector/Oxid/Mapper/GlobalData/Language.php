@@ -29,7 +29,7 @@ class Language extends BaseMapper
                 $language->_isDefault = false;
             }
             
-            $container->add('language', $language->getPublic(array('_fields')));
+            $container->add('language', $this->editEmptyStringToNull($language->getPublic(), false));
         }
     }   
 }

@@ -15,14 +15,17 @@ class BaseMapper
     
     private function map($data)
     {
-        foreach($this->_config['mapPull'] as $wawi => $shop)
+        foreach($this->_config['mapPull'] as $host => $endpoint) 
         {
-            $this->_model->$wawi = isset($data[$shop]) ? $data[$shop] : (isset($this->_config['shopConfig'][$shop]) ? $this->_config['shopConfig'][$shop] : $shop);
+            $value = null;
+            $value = isset($data[$endpoint]) ? $data[$endpoint] : (isset($this->_config['shopConfig'][$endpoint]) ? $this->_config['shopConfig'][$endpoint] : $endpoint);
             
-            if(method_exists(get_class($this),$wawi))
+            if(method_exists(get_class($this),$host))
             {
-                $this->_model->$wawi = $this->$wawi($data);
+                $value = $this->$host($data);	    
             }
+            
+            $this->_model->$host = $value;
         }
     }
     
@@ -47,24 +50,39 @@ class BaseMapper
     {
         $dbObj = new \stdClass();
         
-        foreach($this->_config['mapPush'] as $shop => $wawi)
+        
+        foreach($this->_config['mapPush'] as $endpoint => $host) 
         {
-            if(!empty($shop))
+            if(!empty($endpoint))
             {
-                $dbObj->$shop = isset($data->$wawi) ? $data->$wawi : null;
+                $dbObj->$endpoint = isset($data->$host) ? $data->$host : null;   
             }
+		    
+            if(method_exists(get_class($this),$endpoint))
+            {
+                $dbObj->$endpoint = $this->$endpoint($data);
+            }
+ 		}
+        
+        
+        //foreach($this->_config['mapPush'] as $shop => $wawi)
+        //{
+        //    if(!empty($shop))
+        //    {
+        //        $dbObj->$shop = isset($data->$wawi) ? $data->$wawi : null;
+        //    }
             
-            if(method_exists(get_class($this),$shop))
-            {
-                $dbObj->$shop($data);
-            }
-        }
+        //    if(method_exists(get_class($this),$shop))
+        //    {
+        //        $dbObj->$shop($data);
+        //    }
+        //}
         
         return $dbObj;
     }
     
     public function fetchAll($container=null,$type=null,$params=array())
-    {
+    {       
         foreach ($params as $key => $value)
         {
             $this->_config[$key] = $value;
@@ -88,8 +106,9 @@ class BaseMapper
             $model = $this->generate($data);
             
             if(isset($container))
-            {
-                $container->add($type, $model->getPublic(array('_fields')));
+            {                                    
+                //$container->add($type, $this->editEmptyStringToNull($model->getPublic(), false));
+                $container->add($type, $model->getPublic(), false);
             }
             else
             {
@@ -152,6 +171,24 @@ class BaseMapper
         return $this->getConfigFile('dDefaultVAT');
     }
     
+    
+    /**
+     * Summary of editEmptyStringToNull
+     * Gibt statt leeren Strings "" ein null zurück
+     * @param $modelFieldArr
+     * @return modelFieldArr
+     */
+    public function editEmptyStringToNull($modelFieldArr)
+    {          
+        foreach($modelFieldArr as &$field){
+            If(empty($field) and $field != "0")
+            {
+                $field = null;       
+            }
+        }
+        
+        return $modelFieldArr;
+    }
     
     /**
      * Summary of getConfigFile

@@ -33,7 +33,7 @@ class ProductVariationI18n extends BaseMapper
                             $productVariationI18nModel->_productVariationId = $value['OXOBJECTID'];
                             $productVariationI18nModel->_name = $value['OXTITLE'];
                             
-                            $container->add('product_variation_i18n', $productVariationI18nModel->getPublic(array('_fields')));
+                            $container->add('product_variation_i18n', $this->editEmptyStringToNull($productVariationI18nModel->getPublic(), false));
                         }
                     }
                 }else{
@@ -45,7 +45,7 @@ class ProductVariationI18n extends BaseMapper
                             $productVariationI18nModel->_productVariationId = $value['OXOBJECTID'];
                             $productVariationI18nModel->_name = $value["OXTITLE_{$langBaseId}"];
                             
-                            $container->add('product_variation_i18n', $productVariationI18nModel->getPublic(array('_fields')));
+                            $container->add('product_variation_i18n', $this->editEmptyStringToNull($productVariationI18nModel->getPublic(), false));
                         }
                     }
                 }

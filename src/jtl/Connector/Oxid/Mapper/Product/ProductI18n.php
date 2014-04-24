@@ -39,7 +39,7 @@ class ProductI18n extends BaseMapper
                             $productI18nModel->_description = $value['OXLONGDESC'];
                             $productI18nModel->_shortDescription = $value['OXSHORTDESC'];
                             
-                            $container->add('product_i18n', $productI18nModel->getPublic(array('_fields')));
+                            $container->add('product_i18n', $this->editEmptyStringToNull($productI18nModel->getPublic(), false));
                         }
                     }
                 }else{
@@ -57,7 +57,7 @@ class ProductI18n extends BaseMapper
                             $productI18nModel->_description = $value["OXLONGDESC_{$langBaseId}"];
                             $productI18nModel->_shortDescription = $value["OXSHORTDESC_{$langBaseId}"];
                             
-                            $container->add('product_i18n', $productI18nModel->getPublic(array('_fields')));                    
+                            $container->add('product_i18n', $this->editEmptyStringToNull($productI18nModel->getPublic(), false));                    
                         }
                     }
                 }

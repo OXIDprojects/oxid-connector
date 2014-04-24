@@ -45,7 +45,7 @@ class CustomerOrder extends BaseController
             $customerOrderBillingAddressMapper->fetchAll($container, 'customer_order_billing_address');
             $customerOrderPaymentInfoMapper->fetchAll($container, 'customer_order_payment_info', $customerOrderPaymentInfoMapper->getPaymentInfo());
 
-            $result[] = $container->getPublic(array('items'), array('_fields'));
+            $result[] = $container->getPublic(array('items'));
 			
             $action->setResult($result);
         }

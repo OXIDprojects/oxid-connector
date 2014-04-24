@@ -58,7 +58,7 @@ class MediaFile extends BaseMapper
                             break;
                     }
 
-                    $container->add('media_file', $mediaFileModel->getPublic(array('_fields')));
+                    $container->add('media_file', $this->editEmptyStringToNull($mediaFileModel->getPublic(), false));
                 }
             }    
         }

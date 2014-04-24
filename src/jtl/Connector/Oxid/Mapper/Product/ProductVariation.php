@@ -21,7 +21,7 @@ class ProductVariation extends BaseMapper
             $productVariationModel->setProductId($value['OXOBJECTID']);
             $productVariationModel->setSort($value['OXPOS']);
             
-            $container->add('product_variation', $productVariationModel->getPublic(array('_fields')));
+            $container->add('product_variation', $this->editEmptyStringToNull($productVariationModel->getPublic(), false));
         }
     }
     
