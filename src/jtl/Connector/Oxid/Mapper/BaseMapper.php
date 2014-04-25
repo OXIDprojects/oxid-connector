@@ -180,10 +180,14 @@ class BaseMapper
      */
     public function editEmptyStringToNull($modelFieldArr)
     {          
-        foreach($modelFieldArr as &$field){
+        foreach($modelFieldArr as &$field){            
             If(empty($field) and $field != "0")
             {
-                $field = null;       
+                if(count($field) <= 1)
+                {
+                    //die(print_r($field));
+                    $field = null;
+                }   
             }
         }
         

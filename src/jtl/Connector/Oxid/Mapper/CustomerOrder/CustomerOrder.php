@@ -16,7 +16,7 @@ class CustomerOrder extends BaseMapper
         "mapPull" => array(
             "_id" => "OXID",
             "_customerId" => "OXUSERID",
-            "_shippingMethodId" => "OXDELTYPE",
+            "_shippingMethodCode" => "OXDELTYPE",
             "_localeName" => "OXLANG",
             "_currencyIso" => "OXCURRENCY",
             "_estimatedDeliveryDate" => null,
@@ -32,12 +32,12 @@ class CustomerOrder extends BaseMapper
             "_ip" => "OXIP",
             "_status" => "OXBILLSTATEID",
             "_created" => null,
-            "_paymentModuleId" => "OXPAYMENTID"
+            "_paymentModuleCode" => "OXPAYMENTID"
         ),
         "mapPush" => array(
             "OXID" => "_id",
             "OXUSERID" => "_customerId",
-            "OXDELTYPE" => "_shippingMethodId",
+            "OXDELTYPE" => "_shippingMethodCode",
             "OXLANG" => "_localeName",
             "OXCURRENCY" => "_currencyIso",
             "OXORDERDATE" => "_estimatedDeliveryDate",
@@ -53,7 +53,7 @@ class CustomerOrder extends BaseMapper
             "OXIP" => "_ip",
             "OXBILLSTATEID" => "_status",
             "OXORDERDATE" => "_created",
-            "OXPAYMENTID" => "_paymentModuleId"
+            "OXPAYMENTID" => "_paymentModuleCode"
         )
     );
     
