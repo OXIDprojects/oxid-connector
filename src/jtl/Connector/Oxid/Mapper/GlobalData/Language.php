@@ -1,10 +1,10 @@
 <?php
 namespace jtl\Connector\Oxid\Mapper\GlobalData;
 
-use jtl\Connector\Oxid\Config\Loader\Config;
 use jtl\Connector\Oxid\Mapper\BaseMapper;
+use jtl\Connector\Oxid\Config\Loader\Config;
 
-use jtl\Connector\Model\Language AS LanguageModel;
+use jtl\Connector\Model\Language as LanguageModel;
 use jtl\Connector\ModelContainer\GlobalDataContainer;
 /**
  * Summary of Language
@@ -29,7 +29,7 @@ class Language extends BaseMapper
                 $language->_isDefault = false;
             }
             
-            $container->add('language', $this->editEmptyStringToNull($language->getPublic(), false));
+            $container->add('language', $language->getPublic(), false);
         }
     }   
 }

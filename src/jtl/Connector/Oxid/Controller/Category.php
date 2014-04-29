@@ -22,47 +22,47 @@ use jtl\Connector\Oxid\Mapper\Category\CategoryAttrI18n as CategoryAttrI18nMappe
  */
 class Category extends BaseController
 {
-    public function pull($params)
-    {   
-        $action = new Action();
-        $action->setHandled(true);
+    //public function pull($params)
+    //{   
+    //    $action = new Action();
+    //    $action->setHandled(true);
         
-        $this->statistic($params);
+    //    $this->statistic($params);
         
-        try
-        {
-            $container = new CategoryContainer();
+    //    try
+    //    {
+    //        $container = new CategoryContainer();
             
-            $categoryMapper = new CategoryMapper();
-            $categoryAttrMapper = new CategoryAttrMapper();
-            $categoryI18nMapper = new CategoryI18nMapper();
-            $categoryAttrI18nMapper = new CategoryAttrI18nMapper();
+    //        $categoryMapper = new CategoryMapper();
+    //        $categoryAttrMapper = new CategoryAttrMapper();
+    //        //$categoryI18nMapper = new CategoryI18nMapper();
+    //        $categoryAttrI18nMapper = new CategoryAttrI18nMapper();
                         
-            $categoryMapper->fetchAll($container, 'category');
-            $categoryAttrMapper->fetchAll($container, 'category_attr', $categoryAttrMapper->getCategoryAttr());
-            $categoryI18nMapper->fetchAll($container, 'category_i18n', $categoryI18nMapper->getCategoryI18n());
-            $categoryAttrI18nMapper->fetchAll($container, 'category_attr_i18n', $categoryAttrI18nMapper->getCategoryAttrI18n());
+    //        $categoryMapper->fetchAll($container, 'category');
+    //        $categoryAttrMapper->fetchAll($container, 'category_attr', $categoryAttrMapper->getCategoryAttr());
+    //        //$categoryI18nMapper->fetchAll($container, 'category_i18n', $categoryI18nMapper->getCategoryI18n());
+    //        $categoryAttrI18nMapper->fetchAll($container, 'category_attr_i18n', $categoryAttrI18nMapper->getCategoryAttrI18n());
             
-            $result[] = $container->getPublic(array('items'));
+    //        $result[] = $container->getPublic(array('items'));
 			
-			$action->setResult($result);
-        }
-        catch (\Exception $exc)
-        {
-            $err = new Error();
-            $err->setCode($exc->getCode());
-            $err->setMessage($exc->getMessage());
-            $action->setError($err);
-        }
+    //        $action->setResult($result);
+    //    }
+    //    catch (\Exception $exc)
+    //    {
+    //        $err = new Error();
+    //        $err->setCode($exc->getCode());
+    //        $err->setMessage($exc->getMessage());
+    //        $action->setError($err);
+    //    }
         
-        return $action;
+    //    return $action;
         
-    }
+    //}
     
-    public function push($params)
-    {
+    //public function push($params)
+    //{
         
-    }
+    //}
 }
 
 /* non mapped Class

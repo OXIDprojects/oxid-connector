@@ -13,6 +13,7 @@ class Product extends BaseMapper
     protected $_config = array
         (
             "model" => "\\jtl\\Connector\\Model\\Product",
+            "query" => "SELECT * FROM oxarticles ORDER BY OXPARENTID ASC",
             "table" => "oxarticles",
             "PK" => "OXID",
             "mapPull" => array
@@ -97,7 +98,7 @@ class Product extends BaseMapper
 
 /* non mapped properties
 Product:
-_deliveryStatus
+_deliveryStatusId
 _shippingClassId
 _note
 _isTopProduct

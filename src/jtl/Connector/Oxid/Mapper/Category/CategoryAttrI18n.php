@@ -4,11 +4,10 @@ namespace jtl\Connector\Oxid\Mapper\Category;
 use jtl\Core\Utilities;
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
+
 use jtl\Connector\ModelContainer\CategoryContainer;
 use jtl\Connector\Result\Transaction as TransactionResult;
 use jtl\Connector\Model\CategoryAttrI18n as CategoryAttrI18nModel;
-
-
 
 /**
  * Summary of CategoryAttrI18n
@@ -37,7 +36,7 @@ class CategoryAttrI18n extends BaseMapper
                             $categoryAttrI18nModel->_categoryAttrId = $value['OXID'];
                             $categoryAttrI18nModel->_value = $value['OXTITLE'];
                                                       
-                            $container->add('category_attr_i18n', $this->editEmptyStringToNull($categoryAttrI18nModel->getPublic(), false));
+                            $container->add('category_attr_i18n', $categoryAttrI18nModel->getPublic(), false);
                         }
                     }
                 }else{
@@ -49,7 +48,7 @@ class CategoryAttrI18n extends BaseMapper
                             $categoryAttrI18nModel->_categoryAttrId = $value['OXID'];
                             $categoryAttrI18nModel->_value = $value["OXTITLE_{$langBaseId}"];
                             
-                            $container->add('category_attr_i18n', $this->editEmptyStringToNull($categoryAttrI18nModel->getPublic(), false));
+                            $container->add('category_attr_i18n', $categoryAttrI18nModel->getPublic(), false);
                         }
                     }
                 }

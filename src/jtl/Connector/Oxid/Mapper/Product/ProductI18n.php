@@ -3,6 +3,7 @@ namespace jtl\Connector\Oxid\Mapper\Product;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
+
 use jtl\Connector\ModelContainer\ProductContainer;
 use jtl\Connector\Model\ProductI18n as ProductI18nModel;
 
@@ -39,7 +40,7 @@ class ProductI18n extends BaseMapper
                             $productI18nModel->_description = $value['OXLONGDESC'];
                             $productI18nModel->_shortDescription = $value['OXSHORTDESC'];
                             
-                            $container->add('product_i18n', $this->editEmptyStringToNull($productI18nModel->getPublic(), false));
+                            $container->add('product_i18n', $productI18nModel->getPublic(), false);
                         }
                     }
                 }else{
@@ -57,7 +58,7 @@ class ProductI18n extends BaseMapper
                             $productI18nModel->_description = $value["OXLONGDESC_{$langBaseId}"];
                             $productI18nModel->_shortDescription = $value["OXSHORTDESC_{$langBaseId}"];
                             
-                            $container->add('product_i18n', $this->editEmptyStringToNull($productI18nModel->getPublic(), false));                    
+                            $container->add('product_i18n', $productI18nModel->getPublic(), false);
                         }
                     }
                 }

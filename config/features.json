@@ -129,6 +129,7 @@
                             "Id",
                             "CustomerId",
                             "ShippingAddressId",
+                            "ShippingMethodCode",
                             "LocaleName",
                             "CurrencyIso",
                             "EstimatedDeliveryDate",
@@ -144,7 +145,7 @@
                             "Ip",
                             "Status",
                             "Created",
-                            "PaymentModuleId"
+                            "PaymentModuleCode"
                         ]
                     }
                 },

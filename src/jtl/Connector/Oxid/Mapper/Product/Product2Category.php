@@ -12,6 +12,7 @@ class Product2Category extends BaseMapper
     protected $_config = array
         (
             "model" => "\\jtl\\Connector\\Model\\Product2Category",
+            "query" => "SELECT * FROM oxobject2category ORDER BY OXCATNID ASC",
             "table" => "oxobject2category",
             "PK" => "OXID",
             "mapPull" => array

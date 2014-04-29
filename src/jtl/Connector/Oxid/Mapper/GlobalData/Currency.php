@@ -1,11 +1,11 @@
 <?php
 namespace jtl\Connector\Oxid\Mapper\GlobalData;
 
-use jtl\Connector\Oxid\Config\Loader\Config;
 use jtl\Connector\Oxid\Mapper\BaseMapper;
+use jtl\Connector\Oxid\Config\Loader\Config;
 
+use jtl\Connector\Model\Currency as CurrencyModel;
 use jtl\Connector\ModelContainer\GlobalDataContainer;
-use jtl\Connector\Model\Currency AS CurrencyModel;
 
 /**
  * Summary of Currency
@@ -29,7 +29,7 @@ class Currency extends BaseMapper
             $currency->_delimiterCent = $params[$i]['decimal_separator'];
             $currency->_delimiterThousand = $params[$i]['thousand_separator'];
             
-            $container->add('currency', $this->editEmptyStringToNull($currency->getPublic(), false));
+            $container->add('currency', $currency->getPublic(), false);
         }
         
     }

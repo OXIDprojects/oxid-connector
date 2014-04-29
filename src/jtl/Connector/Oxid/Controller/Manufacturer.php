@@ -32,7 +32,7 @@ class Manufacturer extends BaseController
             
             $manufacturerMapper->fetchAll($container, 'manufacturer');
             $manufacturerI18nMapper->fetchAll($container, 'manufacturerI18n', $manufacturerI18nMapper->getManufacturerI18n());
-            
+                       
             $result[] = $container->getPublic(array('items'));
             
             $action->setResult($result);

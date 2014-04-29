@@ -3,6 +3,7 @@ namespace jtl\Connector\Oxid\Mapper\Category;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
+
 use jtl\Connector\ModelContainer\CategoryContainer;
 use jtl\Connector\Model\CategoryI18n as CategoryI18nModel;
 
@@ -15,7 +16,6 @@ class CategoryI18n extends BaseMapper
     {
         $categoryI18nModel = new CategoryI18nModel();
         $languages = $this->getLanguageIDs();
-        
         
         foreach ($params as $value)
         {
@@ -37,7 +37,7 @@ class CategoryI18n extends BaseMapper
                             $categoryI18nModel->_urlPath = $value['OXEXTLINK'];
                             $categoryI18nModel->_description = $value['OXLONGDESC'];
                                                       
-                            $container->add('category_i18n', $this->editEmptyStringToNull($categoryI18nModel->getPublic(), false));
+                            $container->add('category_i18n', $categoryI18nModel->getPublic(), false);
                         }    
                     }
                 }else{
@@ -52,7 +52,7 @@ class CategoryI18n extends BaseMapper
                             $categoryI18nModel->_urlPath = $value["OXEXTLINK"];
                             $categoryI18nModel->_description = $value["OXLONGDESC_{$langBaseId}"];
                             
-                            $container->add('category_i18n', $this->editEmptyStringToNull($categoryI18nModel->getPublic(), false));
+                            $container->add('category_i18n', $categoryI18nModel->getPublic(), false);
                         }
                     }
                 }
@@ -91,7 +91,8 @@ class CategoryI18n extends BaseMapper
         $oxidConf = new Config();
         
         $sqlResult = $this->_db->query("SELECT * " .
-                                        " FROM oxcategories;");
+                                        " FROM oxcategories " .
+                                        " WHERE oxcategories.OXID = ".$params['OXID']);
         return $sqlResult;
     }
 }

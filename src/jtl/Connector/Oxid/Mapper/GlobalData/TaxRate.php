@@ -4,7 +4,7 @@ namespace jtl\Connector\Oxid\Mapper\GlobalData;
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
 
-use jtl\Connector\Model\TaxRate AS TaxRateModel;
+use jtl\Connector\Model\TaxRate as TaxRateModel;
 use jtl\Connector\ModelContainer\GlobalDataContainer;
 
 
@@ -22,7 +22,7 @@ class TaxRate extends BaseMapper
             $taxRate->_id = $value['OXID'];
             $taxRate->_rate = $value['OXVARVALUEDECODED'];
             
-            $container->add('tax_rate', $this->editEmptyStringToNull($taxRate->getPublic(), false));
+            $container->add('tax_rate', $taxRate->getPublic(), false);
         }
     }
     

@@ -13,6 +13,15 @@ class BaseMapper
     protected $_config;
     protected $_db;
     
+    public function __construct()
+    {      
+        $this->_db = Mysql::getInstance();
+    }
+    
+    /**
+     * map db data to model properties
+     * @param unknown $data
+     */
     private function map($data)
     {
         foreach($this->_config['mapPull'] as $host => $endpoint) 
@@ -29,14 +38,10 @@ class BaseMapper
         }
     }
     
-    public function __construct()
-    {
-        //$shopConfig = new Config();
-        
-        $this->_db = Mysql::getInstance();
-        //$this->_config['shopConfig'] = new Config();
-    }
-    
+    /**
+     * generate wawi model from shop data 
+     * @param unknown $data
+     */
     public function generate($data)
     {
         $this->_model = new $this->_config['model']();
@@ -46,6 +51,11 @@ class BaseMapper
         return $this->_model;
     }
     
+    /**
+     * map from wawi to shop
+     * @param unknown $data
+     * @return \stdClass
+     */
     public function mapDB($data)
     {
         $dbObj = new \stdClass();
@@ -64,23 +74,16 @@ class BaseMapper
             }
  		}
         
-        
-        //foreach($this->_config['mapPush'] as $shop => $wawi)
-        //{
-        //    if(!empty($shop))
-        //    {
-        //        $dbObj->$shop = isset($data->$wawi) ? $data->$wawi : null;
-        //    }
-            
-        //    if(method_exists(get_class($this),$shop))
-        //    {
-        //        $dbObj->$shop($data);
-        //    }
-        //}
-        
         return $dbObj;
     }
-    
+   
+    /**
+     * fetch all entries from db and fill container or return array of models
+     * @param string $container
+     * @param string $type
+     * @param unknown $params
+     * @return unknown
+     */  
     public function fetchAll($container=null,$type=null,$params=array())
     {       
         foreach ($params as $key => $value)
@@ -107,7 +110,6 @@ class BaseMapper
             
             if(isset($container))
             {                                    
-                //$container->add($type, $this->editEmptyStringToNull($model->getPublic(), false));
                 $container->add($type, $model->getPublic(), false);
             }
             else
@@ -169,29 +171,6 @@ class BaseMapper
     public function getDefaultVAT()
     {   
         return $this->getConfigFile('dDefaultVAT');
-    }
-    
-    
-    /**
-     * Summary of editEmptyStringToNull
-     * Gibt statt leeren Strings "" ein null zurück
-     * @param $modelFieldArr
-     * @return modelFieldArr
-     */
-    public function editEmptyStringToNull($modelFieldArr)
-    {          
-        foreach($modelFieldArr as &$field){            
-            If(empty($field) and $field != "0")
-            {
-                if(count($field) <= 1)
-                {
-                    //die(print_r($field));
-                    $field = null;
-                }   
-            }
-        }
-        
-        return $modelFieldArr;
     }
     
     /**

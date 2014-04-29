@@ -3,6 +3,7 @@ namespace jtl\Connector\Oxid\Mapper\Product;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
+
 use jtl\Connector\ModelContainer\ProductContainer;
 use jtl\Connector\Model\ProductVariationI18n as ProductVariationI18nModel;
 
@@ -33,7 +34,7 @@ class ProductVariationI18n extends BaseMapper
                             $productVariationI18nModel->_productVariationId = $value['OXOBJECTID'];
                             $productVariationI18nModel->_name = $value['OXTITLE'];
                             
-                            $container->add('product_variation_i18n', $this->editEmptyStringToNull($productVariationI18nModel->getPublic(), false));
+                            $container->add('product_variation_i18n', $productVariationI18nModel->getPublic(), false);
                         }
                     }
                 }else{
@@ -45,7 +46,7 @@ class ProductVariationI18n extends BaseMapper
                             $productVariationI18nModel->_productVariationId = $value['OXOBJECTID'];
                             $productVariationI18nModel->_name = $value["OXTITLE_{$langBaseId}"];
                             
-                            $container->add('product_variation_i18n', $this->editEmptyStringToNull($productVariationI18nModel->getPublic(), false));
+                            $container->add('product_variation_i18n', $productVariationI18nModel->getPublic(), false);
                         }
                     }
                 }

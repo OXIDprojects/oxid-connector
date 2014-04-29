@@ -22,7 +22,7 @@ class CategoryAttr extends BaseMapper
             $categoryAttrModel->_sort = $value['OXSORT'];
         }
         
-        $container->add('category_attr', $this->editEmptyStringToNull($categoryAttrModel->getPublic(), false));
+        $container->add('category_attr', $categoryAttrModel->getPublic(), false);
     }
     
     public function getCategoryAttr()

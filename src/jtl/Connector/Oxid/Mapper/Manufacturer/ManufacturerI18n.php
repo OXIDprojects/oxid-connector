@@ -3,6 +3,7 @@ namespace jtl\Connector\Oxid\Mapper\Manufacturer;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
+
 use jtl\Connector\ModelContainer\ManufacturerContainer;
 use jtl\Connector\Model\ManufacturerI18n as ManufacturerI18nModel;
 
@@ -35,7 +36,7 @@ class ManufacturerI18n extends BaseMapper
                             $manufacturerI18nModel->_description = $value['OXSHORTDESC'];
                             $manufacturerI18nModel->_titleTag = $value['OXTITLE'];
                             
-                            $container->add('manufacturer_i18n', $this->editEmptyStringToNull($manufacturerI18nModel->getPublic(), false));
+                            $container->add('manufacturer_i18n', $manufacturerI18nModel->getPublic(), false);
                         }
                     }
                 }else{
@@ -49,7 +50,7 @@ class ManufacturerI18n extends BaseMapper
                             $manufacturerI18nModel->_description = $value["OXSHORTDESC_{$langBaseId}"];
                             $manufacturerI18nModel->_titleTag = $value["OXTITLE_{$langBaseId}"];
                             
-                            $container->add('manufacturer_i18n', $this->editEmptyStringToNull($manufacturerI18nModel->getPublic(), false));
+                            $container->add('manufacturer_i18n', $manufacturerI18nModel->getPublic(), false);
                         }
                     }
                 }

@@ -3,7 +3,9 @@ namespace jtl\Connector\Oxid\Mapper\Product;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
+
 use jtl\Connector\ModelContainer\ProductContainer;
+use jtl\Connector\Model\Identity as IdentityModel;
 use jtl\Connector\Model\MediaFile as MediaFileModel;
 
 /**
@@ -14,6 +16,7 @@ class MediaFile extends BaseMapper
     
     public function fetchAll($container = null, $type = null, $params = array())
     {
+        $identity = new IdentityModel();
         $mediaFileModel = new MediaFileModel();
         
         foreach ($params as $value)
@@ -24,8 +27,12 @@ class MediaFile extends BaseMapper
                    !empty($value["OXTHUMB"]) or
                    !empty($value["OXICON"]))
                 {
-                    $mediaFileModel->setId("{$value['OXID']}_{$i}");
-                    $mediaFileModel->setProductId($value['OXID']);
+                    $identity->setEndpoint("{$value['OXID']}_{$i}");
+                    $mediaFileModel->setId($identity);
+                    
+                    $identity->setEndpoint($value['OXID']);
+                    $mediaFileModel->setProductId($identity);
+                    
                     $mediaFileModel->setSort($i);
                     
                     switch ($i)
@@ -58,7 +65,7 @@ class MediaFile extends BaseMapper
                             break;
                     }
 
-                    $container->add('media_file', $this->editEmptyStringToNull($mediaFileModel->getPublic(), false));
+                    $container->add('media_file', $mediaFileModel->getPublic(), false);
                 }
             }    
         }
@@ -68,7 +75,7 @@ class MediaFile extends BaseMapper
     {
         $oxidConf = new Config();
         
-        $sqlResult = $this->_db->query("SELECT * FROM oxarticles;");
+        $sqlResult = $this->_db->query("SELECT * FROM oxarticles ORDER BY OXPARENTID ASC;");
         
         return $sqlResult;
     }

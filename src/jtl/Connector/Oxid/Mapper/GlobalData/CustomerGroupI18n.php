@@ -3,6 +3,7 @@ namespace jtl\Connector\Oxid\Mapper\GlobalData;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
+
 use jtl\Connector\ModelContainer\GlobalDataContainer;
 use jtl\Connector\Model\CustomerGroupI18n as CustomerGroupI18nModel;
 
@@ -33,7 +34,7 @@ class CustomerGroupI18n extends BaseMapper
                             $customerGroupI18nModel->_customerGroupId = $value['OXID'];
                             $customerGroupI18nModel->_name = $value['OXTITLE'];
                             
-                            $container->add('customer_group_i18n', $this->editEmptyStringToNull($customerGroupI18nModel->getPublic(), false));
+                            $container->add('customer_group_i18n', $customerGroupI18nModel->getPublic(), false);
                         }
                     }
                 }else{
@@ -45,7 +46,7 @@ class CustomerGroupI18n extends BaseMapper
                             $customerGroupI18nModel->_customerGroupId = $value['OXID'];
                             $customerGroupI18nModel->_name = $value["OXTITLE_{$langBaseId}"];
                             
-                            $container->add('customer_group_i18n', $this->editEmptyStringToNull($customerGroupI18nModel->getPublic(), false));                    
+                            $container->add('customer_group_i18n', $customerGroupI18nModel->getPublic(), false); 
                         }
                     }
                 }

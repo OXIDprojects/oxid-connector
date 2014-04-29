@@ -4,7 +4,9 @@ namespace jtl\Connector\Oxid\Mapper\Product;
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
 use jtl\Connector\ModelContainer\ProductContainer;
+use jtl\Connector\Model\Identity as IdentityModel;
 use jtl\Connector\Model\ProductVariation as ProductVariationModel;
+
 
 /**
  * Summary of ProductVariation
@@ -13,15 +15,20 @@ class ProductVariation extends BaseMapper
 {
     public function fetchAll($container = null, $type = null, $params = array())
     {
+        $identity = new IdentityModel;
         $productVariationModel = new ProductVariationModel();       
         
         foreach ($params as $value)
         {
-            $productVariationModel->setId($value['OXID']);
-            $productVariationModel->setProductId($value['OXOBJECTID']);
+            $identity->setEndpoint($value['OXID']);
+            $productVariationModel->setId($identity);
+            
+            $identity->setEndpoint($value['OXOBJECTID']);
+            $productVariationModel->setProductId($identity);
+            
             $productVariationModel->setSort($value['OXPOS']);
             
-            $container->add('product_variation', $this->editEmptyStringToNull($productVariationModel->getPublic(), false));
+            $container->add('product_variation', $productVariationModel->getPublic(), false);
         }
     }
     
