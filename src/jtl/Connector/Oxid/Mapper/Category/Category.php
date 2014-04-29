@@ -4,7 +4,7 @@ namespace jtl\Connector\Oxid\Mapper\Category;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
-use jtl\Connector\Oxid\Mapper\CategoryI18n as CategoryI18nMapper;
+use jtl\Connector\Oxid\Mapper\Category\CategoryI18n as CategoryI18nMapper;
 
 use jtl\Connector\ModelContainer\CategoryContainer;
 
@@ -34,10 +34,9 @@ class Category extends BaseMapper
     
     
     public function fetchAll($container=null,$type=null,$params=array()) {
-        die("Stirb=");
         $result = [];
         
-        $dbResult = $this->_db->query('SELECT * FROM categories LIMIT '.$params['offset'].','.$params['limit']);
+        $dbResult = $this->_db->query('SELECT * FROM oxcategories ORDER BY OXID = OXROOTID DESC LIMIT '.$params['offset'].','.$params['limit']);
         
         foreach($dbResult as $data) {
     	    $container = new CategoryContainer();
@@ -48,7 +47,7 @@ class Category extends BaseMapper
     		
     		// add i18n
     		$categoryI18nMapper = new CategoryI18nMapper();
-    		$categoryI18nMapper->fetchAll($container,'category_i18n',array('category_id' => $model->_id));
+    		$categoryI18nMapper->fetchAll($container,'category_i18n', $categoryI18nMapper->getCategoryI18n(array('OXID' => $model->_id)));
             
             $result[] = $container->getPublic(array('items'));
     	} 

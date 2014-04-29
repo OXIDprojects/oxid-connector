@@ -27,7 +27,7 @@ class BaseController extends Controller
 	 */
     public function pull($params) {
         $reflect = new \ReflectionClass($this);
-        $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}";
+        $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}\\{$reflect->getShortName()}";
         
         if(class_exists($class)) {
             $action = new Action();
