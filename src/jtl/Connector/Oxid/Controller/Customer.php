@@ -16,40 +16,7 @@ use jtl\Connector\Oxid\Mapper\Customer\Customer as CustomerMapper;
 use jtl\Connector\Oxid\Mapper\Customer\CustomerAttr As CustomerAttrMapper;
 
 
-class Customer extends BaseController
-{
-    public function pull($params)
-    {
-        $action = new Action();
-        $action->setHandled(true);
-        
-        try
-        {
-            $container = new CustomerContainer();
-            
-            $customerMapper = new CustomerMapper();
-            
-            $customerMapper->fetchAll($container, 'customer', array('query' => "SELECT oxuser.*," .
-                                                                                " oxnewssubscribed.OXDBOPTIN" .
-                                                                                " FROM oxuser" .
-                                                                                " INNER JOIN oxnewssubscribed" .
-                                                                                " ON oxuser.OXID = oxnewssubscribed.OXUSERID;"));
-            
-            $result[] = $container->getPublic(array('items'));
-			
-            $action->setResult($result);
-        }
-        catch (\Exception $exc) 
-        {
-            $err = new Error();
-            $err->setCode($exc->getCode());
-            $err->setMessage($exc->getMessage());
-            $action->setError($err);
-        }
-        
-        return $action;
-        
-    }
+class Customer extends BaseController{
 }
 
 /* non mapped class

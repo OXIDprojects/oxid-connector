@@ -58,12 +58,13 @@ class ManufacturerI18n extends BaseMapper
         }
     }
     
-    public function getManufacturerI18n()
+    public function getManufacturerI18n($params)
     {
         $oxidConf = new Config();
         
         $sqlResult = $this->_db->query("SELECT * " .
-                                        " FROM oxmanufacturers;");
+                                        " FROM oxmanufacturers " .
+                                        " WHERE oxmanufacturers.OXID = '{$params['OXID']}';");
         return $sqlResult;
     }
 }

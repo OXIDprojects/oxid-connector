@@ -64,6 +64,24 @@ class Customer extends BaseMapper
         )
     );
     
+    public function fetchAll($container=null,$type=null,$params=array()) {
+        $result = [];
+        
+        $dbResult = $this->_db->query('SELECT * FROM oxuser ORDER BY oxuser.OXID LIMIT '.$params['offset'].','.$params['limit']);
+        
+        foreach($dbResult as $data) {
+    	    $container = new CustomerContainer();
+    		
+    		$model = $this->generate($data);
+    		
+    		$container->add('customer', $model->getPublic(), false);
+            
+            $result[] = $container->getPublic(array('items'));
+    	} 
+        return $result;
+    }
+    
+    
     public function _street($data)
     {
     	return "{$data['OXSTREET']}  {$data['OXSTREETNR']}";
