@@ -5,6 +5,8 @@ namespace jtl\Connector\Oxid\Mapper\Category;
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
 use jtl\Connector\Oxid\Mapper\Category\CategoryI18n as CategoryI18nMapper;
+use jtl\Connector\Oxid\Mapper\Category\CategoryAttr as CategoryAttrMapper;
+use jtl\Connector\Oxid\Mapper\Category\CategoryAttrI18n as CategoryAttrI18nMapper;
 
 use jtl\Connector\ModelContainer\CategoryContainer;
 
@@ -48,6 +50,14 @@ class Category extends BaseMapper
     		// add i18n
     		$categoryI18nMapper = new CategoryI18nMapper();
     		$categoryI18nMapper->fetchAll($container,'category_i18n', $categoryI18nMapper->getCategoryI18n(array('OXID' => $model->_id)));
+            
+            //add Attr
+            $categoryAttrMapper = new CategoryAttrMapper();
+            $categoryAttrMapper->fetchAll($container,'category_attr', $categoryAttrMapper->getCategoryAttr(array('OXID' => $model->_id)));
+            
+            //add AttrI18n
+            $categoryAttrI18nMapper = new CategoryAttrI18nMapper();
+            $categoryAttrI18nMapper->fetchAll($container,'category_attr_i18n', $categoryAttrI18nMapper->getCategoryAttrI18n(array('OXID' => $model->_id)));
             
             $result[] = $container->getPublic(array('items'));
     	} 

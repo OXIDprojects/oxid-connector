@@ -25,13 +25,14 @@ class CategoryAttr extends BaseMapper
         $container->add('category_attr', $categoryAttrModel->getPublic(), false);
     }
     
-    public function getCategoryAttr()
+    public function getCategoryAttr($params)
     {
         $oxidConf = new Config();
         
         $sqlResult = $this->_db->query(" SELECT * FROM oxcategory2attribute " .
                                        " INNER JOIN oxattribute " .
-                                       " ON oxcategory2attribute.OXATTRID = oxattribute.OXID;");
+                                       " ON oxcategory2attribute.OXATTRID = oxattribute.OXID " .
+                                       " WHERE oxcategory2attribute.OXOBJECTID = '{$params['OXID']}';");
         return $sqlResult;
     }    
 }

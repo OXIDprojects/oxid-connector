@@ -3,6 +3,10 @@ namespace jtl\Connector\Oxid\Mapper\CustomerOrder;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\ModelContainer\CustomerOrderContainer;
+use jtl\Connector\Oxid\Mapper\CustomerOrder\CustomerOrderItem as CustomerOrderItemMapper;
+use jtl\Connector\Oxid\Mapper\CustomerOrder\CustomerOrderPaymentInfo as CustomerOrderPaymentInfoMapper;
+use jtl\Connector\Oxid\Mapper\CustomerOrder\CustomerOrderShippingAddress as CustomerOrderShippingAddressMapper;
+use jtl\Connector\Oxid\Mapper\CustomerOrder\CustomerOrderBillingAddress as CustomerOrderBillingAddressMapper;
 
 /**
  * Summary of CustomerOrder
@@ -57,6 +61,38 @@ class CustomerOrder extends BaseMapper
         )
     );
     
+    public function fetchAll($container=null,$type=null,$params=array()) {
+        $result = [];
+        
+        $dbResult = $this->_db->query("SELECT * FROM oxorder ORDER BY oxorder.OXID LIMIT {$params['offset']},{$params['limit']}");
+        
+        foreach($dbResult as $data) {
+    	    $container = new CustomerOrderContainer();
+    		
+    		$model = $this->generate($data);
+    		
+    		$container->add('customer_order', $model->getPublic(),false);
+    		
+            //add BillingAddress
+            $customerOrderBillingAddressMapper = new CustomerOrderBillingAddressMapper();
+            $customerOrderBillingAddressMapper->fetchAll($container,'customer_order_billing_address', array('data' => $data));
+            
+    		// add Item
+    		$customerOrderItemMapper = new CustomerOrderItemMapper();
+    		$customerOrderItemMapper->fetchAll($container,'customer_order_item', array('data' => $data));
+            
+            //add PaymentInfo
+            $customerOrderPaymentInfoMapper = new CustomerOrderPaymentInfoMapper();
+            $customerOrderPaymentInfoMapper->fetchAll($container,'customer_order_payment_info', $customerOrderPaymentInfoMapper->getPaymentInfo(array('OXPAYMENTID' => $model->_paymentModuleCode)));
+            
+            //add ShippingAddress
+            $customerOrderShippingAddressMapper = new CustomerOrderShippingAddressMapper();
+            $customerOrderShippingAddressMapper->fetchAll($container,'customer_order_shipping_address', array('data' => $data));
+            
+            $result[] = $container->getPublic(array('items'));
+    	} 
+        return $result;
+    }
     
     public function _estimatedDeliveryDate($data)
     {

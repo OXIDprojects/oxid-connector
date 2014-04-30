@@ -15,7 +15,7 @@ class CustomerOrderPaymentInfo  extends BaseMapper
     public function fetchAll($container = null, $type = null, $params = array())
     {
         $customerOrderPaymentInfo = new CustomerOrderPaymentInfoModel();
-        
+                
         foreach ($params as $value)
         {
             $customerOrderPaymentInfo->_id = $value['OXID'];
@@ -57,13 +57,11 @@ class CustomerOrderPaymentInfo  extends BaseMapper
         }
     }
     
-    public function getPaymentInfo()
+    public function getPaymentInfo($param)
     {   
         $oxidConf = new Config();
         
-        $sqlResult = $this->_db->query("SELECT OXID, OXUSERID,  " .
-                                        " DECODE(OXVALUE, 'sd45DF09_sdlk09239DD') AS OXVALUEDECODED " .
-                                        " FROM oxuserpayments");        
+        $sqlResult = $this->_db->query("SELECT OXID, OXUSERID, DECODE(OXVALUE, 'sd45DF09_sdlk09239DD') AS OXVALUEDECODED FROM oxuserpayments WHERE OXID = '{$param['OXPAYMENTID']}';");
         
         //Hole alle PaymentInfos pro Bestellung
         for ($i = 0; $i < count($sqlResult); $i++)
