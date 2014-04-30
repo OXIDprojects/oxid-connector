@@ -71,11 +71,11 @@ class MediaFile extends BaseMapper
         }
     }
     
-    public function getMediaFile()
+    public function getMediaFile($param)
     {
         $oxidConf = new Config();
         
-        $sqlResult = $this->_db->query("SELECT * FROM oxarticles ORDER BY OXPARENTID ASC;");
+        $sqlResult = $this->_db->query("SELECT * FROM oxarticles WHERE OXID = '{$param['OXID']}' ORDER BY OXPARENTID ASC;");
         
         return $sqlResult;
     }

@@ -54,12 +54,12 @@ class ProductVariationI18n extends BaseMapper
         }
     }
     
-    public function getProductVariationI18n()
+    public function getProductVariationI18n($param)
     {
         $oxidConf = new Config();
         
         $sqlResult = $this->_db->query(" SELECT * FROM oxobject2attribute, oxarticles " .
-                                       " WHERE oxobject2attribute.OXOBJECTID = oxarticles.OXID " .
+                                       " WHERE oxarticles.OXID = '{$param['OXID']}' AND oxobject2attribute.OXOBJECTID = oxarticles.OXID " .
                                        " ORDER BY OXOBJECTID DESC;");
         return $sqlResult;
     }

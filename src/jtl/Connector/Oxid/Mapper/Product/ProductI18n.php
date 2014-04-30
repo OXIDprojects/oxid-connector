@@ -66,14 +66,15 @@ class ProductI18n extends BaseMapper
         }
     }
     
-    public function getProductI18n()
+    public function getProductI18n($param)
     {
         $oxidConf = new Config();
         
         $sqlResult = $this->_db->query("SELECT oxarticles.*, oxartextends.*" .
                                         " FROM oxarticles" .
                                         " INNER JOIN oxartextends" .
-                                        " ON oxarticles.OXID = oxartextends.OXID;");
+                                        " ON oxarticles.OXID = oxartextends.OXID " .
+                                        " WHERE oxarticles.OXID = '{$param['OXID']}';");
         return $sqlResult;
     }
 }
