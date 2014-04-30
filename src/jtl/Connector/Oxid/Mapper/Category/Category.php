@@ -36,7 +36,7 @@ class Category extends BaseMapper
     public function fetchAll($container=null,$type=null,$params=array()) {
         $result = [];
         
-        $dbResult = $this->_db->query('SELECT * FROM oxcategories ORDER BY OXID = OXROOTID DESC LIMIT '.$params['offset'].','.$params['limit']);
+        $dbResult = $this->_db->query('SELECT * FROM oxcategories ORDER BY oxleft ASC LIMIT '.$params['offset'].','.$params['limit']);
         
         foreach($dbResult as $data) {
     	    $container = new CategoryContainer();
