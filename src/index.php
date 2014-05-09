@@ -4,4 +4,4 @@
  */
 define("APP_DIR", __DIR__);
 
-require_once(APP_DIR . "/bootstrap.php");
+require_once (APP_DIR . "/bootstrap.php");

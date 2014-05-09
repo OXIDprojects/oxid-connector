@@ -18,18 +18,28 @@ class ProductVariation extends BaseMapper
         $identity = new IdentityModel;
         $productVariationModel = new ProductVariationModel();       
         
-        foreach ($params as $value)
-        {
-            $identity->setEndpoint($value['OXID']);
-            $productVariationModel->setId($identity);
-            
-            $identity->setEndpoint($value['OXOBJECTID']);
-            $productVariationModel->setProductId($identity);
-            
-            $productVariationModel->setSort($value['OXPOS']);
-            
-            $container->add('product_variation', $productVariationModel->getPublic(), false);
+        if (count($params) >= 2) {
+            foreach ($params as $value)
+            {              
+                if ($value['OXVARNAME']) {
+                
+                    $variantIDs = split("\|", $value['OXVARNAME']);
+                    
+                    foreach ($variantIDs as $variantID) {
+                        $identity->setEndpoint($variantID);
+                        $productVariationModel->setId($identity);
+                        
+                        $identity->setEndpoint($value['OXOBJECTID']);
+                        $productVariationModel->setProductId($identity);
+                    }
+                    
+                    $productVariationModel->setSort($value['OXPOS']);
+                
+                    $container->add('product_variation', $productVariationModel->getPublic(), false);
+                }
+            }
         }
+        
     }
     
      public function updateAll($container, $trid=null)
@@ -40,11 +50,11 @@ class ProductVariation extends BaseMapper
     public function getProductVariation($param)
     {
         $oxidConf = new Config();
-        
-        $sqlResult = $this->_db->query(" SELECT * FROM oxobject2attribute, oxarticles " .
-                                       " WHERE oxarticles.OXID = '{$param['OXID']}' " . 
-                                       " AND oxobject2attribute.OXOBJECTID = oxarticles.OXID " .
-                                       " ORDER BY OXOBJECTID DESC;");
+               
+        $sqlResult = $this->_db->query(" SELECT * FROM oxarticles " .
+                                       " WHERE OXID = '{$param['OXID']}' " .
+                                       " OR OXID = (SELECT OXPARENTID FROM oxarticles WHERE OXID = '{$param['OXID']}') " .
+                                       " ORDER BY OXPARENTID");
         return $sqlResult;
     }
 }

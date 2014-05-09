@@ -19,47 +19,8 @@ use jtl\Connector\Oxid\Mapper\CustomerOrder\CustomerOrderShippingAddress as Cust
 use jtl\Connector\Oxid\Mapper\CustomerOrder\CustomerOrderBillingAddress as CustomerOrderBillingAddressMapper;
 
 
-class CustomerOrder extends BaseController
-{
-    //public function pull($params)
-    //{
-    //    $action = new Action();
-    //    $action->setHandled(true);
-        
-    //    $filter = new QueryFilter();
-    //    $filter->set($params);
-        
-    //    try
-    //    {
-    //        $container = new CustomerOrderContainer();
-            
-    //        $customerOrderMapper = new CustomerOrderMapper();
-    //        $customerOrderItemMapper = new CustomerOrderItemMapper();
-    //        $customerOrderShippingAddressMapper = new CustomerOrderShippingAddressMapper();
-    //        $customerOrderBillingAddressMapper = new CustomerOrderBillingAddressMapper();
-    //        $customerOrderPaymentInfoMapper = new CustomerOrderPaymentInfoMapper();
-            
-    //        $customerOrderMapper->fetchAll($container, 'customer_order');
-    //        $customerOrderItemMapper->fetchAll($container, 'customer_order_item', array('query' => "SELECT * FROM oxorderarticles ORDER BY OXORDERID DESC"));
-    //        $customerOrderShippingAddressMapper->fetchAll($container, 'customer_order_shipping_address');
-    //        $customerOrderBillingAddressMapper->fetchAll($container, 'customer_order_billing_address');
-    //        $customerOrderPaymentInfoMapper->fetchAll($container, 'customer_order_payment_info', $customerOrderPaymentInfoMapper->getPaymentInfo());
-
-    //        $result[] = $container->getPublic(array('items'));
-			
-    //        $action->setResult($result);
-    //    }
-    //    catch (\Exception $exc) 
-    //    {
-    //        $err = new Error();
-    //        $err->setCode($exc->getCode());
-    //        $err->setMessage($exc->getMessage());
-    //        $action->setError($err);
-    //    }
-        
-    //    return $action;
-        
-    //}
+class CustomerOrder extends BaseController {
+    
 }
 
 /* non mapped class

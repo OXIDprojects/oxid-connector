@@ -67,11 +67,11 @@ class Product extends BaseMapper
                     "OXMPN" => "_manufacturerNumber"
                )
         );
-    
+       
     public function fetchAll($container=null,$type=null,$params=array()) {
         $result = [];
         
-        $dbResult = $this->_db->query("SELECT * FROM oxarticles ORDER BY OXPARENTID ASC LIMIT {$params['offset']},{$params['limit']};");
+        $dbResult = $this->_db->query("SELECT * FROM oxarticles WHERE OXPARENTID = '' ORDER BY OXPARENTID ASC LIMIT {$params['offset']},{$params['limit']};");
         
         foreach($dbResult as $data) {
     	    $container = new ProductContainer();
@@ -101,16 +101,16 @@ class Product extends BaseMapper
             $product2CategoryMapper->fetchAll($container,'product2_category', array('query' => "SELECT * FROM oxobject2category WHERE OXOBJECTID = '{$data['OXID']}' ORDER BY OXCATNID ASC;"));
             
             //add variation
-            $productVariationMapper = new ProductVariationMapper();
-            $productVariationMapper->fetchAll($container,'product_variation', $productVariationMapper->getProductVariation(array('OXID' => $model->_id)));
+            //$productVariationMapper = new ProductVariationMapper();
+            //$productVariationMapper->fetchAll($container,'product_variation', $productVariationMapper->getProductVariation(array('OXID' => $model->_id)));
             
             //add fileDownload
             $productFileDownloadMapper = new ProductFileDownloadMapper();
             $productFileDownloadMapper->fetchAll($container,'product_file_download', array('data' => $data));
             
             //add variationI18n
-            $productVariationI18nMapper = new ProductVariationI18nMapper();
-            $productVariationI18nMapper->fetchAll($container,'product_variation_i18n', $productVariationI18nMapper->getProductVariationI18n(array('OXID' => $model->_id)));
+            //$productVariationI18nMapper = new ProductVariationI18nMapper();
+            //$productVariationI18nMapper->fetchAll($container,'product_variation_i18n', $productVariationI18nMapper->getProductVariationI18n(array('OXID' => $model->_id)));
             
             //add warehouseInfo
             $productWarehouseInfoMapper = new ProductWarehouseInfoMapper();
@@ -120,6 +120,16 @@ class Product extends BaseMapper
     	} 
         return $result;
     }
+    
+    public function fetchCount() {	    	
+	    $objs = $this->_db->query("SELECT count(*) as count FROM oxarticles WHERE OXPARENTID = '' LIMIT 1", array("return" => "object"));
+        
+        if ($objs !== null) {
+	        return intval($objs[0]->count);
+	    }
+        
+	    return 0;
+	}
     
     public function _created($data)
     {
@@ -145,20 +155,15 @@ class Product extends BaseMapper
         return false;
     }   
     
-    //ToDo!
-    //public function _vat($data)
-    //{
-    //    if(!empty($data['OXVAT']))
-    //    {
-    //        return $data['OXVAT'];
-    //    }else{
-    //        die(print_r($this->getDefaultVAT));
-    //        return $this->getDefaultVAT;
-    //    }
-    //}
-    
-    //_basePriceUnitId = Preis wird bereits in der Artikel Tabelle vergeben.
-    //_basePriceDivisor ?
+    public function _vat($data)
+    {
+        if($data['OXVAT'])
+        {
+            return $data['OXVAT'];
+        }else{
+            return $this->getDefaultVAT('dDefaultVAT');
+        }
+    }
 }
 
 /* non mapped properties
@@ -185,6 +190,8 @@ _setArticleId
 _upc
 _originCountry
 _epid
+_basePriceUnitId
+_basePriceDivisor
 _productTypeId
 _inflowQuantity
 _inflowDate

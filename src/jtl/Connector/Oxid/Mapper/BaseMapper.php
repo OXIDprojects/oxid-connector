@@ -222,7 +222,6 @@ class BaseMapper
         $SQLResult = $this->_db->query(" SELECT DECODE(OXVARVALUE, '{$OxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
                  " WHERE OXVARNAME = 'aLanguages' OR OXVARNAME = 'aLanguageParams' ");
         
-        //Blob Felder aus OXCONFIG Tabelle Deserialisieren und in Array schreiben
         for ($i = 0; $i < count($SQLResult); $i++)
         {
             switch ($i)
@@ -241,14 +240,12 @@ class BaseMapper
             $LanguageResult[$VarName] = unserialize($SQLResult[$i]['OXVARVALUEDECODED']);
         }
         
-        //Migrieren der "aLanguageParams" in die "aLanguages"
         foreach ($LanguageResult['aLanguages'] as $key => $value)
         {
             $LanguageResult['aLanguages'][$key] = array_merge($LanguageResult['aLanguages'][$key], array("code"=>$key));
             $this->array_put_to_position($LanguageResult['aLanguages'][$key], $LanguageResult["aLanguageParams"][$key], 0, "name");
         }
         
-        //Nach Migration "aLanguageParams" aus Array schmeißen
         unset($LanguageResult["aLanguageParams"]);
         
         return $LanguageResult['aLanguages'];
@@ -269,14 +266,12 @@ class BaseMapper
         $return = array();
         foreach ($array as $k => $v) 
         {
-            // Füge neues Objekt hinzu
             if ($count == $position)
             {
                 if (!$name) $name = $count;
                 $return[$name] = $object;
                 $inserted = true;
             }
-            // Füge altes Objekt hinzu
             $return[$k] = $v; 
             $count++;
         }

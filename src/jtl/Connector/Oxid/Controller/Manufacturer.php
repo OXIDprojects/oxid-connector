@@ -17,4 +17,5 @@ use jtl\Connector\Oxid\Mapper\Manufacturer\ManufacturerI18n As ManufacturerI18nM
 
 
 class Manufacturer extends BaseController{
+    
 }
