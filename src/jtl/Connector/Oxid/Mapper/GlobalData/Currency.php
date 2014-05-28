@@ -4,8 +4,9 @@ namespace jtl\Connector\Oxid\Mapper\GlobalData;
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
 
-use jtl\Connector\Model\Currency as CurrencyModel;
 use jtl\Connector\ModelContainer\GlobalDataContainer;
+use jtl\Connector\Model\Currency as CurrencyModel;
+use jtl\Connector\Model\Identity as IdentityModel;
 
 /**
  * Summary of Currency
@@ -15,6 +16,7 @@ class Currency extends BaseMapper
     public function fetchAll($container = null, $type = null, $params = array())
     {
         $currency = new CurrencyModel();
+        $identity = new IdentityModel();
         
         for ($i = 0; $i < count($params); $i++)
         {
@@ -22,7 +24,9 @@ class Currency extends BaseMapper
             {
                 $currency->_isDefault = True;
             }
-            $currency->_id = $params[$i]['id'];
+            
+            $identity->setEndpoint($params[$i]['id']);
+            $currency->_id = $identity;
             $currency->_name = $params[$i]['name'];
             $currency->_nameHtml = $params[$i]['symbol'];
             $currency->_factor = $params[$i]['rate'];

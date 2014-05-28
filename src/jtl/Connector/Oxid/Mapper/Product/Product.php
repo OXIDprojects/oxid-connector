@@ -30,11 +30,12 @@ class Product extends BaseMapper
             "PK" => "OXID",
             "mapPull" => array
                 (
+                    "_considerStock" => null,
+                    "_permitNegativeStock" => null,
                     "_id" => "OXID",
                     "_masterProductId" => "OXPARENTID",
                     "_manufacturerId" => "OXMANUFACTURERID",
                     "_unitId" => "OXUNITNAME",
-                    "_basePriceUnitId" => null,
                     "_sku" => "OXARTNUM",
                     "_stockLevel" => "OXSTOCK",
                     "_vat" => null,
@@ -48,6 +49,7 @@ class Product extends BaseMapper
                     "_availableFrom" => null,
                     "_manufacturerNumber" => "OXMPN",
                     "_isMasterProduct" => null,
+                    "_inflowDate" => null,
                 ),
                "mapPush" => array(
                     "OXID" => "_id",
@@ -81,8 +83,8 @@ class Product extends BaseMapper
     		$container->add('product', $model->getPublic(),false);
     		          
             //add mediaFile
-            $mediaFileMapper = new MediaFileMapper();
-            $mediaFileMapper->fetchAll($container,'media_file', $mediaFileMapper->getMediaFile(array('OXID' => $model->_id)));
+            //$mediaFileMapper = new MediaFileMapper();
+            //$mediaFileMapper->fetchAll($container,'media_file', $mediaFileMapper->getMediaFile(array('OXID' => $model->_id)));
             
             //add i18n
             $productI18nMapper = new ProductI18nMapper();
@@ -164,6 +166,37 @@ class Product extends BaseMapper
             return $this->getDefaultVAT('dDefaultVAT');
         }
     }
+    
+    public function _inflowDate($data)
+    {
+        if($data['OXDELIVERY'] != '0000-00-00')
+        {
+            return $this->stringToDateTime($data['OXDELIVERY']);
+        }else{
+            return null;
+        }
+    }
+    
+    public function _considerStock($data)
+    {
+        if($data['OXSTOCK'] >= 1 and $data['OXSTOCKFLAG'] == 1)
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public function _permitNegativeStock($data)
+    {
+        if($data['OXSTOCK'] >= 1 and $data['OXSTOCKFLAG'] == 1)
+        {
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
 }
 
 /* non mapped properties
@@ -174,8 +207,6 @@ _note
 _isTopProduct
 _shippingWeight
 _isNew
-_considerStock
-_permitNegativeStock
 _considerVariationStock
 _isDivisible
 _considerBasePrice
@@ -194,7 +225,6 @@ _basePriceUnitId
 _basePriceDivisor
 _productTypeId
 _inflowQuantity
-_inflowDate
 _bestBefore
 _supplierStockLevel
 _supplierDeliveryTime

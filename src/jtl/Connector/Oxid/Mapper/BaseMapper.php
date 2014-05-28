@@ -302,4 +302,13 @@ class BaseMapper
         }
         
     }
+    
+    /**
+     * Returns generated unique ID.
+     * @return string
+     */
+    function generateUId()
+    {
+        return substr( md5( uniqid( '', true ).'|'.microtime() ), 0, 32 );
+    }
 }

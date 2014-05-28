@@ -58,9 +58,7 @@ class ProductI18n extends BaseMapper
     }
     
     public function getProductI18n($param)
-    {
-        $oxidConf = new Config();
-        
+    {      
         $sqlResult = $this->_db->query("SELECT oxarticles.*, oxartextends.*" .
                                         " FROM oxarticles" .
                                         " LEFT JOIN oxartextends" .

@@ -52,31 +52,7 @@ class CategoryAttrI18n extends BaseMapper
             }   
         }
     }
-    
-    public function updateAll($container, $trid=null) {
-        $result = new TransactionResult();
-        $result->setTransactionId($trid);
-        
-        foreach ($container->get('categoryAttrI18n') as $categoryAttrI18n)
-        {
-            $obj = $this->mapDB($categoryAttrI18n);
-            
-            $entry = new \stdClass();
-            $entry->OXID = $categoryAttrI18n->_categoryAttrId;
-            $entry->OXTITLE = $categoryAttrI18n->_value;
-        }
-        
-        if(!empty($obj->OXID))
-        {
-            $this->_db->updateRow($obj, $this->_config['table'],$this->_config['pk'],$obj->customers_id);
-            $result->setId($obj->customers_id);
-            $result->setAction(TransactionResult::ACTION_UPDATE);
-        }else{
-            $result->setAction(TransactionResult::ACTION_CREATE);
-            
-        }
-    }
-    
+
     public function getCategoryAttrI18n($params)
     {
         $oxidConf = new Config();

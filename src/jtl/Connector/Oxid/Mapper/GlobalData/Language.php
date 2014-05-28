@@ -20,7 +20,7 @@ class Language extends BaseMapper
             $language->_id = $value['baseId'];
             $language->_nameEnglish = $value['name'];
             $language->_nameGerman = $value['name'];
-            $language->_localeName = $value['name'];
+            $language->_localeName = $this->getLocalCode($value['code']);
             
             if(!isset($value['default']) or $value['default'] == 1)
             {

@@ -5,10 +5,8 @@ use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Mapper\Manufacturer\ManufacturerI18n as ManufacturerI18nMapper;
 
 use jtl\Connector\ModelContainer\ManufacturerContainer;
+use jtl\Connector\Result\Transaction as TransactionResult;
 
-/**
- * Summary of Manufacturer
- */
 class Manufacturer extends BaseMapper
 {
     protected $_config = array
@@ -39,7 +37,7 @@ class Manufacturer extends BaseMapper
     		
     		$container->add('manufacturer', $model->getPublic(),false);
     		
-    		// add i18n
+    		//add i18n
     		$manufacturerI18nMapper = new ManufacturerI18nMapper();
             $manufacturerI18nMapper->fetchAll($container, 'manufacturerI18n', $manufacturerI18nMapper->getManufacturerI18n(array('OXID' => $model->_id)));
             
@@ -47,6 +45,27 @@ class Manufacturer extends BaseMapper
     	} 
         return $result;
     }
+    
+    public function updateAll($container,$trid=null) {
+        $result = new TransactionResult();
+        
+        $manufacturer = $container->getMainModel();
+        $identity = $manufacturer->getId();
+        
+        $obj = $this->mapDB($manufacturer);
+        
+        if(!empty($obj->manufacturers_id)) {
+            $this->_db->updateRow($obj, $this->_config['table'],$this->_config['pk'],$obj->manufacturers_id);
+        }
+        else {
+            $insertResult = $this->_db->insertRow($obj, $this->_config['table']);
+            $identity->setEndpoint($insertResult->getKey());
+        }
+        
+        $result->setId($identity);
+        
+        return $result;
+    } 
 }
 
 /* non mapped properties

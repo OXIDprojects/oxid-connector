@@ -25,9 +25,9 @@ class CustomerOrder extends BaseMapper
             "_currencyIso" => "OXCURRENCY",
             "_estimatedDeliveryDate" => null,
             "_credit" => "OXVOUCHERDISCOUNT",
-            "_totalSum" => "OXARTVATPRICE1",
+            "_totalSum" => "OXTOTALBRUTSUM",
             "_shippingMethodName" => "OXDELTYPE",
-            "_orderNumber" => "OXMOBFON",
+            "_orderNumber" => "OXORDERNR",
             "_shippingDate" => null,
             "_paymentDate" => null,
             "_tracking" => "OXTRACKCODE",
@@ -77,19 +77,22 @@ class CustomerOrder extends BaseMapper
             $customerOrderBillingAddressMapper = new CustomerOrderBillingAddressMapper();
             $customerOrderBillingAddressMapper->fetchAll($container,'customer_order_billing_address', array('data' => $data));
             
-    		// add Item
+    		//add Item
     		$customerOrderItemMapper = new CustomerOrderItemMapper();
-    		$customerOrderItemMapper->fetchAll($container,'customer_order_item', array('data' => $data));
+    		$customerOrderItemMapper->fetchAll($container,'customer_order_item', $customerOrderItemMapper->getOrderItem(array('OXID' => $model->_id)));
             
             //add PaymentInfo
             $customerOrderPaymentInfoMapper = new CustomerOrderPaymentInfoMapper();
             $customerOrderPaymentInfoMapper->fetchAll($container,'customer_order_payment_info', $customerOrderPaymentInfoMapper->getPaymentInfo(array('OXPAYMENTID' => $model->_paymentModuleCode)));
-            
+                       
             //add ShippingAddress
             $customerOrderShippingAddressMapper = new CustomerOrderShippingAddressMapper();
-            $customerOrderShippingAddressMapper->fetchAll($container,'customer_order_shipping_address', array('data' => $data));
+            $customerOrderShippingAddressMapper->fetchAll($container,'customer_order_shipping_address', $customerOrderShippingAddressMapper->getOrderShippingAddress(array('OXID' => $model->_id)));
             
             $result[] = $container->getPublic(array('items'));
+            
+            
+            
     	} 
         return $result;
     }

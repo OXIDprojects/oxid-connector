@@ -3,6 +3,7 @@ namespace jtl\Connector\Oxid\Mapper\Category;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
+
 use jtl\Connector\ModelContainer\CategoryContainer;
 use jtl\Connector\Model\CategoryAttr as CategoryAttrModel;
 
