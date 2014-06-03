@@ -28,7 +28,7 @@ class CategoryAttrI18n extends BaseMapper
                 
                 if($this->getLocalCode($language['code']))
                 {
-                    if(!isset($language['default']) or $language['default'] == 1)
+                    if($language['baseId'] == 0)
                     {   
                         if(!empty($value['OXTITLE']))
                         {

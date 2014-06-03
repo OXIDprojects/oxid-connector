@@ -26,7 +26,7 @@ class ProductI18n extends BaseMapper
                 
                 if($this->getLocalCode($language['code']))
                 {
-                    if(!isset($language['default']) or $language['default'] == 1)
+                    if($language['baseId'] == 0)
                     {   
                             $productI18nModel->_localeName = $this->getLocalCode($language['code']);
                             $productI18nModel->_productId = $value['OXID'];

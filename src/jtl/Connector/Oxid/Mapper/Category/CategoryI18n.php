@@ -24,7 +24,7 @@ class CategoryI18n extends BaseMapper
             {       
                 $langBaseId = $language['baseId'];
                 
-                if(!isset($language['default']) or $language['default'] == 1)
+                if($language['baseId'] == 0)
                 {   
                     if($this->getLocalCode($language['code']))
                     {
