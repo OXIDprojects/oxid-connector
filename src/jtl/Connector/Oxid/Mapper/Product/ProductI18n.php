@@ -23,7 +23,7 @@ class ProductI18n extends BaseMapper
             //Pro Sprache
             foreach ($languages as $language)
             {
-                $langBaseId = $language['baseId']);
+                $langBaseId = $language['baseId'];
                 
                 if($this->getLocalCode($language['code']))
                 {
@@ -34,7 +34,7 @@ class ProductI18n extends BaseMapper
                             $productI18nModel->setProductId($identityModel);
                             
                             $productI18nModel->setLocaleName($this->getLocalCode($language['code']));
-                            $productI18nModel->setName($value['OXTITLE'];
+                            $productI18nModel->setName($value['OXTITLE']);
                             $productI18nModel->setUrlPath($value['OXEXTURL']);
                             $productI18nModel->setDescription($value['OXLONGDESC']);
                             $productI18nModel->setShortDescription($value['OXSHORTDESC']);
