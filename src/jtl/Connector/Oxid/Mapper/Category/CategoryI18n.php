@@ -36,10 +36,10 @@ class CategoryI18n extends BaseMapper
                             $identityModel->setEndpoint($value['OXID']);
                             $categoryI18nModel->setCategoryId($identityModel);                            
                             
-                            $categoryI18nModel->setLocaleName = $this->getLocalCode($language['code']);
-                            $categoryI18nModel->setName = $value['OXTITLE'];
-                            $categoryI18nModel->setUrlPath = $value['OXEXTLINK'];
-                            $categoryI18nModel->setDescription = $value['OXLONGDESC'];
+                            $categoryI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                            $categoryI18nModel->setName($value['OXTITLE']);
+                            $categoryI18nModel->setUrlPath($value['OXEXTLINK']);
+                            $categoryI18nModel->setDescription($value['OXLONGDESC']);
                                                       
                             $container->add('category_i18n', $categoryI18nModel->getPublic(), false);
                         }    
@@ -54,10 +54,10 @@ class CategoryI18n extends BaseMapper
                             $identityModel->setEndpoint($value['OXID']);
                             $categoryI18nModel->setCategoryId($identityModel); 
                             
-                            $categoryI18nModel->setLocaleName = $this->getLocalCode($language['code']);
-                            $categoryI18nModel->setName = $value["OXTITLE_{$langBaseId}"];
-                            $categoryI18nModel->setUrlPath = $value["OXEXTLINK"];
-                            $categoryI18nModel->setDescription = $value["OXLONGDESC_{$langBaseId}"];
+                            $categoryI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                            $categoryI18nModel->setName($value["OXTITLE_{$langBaseId}"]);
+                            $categoryI18nModel->setUrlPath($value["OXEXTLINK"]);
+                            $categoryI18nModel->setDescription($value["OXLONGDESC_{$langBaseId}"]);
                             
                             $container->add('category_i18n', $categoryI18nModel->getPublic(), false);
                         }

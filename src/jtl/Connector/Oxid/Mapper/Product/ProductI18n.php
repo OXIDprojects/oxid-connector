@@ -23,7 +23,7 @@ class ProductI18n extends BaseMapper
             //Pro Sprache
             foreach ($languages as $language)
             {
-                $langBaseId = $language['baseId'];
+                $langBaseId = $language['baseId']);
                 
                 if($this->getLocalCode($language['code']))
                 {
@@ -33,11 +33,11 @@ class ProductI18n extends BaseMapper
                             $identityModel->setEndpoint($value['OXID']);
                             $productI18nModel->setProductId($identityModel);
                             
-                            $productI18nModel->setLocaleName = $this->getLocalCode($language['code']);
-                            $productI18nModel->setName = $value['OXTITLE'];
-                            $productI18nModel->setUrlPath = $value['OXEXTURL'];
-                            $productI18nModel->setDescription = $value['OXLONGDESC'];
-                            $productI18nModel->setShortDescription = $value['OXSHORTDESC'];
+                            $productI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                            $productI18nModel->setName($value['OXTITLE'];
+                            $productI18nModel->setUrlPath($value['OXEXTURL']);
+                            $productI18nModel->setDescription($value['OXLONGDESC']);
+                            $productI18nModel->setShortDescription($value['OXSHORTDESC']);
                             
                             $container->add('product_i18n', $productI18nModel->getPublic(), false);
                     }else{
@@ -50,11 +50,11 @@ class ProductI18n extends BaseMapper
                             $identityModel->setEndpoint($value['OXID']);
                             $productI18nModel->setProductId($identityModel);
                             
-                            $productI18nModel->setLocaleName = $this->getLocalCode($language['code']);
-                            $productI18nModel->setName = $value["OXTITLE_{$langBaseId}"];
-                            $productI18nModel->setUrlPath = $value["OXURLDESC_{$langBaseId}"];
-                            $productI18nModel->setDescription = $value["OXLONGDESC_{$langBaseId}"];
-                            $productI18nModel->setShortDescription = $value["OXSHORTDESC_{$langBaseId}"];
+                            $productI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                            $productI18nModel->setName($value["OXTITLE_{$langBaseId}"]);
+                            $productI18nModel->setUrlPath($value["OXURLDESC_{$langBaseId}"]);
+                            $productI18nModel->setDescription($value["OXLONGDESC_{$langBaseId}"]);
+                            $productI18nModel->setShortDescription($value["OXSHORTDESC_{$langBaseId}"]);
                             
                             $container->add('product_i18n', $productI18nModel->getPublic(), false);
                         }

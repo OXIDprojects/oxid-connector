@@ -28,7 +28,7 @@ class CategoryAttr extends BaseMapper
             $identityModel->setEndpoint($value['OXOBJECTID']);
             $categoryAttrModel->setCategoryId($identityModel);
             
-            $categoryAttrModel->setSort = $value['OXSORT'];
+            $categoryAttrModel->setSort($value['OXSORT']);
         }
         
         $container->add('category_attr', $categoryAttrModel->getPublic(), false);

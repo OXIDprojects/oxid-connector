@@ -36,9 +36,9 @@ class ManufacturerI18n extends BaseMapper
                             $identityModel->setEndpoint($value['OXID']);
                             $manufacturerI18nModel->setManufacturerId($identityModel);
                             
-                            $manufacturerI18nModel->setLocaleName = $this->getLocalCode($language['code']);
-                            $manufacturerI18nModel->setDescription = $value['OXSHORTDESC'];
-                            $manufacturerI18nModel->setTitleTag = $value['OXTITLE'];
+                            $manufacturerI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                            $manufacturerI18nModel->setDescription($value['OXSHORTDESC']);
+                            $manufacturerI18nModel->setTitleTag($value['OXTITLE']);
                             
                             $container->add('manufacturer_i18n', $manufacturerI18nModel->getPublic(), false);
                         }
@@ -53,9 +53,9 @@ class ManufacturerI18n extends BaseMapper
                             $identityModel->setEndpoint($value['OXID']);
                             $manufacturerI18nModel->setManufacturerId($identityModel);
                             
-                            $manufacturerI18nModel->setLocaleName = $this->getLocalCode($language['code']);
-                            $manufacturerI18nModel->setDescription = $value["OXSHORTDESC_{$langBaseId}"];
-                            $manufacturerI18nModel->setTitleTag = $value["OXTITLE_{$langBaseId}"];
+                            $manufacturerI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                            $manufacturerI18nModel->setDescription($value["OXSHORTDESC_{$langBaseId}"]);
+                            $manufacturerI18nModel->setTitleTag($value["OXTITLE_{$langBaseId}"]);
                             
                             $container->add('manufacturer_i18n', $manufacturerI18nModel->getPublic(), false);
                         }

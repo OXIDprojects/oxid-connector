@@ -22,17 +22,16 @@ class Language extends BaseMapper
             $identityModel->setEndpoint($value['baseId']);
             $language->setId($identityModel);
             
-            $language->setNameEnglish = $value['name'];
-            $language->setNameGerman = $value['name'];
-            $language->setLocaleName = $this->getLocalCode($value['code']);
+            $language->setNameEnglish($value['name']);
+            $language->setNameGerman($value['name']);
+            $language->setLocaleName($this->getLocalCode($value['code']));
             
             if(!isset($value['default']) or $value['default'] == 1)
             {
-                $language->setIsDefault = true;
+                $language->setIsDefault(true);
             }else{
-                $language->setIsDefault = false;
+                $language->setIsDefault(false);
             }
-            
             $container->add('language', $language->getPublic(), false);
         }
     }   

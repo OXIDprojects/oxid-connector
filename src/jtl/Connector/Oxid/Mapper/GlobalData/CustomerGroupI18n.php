@@ -35,8 +35,8 @@ class CustomerGroupI18n extends BaseMapper
                             $identityModel->setEndpoint($value['OXID']);
                             $customerGroupI18nModel->setCustomerGroupId($identityModel);
                             
-                            $customerGroupI18nModel->setLocaleName = $this->getLocalCode($language['code']);
-                            $customerGroupI18nModel->setName = $value['OXTITLE'];
+                            $customerGroupI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                            $customerGroupI18nModel->setName($value['OXTITLE']);
                             
                             $container->add('customer_group_i18n', $customerGroupI18nModel->getPublic(), false);
                         }
@@ -50,10 +50,10 @@ class CustomerGroupI18n extends BaseMapper
                             $identityModel->setEndpoint($value['OXID']);
                             $customerGroupI18nModel->setCustomerGroupId($identityModel);
                             
-                            $customerGroupI18nModel->setLocaleName = $this->getLocalCode($language['code']);
-                            $customerGroupI18nModel->setName = $value["OXTITLE_{$langBaseId}"];
+                            $customerGroupI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                            $customerGroupI18nModel->setName($value["OXTITLE_{$langBaseId}"]);
                             
-                            $container->add('customer_group_i18n', $customerGroupI18nModel->getPublic(), false); 
+                            $container->add('customer_group_i18n', $customerGroupI18nModel->getPublic(), false);
                         }
                     }
                 }

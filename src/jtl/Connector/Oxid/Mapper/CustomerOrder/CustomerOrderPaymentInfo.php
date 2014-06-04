@@ -29,22 +29,22 @@ class CustomerOrderPaymentInfo  extends BaseMapper
             
             if(isset($value['lsbankname']))
             {
-                $customerOrderPaymentInfo->setBankName = $value['lsbankname'];
+                $customerOrderPaymentInfo->setBankName($value['lsbankname']);
             }
             
             if(isset($value['lsktoinhaber']))
             {
-                $customerOrderPaymentInfo->setAccountHolder = $value['lsktoinhaber'];
+                $customerOrderPaymentInfo->setAccountHolder($value['lsktoinhaber']);
             }
             
             if(isset($value['lsktonr']))
             {
                 if($this->checkIBAN($value['lsktonr']))
                 {
-                    $customerOrderPaymentInfo->setIban = $value['lsktonr'];                
-                    $customerOrderPaymentInfo->setAccountNumber = "";
+                    $customerOrderPaymentInfo->setIban($value['lsktonr']);
+                    $customerOrderPaymentInfo->setAccountNumber("");
                 } else {
-                    $customerOrderPaymentInfo->setAccountNumber = $value['lsktonr'];
+                    $customerOrderPaymentInfo->setAccountNumber($value['lsktonr']);
                 }
             }
             
@@ -52,10 +52,10 @@ class CustomerOrderPaymentInfo  extends BaseMapper
             {
                 if($this->checkBIC($value['lsblz']))
                 {
-                    $customerOrderPaymentInfo->setBic = $value['lsblz'];    
-                    $customerOrderPaymentInfo->setBankCode = "";
+                    $customerOrderPaymentInfo->setBic($value['lsblz']);    
+                    $customerOrderPaymentInfo->setBankCode("");
                 } else {
-                    $customerOrderPaymentInfo->setBankCode = $value['lsblz'];
+                    $customerOrderPaymentInfo->setBankCode($value['lsblz']);
                 }
             }
             

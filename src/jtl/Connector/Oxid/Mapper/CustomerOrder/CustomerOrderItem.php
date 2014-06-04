@@ -36,11 +36,11 @@ class CustomerOrderItem extends BaseMapper
             $identityModel->setEndpoint($value['OXSELVARIANT']);
             $customerOrderItemModel->setConfigItemId($identityModel);
             
-            $customerOrderItemModel->setName = $value['OXTITLE'];
-            $customerOrderItemModel->setPrice = $value['OXPRICE'];
-            $customerOrderItemModel->setVat = $value['OXVAT'];
-            $customerOrderItemModel->setQuantity = $value['OXAMOUNT'];
-            $customerOrderItemModel->setSku = $value['OXARTNUM'];
+            $customerOrderItemModel->setName($value['OXTITLE']);
+            $customerOrderItemModel->setPrice($value['OXPRICE']);
+            $customerOrderItemModel->setVat($value['OXVAT']);
+            $customerOrderItemModel->setQuantity($value['OXAMOUNT']);
+            $customerOrderItemModel->setSku($value['OXARTNUM']);
             
             $container->add('customer_order_item', $customerOrderItemModel->getPublic(), false);
         }

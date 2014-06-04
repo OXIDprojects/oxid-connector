@@ -35,8 +35,8 @@ class ProductVariationI18n extends BaseMapper
                             $identity->setEndpoint($value['OXOBJECTID']);
                             $productVariationI18nModel->setProductVariationId($identity);
                             
-                            $productVariationI18nModel->setLocaleName = $this->getLocalCode($language['code']);
-                            $productVariationI18nModel->setName = $value['OXTITLE'];
+                            $productVariationI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                            $productVariationI18nModel->setName($value['OXTITLE']);
                             
                             $container->add('product_variation_i18n', $productVariationI18nModel->getPublic(), false);
                         }
@@ -50,8 +50,8 @@ class ProductVariationI18n extends BaseMapper
                             $identity->setEndpoint($value['OXOBJECTID']);
                             $productVariationI18nModel->setProductVariationId($identity);
                             
-                            $productVariationI18nModel->setLocaleName = $this->getLocalCode($language['code']);
-                            $productVariationI18nModel->setName = $value["OXTITLE_{$langBaseId}"];
+                            $productVariationI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                            $productVariationI18nModel->setName($value["OXTITLE_{$langBaseId}"]);
                             
                             $container->add('product_variation_i18n', $productVariationI18nModel->getPublic(), false);
                         }

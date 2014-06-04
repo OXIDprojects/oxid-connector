@@ -23,7 +23,7 @@ class TaxRate extends BaseMapper
             $identityModel = new IdentityModel();
             $identityModel->setEndpoint($value['OXID']);
             $taxRate->setId($identityModel);
-            $taxRate->_rate = $value['OXVARVALUEDECODED'];
+            $taxRate->_rate($value['OXVARVALUEDECODED']);
             
             $container->add('tax_rate', $taxRate->getPublic(), false);
         }

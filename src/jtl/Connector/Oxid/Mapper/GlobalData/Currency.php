@@ -26,13 +26,13 @@ class Currency extends BaseMapper
             
             $identity = new IdentityModel();
             $identity->setEndpoint($params[$i]['id']);
-            $currency->setId = $identity;
+            $currency->setId($identity);
             
-            $currency->setName = $params[$i]['name'];
-            $currency->setNameHtml = $params[$i]['symbol'];
-            $currency->setFactor = $params[$i]['rate'];
-            $currency->setDelimiterCent = $params[$i]['decimal_separator'];
-            $currency->setDelimiterThousand = $params[$i]['thousand_separator'];
+            $currency->setName($params[$i]['name']);
+            $currency->setNameHtml($params[$i]['symbol']);
+            $currency->setFactor($params[$i]['rate']);
+            $currency->setDelimiterCent($params[$i]['decimal_separator']);
+            $currency->setDelimiterThousand($params[$i]['thousand_separator']);
             
             $container->add('currency', $currency->getPublic(), false);
         }

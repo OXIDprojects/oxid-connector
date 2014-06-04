@@ -37,8 +37,8 @@ class CategoryAttrI18n extends BaseMapper
                             $identityModel->setEndpoint($value['OXID']);
                             $categoryAttrI18nModel->setCategoryAttrId($identityModel);
 
-                            $categoryAttrI18nModel->setLocaleName = $this->getLocalCode($language['code']);
-                            $categoryAttrI18nModel->setValue = $value['OXTITLE'];
+                            $categoryAttrI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                            $categoryAttrI18nModel->setValue($value['OXTITLE']);
                                                       
                             $container->add('category_attr_i18n', $categoryAttrI18nModel->getPublic(), false);
                         }
@@ -50,8 +50,8 @@ class CategoryAttrI18n extends BaseMapper
                             $identityModel->setEndpoint($value['OXID']);
                             $categoryAttrI18nModel->setCategoryAttrId($identityModel);
                             
-                            $categoryAttrI18nModel->setLocaleName = $this->getLocalCode($language['code']);
-                            $categoryAttrI18nModel->setValue = $value["OXTITLE_{$langBaseId}"];
+                            $categoryAttrI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                            $categoryAttrI18nModel->setValue($value["OXTITLE_{$langBaseId}"]);
                             
                             $container->add('category_attr_i18n', $categoryAttrI18nModel->getPublic(), false);
                         }
