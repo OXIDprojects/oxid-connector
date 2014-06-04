@@ -6,6 +6,7 @@ use jtl\Connector\Oxid\Config\Loader\Config;
 
 use jtl\Connector\ModelContainer\CategoryContainer;
 use jtl\Connector\Model\CategoryAttr as CategoryAttrModel;
+use jtl\Connector\Model\Identity as IdentityModel;
 
 /**
  * Summary of CategoryAttr
@@ -18,9 +19,16 @@ class CategoryAttr extends BaseMapper
         
         foreach ($params as $value)
         {
-            $categoryAttrModel->_id = $value['OXID'];
-            $categoryAttrModel->_categoryId = $value['OXOBJECTID'];
-            $categoryAttrModel->_sort = $value['OXSORT'];
+            
+            $identityModel = new IdentityModel();
+            $identityModel->setEndpoint($value['OXID']);
+            $categoryAttrModel->setId($identityModel);
+            
+            $identityModel = new IdentityModel();
+            $identityModel->setEndpoint($value['OXOBJECTID']);
+            $categoryAttrModel->setCategoryId($identityModel);
+            
+            $categoryAttrModel->setSort = $value['OXSORT'];
         }
         
         $container->add('category_attr', $categoryAttrModel->getPublic(), false);

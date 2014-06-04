@@ -6,6 +6,7 @@ use jtl\Connector\Oxid\Config\Loader\Config;
 
 use jtl\Connector\ModelContainer\CustomerOrderContainer;
 use jtl\Connector\Model\CustomerOrderItem as CustomerOrderItemModel;
+use jtl\Connector\Model\Identity as IdentityModel;
 
 /**
  * Summary of CustomerOrderItem
@@ -19,15 +20,27 @@ class CustomerOrderItem extends BaseMapper
         
         foreach ($params as $value)
         {
-            $customerOrderItemModel->_id = $value['OXID'];
-            $customerOrderItemModel->_productId = $value['OXARTID'];
-            $customerOrderItemModel->_customerOrderId = $value['OXORDERID'];
-            $customerOrderItemModel->_name = $value['OXTITLE'];
-            $customerOrderItemModel->_price = $value['OXPRICE'];
-            $customerOrderItemModel->_vat = $value['OXVAT'];
-            $customerOrderItemModel->_quantity = $value['OXAMOUNT'];
-            $customerOrderItemModel->_configItemId = $value['OXSELVARIANT'];
-            $customerOrderItemModel->_sku = $value['OXARTNUM'];
+            $identityModel = new IdentityModel();
+            $identityModel->setEndpoint($value['OXID']);
+            $customerOrderItemModel->setId($identityModel);
+
+            $identityModel = new IdentityModel();
+            $identityModel->setEndpoint($value['OXARTID']);
+            $customerOrderItemModel->setProductId($identityModel);
+            
+            $identityModel = new IdentityModel();
+            $identityModel->setEndpoint($value['OXORDERID']);
+            $customerOrderItemModel->setCustomerOrderId($identityModel);
+
+            $identityModel = new IdentityModel();
+            $identityModel->setEndpoint($value['OXSELVARIANT']);
+            $customerOrderItemModel->setConfigItemId($identityModel);
+            
+            $customerOrderItemModel->setName = $value['OXTITLE'];
+            $customerOrderItemModel->setPrice = $value['OXPRICE'];
+            $customerOrderItemModel->setVat = $value['OXVAT'];
+            $customerOrderItemModel->setQuantity = $value['OXAMOUNT'];
+            $customerOrderItemModel->setSku = $value['OXARTNUM'];
             
             $container->add('customer_order_item', $customerOrderItemModel->getPublic(), false);
         }

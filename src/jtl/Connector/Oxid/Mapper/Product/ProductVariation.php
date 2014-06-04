@@ -15,7 +15,6 @@ class ProductVariation extends BaseMapper
 {
     public function fetchAll($container = null, $type = null, $params = array())
     {
-        $identity = new IdentityModel;
         $productVariationModel = new ProductVariationModel();       
         
         if (count($params) >= 2) {
@@ -26,9 +25,12 @@ class ProductVariation extends BaseMapper
                     $variantIDs = split("\|", $value['OXVARNAME']);
                     
                     foreach ($variantIDs as $variantID) {
+                        
+                        $identity = new IdentityModel;
                         $identity->setEndpoint($variantID);
                         $productVariationModel->setId($identity);
                         
+                        $identity = new IdentityModel;
                         $identity->setEndpoint($value['OXOBJECTID']);
                         $productVariationModel->setProductId($identity);
                     }

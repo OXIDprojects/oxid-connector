@@ -6,6 +6,7 @@ use jtl\Connector\Oxid\Config\Loader\Config;
 
 use jtl\Connector\Model\Language as LanguageModel;
 use jtl\Connector\ModelContainer\GlobalDataContainer;
+use jtl\Connector\Model\Identity as IdentityModel;
 /**
  * Summary of Language
  */
@@ -17,16 +18,19 @@ class Language extends BaseMapper
         
         foreach ($params as $value)
         {
-            $language->_id = $value['baseId'];
-            $language->_nameEnglish = $value['name'];
-            $language->_nameGerman = $value['name'];
-            $language->_localeName = $this->getLocalCode($value['code']);
+            $identityModel = new IdentityModel();
+            $identityModel->setEndpoint($value['baseId']);
+            $language->setId($identityModel);
+            
+            $language->setNameEnglish = $value['name'];
+            $language->setNameGerman = $value['name'];
+            $language->setLocaleName = $this->getLocalCode($value['code']);
             
             if(!isset($value['default']) or $value['default'] == 1)
             {
-                $language->_isDefault = true;
+                $language->setIsDefault = true;
             }else{
-                $language->_isDefault = false;
+                $language->setIsDefault = false;
             }
             
             $container->add('language', $language->getPublic(), false);

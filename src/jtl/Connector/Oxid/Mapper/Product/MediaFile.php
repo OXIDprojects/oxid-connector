@@ -16,7 +16,6 @@ class MediaFile extends BaseMapper
     
     public function fetchAll($container = null, $type = null, $params = array())
     {
-        $identity = new IdentityModel();
         $mediaFileModel = new MediaFileModel();
         
         foreach ($params as $value)
@@ -27,9 +26,11 @@ class MediaFile extends BaseMapper
                    !empty($value["OXTHUMB"]) or
                    !empty($value["OXICON"]))
                 {
+                    $identity = new IdentityModel();
                     $identity->setEndpoint("{$value['OXID']}_{$i}");
                     $mediaFileModel->setId($identity);
                     
+                    $identity = new IdentityModel();
                     $identity->setEndpoint($value['OXID']);
                     $mediaFileModel->setProductId($identity);
                     

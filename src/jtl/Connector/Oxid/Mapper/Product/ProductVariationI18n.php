@@ -6,6 +6,7 @@ use jtl\Connector\Oxid\Config\Loader\Config;
 
 use jtl\Connector\ModelContainer\ProductContainer;
 use jtl\Connector\Model\ProductVariationI18n as ProductVariationI18nModel;
+use jtl\Connector\Model\Identity as IdentityModel;
 
 /**
  * Summary of ProductVariationI18n
@@ -30,9 +31,12 @@ class ProductVariationI18n extends BaseMapper
                     {
                         if(!empty($value['OXTITLE']))
                         {
-                            $productVariationI18nModel->_localeName = $this->getLocalCode($language['code']);
-                            $productVariationI18nModel->_productVariationId = $value['OXOBJECTID'];
-                            $productVariationI18nModel->_name = $value['OXTITLE'];
+                            $identity = new IdentityModel;
+                            $identity->setEndpoint($value['OXOBJECTID']);
+                            $productVariationI18nModel->setProductVariationId($identity);
+                            
+                            $productVariationI18nModel->setLocaleName = $this->getLocalCode($language['code']);
+                            $productVariationI18nModel->setName = $value['OXTITLE'];
                             
                             $container->add('product_variation_i18n', $productVariationI18nModel->getPublic(), false);
                         }
@@ -42,9 +46,12 @@ class ProductVariationI18n extends BaseMapper
                     {
                         if(!empty($value["OXTITLE_{$langBaseId}"]))
                         {
-                            $productVariationI18nModel->_localeName = $this->getLocalCode($language['code']);
-                            $productVariationI18nModel->_productVariationId = $value['OXOBJECTID'];
-                            $productVariationI18nModel->_name = $value["OXTITLE_{$langBaseId}"];
+                            $identity = new IdentityModel;
+                            $identity->setEndpoint($value['OXOBJECTID']);
+                            $productVariationI18nModel->setProductVariationId($identity);
+                            
+                            $productVariationI18nModel->setLocaleName = $this->getLocalCode($language['code']);
+                            $productVariationI18nModel->setName = $value["OXTITLE_{$langBaseId}"];
                             
                             $container->add('product_variation_i18n', $productVariationI18nModel->getPublic(), false);
                         }

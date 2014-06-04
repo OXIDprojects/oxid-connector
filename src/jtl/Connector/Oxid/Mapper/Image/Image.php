@@ -30,20 +30,20 @@ class Image extends BaseMapper
                     $identityModel->setEndpoint($data['OXID']);
                     $imageModel->setForeignKey($identityModel);
                     
-                    $identityModel = new IdentityModel();
-                    $identityModel->setEndpoint($this->generateUId());
-                    $imageModel->setId($identityModel);
-                    
                     $imageModel->setRelationType("product");
                     
                     $imageModel->setSort($i);
-                    
+                                        
                     switch ($i)
                     {
                         case 13:
                             if(!empty($data['OXICON']))
                             {
                                 $imageModel->setFilename($this->getPicUrl("icon", $data['OXICON']));
+                                
+                                $identityModel = new IdentityModel();
+                                $identityModel->setEndpoint($data['OXID'] . "OXICON");
+                                $imageModel->setId($identityModel);
                             }
                             break;
                         
@@ -51,6 +51,10 @@ class Image extends BaseMapper
                             if(!empty($data['OXTHUMB']))
                             {
                                 $imageModel->setFilename($this->getPicUrl("thumb", $data['OXTHUMB']));
+                                
+                                $identityModel = new IdentityModel();
+                                $identityModel->setEndpoint($data['OXID'] . "OXTHUMB");
+                                $imageModel->setId($identityModel);
                             }                               
                             break;
                         
@@ -58,6 +62,10 @@ class Image extends BaseMapper
                             if(!empty($data["OXPIC{$i}"]))
                             {
                                 $imageModel->setFilename($this->getPicUrl($i, $data["OXPIC{$i}"]));
+                                
+                                $identityModel = new IdentityModel();
+                                $identityModel->setEndpoint($data['OXID'] . "OXPIC{$i}");
+                                $imageModel->setId($identityModel);
                             }
                             break;
                     }

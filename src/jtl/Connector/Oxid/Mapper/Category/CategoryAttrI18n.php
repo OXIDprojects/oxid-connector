@@ -8,6 +8,7 @@ use jtl\Connector\Oxid\Config\Loader\Config;
 use jtl\Connector\ModelContainer\CategoryContainer;
 use jtl\Connector\Result\Transaction as TransactionResult;
 use jtl\Connector\Model\CategoryAttrI18n as CategoryAttrI18nModel;
+use jtl\Connector\Model\Identity as IdentityModel;
 
 /**
  * Summary of CategoryAttrI18n
@@ -32,18 +33,25 @@ class CategoryAttrI18n extends BaseMapper
                     {   
                         if(!empty($value['OXTITLE']))
                         {
-                            $categoryAttrI18nModel->_localeName = $this->getLocalCode($language['code']);
-                            $categoryAttrI18nModel->_categoryAttrId = $value['OXID'];
-                            $categoryAttrI18nModel->_value = $value['OXTITLE'];
+                            $identityModel = new IdentityModel();
+                            $identityModel->setEndpoint($value['OXID']);
+                            $categoryAttrI18nModel->setCategoryAttrId($identityModel);
+
+                            $categoryAttrI18nModel->setLocaleName = $this->getLocalCode($language['code']);
+                            $categoryAttrI18nModel->setValue = $value['OXTITLE'];
                                                       
                             $container->add('category_attr_i18n', $categoryAttrI18nModel->getPublic(), false);
                         }
                     }else{
                         if(!empty($value["OXTITLE_{$langBaseId}"]))
                         {
-                            $categoryAttrI18nModel->_localeName = $this->getLocalCode($language['code']);
-                            $categoryAttrI18nModel->_categoryAttrId = $value['OXID'];
-                            $categoryAttrI18nModel->_value = $value["OXTITLE_{$langBaseId}"];
+                            
+                            $identityModel = new IdentityModel();
+                            $identityModel->setEndpoint($value['OXID']);
+                            $categoryAttrI18nModel->setCategoryAttrId($identityModel);
+                            
+                            $categoryAttrI18nModel->setLocaleName = $this->getLocalCode($language['code']);
+                            $categoryAttrI18nModel->setValue = $value["OXTITLE_{$langBaseId}"];
                             
                             $container->add('category_attr_i18n', $categoryAttrI18nModel->getPublic(), false);
                         }

@@ -6,6 +6,7 @@ use jtl\Connector\Oxid\Config\Loader\Config;
 
 use jtl\Connector\ModelContainer\CustomerOrderContainer;
 use jtl\Connector\Model\CustomerOrderShippingAddress as CustomerOrderShippingAddressModel;
+use jtl\Connector\Model\Identity as IdentityModel;
 
 /**
  * Summary of CustomerOrderShippingAddress
@@ -19,8 +20,13 @@ class CustomerOrderShippingAddress extends BaseMapper
         
         foreach ($params as $value)
         {
-            $customerOrderShippingAddressModel->_id = $value['OXID'];
-            $customerOrderShippingAddressModel->_customerId = $value['OXUSERID'];
+            $identityModel = new IdentityModel();
+            $identityModel->setEndpoint($value['OXID']);
+            $customerOrderShippingAddressModel->setId($identityModel);
+
+            $identityModel = new IdentityModel();
+            $identityModel->setEndpoint($value['OXUSERID']);
+            $customerOrderShippingAddressModel->setCustomerId($identityModel);
             
             if ($value['OXDELFNAME'] and
                 $value['OXDELLNAME'] and
@@ -29,33 +35,33 @@ class CustomerOrderShippingAddress extends BaseMapper
                 $value['OXDELZIP'] and
                 $value['OXDELCITY']) {
                 
-                $customerOrderShippingAddressModel->_salutation = $value['OXDELSAL'];
-                $customerOrderShippingAddressModel->_firstName = $value['OXDELFNAME'];
-                $customerOrderShippingAddressModel->_lastName = $value['OXDELLNAME'];
-                $customerOrderShippingAddressModel->_company = $value['OXDELCOMPANY'];
-                $customerOrderShippingAddressModel->_deliveryInstruction = $value['OXDELADDINFO'];
-                $customerOrderShippingAddressModel->_street = $this->_streetDel($value);
-                $customerOrderShippingAddressModel->_zipCode = $value['OXDELZIP'];
-                $customerOrderShippingAddressModel->_city = $value['OXDELCITY'];
-                $customerOrderShippingAddressModel->_state = $value['OXDELSTATEID'];
-                $customerOrderShippingAddressModel->_countryIso = $value['OXDELCOUNTRYID'];
-                $customerOrderShippingAddressModel->_phone = $value['OXDELFON'];
-                $customerOrderShippingAddressModel->_fax = $value['OXDELFAX'];
+                $customerOrderShippingAddressModel->setSalutation = $value['OXDELSAL'];
+                $customerOrderShippingAddressModel->setFirstName = $value['OXDELFNAME'];
+                $customerOrderShippingAddressModel->setLastName = $value['OXDELLNAME'];
+                $customerOrderShippingAddressModel->setCompany = $value['OXDELCOMPANY'];
+                $customerOrderShippingAddressModel->setDeliveryInstruction = $value['OXDELADDINFO'];
+                $customerOrderShippingAddressModel->setStreet = $this->_streetDel($value);
+                $customerOrderShippingAddressModel->setZipCode = $value['OXDELZIP'];
+                $customerOrderShippingAddressModel->setCity = $value['OXDELCITY'];
+                $customerOrderShippingAddressModel->setState = $value['OXDELSTATEID'];
+                $customerOrderShippingAddressModel->setCountryIso = $value['OXDELCOUNTRYID'];
+                $customerOrderShippingAddressModel->setPhone = $value['OXDELFON'];
+                $customerOrderShippingAddressModel->setFax = $value['OXDELFAX'];
                 
             } else {
                 
-                $customerOrderShippingAddressModel->_salutation = $value['OXBILLSAL'];
-                $customerOrderShippingAddressModel->_firstName = $value['OXBILLFNAME'];
-                $customerOrderShippingAddressModel->_lastName = $value['OXBILLLNAME'];
-                $customerOrderShippingAddressModel->_company = $value['OXBILLCOMPANY'];
-                $customerOrderShippingAddressModel->_deliveryInstruction = $value['OXBILLADDINFO'];
-                $customerOrderShippingAddressModel->_street = $this->_streetBill($value);
-                $customerOrderShippingAddressModel->_zipCode = $value['OXBILLZIP'];
-                $customerOrderShippingAddressModel->_city = $value['OXBILLCITY'];
-                $customerOrderShippingAddressModel->_state = $value['OXBILLSTATEID'];
-                $customerOrderShippingAddressModel->_countryIso = $value['OXBILLCOUNTRYID'];
-                $customerOrderShippingAddressModel->_phone = $value['OXBILLFON'];
-                $customerOrderShippingAddressModel->_fax = $value['OXBILLFAX'];
+                $customerOrderShippingAddressModel->setSalutation = $value['OXBILLSAL'];
+                $customerOrderShippingAddressModel->setFirstName = $value['OXBILLFNAME'];
+                $customerOrderShippingAddressModel->setLastName = $value['OXBILLLNAME'];
+                $customerOrderShippingAddressModel->setCompany = $value['OXBILLCOMPANY'];
+                $customerOrderShippingAddressModel->setDeliveryInstruction = $value['OXBILLADDINFO'];
+                $customerOrderShippingAddressModel->setStreet = $this->_streetBill($value);
+                $customerOrderShippingAddressModel->setZipCode = $value['OXBILLZIP'];
+                $customerOrderShippingAddressModel->setCity = $value['OXBILLCITY'];
+                $customerOrderShippingAddressModel->setState = $value['OXBILLSTATEID'];
+                $customerOrderShippingAddressModel->setCountryIso = $value['OXBILLCOUNTRYID'];
+                $customerOrderShippingAddressModel->setPhone = $value['OXBILLFON'];
+                $customerOrderShippingAddressModel->setFax = $value['OXBILLFAX'];
                 
             }
             

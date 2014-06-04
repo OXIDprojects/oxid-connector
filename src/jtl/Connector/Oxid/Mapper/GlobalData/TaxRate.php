@@ -6,6 +6,7 @@ use jtl\Connector\Oxid\Config\Loader\Config;
 
 use jtl\Connector\Model\TaxRate as TaxRateModel;
 use jtl\Connector\ModelContainer\GlobalDataContainer;
+use jtl\Connector\Model\Identity as IdentityModel;
 
 
 /**
@@ -19,7 +20,9 @@ class TaxRate extends BaseMapper
         
         foreach ($params as $value)
         {
-            $taxRate->_id = $value['OXID'];
+            $identityModel = new IdentityModel();
+            $identityModel->setEndpoint($value['OXID']);
+            $taxRate->setId($identityModel);
             $taxRate->_rate = $value['OXVARVALUEDECODED'];
             
             $container->add('tax_rate', $taxRate->getPublic(), false);

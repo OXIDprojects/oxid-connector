@@ -16,7 +16,6 @@ class Currency extends BaseMapper
     public function fetchAll($container = null, $type = null, $params = array())
     {
         $currency = new CurrencyModel();
-        $identity = new IdentityModel();
         
         for ($i = 0; $i < count($params); $i++)
         {
@@ -25,13 +24,15 @@ class Currency extends BaseMapper
                 $currency->_isDefault = True;
             }
             
+            $identity = new IdentityModel();
             $identity->setEndpoint($params[$i]['id']);
-            $currency->_id = $identity;
-            $currency->_name = $params[$i]['name'];
-            $currency->_nameHtml = $params[$i]['symbol'];
-            $currency->_factor = $params[$i]['rate'];
-            $currency->_delimiterCent = $params[$i]['decimal_separator'];
-            $currency->_delimiterThousand = $params[$i]['thousand_separator'];
+            $currency->setId = $identity;
+            
+            $currency->setName = $params[$i]['name'];
+            $currency->setNameHtml = $params[$i]['symbol'];
+            $currency->setFactor = $params[$i]['rate'];
+            $currency->setDelimiterCent = $params[$i]['decimal_separator'];
+            $currency->setDelimiterThousand = $params[$i]['thousand_separator'];
             
             $container->add('currency', $currency->getPublic(), false);
         }

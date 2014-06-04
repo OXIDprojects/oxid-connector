@@ -6,6 +6,7 @@ use jtl\Connector\Oxid\Config\Loader\Config;
 
 use jtl\Connector\ModelContainer\CustomerOrderContainer;
 use jtl\Connector\Model\CustomerOrderPaymentInfo as CustomerOrderPaymentInfoModel;
+use jtl\Connector\Model\Identity as IdentityModel;
 
 /**
  * Summary of CustomerOrderPaymentInfo 
@@ -18,27 +19,32 @@ class CustomerOrderPaymentInfo  extends BaseMapper
                 
         foreach ($params as $value)
         {
-            $customerOrderPaymentInfo->_id = $value['OXID'];
-            $customerOrderPaymentInfo->_customerOrderId = $value['OXUSERID'];
+            $identityModel = new IdentityModel();
+            $identityModel->setEndpoint($value['OXPAYMENTSID']);
+            $customerOrderPaymentInfo->setId($identityModel);
+
+            $identityModel = new IdentityModel();
+            $identityModel->setEndpoint($value['OXORDERID']);
+            $customerOrderPaymentInfo->setCustomerOrderId($identityModel);
             
             if(isset($value['lsbankname']))
             {
-                $customerOrderPaymentInfo->_bankName = $value['lsbankname'];
+                $customerOrderPaymentInfo->setBankName = $value['lsbankname'];
             }
             
             if(isset($value['lsktoinhaber']))
             {
-                $customerOrderPaymentInfo->_accountHolder = $value['lsktoinhaber'];
+                $customerOrderPaymentInfo->setAccountHolder = $value['lsktoinhaber'];
             }
             
             if(isset($value['lsktonr']))
             {
                 if($this->checkIBAN($value['lsktonr']))
                 {
-                    $customerOrderPaymentInfo->_iban = $value['lsktonr'];                
-                    $customerOrderPaymentInfo->_accountNumber = "";
+                    $customerOrderPaymentInfo->setIban = $value['lsktonr'];                
+                    $customerOrderPaymentInfo->setAccountNumber = "";
                 } else {
-                    $customerOrderPaymentInfo->_accountNumber = $value['lsktonr'];
+                    $customerOrderPaymentInfo->setAccountNumber = $value['lsktonr'];
                 }
             }
             
@@ -46,10 +52,10 @@ class CustomerOrderPaymentInfo  extends BaseMapper
             {
                 if($this->checkBIC($value['lsblz']))
                 {
-                    $customerOrderPaymentIngo->_bic = $value['lsblz'];    
-                    $customerOrderPaymentInfo->_bankCode = "";
+                    $customerOrderPaymentInfo->setBic = $value['lsblz'];    
+                    $customerOrderPaymentInfo->setBankCode = "";
                 } else {
-                    $customerOrderPaymentInfo->_bankCode = $value['lsblz'];
+                    $customerOrderPaymentInfo->setBankCode = $value['lsblz'];
                 }
             }
             
@@ -61,7 +67,9 @@ class CustomerOrderPaymentInfo  extends BaseMapper
     {   
         $oxidConf = new Config();
         
-        $sqlResult = $this->_db->query("SELECT OXID, OXUSERID, DECODE(OXVALUE, 'sd45DF09_sdlk09239DD') AS OXVALUEDECODED FROM oxuserpayments WHERE OXID = '{$param['OXPAYMENTID']}';");
+        $sqlResult = $this->_db->query("SELECT oxorder.OXID AS OXORDERID, oxuserpayments.OXID AS OXPAYMENTSID, oxuserpayments.OXUSERID, DECODE(OXVALUE, 'sd45DF09_sdlk09239DD') AS OXVALUEDECODED
+                                        FROM oxuserpayments, oxorder WHERE oxuserpayments.OXUSERID = oxorder.OXUSERID
+                                        AND oxuserpayments.OXID = '{$param['OXPAYMENTID']}';");
         
         //Hole alle PaymentInfos pro Bestellung
         for ($i = 0; $i < count($sqlResult); $i++)

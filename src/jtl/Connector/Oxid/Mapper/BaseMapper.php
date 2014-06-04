@@ -237,7 +237,7 @@ class BaseMapper
                     break;
             }
             
-            $LanguageResult[$VarName] = unserialize($SQLResult[$i]['OXVARVALUEDECODED']);
+            $LanguageResult[$VarName] = unserialize($SQLResult[$i]['OXVARVALUEDECODED']);           
         }
         
         foreach ($LanguageResult['aLanguages'] as $key => $value)

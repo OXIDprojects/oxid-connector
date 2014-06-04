@@ -6,6 +6,7 @@ use jtl\Connector\Oxid\Config\Loader\Config;
 
 use jtl\Connector\ModelContainer\ManufacturerContainer;
 use jtl\Connector\Model\ManufacturerI18n as ManufacturerI18nModel;
+use jtl\Connector\Model\Identity as IdentityModel;
 
 /**
  * Summary of ManufacturerI18n
@@ -31,10 +32,13 @@ class ManufacturerI18n extends BaseMapper
                         if(!empty($value['OXTITLE']) or
                            !empty($value['OXSHORTDESC']))
                         {
-                            $manufacturerI18nModel->_manufacturerId = $value['OXID'];
-                            $manufacturerI18nModel->_localeName = $this->getLocalCode($language['code']);
-                            $manufacturerI18nModel->_description = $value['OXSHORTDESC'];
-                            $manufacturerI18nModel->_titleTag = $value['OXTITLE'];
+                            $identityModel = new IdentityModel();
+                            $identityModel->setEndpoint($value['OXID']);
+                            $manufacturerI18nModel->setManufacturerId($identityModel);
+                            
+                            $manufacturerI18nModel->setLocaleName = $this->getLocalCode($language['code']);
+                            $manufacturerI18nModel->setDescription = $value['OXSHORTDESC'];
+                            $manufacturerI18nModel->setTitleTag = $value['OXTITLE'];
                             
                             $container->add('manufacturer_i18n', $manufacturerI18nModel->getPublic(), false);
                         }
@@ -45,10 +49,13 @@ class ManufacturerI18n extends BaseMapper
                         if(!empty($value["OXTITLE_{$langBaseId}"]) or
                            !empty($value["OXSHORTDESC_{$langBaseId}"]))
                         {
-                            $manufacturerI18nModel->_manufacturerId = $value['OXID'];
-                            $manufacturerI18nModel->_localeName = $this->getLocalCode($language['code']);
-                            $manufacturerI18nModel->_description = $value["OXSHORTDESC_{$langBaseId}"];
-                            $manufacturerI18nModel->_titleTag = $value["OXTITLE_{$langBaseId}"];
+                            $identityModel = new IdentityModel();
+                            $identityModel->setEndpoint($value['OXID']);
+                            $manufacturerI18nModel->setManufacturerId($identityModel);
+                            
+                            $manufacturerI18nModel->setLocaleName = $this->getLocalCode($language['code']);
+                            $manufacturerI18nModel->setDescription = $value["OXSHORTDESC_{$langBaseId}"];
+                            $manufacturerI18nModel->setTitleTag = $value["OXTITLE_{$langBaseId}"];
                             
                             $container->add('manufacturer_i18n', $manufacturerI18nModel->getPublic(), false);
                         }
