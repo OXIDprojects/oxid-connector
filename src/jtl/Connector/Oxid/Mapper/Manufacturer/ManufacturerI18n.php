@@ -65,6 +65,28 @@ class ManufacturerI18n extends BaseMapper
         }
     }
     
+    public function updateAll($container,$manufacturerId=null) {
+        $result = new TransactionResult();
+        
+        $manufacturerI18n = $container->getMainModel();
+        $identity = $manufacturerI18n->getManufacturerId();
+        
+        $obj = $this->mapDB($manufacturerI18n);
+        
+        
+        if(!empty($obj->manufacturers_id)) {
+            $this->_db->updateRow($obj, $this->_config['table'],$this->_config['pk'],$obj->manufacturers_id);
+        }
+        else {
+            $insertResult = $this->_db->insertRow($obj, $this->_config['table']);
+            $identity->setEndpoint($insertResult->getKey());
+        }
+        
+        $result->setId($identity);
+        
+        return $result;
+    } 
+    
     public function getManufacturerI18n($params)
     {
         $oxidConf = new Config();

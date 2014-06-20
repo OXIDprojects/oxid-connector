@@ -7,8 +7,10 @@ use jtl\Connector\Oxid\Config\Loader\Config;
 use jtl\Connector\Oxid\Mapper\Category\CategoryI18n as CategoryI18nMapper;
 use jtl\Connector\Oxid\Mapper\Category\CategoryAttr as CategoryAttrMapper;
 use jtl\Connector\Oxid\Mapper\Category\CategoryAttrI18n as CategoryAttrI18nMapper;
+use jtl\Connector\Oxid\Mapper\Category\CategoryInvisibility as CategoryInvisibilityMapper;
 
 use jtl\Connector\ModelContainer\CategoryContainer;
+use jtl\Connector\Result\Transaction as TransactionResult;
 
 
 /**
@@ -59,11 +61,14 @@ class Category extends BaseMapper
             $categoryAttrI18nMapper = new CategoryAttrI18nMapper();
             $categoryAttrI18nMapper->fetchAll($container,'category_attr_i18n', $categoryAttrI18nMapper->getCategoryAttrI18n(array('OXID' => $model->_id)));
             
+            //add Invisibility
+            $categoryInvisibilityMapper = new CategoryInvisibilityMapper();
+            $categoryInvisibilityMapper->fetchAll($container,'category_invisibility', $categoryInvisibilityMapper->getCategoryInvisibility(array('OXID' => $model->_id)));
+            
             $result[] = $container->getPublic(array('items'));
     	} 
         return $result;
     }
-        
     
     public function _parentCategoryId($data)
     {

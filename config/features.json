@@ -575,6 +575,30 @@
                     }
                 }
             }
+        },
+        "image": {
+            "comment": "",
+            "supported": true,
+            "transactional": true,
+            "objects": {
+                "image": {
+                    "push": {
+                        "supported": false,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "Id",
+                            "RelationType",
+                            "ForeignKey",
+                            "Filename",
+                            "Sort"
+                        ]
+                    }
+                }
+            }
         }
     }
 }
