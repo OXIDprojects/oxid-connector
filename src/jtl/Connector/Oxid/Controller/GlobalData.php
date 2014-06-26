@@ -69,6 +69,39 @@ class GlobalData extends BaseController
         }
         return $action;
     }
+    
+    public function commit($params,$trid) {
+        $action = new Action();
+        $action->setHandled(true);
+        
+        try {
+            $container = TransactionHandler::getContainer($this->getMethod()->getController(), $trid);    
+
+            $result = new TransactionResult();
+            
+            $companyMapper = new CompanyMapper();
+            $taxRateMapper = new TaxRateMapper();
+            $languageMapper = new LanguageMapper();
+            $currencyMapper = new CurrencyMapper();
+            $fileDownloadMapper = new FileDownloadMapper();
+            $customerGroupMapper = new CustomerGroupMapper();
+            $shippingClassMapper = new ShippingClassMapper();
+            $fileDownloadI18nMapper = new FileDownloadI18nMapper();
+            $customerGroupI18nMapper = new CustomerGroupI18nMapper();
+            
+            $customerGroupI18nMapper->updateAll($container->get('customer_group_i18n'));
+
+            $action->setResult($result->getPublic());
+        }
+        catch (\Exception $exc) {
+            $err = new Error();
+            $err->setCode($exc->getCode());
+            $err->setMessage($exc->getMessage());
+            $action->setError($err);
+        }
+        
+        return $action;
+    }
 }
 
 /* non mapped class
