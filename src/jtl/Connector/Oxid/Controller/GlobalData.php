@@ -89,11 +89,20 @@ class GlobalData extends BaseController
             $fileDownloadI18nMapper = new FileDownloadI18nMapper();
             $customerGroupI18nMapper = new CustomerGroupI18nMapper();
             
+            $companyMapper->updateAll($container->get('company'));
+            $taxRateMapper->updateAll($container->get('tax_rate'));
+            $languageMapper->updateAll($container->get('language'));
+            $currencyMapper->updateAll($container->get('currency'));
+            $fileDownloadMapper->updateAll($container->get('file_download'));
+            $customerGroupMapper->updateAll($container->get('customer_group'));
+            $shippingClassMapper->updateAll($container->get('shipping_class'));
+            $fileDownloadI18nMapper->updateAll($container->get('file_download_i18n'));
             $customerGroupI18nMapper->updateAll($container->get('customer_group_i18n'));
 
-            $action->setResult($result->getPublic());
+            $action->setResult($result->getPublic());            
         }
         catch (\Exception $exc) {
+            
             $err = new Error();
             $err->setCode($exc->getCode());
             $err->setMessage($exc->getMessage());

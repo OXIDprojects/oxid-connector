@@ -60,7 +60,7 @@ function error_handler($errno, $errstr, $errfile, $errline, $errcontext)
         E_USER_DEPRECATED => 'E_USER_DEPRECATED'
     );
 
-    file_put_contents("/tmp/shop3_error.log", date("[Y-m-d H:i:s] ") . "(" . $types[$errno] . ") File ({$errfile}, {$errline}): {$errstr}\n", FILE_APPEND);
+    file_put_contents("/tmp/oxid_error.log", date("[Y-m-d H:i:s] ") . "(" . $types[$errno] . ") File ({$errfile}, {$errline}): {$errstr}\n", FILE_APPEND);
 }
 
 function shutdown_handler()

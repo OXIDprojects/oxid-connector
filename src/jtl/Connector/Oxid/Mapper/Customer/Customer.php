@@ -1,6 +1,7 @@
 <?php
 namespace jtl\Connector\Oxid\Mapper\Customer;
 
+use jtl\Core\Logger\Logger;
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\ModelContainer\CustomerContainer;
 
@@ -67,24 +68,60 @@ class Customer extends BaseMapper
     public function fetchAll($container=null,$type=null,$params=array()) {
         $result = [];
         
-        $dbResult = $this->_db->query('SELECT * FROM oxuser ORDER BY oxuser.OXID LIMIT '.$params['offset'].','.$params['limit']);
-        
-        foreach($dbResult as $data) {
-    	    $container = new CustomerContainer();
-    		
-    		$model = $this->generate($data);
-    		
-    		$container->add('customer', $model->getPublic(), false);
+        try {
             
-            $result[] = $container->getPublic(array('items'));
-    	} 
+            $dbResult = $this->_db->query('SELECT * FROM oxuser ORDER BY oxuser.OXID LIMIT '.$params['offset'].','.$params['limit']);
+        
+            foreach($dbResult as $data) {
+    	        $container = new CustomerContainer();
+    		
+    		    $model = $this->generate($data);
+    		
+    		    $container->add('customer', $model->getPublic(), false);
+            
+                $result[] = $container->getPublic(array('items'));
+    	    } 
+        
+        } catch (\Exception $exc) { 
+            Logger::write(ExceptionFormatter::format($exc), Logger::WARNING, 'mapper');
+            
+            $err = new Error();
+            $err->setCode($exc->getCode());
+            $err->setMessage($exc->getMessage());
+            $action->setError($err);
+        }
+        
+        return $result;
+    }
+    
+    public function updateAll($container, $trid=null) {
+        $result = new CustomerContainer();
+        
+        try {
+            
+            $customer = $container->getMainModel();
+            $identity = $customer->getId();
+        
+            $obj = $this->mapDB($customer);
+                    
+            $result->addIdentity('customer',$identity);
+        
+        } catch (\Exception $exc) { 
+            Logger::write(ExceptionFormatter::format($exc), Logger::WARNING, 'mapper');
+                
+            $err = new Error();
+            $err->setCode($exc->getCode());
+            $err->setMessage($exc->getMessage());
+            $action->setError($err);
+        }
+        
         return $result;
     }
     
     
     public function _street($data)
     {
-    	return "{$data['OXSTREET']}  {$data['OXSTREETNR']}";
+        return "{$data['OXSTREET']}  {$data['OXSTREETNR']}";
     }
     
     public function _birthday($data)
@@ -103,14 +140,14 @@ class Customer extends BaseMapper
     }
     
     public function OXSTREET($data)
-    {
-        preg_match('/^[a-z ]*/i', $data['_street'], $result);
+    {       
+        preg_match('/^[a-z ]*/i', $data->_street, $result);
         return  $result[0];
     }
     
     public function OXSTREETNR($data)
     {
-        preg_match('/[0-9].*/i', $data['_street'], $result);
+        preg_match('/[0-9].*/i', $data->_street, $result);
         return  $result[0];
     }
 }

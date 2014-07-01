@@ -67,6 +67,19 @@ class CategoryI18n extends BaseMapper
         }
     }
     
+    public function updateAll($container, $trid=null) {
+        $result = new CategoryI18nContainer;
+        
+        $categoryI18n = $container->getMainModel();
+        $identity = $categoryI18n->getId();
+        
+        $obj = $this->mapDB($categoryI18n);
+        
+        $result->addIdentity('category_i18n',$identity);
+        
+        return $result;
+    }
+    
     public function getCategoryI18n($params)
     {   
         $oxidConf = new Config();

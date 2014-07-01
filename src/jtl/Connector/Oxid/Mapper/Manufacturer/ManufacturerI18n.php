@@ -13,6 +13,17 @@ use jtl\Connector\Model\Identity as IdentityModel;
  */
 class ManufacturerI18n extends BaseMapper
 {
+    protected $_config = array(
+        "mapPush" => array(
+            "language_id" => null,
+            "manufacturer_id" => "_productId",
+            "products_name" => "_name",
+            "products_url" => "_urlPath",
+            "products_description" => "_description",
+            "products_short_description" => "_shortDescription"
+        )
+    );
+        
     public function fetchAll($container = null, $type = null, $params = array())
     {
         $manufacturerI18nModel = new ManufacturerI18nModel();       
@@ -65,26 +76,16 @@ class ManufacturerI18n extends BaseMapper
         }
     }
     
-    public function updateAll($container,$manufacturerId=null) {
-        $result = new TransactionResult();
-        
-        $manufacturerI18n = $container->getMainModel();
-        $identity = $manufacturerI18n->getManufacturerId();
-        
-        $obj = $this->mapDB($manufacturerI18n);
-        
-        
-        if(!empty($obj->manufacturers_id)) {
-            $this->_db->updateRow($obj, $this->_config['table'],$this->_config['pk'],$obj->manufacturers_id);
-        }
-        else {
-            $insertResult = $this->_db->insertRow($obj, $this->_config['table']);
-            $identity->setEndpoint($insertResult->getKey());
+    public function updateAll($container,$manufacturerId=null) {          
+        foreach($container->get('manufacturer_I18n') as $manufacturerI18n) {
+            $obj = $this->mapDB($manufacturerI18n);
+            
+            if(empty($obj->manufacturer_id)) $obj->manufacturer_id = $manufacturerId;
+                       
+            $this->_db->deleteInsertRow($obj, $this->_config['table'],array('products_id','Language_id'), array($obj->manufacturer_id.$obj->language_id));
         }
         
-        $result->setId($identity);
-        
-        return $result;
+        return true;
     } 
     
     public function getManufacturerI18n($params)

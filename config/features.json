@@ -91,7 +91,7 @@
             "objects": {
                 "customer": {
                     "push": {
-                        "supported": false,
+                        "supported": true,
                         "comment": ""
                     },
                     "pull": {

@@ -4,8 +4,9 @@ namespace jtl\Connector\Oxid\Mapper\Image;
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
 
-use jtl\Connector\ModelContainer\ImageContainer;
+use jtl\Core\Logger\Logger;
 use jtl\Connector\Model\Image as ImageModel;
+use jtl\Connector\ModelContainer\ImageContainer;
 use jtl\Connector\Model\Identity as IdentityModel;
 
 /**
@@ -17,65 +18,74 @@ class Image extends BaseMapper
     {             
         $result = [];
         
-        $sqlResult = $this->_db->query("SELECT * FROM oxarticles WHERE OXPARENTID = '' ORDER BY OXPARENTID ASC LIMIT {$params['offset']},{$params['limit']};");
+        try  {
+            
+            $sqlResult = $this->_db->query("SELECT * FROM oxarticles WHERE OXPARENTID = '' ORDER BY OXPARENTID ASC LIMIT {$params['offset']},{$params['limit']};");
 
-        foreach ($sqlResult as $data)
-        {           
-            for ($i = 1; $i < 14; $i++)
-            {                          
-                    $imageContainer = new ImageContainer();
-                    $imageModel = new ImageModel();
+            foreach ($sqlResult as $data)
+            {           
+                for ($i = 1; $i < 14; $i++)
+                {                          
+                        $imageContainer = new ImageContainer();
+                        $imageModel = new ImageModel();
                     
-                    $identityModel = new IdentityModel();
-                    $identityModel->setEndpoint($data['OXID']);
-                    $imageModel->setForeignKey($identityModel);
+                        $identityModel = new IdentityModel();
+                        $identityModel->setEndpoint($data['OXID']);
+                        $imageModel->setForeignKey($identityModel);
                     
-                    $imageModel->setRelationType("product");
+                        $imageModel->setRelationType("product");
                     
-                    $imageModel->setSort($i);
+                        $imageModel->setSort($i);
                                         
-                    switch ($i)
-                    {
-                        case 13:
-                            if(!empty($data['OXICON']))
-                            {
-                                $imageModel->setFilename($this->getPicUrl("icon", $data['OXICON']));
+                        switch ($i)
+                        {
+                            case 13:
+                                if(!empty($data['OXICON']))
+                                {
+                                    $imageModel->setFilename($this->getPicUrl("icon", $data['OXICON']));
                                 
-                                $identityModel = new IdentityModel();
-                                $identityModel->setEndpoint($data['OXID'] . "OXICON");
-                                $imageModel->setId($identityModel);
-                            }
-                            break;
+                                    $identityModel = new IdentityModel();
+                                    $identityModel->setEndpoint($data['OXID'] . "OXICON");
+                                    $imageModel->setId($identityModel);
+                                }
+                                break;
                         
-                        case 14:
-                            if(!empty($data['OXTHUMB']))
-                            {
-                                $imageModel->setFilename($this->getPicUrl("thumb", $data['OXTHUMB']));
+                            case 14:
+                                if(!empty($data['OXTHUMB']))
+                                {
+                                    $imageModel->setFilename($this->getPicUrl("thumb", $data['OXTHUMB']));
                                 
-                                $identityModel = new IdentityModel();
-                                $identityModel->setEndpoint($data['OXID'] . "OXTHUMB");
-                                $imageModel->setId($identityModel);
-                            }                               
-                            break;
+                                    $identityModel = new IdentityModel();
+                                    $identityModel->setEndpoint($data['OXID'] . "OXTHUMB");
+                                    $imageModel->setId($identityModel);
+                                }                               
+                                break;
                         
-                        default:
-                            if(!empty($data["OXPIC{$i}"]))
-                            {
-                                $imageModel->setFilename($this->getPicUrl($i, $data["OXPIC{$i}"]));
+                            default:
+                                if(!empty($data["OXPIC{$i}"]))
+                                {
+                                    $imageModel->setFilename($this->getPicUrl($i, $data["OXPIC{$i}"]));
                                 
-                                $identityModel = new IdentityModel();
-                                $identityModel->setEndpoint($data['OXID'] . "OXPIC{$i}");
-                                $imageModel->setId($identityModel);
-                            }
-                            break;
-                    }
-                        if ($imageModel->getFilename()) {
-                            $result[] = $imageModel->getPublic();
+                                    $identityModel = new IdentityModel();
+                                    $identityModel->setEndpoint($data['OXID'] . "OXPIC{$i}");
+                                    $imageModel->setId($identityModel);
+                                }
+                                break;
                         }
-            }
-    	}
-        //Test-Ausgabe:
-        $this->fetchCount();
+                            if ($imageModel->getFilename()) {
+                                $result[] = $imageModel->getPublic();
+                            }
+                }
+    	    }  
+            
+        } catch (\Exception $exc) { 
+            Logger::write(ExceptionFormatter::format($exc), Logger::WARNING, 'mapper');
+            
+            $err = new Error();
+            $err->setCode($exc->getCode());
+            $err->setMessage($exc->getMessage());
+            $action->setError($err);
+    	} 
         
         return $result;
     }

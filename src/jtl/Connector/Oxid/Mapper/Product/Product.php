@@ -1,7 +1,7 @@
 <?php
 namespace jtl\Connector\Oxid\Mapper\Product;
 
-
+use jtl\Core\Logger\Logger;
 use jtl\Connector\ModelContainer\ProductContainer;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
@@ -73,53 +73,65 @@ class Product extends BaseMapper
     public function fetchAll($container=null,$type=null,$params=array()) {
         $result = [];
         
-        $dbResult = $this->_db->query("SELECT * FROM oxarticles WHERE OXPARENTID = '' ORDER BY OXPARENTID ASC LIMIT {$params['offset']},{$params['limit']};");
-        
-        foreach($dbResult as $data) {
-    	    $container = new ProductContainer();
-    		
-    		$model = $this->generate($data);
-    		
-    		$container->add('product', $model->getPublic(),false);
-    		          
-            //add mediaFile
-            //$mediaFileMapper = new MediaFileMapper();
-            //$mediaFileMapper->fetchAll($container,'media_file', $mediaFileMapper->getMediaFile(array('OXID' => $model->_id)));
+        try {
             
-            //add i18n
-            $productI18nMapper = new ProductI18nMapper();
-            $productI18nMapper->fetchAll($container,'product_i18n', $productI18nMapper->getProductI18n(array('OXID' => $model->_id)));
+            $dbResult = $this->_db->query("SELECT * FROM oxarticles WHERE OXPARENTID = '' ORDER BY OXPARENTID ASC LIMIT {$params['offset']},{$params['limit']};");
             
-            //add price
-            $productPriceMapper = new ProductPriceMapper();
-            $productPriceMapper->fetchAll($container,'product_price', array('data' => $data));
+            foreach($dbResult as $data) {
+                $container = new ProductContainer();
+                
+                $model = $this->generate($data);
+                
+                $container->add('product', $model->getPublic(),false);
+                
+                //add mediaFile
+                //$mediaFileMapper = new MediaFileMapper();
+                //$mediaFileMapper->fetchAll($container,'media_file', $mediaFileMapper->getMediaFile(array('OXID' => $model->_id)));
+                
+                //add i18n
+                $productI18nMapper = new ProductI18nMapper();
+                $productI18nMapper->fetchAll($container,'product_i18n', $productI18nMapper->getProductI18n(array('OXID' => $model->_id)));
+                
+                //add price
+                $productPriceMapper = new ProductPriceMapper();
+                $productPriceMapper->fetchAll($container,'product_price', array('data' => $data));
+                
+                //add crossSelling
+                $crossSellingMapper = new CrossSellingMapper();
+                $crossSellingMapper->fetchAll($container,'cross_selling', array('data' => $data));
+                
+                //add product2Category
+                $product2CategoryMapper = new Product2CategoryMapper();
+                $product2CategoryMapper->fetchAll($container,'product2_category', array('query' => "SELECT * FROM oxobject2category WHERE OXOBJECTID = '{$data['OXID']}' ORDER BY OXCATNID ASC;"));
+                
+                //add variation
+                //$productVariationMapper = new ProductVariationMapper();
+                //$productVariationMapper->fetchAll($container,'product_variation', $productVariationMapper->getProductVariation(array('OXID' => $model->_id)));
+                
+                //add fileDownload
+                $productFileDownloadMapper = new ProductFileDownloadMapper();
+                $productFileDownloadMapper->fetchAll($container,'product_file_download', array('data' => $data));
+                
+                //add variationI18n
+                //$productVariationI18nMapper = new ProductVariationI18nMapper();
+                //$productVariationI18nMapper->fetchAll($container,'product_variation_i18n', $productVariationI18nMapper->getProductVariationI18n(array('OXID' => $model->_id)));
+                
+                //add warehouseInfo
+                $productWarehouseInfoMapper = new ProductWarehouseInfoMapper();
+                $productWarehouseInfoMapper->fetchAll($container,'product_warehouse_info', array('data' => $data));
+                
+                $result[] = $container->getPublic(array('items'));
+            } 
             
-            //add crossSelling
-            $crossSellingMapper = new CrossSellingMapper();
-            $crossSellingMapper->fetchAll($container,'cross_selling', array('data' => $data));
+        } catch (\Exception $exc) { 
+            Logger::write(ExceptionFormatter::format($exc), Logger::WARNING, 'mapper');
             
-            //add product2Category
-            $product2CategoryMapper = new Product2CategoryMapper();
-            $product2CategoryMapper->fetchAll($container,'product2_category', array('query' => "SELECT * FROM oxobject2category WHERE OXOBJECTID = '{$data['OXID']}' ORDER BY OXCATNID ASC;"));
-            
-            //add variation
-            //$productVariationMapper = new ProductVariationMapper();
-            //$productVariationMapper->fetchAll($container,'product_variation', $productVariationMapper->getProductVariation(array('OXID' => $model->_id)));
-            
-            //add fileDownload
-            $productFileDownloadMapper = new ProductFileDownloadMapper();
-            $productFileDownloadMapper->fetchAll($container,'product_file_download', array('data' => $data));
-            
-            //add variationI18n
-            //$productVariationI18nMapper = new ProductVariationI18nMapper();
-            //$productVariationI18nMapper->fetchAll($container,'product_variation_i18n', $productVariationI18nMapper->getProductVariationI18n(array('OXID' => $model->_id)));
-            
-            //add warehouseInfo
-            $productWarehouseInfoMapper = new ProductWarehouseInfoMapper();
-            $productWarehouseInfoMapper->fetchAll($container,'product_warehouse_info', array('data' => $data));
-            
-            $result[] = $container->getPublic(array('items'));
+            $err = new Error();
+            $err->setCode($exc->getCode());
+            $err->setMessage($exc->getMessage());
+            $action->setError($err);
     	} 
+        
         return $result;
     }
     

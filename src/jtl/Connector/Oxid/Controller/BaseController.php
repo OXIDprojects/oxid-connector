@@ -7,7 +7,7 @@ use jtl\Core\Model\QueryFilter;
 use jtl\Core\Utilities\ClassName;
 use jtl\Core\Controller\Controller;
 use jtl\Core\Exception\TransactionException;
-use jtl\Core\Result\Transaction as TransactionResult;
+use \jtl\Connector\Transaction\Handler as TransactionHandler;
 
 use jtl\Connector\Result\Action;
 use jtl\Connector\Model\Statistic;
@@ -65,8 +65,8 @@ class BaseController extends Controller
      */
     public function commit($params,$trid) {
         $reflect = new \ReflectionClass($this);
-        $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}";
-        
+        $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}\\{$reflect->getShortName()}";
+                
         if(class_exists($class)) {
             $action = new Action();
             $action->setHandled(true);
