@@ -15,17 +15,25 @@ class CustomerGroup extends BaseMapper
                 "table" => "oxgroups",
                 "pk" => "OXID",
                 "mapPull" => array(
-                    "_id" => "OXID"
+                    "_id" => "OXID",
+                    "_isDefault" => null
                 ),
                 "mapPush" => array(
                     "OXID" => "_id"
                 )
             );
+    
+    public function _isDefault($data) {
+        if ($data['OXID'] == $this->getDefaultCustomerGroupId()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
 
 /* non mapped properties
  * CustomerGroup:
  * _discount
- * _isDefault
  * _applyNetPrice
  */

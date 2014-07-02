@@ -94,7 +94,7 @@ class Product extends BaseMapper
                 
                 //add price
                 $productPriceMapper = new ProductPriceMapper();
-                $productPriceMapper->fetchAll($container,'product_price', array('data' => $data));
+                $productPriceMapper->fetchAll($container,'product_price', $productPriceMapper->getProductPrice(array('OXID' => $model->_id)));
                 
                 //add crossSelling
                 $crossSellingMapper = new CrossSellingMapper();

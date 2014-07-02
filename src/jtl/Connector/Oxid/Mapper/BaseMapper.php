@@ -307,8 +307,17 @@ class BaseMapper
      * Returns generated unique ID.
      * @return string
      */
-    function generateUId()
+    public function generateUId()
     {
         return substr( md5( uniqid( '', true ).'|'.microtime() ), 0, 32 );
+    }
+    
+    /**
+     * Returns Deafult CustomerGroup ID
+     * @return String
+     */
+    public function getDefaultCustomerGroupId()
+    {      
+        return 'oxidnotyetordered';
     }
 }
