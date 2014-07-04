@@ -110,7 +110,7 @@ class Product extends BaseMapper
                 
                 //add fileDownload
                 $productFileDownloadMapper = new ProductFileDownloadMapper();
-                $productFileDownloadMapper->fetchAll($container,'product_file_download', array('data' => $data));
+                $productFileDownloadMapper->fetchAll($container,'product_file_download', array('query' => "SELECT * FROM oxfiles WHERE OXARTID = '{$data['OXID']}';"));
                 
                 //add variationI18n
                 //$productVariationI18nMapper = new ProductVariationI18nMapper();
