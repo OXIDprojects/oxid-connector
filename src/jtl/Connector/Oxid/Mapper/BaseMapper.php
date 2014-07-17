@@ -320,4 +320,106 @@ class BaseMapper
     {      
         return 'oxidnotyetordered';
     }
+    
+    /**
+     * Returns UCUM Code 0
+     *      Or Unit Display Code 1 
+     *      Or WaWi Unit Descriptive Name 2
+     * @return String
+     */
+    public function getUnitCode($OxUnitName, $UnitOption = 0)
+    {       
+        switch ($OxUnitName) {
+            
+            case '_UNIT_MM':
+                $UCUM = 'mm';
+                $displayCode = 'mm';
+                $descriptiveName = 'MilliMeter';
+                break;
+            
+            case '_UNIT_CM':
+                $UCUM = 'cm';
+                $displayCode = 'cm';
+                $descriptiveName = 'CentiMeter';
+                break;
+            
+            case '_UNIT_M':
+                $UCUM = 'm';
+                $displayCode = 'm';
+                $descriptiveName = 'Meter';
+                break;
+            
+            case '_UNIT_M2':
+                $UCUM = 'm2';
+                $displayCode = 'm^2';
+                $descriptiveName = 'SquareMeter';
+                break;
+                       
+            case '_UNIT_ML':
+                $UCUM = 'mL';
+                $displayCode = 'ml';
+                $descriptiveName = 'MilliLiter';
+                break;
+            
+            case '_UNIT_L':
+                $UCUM = 'L';
+                $displayCode = 'l';
+                $descriptiveName = 'Liter';
+                break;
+                
+            case '_UNIT_M3':
+                $UCUM = 'm3';
+                $displayCode = 'm^3';
+                $descriptiveName = 'CubicMeter';
+                break;
+            
+            case '_UNIT_G':
+                $UCUM = 'g';
+                $displayCode = 'g';
+                $descriptiveName = 'Gram';
+                break;
+            
+            case '_UNIT_KG':
+                $UCUM = 'kg';
+                $displayCode = 'kg';
+                $descriptiveName = 'KiloGram';
+                break;
+            
+            case '_UNIT_PIECE':
+                $UCUM = 'Piece';
+                $displayCode = 'Piece';
+                $descriptiveName = 'Piece';
+                break;
+            
+            case '_UNIT_ITEM':
+                $UCUM = 'Part';
+                $displayCode = 'Part';
+                $descriptiveName = 'Part';
+                break;
+            
+            default:
+                $UCUM = $OxUnitName;
+                $displayCode = $OxUnitName;
+                $descriptiveName = $OxUnitName;
+        }
+        
+        switch ($UnitOption) {
+        
+            case 0:
+                return $UCUM;
+                break;
+                
+            case 1:
+                return $displayCode;
+                break;
+                
+            case 2:
+                return $descriptiveName;
+                break;
+                
+            default:
+                return $OxUnitName;
+                break;
+        }
+    }
 }
