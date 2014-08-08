@@ -1,8 +1,11 @@
 <?php
 namespace jtl\Connector\Oxid;
 
+use jtl\Core\Http\Response;
 use jtl\Core\Database\Mysql;
 use jtl\Core\Rpc\RequestPacket;
+use jtl\Core\Rpc\ResponsePacket;
+use jtl\Core\Rpc\Error as Error;
 use jtl\Core\Utilities\RpcMethod;
 use jtl\Core\Exception\DatabaseException;
 use jtl\Core\Exception\TransactionException;
@@ -58,19 +61,49 @@ class Connector extends BaseConnector
     public function handle(RequestPacket $requestpacket)
     {
         $this->init();
-        
-
         $this->_controller->setMethod($this->getMethod());
 
-        // transaction        
-        if (($this->_action !== "commit")) {
-        	return $this->_controller->{$this->_action}($requestpacket->getParams());
-        }
-        else if (TransactionHandler::exists($requestpacket) && MainContainer::isMain($this->getMethod()->getController()) && $this->_action === "commit") {
-        	return $this->_controller->{$this->_action}($requestpacket->getParams(), $requestpacket->getGlobals()->getTransaction()->getId());
-        }
-        else {
-            throw new TransactionException("Only main controller can handle commit actions");
+        return $this->_controller->{$this->_action}($requestpacket->getParams());        
+    }
+    
+    function error_handler($errno, $errstr, $errfile, $errline, $errcontext)
+    {
+        $types = array(
+            E_ERROR => 'E_ERROR',
+            E_WARNING => 'E_WARNING',
+            E_PARSE => 'E_PARSE',
+            E_NOTICE => 'E_NOTICE',
+            E_CORE_ERROR => 'E_CORE_ERROR',
+            E_CORE_WARNING => 'E_CORE_WARNING',
+            E_CORE_ERROR => 'E_COMPILE_ERROR',
+            E_CORE_WARNING => 'E_COMPILE_WARNING',
+            E_USER_ERROR => 'E_USER_ERROR',
+            E_USER_WARNING => 'E_USER_WARNING',
+            E_USER_NOTICE => 'E_USER_NOTICE',
+            E_STRICT => 'E_STRICT',
+            E_RECOVERABLE_ERROR => 'E_RECOVERABLE_ERROR',
+            E_DEPRECATED => 'E_DEPRECATED',
+            E_USER_DEPRECATED => 'E_USER_DEPRECATED'
+        );
+        
+        file_put_contents("/tmp/error.log", date("[Y-m-d H:i:s] ") . "(" . $types[$errno] . ") File ({$errfile}, {$errline}): {$errstr}\n", FILE_APPEND);
+    }
+    
+    public function shutdown_handler()
+    {
+        if (($err = error_get_last())) {
+            ob_clean();
+
+            $error = new Error();
+            $error->setCode($err['type'])
+            ->setData('Shutdown! File: ' . $err['file'] . ' - Line: ' . $err['line'])
+            ->setMessage($err['message']);
+            
+            $reponsepacket = new ResponsePacket();
+            $reponsepacket->setError($error)
+            ->setJtlrpc("2.0");
+            
+            Response::send($reponsepacket);
         }
     }
 }

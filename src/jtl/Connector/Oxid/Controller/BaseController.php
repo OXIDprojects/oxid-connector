@@ -7,11 +7,11 @@ use jtl\Core\Model\QueryFilter;
 use jtl\Core\Utilities\ClassName;
 use jtl\Core\Controller\Controller;
 use jtl\Core\Exception\TransactionException;
-use \jtl\Connector\Transaction\Handler as TransactionHandler;
 
 use jtl\Connector\Result\Action;
 use jtl\Connector\Model\Statistic;
 use jtl\Connector\ModelContainer\MainContainer;
+use jtl\Connector\Transaction\Handler as TransactionHandler;
 
 class BaseController extends Controller
 {
@@ -21,88 +21,48 @@ class BaseController extends Controller
         $this->_db = Mysql::getInstance();
 	}	
 	
-	/**
-	 * (non-PHPdoc)
-	 * @see \jtl\Core\Controller\IController::pull()
-	 */
     public function pull($params) {
-        $reflect = new \ReflectionClass($this);
-        $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}\\{$reflect->getShortName()}";
+        $action = new Action();
+        $action->setHandled(true);
         
-        if(class_exists($class)) {
-            $action = new Action();
-            $action->setHandled(true);
+        $filter = new QueryFilter();
+        $filter->set($params);
+        
+        try {
+            $reflect = new \ReflectionClass($this);
+            $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}\\{$reflect->getShortName()}";
+        
+            if(!class_exists($class)) throw new \Exception("Class " . $class . " not available");
             
-            $filter = new QueryFilter();
-            $filter->set($params);
-            
-            try {
-                $mapper = new $class();
+            $mapper = new $class();
                 
-                $result = $mapper->fetchAll(null,null,array(
-                    'offset' => $filter->getOffset(),
-                    'limit' => $filter->getLimit()
-                ));
+            $result = $mapper->pull($params,$filter->getOffset(),$filter->getLimit());
                 
-                $action->setResult($result);
-            }
-            catch (\Exception $exc) {
+            $action->setResult($result);          
+        }
+        catch (\Exception $exc) {
                 $err = new Error();
                 $err->setCode($exc->getCode());
                 $err->setMessage($exc->getMessage());
                 $action->setError($err);
             }
             
-            return $action;
-        }
-    }
-	
-    /**
-     * 
-     * @param unknown $params
-     * @param unknown $trid
-     * @return \jtl\Connector\Result\Action
-     */
-    public function commit($params,$trid) {
-        $reflect = new \ReflectionClass($this);
-        $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}\\{$reflect->getShortName()}";
-                
-        if(class_exists($class)) {
-            $action = new Action();
-            $action->setHandled(true);
-            
-            try {
-                $container = TransactionHandler::getContainer($this->getMethod()->getController(), $trid);
-                
-                $mapper = new $class();
-                
-                $result = $mapper->updateAll($container,$trid);
-             
-                $action->setResult($result->getPublic());
-            }
-            catch (\Exception $exc) {
-                $err = new Error();
-                $err->setCode($exc->getCode());
-                $err->setMessage($exc->getMessage());
-                $action->setError($err);
-            }
-            
-            return $action;
-        }
+        return $action;
     }
     
-    /**
-     * (non-PHPdoc)
-     * @see \jtl\Core\Controller\IController::delete()
-     */
-	public function delete($params) {
+    public function push($params) {
+		$action = new Action();
+        
+        $action->setHandled(true);
+        $action->setResult(true);
+        
+        return $action;
+	}
+	   
+    public function delete($params) {
         
     }
 
-    /**
-     * (non-PHPdoc)
-     * @see \jtl\Core\Controller\IController::statistic()
-     */
     public function statistic($params) {
         $reflect = new \ReflectionClass($this);
         $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}\\{$reflect->getShortName()}";
@@ -116,11 +76,11 @@ class BaseController extends Controller
                 
                 $statModel = new Statistic();
                 
-                $statModel->_available = $mapper->fetchCount();
+                $statModel->setAvailable($mapper->fetchCount());
+                $statModel->setPending(0);
+                $statModel->setControllerName(lcfirst($reflect->getShortName()));
                 
-                $statModel->_pending = 0;
-                $statModel->_controllerName = lcfirst($reflect->getShortName());
-                $action->setResult($statModel->getPublic(array("_fields")));
+                $action->setResult($statModel->getPublic());
             }
             catch (\Exception $exc) {
                 $err = new Error();
@@ -131,12 +91,4 @@ class BaseController extends Controller
             return $action;
         }
     }
-	
-	/**
-	 * (non-PHPdoc)
-	 * @see \jtl\Core\Controller\IController::push()
-	 */
-	public function push($params) {
-		
-	}
 }

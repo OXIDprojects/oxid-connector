@@ -5,10 +5,11 @@
  */
 namespace jtl\Connector\Oxid\Config\Loader;
 
-use jtl\Core\Config\Loader\Base as BaseLoader;
-use jtl\Core\Config\Base as BaseConfig;
-use jtl\Core\Exception\ConfigException;
 use jtl\Core\Filesystem\Tool;
+use jtl\Core\Exception\ConfigException;
+use jtl\Core\Config\Base as BaseConfig;
+use jtl\Core\Config\Loader\Base as BaseLoader;
+
 
 /**
  * Summary of Config

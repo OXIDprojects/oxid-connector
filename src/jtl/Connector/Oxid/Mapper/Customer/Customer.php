@@ -1,42 +1,37 @@
 <?php
 namespace jtl\Connector\Oxid\Mapper\Customer;
 
-use jtl\Core\Logger\Logger;
 use jtl\Connector\Oxid\Mapper\BaseMapper;
-use jtl\Connector\ModelContainer\CustomerContainer;
 
-/**
- * Summary of Customer
- */
 class Customer extends BaseMapper
 {
-    protected $_config = array
+    protected $mapperConfig = array
     (
-        "model" => "\\jtl\\Connector\\Model\\Customer",
         "table" => "oxuser",
+        "query" => "SELECT oxuser.*, oxnewssubscribed.OXDBOPTIN  FROM oxuser, oxnewssubscribed WHERE oxnewssubscribed.OXUSERID = oxuser.OXID ORDER BY oxuser.OXID",
         "mapPull" => array(
-            "_id" => "OXID",
-            "_customerNumber" => "OXCUSTNR",
-            "_salutation" => "OXSAL",
-            "_firstName" => "OXFNAME",
-            "_lastName" => "OXLNAME",
-            "_company" => "OXCOMPANY",
-            "_street" => null,
-            "_deliveryInstruction" => "OXADDINFO",
-            "_zipCode" => "OXZIP",
-            "_city" => "OXCITY",
-            "_state" => "OXSTATEID",
-            "_phone" => "OXPRIVFON",
-            "_mobile" => "OXMOBFON",
-            "_fax" => "OXFAX",
-            "_eMail" => "OXUSERNAME",
-            "_vatNumber" => "OXUSTID",
-            "_www" => "OXURL",
-            "_hasNewsletterSubscription" => "OXDBOPTIN",
-            "_birthday" => null,
-            "_created" => null,
-            "_modified" => null,
-            "_IsActive" => "OXACTIVE"
+            "id" => "OXID",
+            "customerNumber" => "OXCUSTNR",
+            "salutation" => "OXSAL",
+            "firstName" => "OXFNAME",
+            "lastName" => "OXLNAME",
+            "company" => "OXCOMPANY",
+            "street" => null,
+            "deliveryInstruction" => "OXADDINFO",
+            "zipCode" => "OXZIP",
+            "city" => "OXCITY",
+            "state" => "OXSTATEID",
+            "phone" => "OXPRIVFON",
+            "mobile" => "OXMOBFON",
+            "fax" => "OXFAX",
+            "eMail" => "OXUSERNAME",
+            "vatNumber" => "OXUSTID",
+            "www" => "OXURL",
+            "hasNewsletterSubscription" => "OXDBOPTIN",
+            "birthday" => null,
+            "created" => null,
+            "modified" => null,
+            "IsActive" => "OXACTIVE"
         ),
         "mapPush" => array(
             "OXID" => "_id",
@@ -63,78 +58,24 @@ class Customer extends BaseMapper
             "OXTIMESTAMP" => "_modified",
             "OXACTIVE" => "_IsActive"
         )
-    );
+    );   
     
-    public function fetchAll($container=null,$type=null,$params=array()) {
-        $result = [];
-        
-        try {
-            
-            $dbResult = $this->_db->query('SELECT * FROM oxuser ORDER BY oxuser.OXID LIMIT '.$params['offset'].','.$params['limit']);
-        
-            foreach($dbResult as $data) {
-    	        $container = new CustomerContainer();
-    		
-    		    $model = $this->generate($data);
-    		
-    		    $container->add('customer', $model->getPublic(), false);
-            
-                $result[] = $container->getPublic(array('items'));
-    	    } 
-        
-        } catch (\Exception $exc) { 
-            Logger::write(ExceptionFormatter::format($exc), Logger::WARNING, 'mapper');
-            
-            $err = new Error();
-            $err->setCode($exc->getCode());
-            $err->setMessage($exc->getMessage());
-            $action->setError($err);
-        }
-        
-        return $result;
-    }
-    
-    public function updateAll($container, $trid=null) {
-        $result = new CustomerContainer();
-        
-        try {
-            
-            $customer = $container->getMainModel();
-            $identity = $customer->getId();
-        
-            $obj = $this->mapDB($customer);
-                    
-            $result->addIdentity('customer',$identity);
-        
-        } catch (\Exception $exc) { 
-            Logger::write(ExceptionFormatter::format($exc), Logger::WARNING, 'mapper');
-                
-            $err = new Error();
-            $err->setCode($exc->getCode());
-            $err->setMessage($exc->getMessage());
-            $action->setError($err);
-        }
-        
-        return $result;
-    }
-    
-    
-    public function _street($data)
+    public function street($data)
     {
         return "{$data['OXSTREET']}  {$data['OXSTREETNR']}";
     }
     
-    public function _birthday($data)
+    public function birthday($data)
     {
         return $this->stringToDateTime($data['OXBIRTHDATE']);
     }
     
-    public function _created($data)
+    public function created($data)
     {
         return $this->stringToDateTime($data['OXCREATE']);
     }
     
-    public function _modified($data)
+    public function modified($data)
     {
         return $this->stringToDateTime($data['OXTIMESTAMP']);
     }
@@ -151,15 +92,3 @@ class Customer extends BaseMapper
         return  $result[0];
     }
 }
-/* non mapped properties
-Customer:
-_customerGroupId
-_title
-_extraAddressLine
-_countryIso
-_accountCredit
-_discount
-_origin
-_isFetched
-_hasCustomerAccount
- */

@@ -17,6 +17,8 @@ use jtl\Connector\Oxid\Mapper\Product\ProductVariation as ProductVariationMapper
 use jtl\Connector\Oxid\Mapper\Product\ProductFileDownload as ProductFileDownloadMapper;
 use jtl\Connector\Oxid\Mapper\Product\ProductVariationI18n as ProductVariationI18nMapper;
 use jtl\Connector\Oxid\Mapper\Product\ProductWarehouseInfo as ProductWarehouseInfoMapper;
+use jtl\Connector\Oxid\Mapper\Product\ProductVariationValue as ProductVariationValueMapper;
+use jtl\Connector\Oxid\Mapper\Product\ProductVariationValueI18n as ProductVariationValueI18nMapper;
 
 /**
  * Summary of Product
@@ -105,20 +107,28 @@ class Product extends BaseMapper
                 $product2CategoryMapper->fetchAll($container,'product2_category', array('query' => "SELECT * FROM oxobject2category WHERE OXOBJECTID = '{$data['OXID']}' ORDER BY OXCATNID ASC;"));
                 
                 //add variation
-                //$productVariationMapper = new ProductVariationMapper();
-                //$productVariationMapper->fetchAll($container,'product_variation', $productVariationMapper->getProductVariation(array('OXID' => $model->_id)));
+                $productVariationMapper = new ProductVariationMapper();
+                $productVariationMapper->fetchAll($container,'product_variation', $productVariationMapper->getProductVariation(array('OXID' => $model->_id)));
                 
                 //add fileDownload
                 $productFileDownloadMapper = new ProductFileDownloadMapper();
                 $productFileDownloadMapper->fetchAll($container,'product_file_download', array('query' => "SELECT * FROM oxfiles WHERE OXARTID = '{$data['OXID']}';"));
                 
                 //add variationI18n
-                //$productVariationI18nMapper = new ProductVariationI18nMapper();
-                //$productVariationI18nMapper->fetchAll($container,'product_variation_i18n', $productVariationI18nMapper->getProductVariationI18n(array('OXID' => $model->_id)));
+                $productVariationI18nMapper = new ProductVariationI18nMapper();
+                $productVariationI18nMapper->fetchAll($container,'product_variation_i18n', $productVariationI18nMapper->getProductVariationI18n(array('OXID' => $model->_id)));
                 
                 //add warehouseInfo
                 $productWarehouseInfoMapper = new ProductWarehouseInfoMapper();
                 $productWarehouseInfoMapper->fetchAll($container,'product_warehouse_info', array('data' => $data));
+                
+                //add variationValue
+                $productVariationValueMapper = new ProductVariationValueMapper();
+                $productVariationValueMapper->fetchAll($container,'product_variation_value', $productVariationValueMapper->getProductVariationValue(array('OXID' => $model->_id)));
+                
+                //add variationValueI18n
+                //$productVariationValueI18nMapper = new ProductVariationValueI18nMapper();
+                //$productVariationValueI18nMapper->fetchAll($container,'product_variation_value_i18n', $productVariationValueI18nMapper->getProductVariationValueI18n(array('OXID' => $model->_id)));
                 
                 $result[] = $container->getPublic(array('items'));
             } 

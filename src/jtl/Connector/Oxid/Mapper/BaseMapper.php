@@ -2,135 +2,144 @@
 namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Core\Database\Mysql;
-use jtl\Core\Utilities\Date as DateUtil;
-use jtl\Core\Utilities\Language as LangUtil;
+use jtl\Core\Utilities\Date;
+use jtl\Core\Utilities\Language;
+use jtl\Connector\Model\Identity;
+
 use jtl\Connector\Oxid\Config\Loader\Config;
 
 
 class BaseMapper 
 {
-    protected $_model;
-    protected $_config;
-    protected $_db;
+    protected $db;
+	protected $type;
+	protected $model;
+    protected $shopConfig;
+    protected $mapperConfig;
+	protected $sqlite = null;
     
     public function __construct()
     {      
-        $this->_db = Mysql::getInstance();
-    }
-    
-    /**
-     * map db data to model properties
-     * @param unknown $data
-     */
-    private function map($data)
-    {
-        foreach($this->_config['mapPull'] as $host => $endpoint) 
-        {
-            $value = null;
-            $value = isset($data[$endpoint]) ? $data[$endpoint] : (isset($this->_config['shopConfig'][$endpoint]) ? $this->_config['shopConfig'][$endpoint] : $endpoint);
-            
-            if(method_exists(get_class($this),$host))
-            {
-                $value = $this->$host($data);	    
-            }
-            
-            $this->_model->$host = $value;
-        }
-    }
-    
-    /**
-     * generate wawi model from shop data 
-     * @param unknown $data
-     */
-    public function generate($data)
-    {
-        $this->_model = new $this->_config['model']();
+        $reflect = new \ReflectionClass($this);
         
-        $this->map($data);
-        
-        return $this->_model;
+        $this->type = null;
+        $this->shopConfig = new Config();
+        $this->db = Mysql::getInstance();
+        $this->model = "\\jtl\\Connector\\Model\\".$reflect->getShortName();
     }
     
     /**
-     * map from wawi to shop
-     * @param unknown $data
+     * Generate model from db data
+     * @param array $data
+     * @return object
+     */
+    public function generateModel($data) {
+	    $model = new $this->model();
+		if(!$this->type) $this->type = $model->getModelType();
+        
+		foreach($this->mapperConfig['mapPull'] as $host => $endpoint) {
+		    $value = null;
+            
+            die(print_r($this->type->getProperty($host)->isNavigation()));
+            
+		    if($this->type->getProperty($host)->isNavigation()) {
+		        list($endpoint,$setMethod) = explode('|',$endpoint);
+		        
+		        $subMapperClass = "\\jtl\\Connector\\Oxid\\Mapper\\".$endpoint;
+		        
+		        if(!class_exists($subMapperClass)) throw new \Exception("There is no mapper for ".$endpoint);
+		        else {
+		            if(!method_exists($model,$setMethod)) throw new \Exception("Set method ".$setMethod." does not exists");
+                    
+		            $subMapper = new $subMapperClass();
+                    
+		            $values = $subMapper->pull($data);
+                    
+		            foreach($values as $obj) $model->$setMethod($obj);		            
+		        }
+		    }
+		    else {
+		        if(isset($data[$endpoint])) $value = $data[$endpoint];
+		        elseif(method_exists(get_class($this),$host)) $value = $this->$host($data);
+		        else throw new \Exception("There is no property or method to map ".$host);
+
+		        if($this->type->getProperty($host)->isIdentity()) $value = new Identity($value);
+		        else {
+		            $type = $this->type->getProperty($host)->getType();
+		            
+		            if($type == "DateTime" && !is_null($value)) $value = new \DateTime($value);
+		            else settype($value,$type);		            
+		        }
+		        
+		        $setMethod = 'set'.ucfirst($host);
+		        $model->$setMethod($value);
+		    }
+		}
+		
+		return $model->getPublic();
+	}
+    
+    /**
+     * map from model to db object
+     * @param object $data
      * @return \stdClass
      */
-    public function mapDB($data)
-    {
-        $dbObj = new \stdClass();
-        
-        
-        foreach($this->_config['mapPush'] as $endpoint => $host) 
-        {
-            if(!empty($endpoint))
-            {
-                $dbObj->$endpoint = isset($data->$host) ? $data->$host : null;   
-            }
-		    
-            if(method_exists(get_class($this),$endpoint))
-            {
-                $dbObj->$endpoint = $this->$endpoint($data);
-            }
- 		}
-        
-        return $dbObj;
-    }
-   
-    /**
-     * fetch all entries from db and fill container or return array of models
-     * @param string $container
-     * @param string $type
-     * @param unknown $params
-     * @return unknown
-     */  
-    public function fetchAll($container=null,$type=null,$params=array())
-    {       
-        foreach ($params as $key => $value)
-        {
-            $this->_config[$key] = $value;
-        }
-        
-        if(isset($this->_config['data']))
-        {
-            $dbResult[] = $this->_config['data'];
-        }
-        else
-        {
-            $this->_db = Mysql::getInstance();
-            $query = isset($this->_config['query']) ? $this->_config['query'] : 'SELECT * FROM '.$this->_config['table'];
-            $dbResult = $this->_db->query($query);
-        }
-        
-        $return = array();
-        
-        foreach($dbResult as $data)
-        {
-            $model = $this->generate($data);
-            
-            if(isset($container))
-            {                                    
-                $container->add($type, $model->getPublic(), false);
-            }
-            else
-            {
-                $return[] = $model;
-            }
-        }
-        if(isset($container))
-        {
-            return $dbResult;
-        }
-    }
+	public function generateDbObj($data) {
+		$dbObj = new \stdClass();
+
+		foreach($this->mapperConfig['mapPush'] as $endpoint => $host) {
+			if(!empty($endpoint)) $dbObj->$endpoint = isset($data->$host) ? $data->$host : null;
+			if(method_exists(get_class($this),$endpoint)) $dbObj->$endpoint = $this->$endpoint($data);
+		}
+		
+		return $dbObj;
+	}
     
-    public function fetchCount() {	    	
-	    $objs = $this->_db->query("SELECT count(*) as count FROM {$this->_config['table']} LIMIT 1", array("return" => "object"));
+    /**
+     * Default pull method
+     * @param array $data
+     * @param integer $offset
+     * @param integer $limit
+     * @return array
+     */  
+	public function pull($data=null,$offset=0,$limit) {        
+        $limitQuery = isset($limit) ? ' LIMIT '.$offset.','.$limit : '';
         
-        if ($objs !== null) {
-	        return intval($objs[0]->count);
+	    if(isset($this->mapperConfig['query'])) {
+	        $query = !is_null($data) ? preg_replace('/\[\[(\w+)\]\]/e','$data[$1]', $this->mapperConfig['query']) : $this->mapperConfig['query'];
+	        $query .= $limitQuery;	        
 	    }
+	    else $query = 'SELECT * FROM '.$this->mapperConfig['table'].$limitQuery;
         
-	    return 0;
+	    $dbResult = $this->db->query($query);        	
+
+	    $return = array();
+		
+		foreach($dbResult as $data) {			
+			$return[] = $this->generateModel($data);			            	
+		}		
+        
+		return $return;
+	}
+    
+    /**
+     * Default statistics
+     * @return number
+     */
+	public function statistic() {	    	
+	    $objs = $this->db->query("SELECT count(*) as count FROM {$this->mapperConfig['table']} LIMIT 1", array("return" => "object"));
+	    
+	    return $objs !== null ? intval($objs[0]->count) : 0;
+	}
+    
+    /**
+     * Get sqlite instance of setup db
+     * @return \PDO 
+     */
+	public function getSqlite() {
+	    if(is_null($this->sqlite)) $this->sqlite = new \PDO('sqlite:'.realpath(__DIR__.'/../../Oxid/').'/connector.sdb');
+	    
+	    return $this->sqlite;
 	}
     
     /**
