@@ -35,12 +35,11 @@ class BaseMapper
      */
     public function generateModel($data) {
 	    $model = new $this->model();
+        
 		if(!$this->type) $this->type = $model->getModelType();
         
 		foreach($this->mapperConfig['mapPull'] as $host => $endpoint) {
 		    $value = null;
-            
-            die(print_r($this->type->getProperty($host)->isNavigation()));
             
 		    if($this->type->getProperty($host)->isNavigation()) {
 		        list($endpoint,$setMethod) = explode('|',$endpoint);
@@ -102,7 +101,7 @@ class BaseMapper
      * @param integer $limit
      * @return array
      */  
-	public function pull($data=null,$offset=0,$limit) {        
+	public function pull($data=null,$offset=0,$limit=null) {        
         $limitQuery = isset($limit) ? ' LIMIT '.$offset.','.$limit : '';
         
 	    if(isset($this->mapperConfig['query'])) {
@@ -228,7 +227,7 @@ class BaseMapper
     {   
         $OxidConf = new Config();        
         
-        $SQLResult = $this->_db->query(" SELECT DECODE(OXVARVALUE, '{$OxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
+        $SQLResult = $this->db->query(" SELECT DECODE(OXVARVALUE, '{$OxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
                  " WHERE OXVARNAME = 'aLanguages' OR OXVARNAME = 'aLanguageParams' ");
         
         for ($i = 0; $i < count($SQLResult); $i++)
@@ -299,7 +298,7 @@ class BaseMapper
      */
     public function getLocalCode($localCode)
     {
-        $LangUtil = new LangUtil();  
+        $LangUtil = new \jtl\Core\Utilities\Language();  
         
         $localCode = $LangUtil->map("", $localCode);
         

@@ -30,7 +30,7 @@ class BaseController extends Controller
         
         try {
             $reflect = new \ReflectionClass($this);
-            $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}\\{$reflect->getShortName()}";
+            $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}";
         
             if(!class_exists($class)) throw new \Exception("Class " . $class . " not available");
             
