@@ -40,6 +40,10 @@ class BaseMapper
         
 		foreach($this->mapperConfig['mapPull'] as $host => $endpoint) {
 		    $value = null;
+              
+            //die(print_r($model));
+            //die(print_r($host));
+            //die(print_r($this->type->getProperty($host)->isNavigation()));
             
 		    if($this->type->getProperty($host)->isNavigation()) {
 		        list($endpoint,$setMethod) = explode('|',$endpoint);
@@ -54,7 +58,7 @@ class BaseMapper
                     
 		            $values = $subMapper->pull($data);
                     
-		            foreach($values as $obj) $model->$setMethod($obj);		            
+		            foreach($values as $obj) $model->$setMethod($obj);
 		        }
 		    }
 		    else {
@@ -67,7 +71,7 @@ class BaseMapper
 		            $type = $this->type->getProperty($host)->getType();
 		            
 		            if($type == "DateTime" && !is_null($value)) $value = new \DateTime($value);
-		            else settype($value,$type);		            
+		            else settype($value,$type);
 		        }
 		        
 		        $setMethod = 'set'.ucfirst($host);
@@ -128,6 +132,8 @@ class BaseMapper
 	public function statistic() {	    	
 	    $objs = $this->db->query("SELECT count(*) as count FROM {$this->mapperConfig['table']} LIMIT 1", array("return" => "object"));
 	    
+        die(print_r($objs));
+        
 	    return $objs !== null ? intval($objs[0]->count) : 0;
 	}
     

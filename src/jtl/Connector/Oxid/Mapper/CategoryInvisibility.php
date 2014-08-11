@@ -1,15 +1,16 @@
 <?php
 namespace jtl\Connector\Oxid\Mapper;
 
+use jtl\Connector\Oxid\Mapper\BaseMapper;
+
 use jtl\Connector\Model\Identity as IdentityModel;
 use jtl\Connector\Model\CategoryInvisibility as CategoryInvisibilityModel;
 
-class CategoryInvisibility extends \jtl\Connector\Oxid\Mapper\BaseMapper
+class CategoryInvisibility extends BaseMapper
 {
     public function pull($data=null, $offset=0, $limit=null)
     {
         $return = [];
-        $categoryInvisibilityModel = new CategoryInvisibilityModel();
              
         $categoryInvisibilityTable = $this->getCategoryInvisibility($data);
         
@@ -17,6 +18,8 @@ class CategoryInvisibility extends \jtl\Connector\Oxid\Mapper\BaseMapper
         {
             if ($value['OXHIDDEN'] == 1) {
             
+                $categoryInvisibilityModel = new CategoryInvisibilityModel();
+                
                 $identityModel = new IdentityModel();
                 $identityModel->setEndpoint($value['CategoryID']);
                 $categoryInvisibilityModel->setCategoryId($identityModel);
@@ -26,7 +29,7 @@ class CategoryInvisibility extends \jtl\Connector\Oxid\Mapper\BaseMapper
                 $categoryInvisibilityModel->setCustomerGroupId($identityModel);
                 
                 $return[] = $categoryInvisibilityModel;
-            }
+            } 
         }
         return $return;
     }

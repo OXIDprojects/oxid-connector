@@ -1,16 +1,12 @@
 <?php
 namespace jtl\Connector\Oxid\Mapper;
 
-//use jtl\Connector\Oxid\Mapper\BaseMapper;
-use jtl\Connector\Oxid\Config\Loader\Config;
+use jtl\Connector\Oxid\Mapper\BaseMapper;
 
-use jtl\Connector\Model\CategoryI18n as CategoryI18nModel;
 use jtl\Connector\Model\Identity as IdentityModel;
+use jtl\Connector\Model\CategoryI18n as CategoryI18nModel;
 
-/**
- * Summary of CategoryI18n
- */
-class CategoryI18n extends \jtl\Connector\Oxid\Mapper\BaseMapper
+class CategoryI18n extends BaseMapper
 {
     public function pull($data=null, $offset=0, $limit=null)
     {
@@ -20,7 +16,6 @@ class CategoryI18n extends \jtl\Connector\Oxid\Mapper\BaseMapper
         
         foreach ($categoryI18nTable as $value)
         {
-            //Pro Sprache
             foreach ($languages as $language)
             {       
                 $langBaseId = $language['baseId'];
@@ -74,8 +69,6 @@ class CategoryI18n extends \jtl\Connector\Oxid\Mapper\BaseMapper
     
     public function getCategoryI18n($params)
     {   
-        $oxidConf = new Config();
-        
         $sqlResult = $this->db->query("SELECT * " .
                                         " FROM oxcategories " .
                                         " WHERE oxcategories.OXID = '{$params['OXID']}';");        

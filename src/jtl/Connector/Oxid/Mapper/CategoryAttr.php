@@ -3,21 +3,26 @@ namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 
-use jtl\Connector\ModelContainer\CategoryContainer;
-use jtl\Connector\Model\CategoryAttr as CategoryAttrModel;
 use jtl\Connector\Model\Identity as IdentityModel;
+use jtl\Connector\Model\CategoryAttr as CategoryAttrModel;
 
-/**
- * Summary of CategoryAttr
- */
 class CategoryAttr extends BaseMapper
 {
-    public function fetchAll($container = null, $type = null, $params = array())
+    protected $mapperConfig = array(
+       "mapPull" => array(
+           "attributeI18ns" => "CategoryAttrI18n|addAttributeI18n",
+       )
+    );
+    
+    public function pull($data=null, $offset=0, $limit=null)
     {
-        $categoryAttrModel = new CategoryAttrModel();  
+        $return = [];        
         
-        foreach ($params as $value)
+        $categoryAttrTable = $this->getCategoryAttr($data);
+        
+        foreach ($categoryAttrTable as $value)
         {
+            $categoryAttrModel = new CategoryAttrModel();  
             
             $identityModel = new IdentityModel();
             $identityModel->setEndpoint($value['OXID']);
@@ -27,18 +32,20 @@ class CategoryAttr extends BaseMapper
             $identityModel->setEndpoint($value['OXOBJECTID']);
             $categoryAttrModel->setCategoryId($identityModel);
             
-            $categoryAttrModel->setSort($value['OXSORT']);
+            $categoryAttrModel->setSort(intval($value['OXSORT']));
+            
+            $return[] = $categoryAttrModel;
         }
-        
-        $container->add('category_attr', $categoryAttrModel->getPublic(), false);
+        return $return;
     }
     
     public function getCategoryAttr($params)
     {   
-        $sqlResult = $this->_db->query(" SELECT * FROM oxcategory2attribute " .
+        $sqlResult = $this->db->query(" SELECT * FROM oxcategory2attribute " .
                                        " INNER JOIN oxattribute " .
                                        " ON oxcategory2attribute.OXATTRID = oxattribute.OXID " .
                                        " WHERE oxcategory2attribute.OXOBJECTID = '{$params['OXID']}';");
+        
         return $sqlResult;
     }    
 }

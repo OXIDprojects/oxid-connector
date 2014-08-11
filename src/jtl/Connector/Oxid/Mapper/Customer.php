@@ -3,12 +3,12 @@ namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 
-class Customer extends BaseMapper
+class Customer extends \jtl\Connector\Oxid\Mapper\BaseMapper
 {
     protected $mapperConfig = array
     (
-        "table" => "oxuser",
         "query" => "SELECT oxuser.*, oxnewssubscribed.OXDBOPTIN  FROM oxuser, oxnewssubscribed WHERE oxnewssubscribed.OXUSERID = oxuser.OXID ORDER BY oxuser.OXID",
+        "table" => "oxuser",
         "mapPull" => array(
             "id" => "OXID",
             "customerNumber" => "OXCUSTNR",
@@ -28,10 +28,10 @@ class Customer extends BaseMapper
             "vatNumber" => "OXUSTID",
             "www" => "OXURL",
             "hasNewsletterSubscription" => "OXDBOPTIN",
-            "birthday" => null,
+            "birthday" => "OXBIRTHDATE",
             "created" => null,
             "modified" => null,
-            "IsActive" => "OXACTIVE"
+            "isActive" => "OXACTIVE"
         ),
         "mapPush" => array(
             "OXID" => "_id",
@@ -63,11 +63,6 @@ class Customer extends BaseMapper
     public function street($data)
     {
         return "{$data['OXSTREET']}  {$data['OXSTREETNR']}";
-    }
-    
-    public function birthday($data)
-    {
-        return $this->stringToDateTime($data['OXBIRTHDATE']);
     }
     
     public function created($data)
