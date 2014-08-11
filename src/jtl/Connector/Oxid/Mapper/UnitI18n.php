@@ -51,6 +51,3 @@ class UnitI18n extends BaseMapper
         return $sqlResult;
     }
 }
-/* non mapped properties
- * UnitI18n:
- */

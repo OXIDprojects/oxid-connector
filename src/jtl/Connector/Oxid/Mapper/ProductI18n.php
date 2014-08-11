@@ -13,14 +13,14 @@ use jtl\Connector\Model\Identity as IdentityModel;
  */
 class ProductI18n extends BaseMapper
 {
-    public function fetchAll($container = null, $type = null, $params = array())
+    public function pull($data=null, $offset=0, $limit=null)
     {
-        $productI18nModel = new ProductI18nModel();       
+        $return = [];       
         $languages = $this->getLanguageIDs();
+        $productI18nTable = $this->getProductI18n($data);
         
-        foreach ($params as $value)
+        foreach ($productI18nTable as $value)
         {
-            //Pro Sprache
             foreach ($languages as $language)
             {
                 $langBaseId = $language['baseId'];
@@ -28,24 +28,28 @@ class ProductI18n extends BaseMapper
                 if($this->getLocalCode($language['code']))
                 {
                     if($language['baseId'] == 0)
-                    {   
-                            $identityModel = new IdentityModel();
-                            $identityModel->setEndpoint($value['OXID']);
-                            $productI18nModel->setProductId($identityModel);
+                    {
+                        $productI18nModel = new ProductI18nModel();
+
+                        $identityModel = new IdentityModel();
+                        $identityModel->setEndpoint($value['OXID']);
+                        $productI18nModel->setProductId($identityModel);
                             
-                            $productI18nModel->setLocaleName($this->getLocalCode($language['code']));
-                            $productI18nModel->setName($value['OXTITLE']);
-                            $productI18nModel->setUrlPath($value['OXEXTURL']);
-                            $productI18nModel->setDescription($value['OXLONGDESC']);
-                            $productI18nModel->setShortDescription($value['OXSHORTDESC']);
+                        $productI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                        $productI18nModel->setName($value['OXTITLE']);
+                        $productI18nModel->setUrlPath($value['OXEXTURL']);
+                        $productI18nModel->setDescription($value['OXLONGDESC']);
+                        $productI18nModel->setShortDescription($value['OXSHORTDESC']);
                             
-                            $container->add('product_i18n', $productI18nModel->getPublic(), false);
+                        $return[] = $productI18nModel;
                     }else{
                         if(!empty($value["OXTITLE_{$langBaseId}"]) or
                            !empty($value["OXURLDESC_{$langBaseId}"]) or
                            !empty($value["OXLONGDESC_{$langBaseId}"]) or
                            !empty($value["OXSHORTDESC_{$langBaseId}"]))
                         {
+                            $productI18nModel = new ProductI18nModel();
+                            
                             $identityModel = new IdentityModel();
                             $identityModel->setEndpoint($value['OXID']);
                             $productI18nModel->setProductId($identityModel);
@@ -56,12 +60,13 @@ class ProductI18n extends BaseMapper
                             $productI18nModel->setDescription($value["OXLONGDESC_{$langBaseId}"]);
                             $productI18nModel->setShortDescription($value["OXSHORTDESC_{$langBaseId}"]);
                             
-                            $container->add('product_i18n', $productI18nModel->getPublic(), false);
+                            $return[] = $productI18nModel;
                         }
                     }
                 }
             }   
         }
+        return $return;
     }
     
     public function getProductI18n($param)

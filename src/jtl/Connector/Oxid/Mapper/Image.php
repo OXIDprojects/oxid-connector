@@ -4,9 +4,7 @@ namespace jtl\Connector\Oxid\Mapper;
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
 
-use jtl\Core\Logger\Logger;
 use jtl\Connector\Model\Image as ImageModel;
-use jtl\Connector\ModelContainer\ImageContainer;
 use jtl\Connector\Model\Identity as IdentityModel;
 
 /**
@@ -14,116 +12,69 @@ use jtl\Connector\Model\Identity as IdentityModel;
  */
 class Image extends BaseMapper
 {   
-    public function fetchAll($container=null,$type=null,$params=null) 
+    public function pull($data=null, $offset=0, $limit=null)
     {             
         $result = [];
-        
-        try  {
             
-            $sqlResult = $this->_db->query("SELECT * FROM oxarticles WHERE OXPARENTID = '' ORDER BY OXPARENTID ASC LIMIT {$params['offset']},{$params['limit']};");
+        $sqlResult = $this->db->query("SELECT * FROM oxarticles WHERE OXPARENTID = '' ORDER BY OXPARENTID ASC LIMIT {$params['offset']},{$params['limit']};");
 
-            foreach ($sqlResult as $data)
-            {           
-                for ($i = 1; $i < 14; $i++)
-                {                          
-                        $imageContainer = new ImageContainer();
-                        $imageModel = new ImageModel();
+        foreach ($sqlResult as $data)
+        {           
+            for ($i = 1; $i < 14; $i++)
+            {       
+                    $imageModel = new ImageModel();
                     
-                        $identityModel = new IdentityModel();
-                        $identityModel->setEndpoint($data['OXID']);
-                        $imageModel->setForeignKey($identityModel);
+                    $identityModel = new IdentityModel();
+                    $identityModel->setEndpoint($data['OXID']);
+                    $imageModel->setForeignKey($identityModel);
                     
-                        $imageModel->setRelationType("product");
+                    $imageModel->setRelationType("product");
                     
-                        $imageModel->setSort($i);
+                    $imageModel->setSort($i);
                                         
-                        switch ($i)
-                        {
-                            case 13:
-                                if(!empty($data['OXICON']))
-                                {
-                                    $imageModel->setFilename($this->getPicUrl("icon", $data['OXICON']));
+                    switch ($i)
+                    {
+                        case 13:
+                            if(!empty($data['OXICON']))
+                            {
+                                $imageModel->setFilename($this->getPicUrl("icon", $data['OXICON']));
                                 
-                                    $identityModel = new IdentityModel();
-                                    $identityModel->setEndpoint($data['OXID'] . "OXICON");
-                                    $imageModel->setId($identityModel);
-                                }
-                                break;
-                        
-                            case 14:
-                                if(!empty($data['OXTHUMB']))
-                                {
-                                    $imageModel->setFilename($this->getPicUrl("thumb", $data['OXTHUMB']));
-                                
-                                    $identityModel = new IdentityModel();
-                                    $identityModel->setEndpoint($data['OXID'] . "OXTHUMB");
-                                    $imageModel->setId($identityModel);
-                                }                               
-                                break;
-                        
-                            default:
-                                if(!empty($data["OXPIC{$i}"]))
-                                {
-                                    $imageModel->setFilename($this->getPicUrl($i, $data["OXPIC{$i}"]));
-                                
-                                    $identityModel = new IdentityModel();
-                                    $identityModel->setEndpoint($data['OXID'] . "OXPIC{$i}");
-                                    $imageModel->setId($identityModel);
-                                }
-                                break;
-                        }
-                            if ($imageModel->getFilename()) {
-                                $result[] = $imageModel->getPublic();
+                                $identityModel = new IdentityModel();
+                                $identityModel->setEndpoint($data['OXID'] . "OXICON");
+                                $imageModel->setId($identityModel);
                             }
+                            break;
+                        
+                        case 14:
+                            if(!empty($data['OXTHUMB']))
+                            {
+                                $imageModel->setFilename($this->getPicUrl("thumb", $data['OXTHUMB']));
+                                
+                                $identityModel = new IdentityModel();
+                                $identityModel->setEndpoint($data['OXID'] . "OXTHUMB");
+                                $imageModel->setId($identityModel);
+                            }                               
+                            break;
+                        
+                        default:
+                            if(!empty($data["OXPIC{$i}"]))
+                            {
+                                $imageModel->setFilename($this->getPicUrl($i, $data["OXPIC{$i}"]));
+                                
+                                $identityModel = new IdentityModel();
+                                $identityModel->setEndpoint($data['OXID'] . "OXPIC{$i}");
+                                $imageModel->setId($identityModel);
+                            }
+                            break;
+                    }
+                    if ($imageModel->getFilename()) {
+                        $result[] = $imageModel->getPublic();
+                    }
                 }
     	    }  
-            
-        } catch (\Exception $exc) { 
-            Logger::write(ExceptionFormatter::format($exc), Logger::WARNING, 'mapper');
-            
-            $err = new Error();
-            $err->setCode($exc->getCode());
-            $err->setMessage($exc->getMessage());
-            $action->setError($err);
-    	} 
-        
         return $result;
     }
-    
-    public function fetchCount() {
-	    $count = 0;
         
-        for ($i = 1; $i < 14; $i++)
-        { 
-            switch ($i)
-            {
-                case 13:
-                    $objs = $this->_db->query("SELECT count(*) as count FROM oxarticles WHERE OXPARENTID = '' AND OXICON  <> '' LIMIT 1;", array("return" => "object"));
-                    if ($objs !== null) {
-                        $count = $count + intval($objs[0]->count);
-                    }
-                    break;
-                case 14:
-                    $objs = $this->_db->query("SELECT count(*) as count FROM oxarticles WHERE OXPARENTID = '' AND OXTHUMB  <> '' LIMIT 1;", array("return" => "object"));
-                    if ($objs !== null) {
-                        $count = $count + intval($objs[0]->count);
-                    }
-                    break;
-                default:
-                    $objs = $this->_db->query("SELECT count(*) as count FROM oxarticles WHERE OXPARENTID = '' AND OXPIC{$i} <> '' LIMIT 1;", array("return" => "object"));
-                    if ($objs !== null) {
-                        $count = $count + intval($objs[0]->count);
-                    }
-                    break;
-            }
-        }
-        
-        if ($count !== null) {
-            return $count;
-	    }
-	    return 0;
-	}
-    
     private function getPicUrl($picFolder, $picName)
     {
         $oxidConf = new Config();
@@ -133,7 +84,3 @@ class Image extends BaseMapper
         return $picURL;
     }
 }
-/* non mapped properties
-Image:
-
- */

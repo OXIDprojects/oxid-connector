@@ -13,7 +13,8 @@ use jtl\Connector\Model\Identity as IdentityModel;
  */
 class ManufacturerI18n extends BaseMapper
 {
-    protected $_config = array(
+    protected $mapperConfig = array
+    (
         "mapPush" => array(
             "language_id" => null,
             "manufacturer_id" => "_productId",

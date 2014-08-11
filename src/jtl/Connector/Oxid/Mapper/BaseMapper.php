@@ -198,7 +198,7 @@ class BaseMapper
     {
         $OxidConf = new Config();
         
-        $SQLResult = $this->_db->query(" SELECT DECODE(OXVARVALUE, '{$OxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
+        $SQLResult = $this->db->query(" SELECT DECODE(OXVARVALUE, '{$OxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
                                        " WHERE OXVARNAME = '{$OxVarName}'");
         
         return $SQLResult[0]['OXVARVALUEDECODED'];

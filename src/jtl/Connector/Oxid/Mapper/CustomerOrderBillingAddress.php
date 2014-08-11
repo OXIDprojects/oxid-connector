@@ -1,36 +1,29 @@
 <?php
 namespace jtl\Connector\Oxid\Mapper;
 
-use jtl\Core\Utilities\ClassName as ClassNameUtility;
-
 use jtl\Connector\Oxid\Mapper\BaseMapper;
-use jtl\Connector\ModelContainer\CustomerOrderContainer;
 
-/**
- * Summary of CustomerOrderBillingAddress
- */
 class CustomerOrderBillingAddress extends BaseMapper
 {
-    protected $_config = array
+    protected $mapperConfig = array
     (
-     "model" => "\\jtl\\Connector\\Model\\CustomerOrderBillingAddress",
         "table" => "oxorder",
         "mapPull" => array(
-            "_id" => "OXID",
-            "_customerId" => "OXUSERID",
-            "_salutation" => "OXBILLSAL",
-            "_firstName" => "OXBILLFNAME",
-            "_lastName" => "OXBILLLNAME",
-            "_company" => "OXBILLCOMPANY",
-            "_deliveryInstruction" => "OXBILLADDINFO",
-            "_street" => null,
-            "_zipCode" => "OXBILLZIP",
-            "_city" => "OXBILLCITY",
-            "_state" => "OXBILLSTATEID",
-            "_countryIso" => "OXBILLCOUNTRYID",
-            "_phone" => "OXBILLFON",
-            "_fax" => "OXBILLFAX",
-            "_eMail" => "OXBILLEMAIL"
+            "id" => "OXID",
+            "customerId" => "OXUSERID",
+            "salutation" => "OXBILLSAL",
+            "firstName" => "OXBILLFNAME",
+            "lastName" => "OXBILLLNAME",
+            "company" => "OXBILLCOMPANY",
+            "deliveryInstruction" => "OXBILLADDINFO",
+            "street" => null,
+            "zipCode" => "OXBILLZIP",
+            "city" => "OXBILLCITY",
+            "state" => "OXBILLSTATEID",
+            "countryIso" => "OXBILLCOUNTRYID",
+            "phone" => "OXBILLFON",
+            "fax" => "OXBILLFAX",
+            "eMail" => "OXBILLEMAIL"
         ),
         "mapPush" => array(
             "OXID" => "_id",
@@ -52,7 +45,11 @@ class CustomerOrderBillingAddress extends BaseMapper
         )
     );
     
-    public function _street($data) 
+    public function pull($data=null, $offset=0, $limit=null){
+        return array($this->generateModel($data));
+    }
+    
+    public function street($data) 
     {
     	return "{$data['OXBILLSTREET']}  {$data['OXBILLSTREETNR']}";
     }
@@ -69,9 +66,3 @@ class CustomerOrderBillingAddress extends BaseMapper
         return  $result[0];
     }
 }
-/* non mapped properties
-CustomerOrderBillingAddress:
-_title
-_extraAddressLine
-_mobile
- */

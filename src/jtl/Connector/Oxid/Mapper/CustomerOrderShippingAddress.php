@@ -14,12 +14,14 @@ use jtl\Connector\Model\Identity as IdentityModel;
 class CustomerOrderShippingAddress extends BaseMapper
 {
     
-    public function fetchAll($container = null, $type = null, $params = array())
+    public function pull($data=null, $offset=0, $limit=null)
     {
         $customerOrderShippingAddressModel = new CustomerOrderShippingAddressModel();  
         
         foreach ($params as $value)
         {
+            $customerOrderShippingAddressModel = new CustomerOrderShippingAddressModel();  
+            
             $identityModel = new IdentityModel();
             $identityModel->setEndpoint($value['OXID']);
             $customerOrderShippingAddressModel->setId($identityModel);

@@ -28,9 +28,9 @@ class CustomerOrder extends BaseMapper
             "status" => "OXBILLSTATEID",
             "created" => null,
             "paymentModuleCode" => "OXPAYMENTID",
-            //"billingAddress" => "CustomerOrderBillingAddress|addBillingAddress",
-            //"shippingAddress" => "CustomerOrderShippingAddress|addShippingAddress",
-            //"items" => "CustomerOrderItem|addItem"
+            "billingAddress" => "CustomerOrderBillingAddress|addBillingAddress",
+            "shippingAddress" => "CustomerOrderShippingAddress|addShippingAddress",
+            "items" => "CustomerOrderItem|addItem"
         ),
         "mapPush" => array(
             "OXID" => "_id",
@@ -76,13 +76,3 @@ class CustomerOrder extends BaseMapper
     }
     
 }
-/* non mapped properties
-CustomerOrder:
-_shippingAddressId
-_billingAddressId
-_session
-_shippingInfo
-_ratingNotificationDate
-_carrierName
-_isFetched
- */

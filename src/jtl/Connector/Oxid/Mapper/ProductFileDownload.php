@@ -9,15 +9,14 @@ use jtl\Connector\ModelContainer\ProductContainer;
  */
 class ProductFileDownload extends BaseMapper
 {
-    protected $_config = array
+    protected $mapperConfig = array
         (
-            "model" => "\\jtl\\Connector\\Model\\ProductFileDownload",
             "table" => "oxfiles",
             "PK" => "OXID",
             "mapPull" => array
             (
-                "_productId" => "OXARTID",
-                "_fileDownloadId" => "OXID"
+                "productId" => "OXARTID",
+                "fileDownloadId" => "OXID"
             ),
             "mapPush" => array
             (

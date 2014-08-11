@@ -2,23 +2,18 @@
 namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
-use jtl\Connector\ModelContainer\GlobalDataContainer;
 
-/**
- * Summary of FileDownload
- */
 class FileDownload extends BaseMapper
 {  
-    protected $_config = array
+    protected $mapperConfig = array
     (
-     "model" => "\\jtl\\Connector\\Model\\FileDownload",
         "table" => "oxfiles",
         "pk" => "OXID",
         "mapPull" => array(
-            "_id" => "OXID",
-            "_maxDownloads" => "OXMAXDOWNLOADS",
-            "_maxDays" => null,
-            "_created" => null
+            "id" => "OXID",
+            "maxDownloads" => "OXMAXDOWNLOADS",
+            "maxDays" => null,
+            "created" => null
         ),
         "mapPush" => array(
             "OXID" => "_id",
@@ -28,7 +23,7 @@ class FileDownload extends BaseMapper
         )
     );
     
-    public function _maxDays($data) {
+    public function maxDays($data) {
         if(isset($data['OXLINKEXPTIME']))
         {
             $maxDays = round($data['OXLINKEXPTIME'] / 24);
@@ -36,6 +31,11 @@ class FileDownload extends BaseMapper
         }else{
             return null;
         }
+    }
+    
+    public function created($data)
+    {
+        return $this->stringToDateTime($data['OXTIMESTAMP']);
     }
     
     public function OXLINKEXPTIME($data)
@@ -47,11 +47,6 @@ class FileDownload extends BaseMapper
         }else{
             return null;
         }
-    }
-    
-    public function _created($data)
-    {
-        return $this->stringToDateTime($data['OXTIMESTAMP']);
     }
 }
 
