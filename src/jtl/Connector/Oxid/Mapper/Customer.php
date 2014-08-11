@@ -28,7 +28,7 @@ class Customer extends \jtl\Connector\Oxid\Mapper\BaseMapper
             "vatNumber" => "OXUSTID",
             "www" => "OXURL",
             "hasNewsletterSubscription" => "OXDBOPTIN",
-            "birthday" => "OXBIRTHDATE",
+            "birthday" => null,
             "created" => null,
             "modified" => null,
             "isActive" => "OXACTIVE"
@@ -63,6 +63,11 @@ class Customer extends \jtl\Connector\Oxid\Mapper\BaseMapper
     public function street($data)
     {
         return "{$data['OXSTREET']}  {$data['OXSTREETNR']}";
+    }
+    
+    public function birthday($data)
+    {
+        return $this->stringToDateTime($data['OXBIRTHDATE']);
     }
     
     public function created($data)

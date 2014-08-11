@@ -9,25 +9,28 @@ class CustomerOrder extends BaseMapper
     (
         "table" => "oxorder",
         "mapPull" => array(
-            "_id" => "OXID",
-            "_customerId" => "OXUSERID",
-            "_shippingMethodCode" => "OXDELTYPE",
-            "_localeName" => "OXLANG",
-            "_currencyIso" => "OXCURRENCY",
-            "_estimatedDeliveryDate" => null,
-            "_credit" => "OXVOUCHERDISCOUNT",
-            "_totalSum" => "OXTOTALBRUTSUM",
-            "_shippingMethodName" => "OXDELTYPE",
-            "_orderNumber" => "OXORDERNR",
-            "_shippingDate" => null,
-            "_paymentDate" => null,
-            "_tracking" => "OXTRACKCODE",
-            "_note" => "OXREMARK",
-            "_trackingURL" => "OXTRACKCODE",
-            "_ip" => "OXIP",
-            "_status" => "OXBILLSTATEID",
-            "_created" => null,
-            "_paymentModuleCode" => "OXPAYMENTID"
+            "id" => "OXID",
+            "customerId" => "OXUSERID",
+            "shippingMethodCode" => "OXDELTYPE",
+            "localeName" => "OXLANG",
+            "currencyIso" => "OXCURRENCY",
+            "estimatedDeliveryDate" => null,
+            "credit" => "OXVOUCHERDISCOUNT",
+            "totalSum" => "OXTOTALBRUTSUM",
+            "shippingMethodName" => "OXDELTYPE",
+            "orderNumber" => "OXORDERNR",
+            "shippingDate" => null,
+            "paymentDate" => null,
+            "tracking" => "OXTRACKCODE",
+            "note" => "OXREMARK",
+            "trackingURL" => "OXTRACKCODE",
+            "ip" => "OXIP",
+            "status" => "OXBILLSTATEID",
+            "created" => null,
+            "paymentModuleCode" => "OXPAYMENTID",
+            //"billingAddress" => "CustomerOrderBillingAddress|addBillingAddress",
+            //"shippingAddress" => "CustomerOrderShippingAddress|addShippingAddress",
+            //"items" => "CustomerOrderItem|addItem"
         ),
         "mapPush" => array(
             "OXID" => "_id",
@@ -52,68 +55,22 @@ class CustomerOrder extends BaseMapper
         )
     );
     
-    public function fetchAll($container=null,$type=null,$params=array()) {
-        $result = [];
-        
-        try  {
-            
-            $dbResult = $this->_db->query("SELECT * FROM oxorder ORDER BY oxorder.OXID LIMIT {$params['offset']},{$params['limit']}");
-        
-            foreach($dbResult as $data) {
-                $container = new CustomerOrderContainer();
-    		
-                $model = $this->generate($data);
-    		
-                $container->add('customer_order', $model->getPublic(),false);
-    		
-                //add BillingAddress
-                $customerOrderBillingAddressMapper = new CustomerOrderBillingAddressMapper();
-                $customerOrderBillingAddressMapper->fetchAll($container,'customer_order_billing_address', array('data' => $data));
-            
-                //add Item
-                $customerOrderItemMapper = new CustomerOrderItemMapper();
-                $customerOrderItemMapper->fetchAll($container,'customer_order_item', $customerOrderItemMapper->getOrderItem(array('OXID' => $model->_id)));
-            
-                //add PaymentInfo
-                $customerOrderPaymentInfoMapper = new CustomerOrderPaymentInfoMapper();
-                $customerOrderPaymentInfoMapper->fetchAll($container,'customer_order_payment_info', $customerOrderPaymentInfoMapper->getPaymentInfo(array('OXPAYMENTID' => $model->_paymentModuleCode)));
-                       
-                //add ShippingAddress
-                $customerOrderShippingAddressMapper = new CustomerOrderShippingAddressMapper();
-                $customerOrderShippingAddressMapper->fetchAll($container,'customer_order_shipping_address', $customerOrderShippingAddressMapper->getOrderShippingAddress(array('OXID' => $model->_id)));
-            
-                $result[] = $container->getPublic(array('items'));
-            
-            } 
-            
-        } catch (\Exception $exc) { 
-            Logger::write(ExceptionFormatter::format($exc), Logger::WARNING, 'mapper');
-            
-            $err = new Error();
-            $err->setCode($exc->getCode());
-            $err->setMessage($exc->getMessage());
-            $action->setError($err);
-    	} 
-        
-        return $result;
-    }
-    
-    public function _estimatedDeliveryDate($data)
+    public function estimatedDeliveryDate($data)
     {
         return $this->stringToDateTime($data['OXORDERDATE']);
     }
     
-    public function _shippingDate($data)
+    public function shippingDate($data)
     {
         return $this->stringToDateTime($data['OXSENDDATE']);
     }
     
-    public function _paymentDate($data)
+    public function paymentDate($data)
     {
         return $this->stringToDateTime($data['OXPAID']);
     }
     
-    public function _created($data)
+    public function created($data)
     {   
         return $this->stringToDateTime($data['OXORDERDATE']);
     }

@@ -40,11 +40,7 @@ class BaseMapper
         
 		foreach($this->mapperConfig['mapPull'] as $host => $endpoint) {
 		    $value = null;
-              
-            //die(print_r($model));
-            //die(print_r($host));
-            //die(print_r($this->type->getProperty($host)->isNavigation()));
-            
+                          
 		    if($this->type->getProperty($host)->isNavigation()) {
 		        list($endpoint,$setMethod) = explode('|',$endpoint);
 		        
@@ -70,8 +66,12 @@ class BaseMapper
 		        else {
 		            $type = $this->type->getProperty($host)->getType();
 		            
-		            if($type == "DateTime" && !is_null($value)) $value = new \DateTime($value);
-		            else settype($value,$type);
+                    if(!is_null($value)) {                     
+		                if($type == "DateTime" && !is_null($value)) $value = new \DateTime($value);
+		                else settype($value,$type);
+                    }else{
+                        break;
+                    }
 		        }
 		        
 		        $setMethod = 'set'.ucfirst($host);
