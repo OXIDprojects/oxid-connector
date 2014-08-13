@@ -2,19 +2,14 @@
 namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
-use jtl\Connector\Oxid\Config\Loader\Config;
 
-use jtl\Connector\ModelContainer\ProductContainer;
-use jtl\Connector\Model\ProductI18n as ProductI18nModel;
 use jtl\Connector\Model\Identity as IdentityModel;
+use jtl\Connector\Model\ProductI18n as ProductI18nModel;
 
-/**
- * Summary of ProductI18n
- */
 class ProductI18n extends BaseMapper
 {
     public function pull($data=null, $offset=0, $limit=null)
-    {
+    {   
         $return = [];       
         $languages = $this->getLanguageIDs();
         $productI18nTable = $this->getProductI18n($data);
@@ -71,7 +66,7 @@ class ProductI18n extends BaseMapper
     
     public function getProductI18n($param)
     {      
-        $sqlResult = $this->_db->query("SELECT oxarticles.*, oxartextends.*" .
+        $sqlResult = $this->db->query("SELECT oxarticles.*, oxartextends.*" .
                                         " FROM oxarticles" .
                                         " LEFT JOIN oxartextends" .
                                         " ON oxarticles.OXID = oxartextends.OXID " .

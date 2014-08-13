@@ -56,8 +56,7 @@ class BaseMapper
                     
 		            foreach($values as $obj) $model->$setMethod($obj);
 		        }
-		    }
-		    else {
+		    } else {
 		        if(isset($data[$endpoint])) $value = $data[$endpoint];
 		        elseif(method_exists(get_class($this),$host)) $value = $this->$host($data);
 		        else throw new \Exception("There is no property or method to map ".$host);
@@ -65,17 +64,17 @@ class BaseMapper
 		        if($this->type->getProperty($host)->isIdentity()) $value = new Identity($value);
 		        else {
 		            $type = $this->type->getProperty($host)->getType();
-		            
-                    if(!is_null($value)) {                     
+                    
+                    if(!is_null($value) && $type == "DateTime") {           
 		                if($type == "DateTime" && !is_null($value)) $value = new \DateTime($value);
 		                else settype($value,$type);
-                    }else{
-                        break;
+                        
+                        $setMethod = 'set'.ucfirst($host);
+                        $model->$setMethod($value);
                     }
 		        }
 		        
-		        $setMethod = 'set'.ucfirst($host);
-		        $model->$setMethod($value);
+		        
 		    }
 		}
 		

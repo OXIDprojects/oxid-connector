@@ -28,9 +28,11 @@ class CustomerOrder extends BaseMapper
             "status" => "OXBILLSTATEID",
             "created" => null,
             "paymentModuleCode" => "OXPAYMENTID",
-            "billingAddress" => "CustomerOrderBillingAddress|addBillingAddress",
+            //"billingAddress" => "CustomerOrderBillingAddress|addBillingAddress",
             "shippingAddress" => "CustomerOrderShippingAddress|addShippingAddress",
+            "paymentInfo" => "CustomerOrderPaymentInfo|addPaymentInfo",
             "items" => "CustomerOrderItem|addItem"
+            
         ),
         "mapPush" => array(
             "OXID" => "_id",

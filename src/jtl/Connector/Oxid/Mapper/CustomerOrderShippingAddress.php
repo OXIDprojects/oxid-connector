@@ -16,9 +16,11 @@ class CustomerOrderShippingAddress extends BaseMapper
     
     public function pull($data=null, $offset=0, $limit=null)
     {
-        $customerOrderShippingAddressModel = new CustomerOrderShippingAddressModel();  
+        $return = [];
         
-        foreach ($params as $value)
+        $customerOrderShippingAddressTable = $this->getOrderShippingAddress($data);
+        
+        foreach ($customerOrderShippingAddressTable as $value)
         {
             $customerOrderShippingAddressModel = new CustomerOrderShippingAddressModel();  
             
@@ -42,7 +44,7 @@ class CustomerOrderShippingAddress extends BaseMapper
                 $customerOrderShippingAddressModel->setLastName($value['OXDELLNAME']);
                 $customerOrderShippingAddressModel->setCompany($value['OXDELCOMPANY']);
                 $customerOrderShippingAddressModel->setDeliveryInstruction($value['OXDELADDINFO']);
-                $customerOrderShippingAddressModel->setStreet($this->_streetDel($value));
+                $customerOrderShippingAddressModel->setStreet($this->streetDel($value));
                 $customerOrderShippingAddressModel->setZipCode($value['OXDELZIP']);
                 $customerOrderShippingAddressModel->setCity($value['OXDELCITY']);
                 $customerOrderShippingAddressModel->setState($value['OXDELSTATEID']);
@@ -50,42 +52,42 @@ class CustomerOrderShippingAddress extends BaseMapper
                 $customerOrderShippingAddressModel->setPhone($value['OXDELFON']);
                 $customerOrderShippingAddressModel->setFax($value['OXDELFAX']);
                 
+                $return[] = $customerOrderShippingAddressModel;
             } else {
+                $customerOrderShippingAddressModel = new CustomerOrderShippingAddressModel();
                 
                 $customerOrderShippingAddressModel->setSalutation($value['OXBILLSAL']);
                 $customerOrderShippingAddressModel->setFirstName($value['OXBILLFNAME']);
                 $customerOrderShippingAddressModel->setLastName($value['OXBILLLNAME']);
                 $customerOrderShippingAddressModel->setCompany($value['OXBILLCOMPANY']);
                 $customerOrderShippingAddressModel->setDeliveryInstruction($value['OXBILLADDINFO']);
-                $customerOrderShippingAddressModel->setStreet($this->_streetBill($value));
+                $customerOrderShippingAddressModel->setStreet($this->streetBill($value));
                 $customerOrderShippingAddressModel->setZipCode($value['OXBILLZIP']);
                 $customerOrderShippingAddressModel->setCity($value['OXBILLCITY']);
                 $customerOrderShippingAddressModel->setState($value['OXBILLSTATEID']);
                 $customerOrderShippingAddressModel->setCountryIso($value['OXBILLCOUNTRYID']);
                 $customerOrderShippingAddressModel->setPhone($value['OXBILLFON']);
                 $customerOrderShippingAddressModel->setFax($value['OXBILLFAX']);
-                
+               
+                $return[] = $customerOrderShippingAddressModel;
             }
-            
-            $container->add('customer_order_shipping_address', $customerOrderShippingAddressModel->getPublic(), false);
         }
+        return $return;
     }
     
     public function getOrderShippingAddress($param)
-    {
-        $oxidConf = new Config();
-        
-        $sqlResult = $this->_db->query("SELECT * FROM oxorder WHERE OXID = '{$param['OXID']}';");
+    {   
+        $sqlResult = $this->db->query("SELECT * FROM oxorder WHERE OXID = '{$param['OXID']}';");
         
         return $sqlResult;
     }
     
-    public function _streetDel($data) 
+    public function streetDel($data) 
     {
     	return "{$data['OXDELSTREET']}  {$data['OXDELSTREETNR']}";
     }
     
-    public function _streetBill($data)
+    public function streetBill($data)
     {
         return "{$data['OXBILLSTREET']}  {$data['OXBILLSTREETNR']}";
     }
@@ -102,10 +104,3 @@ class CustomerOrderShippingAddress extends BaseMapper
         return  $result[0];
     }
 }
-/* non mapped properties
-CustomerOrderShippingAddress:
-_title
-_extraAddressLine
-_mobile
-_eMail
- */

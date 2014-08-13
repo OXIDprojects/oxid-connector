@@ -15,14 +15,14 @@ class CustomerOrderBillingAddress extends BaseMapper
             "firstName" => "OXBILLFNAME",
             "lastName" => "OXBILLLNAME",
             "company" => "OXBILLCOMPANY",
-            "deliveryInstruction" => "OXBILLADDINFO",
+            //"deliveryInstruction" => "OXBILLADDINFO",
             "street" => null,
             "zipCode" => "OXBILLZIP",
             "city" => "OXBILLCITY",
             "state" => "OXBILLSTATEID",
             "countryIso" => "OXBILLCOUNTRYID",
-            "phone" => "OXBILLFON",
-            "fax" => "OXBILLFAX",
+            //"phone" => "OXBILLFON",
+            //"fax" => "OXBILLFAX",
             "eMail" => "OXBILLEMAIL"
         ),
         "mapPush" => array(
@@ -44,10 +44,6 @@ class CustomerOrderBillingAddress extends BaseMapper
             "OXBILLEMAIL" => "_eMail"
         )
     );
-    
-    public function pull($data=null, $offset=0, $limit=null){
-        return array($this->generateModel($data));
-    }
     
     public function street($data) 
     {

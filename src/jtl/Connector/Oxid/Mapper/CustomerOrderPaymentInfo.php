@@ -2,23 +2,21 @@
 namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
-use jtl\Connector\Oxid\Config\Loader\Config;
 
-use jtl\Connector\ModelContainer\CustomerOrderContainer;
-use jtl\Connector\Model\CustomerOrderPaymentInfo as CustomerOrderPaymentInfoModel;
 use jtl\Connector\Model\Identity as IdentityModel;
+use jtl\Connector\Model\CustomerOrderPaymentInfo as CustomerOrderPaymentInfoModel;
 
-/**
- * Summary of CustomerOrderPaymentInfo 
- */
 class CustomerOrderPaymentInfo  extends BaseMapper
 {
-    public function fetchAll($container = null, $type = null, $params = array())
+    public function pull($data=null, $offset=0, $limit=null)
     {
-        $customerOrderPaymentInfo = new CustomerOrderPaymentInfoModel();
+        $return = [];
+        $customerOrderPaymentInfoTable = $this->getPaymentInfo($data);
                 
-        foreach ($params as $value)
+        foreach ($customerOrderPaymentInfoTable as $value)
         {
+            $customerOrderPaymentInfo = new CustomerOrderPaymentInfoModel();
+            
             $identityModel = new IdentityModel();
             $identityModel->setEndpoint($value['OXPAYMENTSID']);
             $customerOrderPaymentInfo->setId($identityModel);
@@ -59,15 +57,14 @@ class CustomerOrderPaymentInfo  extends BaseMapper
                 }
             }
             
-            $container->add('customer_order_payment_info', $customerOrderPaymentInfo->getPublic(), false);
+            $return[] = $customerOrderPaymentInfo;
         }
+        return $return;
     }
     
     public function getPaymentInfo($param)
     {   
-        $oxidConf = new Config();
-        
-        $sqlResult = $this->_db->query("SELECT oxorder.OXID AS OXORDERID, oxuserpayments.OXID AS OXPAYMENTSID, oxuserpayments.OXUSERID, DECODE(OXVALUE, 'sd45DF09_sdlk09239DD') AS OXVALUEDECODED
+        $sqlResult = $this->db->query("SELECT oxorder.OXID AS OXORDERID, oxuserpayments.OXID AS OXPAYMENTSID, oxuserpayments.OXUSERID, DECODE(OXVALUE, 'sd45DF09_sdlk09239DD') AS OXVALUEDECODED
                                         FROM oxuserpayments, oxorder WHERE oxuserpayments.OXUSERID = oxorder.OXUSERID
                                         AND oxuserpayments.OXID = '{$param['OXPAYMENTID']}';");
         
@@ -144,11 +141,3 @@ class CustomerOrderPaymentInfo  extends BaseMapper
         return preg_match('/([a-zA-Z]{4}[a-zA-Z]{2}[a-zA-Z0-9]{2}([a-zA-Z0-9]{3})?)/i', $bic);
     }
 }
-/* non mapped properties
-CustomerOrderPaymentInfo :
-_creditCardNumber
-_creditCardVerificationNumber
-_creditCardExpiration
-_creditCardType
-_creditCardHolder
- */
