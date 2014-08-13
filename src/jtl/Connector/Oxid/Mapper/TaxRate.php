@@ -5,47 +5,36 @@ use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
 
 use jtl\Connector\Model\TaxRate as TaxRateModel;
-use jtl\Connector\ModelContainer\GlobalDataContainer;
 use jtl\Connector\Model\Identity as IdentityModel;
 
-
-/**
- * Summary of TaxRate
- */
 class TaxRate extends BaseMapper
 {      
-    public function fetchAll($container = null, $type = null, $params = array())
+    public function pull($data=null, $offset=0, $limit=null)
     {
-        $taxRate = new TaxRateModel();
+        $return = [];
+        $taxRateTable = $this->getTaxRate();
         
-        foreach ($params as $value)
+        foreach ($taxRateTable as $value)
         {
+            $taxRate = new TaxRateModel();
+            
             $identityModel = new IdentityModel();
             $identityModel->setEndpoint($value['OXID']);
             $taxRate->setId($identityModel);
-            $taxRate->setRate($value['OXVARVALUEDECODED']);
+            $taxRate->setRate((double)$value['OXVARVALUEDECODED']);
             
-            $container->add('tax_rate', $taxRate->getPublic(), false);
+            $return[] = $taxRate;
         }
+        return $return;
     }
     
-    /**
-     * Summary of getTaxRate
-     * @return Array
-     */
     public function getTaxRate()
     {
         $oxidConf = new Config();
         
-        $sqlResult = $this->_db->query("SELECT *, DECODE(OXVARVALUE, '{$oxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
+        $sqlResult = $this->db->query("SELECT *, DECODE(OXVARVALUE, '{$oxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
                                        " WHERE OXVARNAME = 'dDefaultVAT';");
         
         return $sqlResult;
     }
 }
-/* non mapped properties
-TaxRate:
- * _taxZoneId
- * _taxClassId
- * _priority
- */

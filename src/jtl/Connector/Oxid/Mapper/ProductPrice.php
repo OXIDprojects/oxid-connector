@@ -1,26 +1,23 @@
 <?php
 namespace jtl\Connector\Oxid\Mapper;
 
-
 use jtl\Connector\Oxid\Mapper\BaseMapper;
-use jtl\Connector\Oxid\Config\Loader\Config;
 
 use jtl\Connector\Model\Identity as IdentityModel;
-use jtl\Connector\ModelContainer\ProductContainer;
 use jtl\Connector\Model\ProductPrice as ProductPriceModel;
 
-/**
- * Summary of ProductPrice
- */
 class ProductPrice extends BaseMapper
 {
     
-    public function fetchAll($container = null, $type = null, $params = array())
+    public function pull($data=null, $offset=0, $limit=null)
     {
-        $productPriceModel = new ProductPriceModel();  
+        $return = [];
+        $productPriceTable = $this->getProductPrice($data);
                
         for ($i = 0; $i <= 3; $i++)       
         {   
+            $productPriceModel = new ProductPriceModel();  
+            
             $customerGroupId = '';
             
             switch($i)
@@ -28,27 +25,27 @@ class ProductPrice extends BaseMapper
                 case (0):
                     $customerGroupId = $this->getDefaultCustomerGroupId();
                     
-                    $productPriceModel->setNetPrice($this->getNetPrice($params[0]['OXPRICE']));
+                    $productPriceModel->setNetPrice($this->getNetPrice($productPriceTable[0]['OXPRICE']));
                     break;
                 case (1):                  
-                    if ($params[0]['OXPRICEA'] != '0') {
+                    if ($productPriceTable[0]['OXPRICEA'] != '0') {
                         $customerGroupId = 'oxidpricea';
                         
-                        $productPriceModel->setNetPrice($this->getNetPrice($params[0]['OXPRICEA']));
+                        $productPriceModel->setNetPrice($this->getNetPrice($productPriceTable[0]['OXPRICEA']));
                     }
                     break;
                 case (2):                    
-                    if ($params[0]['OXPRICEB'] != '0') {
+                    if ($productPriceTable[0]['OXPRICEB'] != '0') {
                         $customerGroupId = 'oxidpriceb';
                         
-                        $productPriceModel->setNetPrice($this->getNetPrice($params[0]['OXPRICEB']));
+                        $productPriceModel->setNetPrice($this->getNetPrice($productPriceTable[0]['OXPRICEB']));
                     }
                     break;
                 case (3):
-                    if ($params[0]['OXPRICEC'] != '0') {
+                    if ($productPriceTable[0]['OXPRICEC'] != '0') {
                         $customerGroupId = 'oxidpricec';
                         
-                        $productPriceModel->setNetPrice($this->getNetPrice($params[0]['OXPRICEC']));
+                        $productPriceModel->setNetPrice($this->getNetPrice($productPriceTable[0]['OXPRICEC']));
                     }
                     break;
             }
@@ -58,22 +55,21 @@ class ProductPrice extends BaseMapper
             $productPriceModel->setCustomerGroupId($identityModel);
             
             $identityModel = new IdentityModel();
-            $identityModel->setEndpoint($params[0]['OXID']);
+            $identityModel->setEndpoint($productPriceTable[0]['OXID']);
             $productPriceModel->setProductId($identityModel);
             
-            $productPriceModel->setQuantity('1');
+            $productPriceModel->setQuantity((double)'1');
             
             if ($customerGroupId != '') {
-                $container->add('product_price', $productPriceModel->getPublic(), false);    
+                $return[] =     $productPriceModel;
             }
         }
+        return $return;
     }
     
     public function getProductPrice($param)
-    {
-        $oxidConf = new Config();
-        
-        $sqlResult = $this->_db->query("SELECT * FROM oxarticles WHERE OXID = '{$param['OXID']}';");
+    {   
+        $sqlResult = $this->db->query("SELECT * FROM oxarticles WHERE OXID = '{$param['OXID']}';");
         
         return $sqlResult;
     }
@@ -93,10 +89,4 @@ class ProductPrice extends BaseMapper
         
         return $netPrice;
     }    
-    
-    public function getOXPRICE($data)
-    {
-        //Testen
-        return $data['_netPrice'] * "1,{$data['_vat']}";
-    }
 }

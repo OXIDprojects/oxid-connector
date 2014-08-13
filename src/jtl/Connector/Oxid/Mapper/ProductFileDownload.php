@@ -2,11 +2,7 @@
 namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
-use jtl\Connector\ModelContainer\ProductContainer;
 
-/**
- * Summary of ProductFileDownload
- */
 class ProductFileDownload extends BaseMapper
 {
     protected $mapperConfig = array

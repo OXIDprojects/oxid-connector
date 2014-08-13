@@ -2,22 +2,21 @@
 namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
-use jtl\Connector\Oxid\Config\Loader\Config;
 
 use jtl\Connector\Model\Language as LanguageModel;
-use jtl\Connector\ModelContainer\GlobalDataContainer;
 use jtl\Connector\Model\Identity as IdentityModel;
-/**
- * Summary of Language
- */
+
 class Language extends BaseMapper
 {
-    public function fetchAll($container = null, $type = null, $params = array())
+    public function pull($data=null, $offset=0, $limit=null)
     {
-        $language = new LanguageModel();
+        $return = [];
+        $languageTable = $this->getLanguageIDs();
         
-        foreach ($params as $value)
+        foreach ($languageTable as $value)
         {
+            $language = new LanguageModel();
+            
             $identityModel = new IdentityModel();
             $identityModel->setEndpoint($value['baseId']);
             $language->setId($identityModel);
@@ -32,7 +31,8 @@ class Language extends BaseMapper
             }else{
                 $language->setIsDefault(false);
             }
-            $container->add('language', $language->getPublic(), false);
+            $return[] = $language;
         }
+        return $return;
     }   
 }

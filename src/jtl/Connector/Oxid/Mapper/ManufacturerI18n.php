@@ -8,9 +8,6 @@ use jtl\Connector\ModelContainer\ManufacturerContainer;
 use jtl\Connector\Model\ManufacturerI18n as ManufacturerI18nModel;
 use jtl\Connector\Model\Identity as IdentityModel;
 
-/**
- * Summary of ManufacturerI18n
- */
 class ManufacturerI18n extends BaseMapper
 {
     protected $mapperConfig = array

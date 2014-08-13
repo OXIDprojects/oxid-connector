@@ -10,13 +10,16 @@ class GlobalData extends BaseMapper
         "mapPull" => array(
             "languages" => "Language|addLanguage",
             //"customerGroups" => "CustomerGroup|addCustomerGroup",
-            //"taxRates" => "TaxRate|addTaxRate",
-            //"currencies" => "Currency|addCurrency",
-            //"units" => "Unit|addUnit"
+            "taxRates" => "TaxRate|addTaxRate",
+            //"shippingClasses" => "ShippingClass|addShippingClass",
+            "currencies" => "Currency|addCurrency",
+            //"crossSellings" => "CrossSelling|addCrossSelling",
+            "units" => "Unit|addUnit",
+            //"companies" => "Company|addCompany"
          )
     );
     
-    public function pull($data = null, $offset = 0, $limit = null) {
+    public function pull($data=null, $offset=0, $limit=null) {
         $globalData = $this->generateModel(null);
         
         return $globalData;

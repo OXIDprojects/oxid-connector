@@ -49,10 +49,3 @@ class FileDownload extends BaseMapper
         }
     }
 }
-
-/* non mapped properties
- * FileDownload:
- * _sort
- * _previewPath
- * _path
- */

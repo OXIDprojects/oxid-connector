@@ -38,6 +38,8 @@ class BaseMapper
         
 		if(!$this->type) $this->type = $model->getModelType();
         
+        //die(print_r($model));
+        
 		foreach($this->mapperConfig['mapPull'] as $host => $endpoint) {
 		    $value = null;
                           

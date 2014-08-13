@@ -7,18 +7,17 @@ use jtl\Connector\ModelContainer\ProductContainer;
 use jtl\Connector\Model\Identity as IdentityModel;
 use jtl\Connector\Model\ProductVariation as ProductVariationModel;
 
-
-/**
- * Summary of ProductVariation
- */
 class ProductVariation extends BaseMapper
 {
-    public function fetchAll($container = null, $type = null, $params = array())
+    public function pull($data=null, $offset=0, $limit=null)
     {
-        $productVariationModel = new ProductVariationModel();       
+        $return = [];
+        $productVariationTable = $this->getProductVariation($data);
         
-            foreach ($params as $value)
+        foreach ($productVariationTable as $value)
             {              
+                $productVariationModel = new ProductVariationModel();
+                
                 if ($value['OXVARNAME']) {
                     
                     $variantIDs = array_map('trim', split('\|', $value['OXVARNAME']));
@@ -33,28 +32,22 @@ class ProductVariation extends BaseMapper
                         $identity->setEndpoint($value['OXID']);
                         $productVariationModel->setProductId($identity);
                         
-                        $productVariationModel->setSort($value['OXSORT']);
+                        $productVariationModel->setSort(intval($value['OXSORT']));
+                        //$productVariationModel->addI18n($value);
                         
-                        $container->add('product_variation', $productVariationModel->getPublic(), false);
+                        $return[] = $productVariationModel;
                     }
                 }
             }
+        return $return;
         
     }
     
     public function getProductVariation($param)
-    {
-        $oxidConf = new Config();
-        
-        $sqlResult = $this->_db->query(" SELECT * FROM oxarticles " .
+    {   
+        $sqlResult = $this->db->query(" SELECT * FROM oxarticles " .
                                 " WHERE OXID = '{$param['OXID']}'; ");
         
         return $sqlResult;
     }
 }
-
-/* non mapped properties
-ProductVariation:
- * - _type
- * 
- */

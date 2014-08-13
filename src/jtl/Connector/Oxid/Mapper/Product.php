@@ -9,7 +9,7 @@ class Product extends BaseMapper
         (
             "table" => "oxarticles",
             "mapPull" => array(
-               /* "considerStock" => null,
+                "considerStock" => null,
                 "permitNegativeStock" => null,
                 "id" => "OXID",
                 "masterProductId" => "OXPARENTID",
@@ -24,12 +24,16 @@ class Product extends BaseMapper
                 "recommendedRetailPrice" => "OXTPRICE",
                 "keywords" => "OXSEARCHKEYS",
                 "sort" => "OXSORT",
-                "created" => "OXINSERT", */
+                "created" => "OXINSERT",
                 "availableFrom" => null,
                 "manufacturerNumber" => "OXMPN",
                 "isMasterProduct" => null,
-                //"inflowDate" => null,
-                "i18ns" => "ProductI18n|addI18n"
+                "inflowDate" => null,
+                "prices" => "ProductPrice|addPrice",
+                "variations" => "ProductVariation|addVariation",
+                "i18ns" => "ProductI18n|addI18n",
+                //"fileDownloads" => "ProductFileDownload|addFileDownload",
+                //"categories" => "Product2Category|addCategory"
             ),
            "mapPush" => array(
                 "OXID" => "id",

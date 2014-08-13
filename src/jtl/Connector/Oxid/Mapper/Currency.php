@@ -4,50 +4,45 @@ namespace jtl\Connector\Oxid\Mapper;
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 use jtl\Connector\Oxid\Config\Loader\Config;
 
-use jtl\Connector\ModelContainer\GlobalDataContainer;
 use jtl\Connector\Model\Currency as CurrencyModel;
 use jtl\Connector\Model\Identity as IdentityModel;
 
-/**
- * Summary of Currency
- */
 class Currency extends BaseMapper
 {      
-    public function fetchAll($container = null, $type = null, $params = array())
+    public function pull($data=null, $offset=0, $limit=null)
     {
-        $currency = new CurrencyModel();
+        $return = [];
+        $currencyTable = $this->getCurrency();
         
-        for ($i = 0; $i < count($params); $i++)
+        for ($i = 0; $i < count($currencyTable); $i++)
         {
+            $currency = new CurrencyModel();
+            
             if($i == 0)
             {
-                $currency->_isDefault = True;
+                $currency->setIsDefault(true);
             }
             
             $identity = new IdentityModel();
-            $identity->setEndpoint($params[$i]['id']);
+            $identity->setEndpoint($currencyTable[$i]['id']);
             $currency->setId($identity);
             
-            $currency->setName($params[$i]['name']);
-            $currency->setNameHtml($params[$i]['symbol']);
-            $currency->setFactor($params[$i]['rate']);
-            $currency->setDelimiterCent($params[$i]['decimal_separator']);
-            $currency->setDelimiterThousand($params[$i]['thousand_separator']);
+            $currency->setName($currencyTable[$i]['name']);
+            $currency->setNameHtml($currencyTable[$i]['symbol']);
+            $currency->setFactor((double)$currencyTable[$i]['rate']);
+            $currency->setDelimiterCent($currencyTable[$i]['decimal_separator']);
+            $currency->setDelimiterThousand($currencyTable[$i]['thousand_separator']);
             
-            $container->add('currency', $currency->getPublic(), false);
+            $return[] = $currency;
         }
-        
+        return $return;
     }
     
-    /**
-     * Summary of getCurrency
-     * @return Array
-     */
     public function getCurrency()
     {   
         $oxidConf = new Config();
         
-        $sqlResult = $this->_db->query("SELECT DECODE(OXVARVALUE, '{$oxidConf->sConfigKey}') AS OXVARVALUEDECODED FROM oxconfig " .
+        $sqlResult = $this->db->query("SELECT DECODE(OXVARVALUE, '{$oxidConf->sConfigKey}') AS OXVARVALUEDECODED FROM oxconfig " .
                                    "WHERE OXVARNAME = 'aCurrencies' ");
         
         $currencyArr = unserialize($sqlResult[0]['OXVARVALUEDECODED']);       
@@ -94,9 +89,3 @@ class Currency extends BaseMapper
         return $currencyResult;
     }
 }
-
-/* non mapped properties
-Currency:
- * _iso
- * _hasCurrencySignBeforeValue
- */

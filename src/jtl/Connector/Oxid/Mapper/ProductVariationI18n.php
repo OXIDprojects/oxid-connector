@@ -2,25 +2,22 @@
 namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
-use jtl\Connector\Oxid\Config\Loader\Config;
 
-use jtl\Connector\ModelContainer\ProductContainer;
-use jtl\Connector\Model\ProductVariationI18n as ProductVariationI18nModel;
 use jtl\Connector\Model\Identity as IdentityModel;
+use jtl\Connector\Model\ProductVariationI18n as ProductVariationI18nModel;
 
-/**
- * Summary of ProductVariationI18n
- */
 class ProductVariationI18n extends BaseMapper
 {
-    public function fetchAll($container = null, $type = null, $params = array())
+    public function pull($data=null, $offset=0, $limit=null)
     {
-        $productVariationI18nModel = new ProductVariationI18nModel();       
+        $return = [];
         $languages = $this->getLanguageIDs();
+        $productVariationI18nTable = $this->getProductVariationI18n($data);
         
-        foreach ($params as $value)
+        foreach ($productVariationI18nTable as $value)
         {              
-            //Pro Sprache
+            $productVariationI18nModel = new ProductVariationI18nModel();
+            
             foreach ($languages as $language)
             {
                 $langBaseId = $language['baseId'];
@@ -42,7 +39,7 @@ class ProductVariationI18n extends BaseMapper
                                 $productVariationI18nModel->setLocaleName($this->getLocalCode($language['code']));
                                 $productVariationI18nModel->setName($variantID);
                                     
-                                $container->add('product_variation_i18n', $productVariationI18nModel->getPublic(), false);
+                                $return[] = $productVariationI18nModel;
                             }
                         }
                     }
@@ -63,28 +60,22 @@ class ProductVariationI18n extends BaseMapper
                                 $productVariationI18nModel->setLocaleName($this->getLocalCode($language['code']));
                                 $productVariationI18nModel->setName($variantLangIDs[$i]);
                                 
-                                $container->add('product_variation_i18n', $productVariationI18nModel->getPublic(), false);
+                                $return[] = $productVariationI18nModel;
                             }
                         }
                     }
-                } 
+                }
+                return $return;
             }                
             
         }
     }
     
     public function getProductVariationI18n($param)
-    {
-        $oxidConf = new Config();
-        
-        $sqlResult = $this->_db->query(" SELECT * FROM oxarticles " .
+    {   
+        $sqlResult = $this->db->query(" SELECT * FROM oxarticles " .
                                        " WHERE OXID = '{$param['OXID']}' ");
         
         return $sqlResult;
     }
 }
-
-/* non mapped properties
-ProductVariationI18n:
- * _key
- */
