@@ -25,9 +25,6 @@ class BaseController extends Controller
         $action = new Action();
         $action->setHandled(true);
         
-        $filter = new QueryFilter();
-        $filter->set($params);
-        
         try {
             $reflect = new \ReflectionClass($this);
             $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}";
@@ -36,8 +33,8 @@ class BaseController extends Controller
             
             $mapper = new $class();
                 
-            $result = $mapper->pull($params,$filter->getOffset(),$filter->getLimit());
-                
+            $result = $mapper->pull($params, $params->getOffset(), $params->getLimit());
+            
             $action->setResult($result);          
         }
         catch (\Exception $exc) {
