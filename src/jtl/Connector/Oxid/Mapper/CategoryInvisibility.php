@@ -34,6 +34,22 @@ class CategoryInvisibility extends BaseMapper
         return $return;
     }
     
+    public function push($data,$dbObj=null) {
+        $return = [];
+        
+        foreach ($data->getInvisibilities() as $invisibility)
+        {
+            $categoryInvisibility = new CategoryInvisibilityModel();
+            $categoryInvisibility->setCustomerGroupId($invisibility->getCustomerGroupId());
+            $categoryInvisibility->setCategoryId($data->getId());
+            
+            $return[] = $categoryInvisibility;
+            
+            $id= $invisibility->getCustomerGroupId()->getEndpoint();
+        }
+        return $return;
+    }
+    
     protected function getCategoryInvisibility($params)
     {   
         $sqlResult = $this->db->query("SELECT oxcategories.OXID AS CategoryID,

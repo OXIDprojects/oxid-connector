@@ -18,7 +18,7 @@ class BaseController extends Controller
     protected $_db;
     
 	public function __construct() {
-        $this->_db = Mysql::getInstance();
+        $this->db = Mysql::getInstance();
 	}	
 	
     public function pull($params) {
@@ -51,13 +51,31 @@ class BaseController extends Controller
     }
     
     public function push($params) {
-		$action = new Action();
+        $action = new Action();
         
         $action->setHandled(true);
-        $action->setResult(true);
         
-        return $action;
-	}
+        try {
+            $reflect = new \ReflectionClass($this);
+            $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}";
+            
+            if(!class_exists($class)) throw new \Exception("Class ".$class." not available");
+            
+            $mapper = new $class();
+            
+            $result = $mapper->push($params);
+            
+            $action->setResult($result);
+        }
+        catch (\Exception $exc) {
+            $err = new Error();
+            $err->setCode($exc->getCode());
+            $err->setMessage($exc->getFile().' ('.$exc->getLine().'):'.$exc->getMessage());
+            $action->setError($err);
+        }
+        
+        return $action;        
+    }
 	   
     public function delete($params) {
         

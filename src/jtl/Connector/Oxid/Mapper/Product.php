@@ -24,7 +24,7 @@ class Product extends BaseMapper
                 "recommendedRetailPrice" => "OXTPRICE",
                 "keywords" => "OXSEARCHKEYS",
                 "sort" => "OXSORT",
-                "created" => "OXINSERT",
+                //"created" => "OXINSERT",
                 "availableFrom" => null,
                 "manufacturerNumber" => "OXMPN",
                 "isMasterProduct" => null,

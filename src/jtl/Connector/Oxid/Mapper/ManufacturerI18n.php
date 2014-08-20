@@ -2,9 +2,7 @@
 namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
-use jtl\Connector\Oxid\Config\Loader\Config;
 
-use jtl\Connector\ModelContainer\ManufacturerContainer;
 use jtl\Connector\Model\ManufacturerI18n as ManufacturerI18nModel;
 use jtl\Connector\Model\Identity as IdentityModel;
 
@@ -22,12 +20,13 @@ class ManufacturerI18n extends BaseMapper
         )
     );
         
-    public function fetchAll($container = null, $type = null, $params = array())
+    public function pull($data=null, $offset=0, $limit=null)
     {
-        $manufacturerI18nModel = new ManufacturerI18nModel();       
+        $return = [];              
         $languages = $this->getLanguageIDs();
+        $manufacturerI18nTable = $this->getManufacturerI18n($data);
         
-        foreach ($params as $value)
+        foreach ($manufacturerI18nTable as $value)
         {
             //Pro Sprache
             foreach ($languages as $language)
@@ -41,6 +40,8 @@ class ManufacturerI18n extends BaseMapper
                         if(!empty($value['OXTITLE']) or
                            !empty($value['OXSHORTDESC']))
                         {
+                            $manufacturerI18nModel = new ManufacturerI18nModel();
+                            
                             $identityModel = new IdentityModel();
                             $identityModel->setEndpoint($value['OXID']);
                             $manufacturerI18nModel->setManufacturerId($identityModel);
@@ -49,7 +50,7 @@ class ManufacturerI18n extends BaseMapper
                             $manufacturerI18nModel->setDescription($value['OXSHORTDESC']);
                             $manufacturerI18nModel->setTitleTag($value['OXTITLE']);
                             
-                            $container->add('manufacturer_i18n', $manufacturerI18nModel->getPublic(), false);
+                            $return[] = $manufacturerI18nModel;
                         }
                     }
                 }else{
@@ -58,6 +59,8 @@ class ManufacturerI18n extends BaseMapper
                         if(!empty($value["OXTITLE_{$langBaseId}"]) or
                            !empty($value["OXSHORTDESC_{$langBaseId}"]))
                         {
+                            $manufacturerI18nModel = new ManufacturerI18nModel();
+                            
                             $identityModel = new IdentityModel();
                             $identityModel->setEndpoint($value['OXID']);
                             $manufacturerI18nModel->setManufacturerId($identityModel);
@@ -66,39 +69,20 @@ class ManufacturerI18n extends BaseMapper
                             $manufacturerI18nModel->setDescription($value["OXSHORTDESC_{$langBaseId}"]);
                             $manufacturerI18nModel->setTitleTag($value["OXTITLE_{$langBaseId}"]);
                             
-                            $container->add('manufacturer_i18n', $manufacturerI18nModel->getPublic(), false);
+                            $return[] = $manufacturerI18nModel;
                         }
                     }
                 }
             }   
         }
+        return $return;
     }
     
-    public function updateAll($container,$manufacturerId=null) {          
-        foreach($container->get('manufacturer_I18n') as $manufacturerI18n) {
-            $obj = $this->mapDB($manufacturerI18n);
-            
-            if(empty($obj->manufacturer_id)) $obj->manufacturer_id = $manufacturerId;
-                       
-            $this->_db->deleteInsertRow($obj, $this->_config['table'],array('products_id','Language_id'), array($obj->manufacturer_id.$obj->language_id));
-        }
-        
-        return true;
-    } 
-    
     public function getManufacturerI18n($params)
-    {
-        $oxidConf = new Config();
-        
-        $sqlResult = $this->_db->query("SELECT * " .
+    {   
+        $sqlResult = $this->db->query("SELECT * " .
                                         " FROM oxmanufacturers " .
                                         " WHERE oxmanufacturers.OXID = '{$params['OXID']}';");
         return $sqlResult;
     }
 }
-
-/* non mapped properties
-ManufacturerI18n:
- * _metaDescription 
- * _metaKeywords
-*/

@@ -33,12 +33,10 @@ class BaseMapper
      * @param array $data
      * @return object
      */
-    public function generateModel($data) {
+    public function generateModel($data) { 
 	    $model = new $this->model();
         
 		if(!$this->type) $this->type = $model->getModelType();
-        
-        //die(print_r($model));
         
 		foreach($this->mapperConfig['mapPull'] as $host => $endpoint) {
 		    $value = null;
@@ -47,14 +45,14 @@ class BaseMapper
 		        list($endpoint,$setMethod) = explode('|',$endpoint);
 		        
 		        $subMapperClass = "\\jtl\\Connector\\Oxid\\Mapper\\".$endpoint;
-		        
-		        if(!class_exists($subMapperClass)) throw new \Exception("There is no mapper for ".$endpoint);
+                
+		        if(!class_exists($subMapperClass)) throw new \Exception("There is no mapper for ".$endpoint); 
 		        else {
 		            if(!method_exists($model,$setMethod)) throw new \Exception("Set method ".$setMethod." does not exists");
                     
 		            $subMapper = new $subMapperClass();
-                    
-		            $values = $subMapper->pull($data);
+		            
+                    $values = $subMapper->pull($data);
                     
 		            foreach($values as $obj) $model->$setMethod($obj);
 		        }
@@ -62,12 +60,17 @@ class BaseMapper
 		        if(isset($data[$endpoint])) $value = $data[$endpoint];
 		        elseif(method_exists(get_class($this),$host)) $value = $this->$host($data);
 		        else throw new \Exception("There is no property or method to map ".$host);
-
-		        if($this->type->getProperty($host)->isIdentity()) $value = new Identity($value);
-		        else {
+                
+		        if($this->type->getProperty($host)->isIdentity())
+                {
+                    $value = new Identity($value);
+                    
+                    $setMethod = 'set'.ucfirst($host);
+                    $model->$setMethod($value);
+                } else {
 		            $type = $this->type->getProperty($host)->getType();
                     
-                    if(!is_null($value) && $type == "DateTime") {           
+                    if(!is_null($value)) {           
 		                if($type == "DateTime" && !is_null($value)) $value = new \DateTime($value);
 		                else settype($value,$type);
                         
@@ -75,7 +78,6 @@ class BaseMapper
                         $model->$setMethod($value);
                     }
 		        }
-		        
 		        
 		    }
 		}
@@ -88,15 +90,115 @@ class BaseMapper
      * @param object $data
      * @return \stdClass
      */
-	public function generateDbObj($data) {
-		$dbObj = new \stdClass();
-
-		foreach($this->mapperConfig['mapPush'] as $endpoint => $host) {
-			if(!empty($endpoint)) $dbObj->$endpoint = isset($data->$host) ? $data->$host : null;
-			if(method_exists(get_class($this),$endpoint)) $dbObj->$endpoint = $this->$endpoint($data);
-		}
+	public function generateDbObj($data,$parentDbObj,$parentObj=null) {
+        $return = [];
+	    if(!is_array($data)) $data = array($data);
+	    
+	    foreach($data as $obj) {
+	        $subMapper = [];
+	        
+    	    $model = new $this->model();	
+            
+    	    if(!$this->type) $this->type = $model->getModelType();
+    	    
+    	    $dbObj = new \stdClass();
+            
+    		foreach($this->mapperConfig['mapPush'] as $endpoint => $host) {
+    		    if(is_null($host) && method_exists(get_class($this),$endpoint)) {
+    		        $dbObj->$endpoint = $this->$endpoint($obj,$model,$parentObj);
+    		    }
+    		    elseif($this->type->getProperty($host)->isNavigation()) {
+    		        list($preEndpoint,$preNavSetMethod,$preAddToParent) = explode('|',$endpoint);
+    		        
+    		        if($preAddToParent) {
+    		            $preSubMapperClass = "\\jtl\\Connector\\Oxid\\Mapper\\".$preEndpoint;
+    		            
+    		            if(!class_exists($preSubMapperClass)) throw new \Exception("There is no mapper for ".$host);
+    		            else {
+    		                $preSubMapper = new $preSubMapperClass();
+                            
+    		                $values = $preSubMapper->push($obj,$dbObj);
+                            
+    		                foreach($values as $setObj) $model->$preNavSetMethod($setObj);
+    		            }
+    		        }
+    		        else $subMapper[$endpoint] = $host;    		       
+    		    }
+    		    else {
+    		        $value = null;
+    		        
+		            $getMethod = 'get'.ucfirst($host);
+		            $setMethod = 'set'.ucfirst($host);
+                    $value = $obj->$getMethod();
+        		    
+        		    if(isset($value)) {
+        		        if($this->type->getProperty($host)->isIdentity()) {
+        		            $model->$setMethod($value);
+        		            
+        		            $value = $value->getEndpoint();
+        		        }
+        		        else {
+        		            $type = $this->type->getProperty($host)->getType();
+        		            if($type == "DateTime") $value = $value->format('Y-m-d H:i:s');
+        		            elseif($type == "bool") settype($value,"integer");
+        		        }		       
+        		    }
+        		    else throw new \Exception("There is no property or method to map ".$endpoint);
+                    
+        		    if(!empty($value)) $dbObj->$endpoint = $value;        		    
+    		    }	    		    
+    		}
+            
+    		switch($obj->getAction()) {
+    		    case 'complete':
+                    break;
+                
+    		    case 'insert':
+    		        $insertResult = $this->db->insertRow($dbObj,$this->mapperConfig['table']);
+    		        
+    		        if(isset($this->mapperConfig['identity'])) {
+    		            $obj->{$this->mapperConfig['identity']}()->setEndpoint($insertResult->getKey());
+    		        }
+                    break;
+                
+    		    case 'update':
+    		        $whereKey = $this->mapperConfig['where'];
+    		        $whereValue = $dbObj->{$this->mapperConfig['where']};
+                    
+    		        if(is_array($whereKey)) {
+    		            $whereValue = [];
+    		            foreach($whereKey as $key) {
+    		                $whereValue[] = $dbObj->{$key};
+    		            }
+    		        }
+    		        
+    		        $this->db->updateRow($dbObj,$this->mapperConfig['table'],$whereKey,$whereValue);
+                    break;
+                
+    		    case 'delete':
+                    break;
+    		}
+    		
+    		// sub mapper
+		    foreach($subMapper as $endpoint => $host) {
+		        list($endpoint,$navSetMethod) = explode('|',$endpoint);
+		        
+		        $subMapperClass = "\\jtl\\Connector\\Oxid\\Mapper\\".$endpoint;
+		        
+		        if(!class_exists($subMapperClass)) throw new \Exception("There is no mapper for ".$host);
+		        else {
+		            $subMapper = new $subMapperClass();
+                    
+		            $values = $subMapper->push($obj);
+                    
+		            foreach($values as $setObj) $model->$navSetMethod($setObj);
+		        }
+		    }
+		    
+            $return[] = $model->getPublic();		
+	    }
 		
-		return $dbObj;
+	    return is_array($data) ? $return : $return[0];
 	}
     
     /**
@@ -127,13 +229,28 @@ class BaseMapper
 	}
     
     /**
+     * Default push method
+     * @param unknown $data
+     * @param string $dbObj
+     * @return multitype:NULL
+     */
+    public function push($data, $dbObj = null) {
+        if(isset($this->mapperConfig['getMethod'])) {
+            $subGetMethod = $this->mapperConfig['getMethod'];
+            $data = $data->$subGetMethod();
+        }
+        
+        $return = $this->generateDbObj($data,$dbObj);
+        
+        return $return;
+    }
+    
+    /**
      * Default statistics
      * @return number
      */
 	public function statistic() {	    	
 	    $objs = $this->db->query("SELECT count(*) as count FROM {$this->mapperConfig['table']} LIMIT 1", array("return" => "object"));
-	    
-        die(print_r($objs));
         
 	    return $objs !== null ? intval($objs[0]->count) : 0;
 	}
@@ -241,7 +358,7 @@ class BaseMapper
         {
             switch ($i)
             {
-            	case 0:
+                case 0:
                     $VarName = "aLanguages";
                     break;
                 case 1:
@@ -258,7 +375,7 @@ class BaseMapper
         foreach ($LanguageResult['aLanguages'] as $key => $value)
         {
             $LanguageResult['aLanguages'][$key] = array_merge($LanguageResult['aLanguages'][$key], array("code"=>$key));
-            $this->array_put_to_position($LanguageResult['aLanguages'][$key], $LanguageResult["aLanguageParams"][$key], 0, "name");
+            $this->array_put_to_position($LanguageResult['aLanguages'][$key], $LanguageResult["No VarName"][$key], 0, "name");
         }
         
         unset($LanguageResult["aLanguageParams"]);

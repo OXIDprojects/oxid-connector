@@ -10,10 +10,10 @@ class Manufacturer extends BaseMapper
         (
             "table" => "oxmanufacturers",
             "pk" => "OXID",
-            "mapPull" => array
-            (
+            "mapPull" => array(
                 "id" => "OXID",
-                "name" => "OXTITLE"
+                "name" => "OXTITLE",
+                "i18ns" => "ManufacturerI18n|addI18n"
             ),
             "mapPush" => array(
                 "OXID" => "_id",

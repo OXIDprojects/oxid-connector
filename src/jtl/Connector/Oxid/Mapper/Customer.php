@@ -3,12 +3,15 @@ namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 
+use jtl\Connector\Model\Identity as IdentityModel;
+use jtl\Connector\Model\Customer as CustomerModel;
+
 class Customer extends \jtl\Connector\Oxid\Mapper\BaseMapper
-{
+{   
     protected $mapperConfig = array
     (
-        "query" => "SELECT oxuser.*, oxnewssubscribed.OXDBOPTIN  FROM oxuser, oxnewssubscribed WHERE oxnewssubscribed.OXUSERID = oxuser.OXID ORDER BY oxuser.OXID",
         "table" => "oxuser",
+        "query" => "SELECT oxuser.*, oxnewssubscribed.OXDBOPTIN  FROM oxuser, oxnewssubscribed WHERE oxnewssubscribed.OXUSERID = oxuser.OXID ORDER BY oxuser.OXID",
         "mapPull" => array(
             "id" => "OXID",
             "customerNumber" => "OXCUSTNR",

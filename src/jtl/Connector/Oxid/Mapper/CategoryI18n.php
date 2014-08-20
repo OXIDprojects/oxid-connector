@@ -67,6 +67,14 @@ class CategoryI18n extends BaseMapper
         return $return;
     }
     
+    //public function push($data,$dbObj) {
+    //    $return = [];
+        
+    //    foreach($data->getCategoryI18n() as $categoryI18n) {
+    //        $categoryI18n = new CategoryI18nModel();
+    //    }
+    //}
+    
     public function getCategoryI18n($params)
     {   
         $sqlResult = $this->db->query("SELECT * " .
@@ -75,10 +83,3 @@ class CategoryI18n extends BaseMapper
         return $sqlResult;
     }
 }
-
-/* non mapped properties
-CategoryI18n:
- * _metaDescription 
- * _metaKeywords
- * _titleTag
- */

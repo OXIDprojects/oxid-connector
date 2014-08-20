@@ -19,10 +19,12 @@ class Category extends BaseMapper
     	    "invisibilities" => "CategoryInvisibility|addInvisibility"
         ),
         "mapPush" => array(
-            "OXID" => "_id",
-            "OXPARENTID" => "_parentCategoryId",
-            "OXSORT" => "_sort",
-            "OXACTIVE" => "_isActive"
+            "OXID" => "id",
+            "OXPARENTID" => "parentCategoryId",
+            "OXSORT" => "sort",
+            "OXACTIVE" => "isActive",
+            //"CategoryI18n|addI18n" => "i18ns",
+            "CategoryInvisibility|addInvisibility" => "invisibilities"
         )
        );
   
@@ -48,4 +50,25 @@ class Category extends BaseMapper
         return $isActive;
     }
     
+    //protected function OXPARENTID($data)
+    //{
+    //    if(is_null($data["parentCategoryId"]))
+    //    {
+    //        $oxParentId = "oxrootid";
+    //    }else{
+    //        $oxParentId = $data["parentCategoryId"];
+    //    }
+    //    return $oxParentId;
+    //}
+    
+    //protected function OXACTIVE($data)
+    //{
+    //    if($data["isActive"] == true)
+    //    {
+    //        $oxActive = 1;
+    //    }else{
+    //        $oxActive = 0;
+    //    }
+    //    return $oxActive;
+    //}
 }
