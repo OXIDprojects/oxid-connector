@@ -45,7 +45,7 @@ class MeasurementUnitI18n extends BaseMapper
      */
     public function getMeasurementUnitI18n()
     {   
-        $sqlResult = $this->_db->query("SELECT OXID, OXTITLE, OXUNITNAME, OXUNITQUANTITY FROM oxarticles WHERE OXUNITNAME <> '' GROUP BY OXUNITNAME;");
+        $sqlResult = $this->_db->query("SELECT OXID, OXTITLE, OXUNITNAME, OXUNITQUANTITY FROM oxarticles WHERE OXUNITNAME <> '' GROUP BY OXUNITNAME");
         
         return $sqlResult;
     }

@@ -77,7 +77,7 @@ class CustomerOrderShippingAddress extends BaseMapper
     
     public function getOrderShippingAddress($param)
     {   
-        $sqlResult = $this->db->query("SELECT * FROM oxorder WHERE OXID = '{$param['OXID']}';");
+        $sqlResult = $this->db->query("SELECT * FROM oxorder WHERE OXID = '{$param['OXID']}'");
         
         return $sqlResult;
     }

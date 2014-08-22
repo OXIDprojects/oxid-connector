@@ -57,7 +57,7 @@ class CategoryInvisibility extends BaseMapper
 		                                       oxcategories.OXACTIVE AS OXACTIVE,
 		                                       oxcategories.OXHIDDEN AS OXHIDDEN
                                         FROM oxcategories, oxgroups
-                                        WHERE oxcategories.OXID = '{$params['OXID']}';");
+                                        WHERE oxcategories.OXID = '{$params['OXID']}'");
         return $sqlResult;
     }
 }

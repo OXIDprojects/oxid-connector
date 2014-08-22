@@ -26,22 +26,22 @@ class CustomerOrderBillingAddress extends BaseMapper
             "eMail" => "OXBILLEMAIL"
         ),
         "mapPush" => array(
-            "OXID" => "_id",
-            "OXUSERID" => "_customerId",
-            "OXBILLSAL" => "_salutation",
-            "OXBILLFNAME" => "_firstName",
-            "OXBILLLNAME" => "_lastName",
-            "OXBILLCOMPANY" => "_company",
-            "OXBILLADDINFO" => "_deliveryInstruction",
+            "OXID" => "id",
+            "OXUSERID" => "customerId",
+            "OXBILLSAL" => "salutation",
+            "OXBILLFNAME" => "firstName",
+            "OXBILLLNAME" => "lastName",
+            "OXBILLCOMPANY" => "company",
+            "OXBILLADDINFO" => "deliveryInstruction",
             "OXBILLSTREET" => null,
             "OXBILLSTREETNR" => null,
-            "OXBILLZIP" => "_zipCode",
-            "OXBILLCITY" => "_city",
-            "OXBILLSTATEID" => "_state",
-            "OXBILLCOUNTRYID" => "_countryIso",
-            "OXBILLFON" => "_phone",
-            "OXBILLFAX" => "_fax",
-            "OXBILLEMAIL" => "_eMail"
+            "OXBILLZIP" => "zipCode",
+            "OXBILLCITY" => "city",
+            "OXBILLSTATEID" => "state",
+            "OXBILLCOUNTRYID" => "countryIso",
+            "OXBILLFON" => "phone",
+            "OXBILLFAX" => "fax",
+            "OXBILLEMAIL" => "eMail"
         )
     );
     

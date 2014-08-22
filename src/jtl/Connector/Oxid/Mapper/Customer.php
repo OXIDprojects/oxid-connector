@@ -37,29 +37,29 @@ class Customer extends \jtl\Connector\Oxid\Mapper\BaseMapper
             "isActive" => "OXACTIVE"
         ),
         "mapPush" => array(
-            "OXID" => "_id",
-            "OXCUSTNR" => "_customerNumber",
-            "OXSAL" => "_salutation",
-            "OXFNAME" => "_firstName",
-            "OXLNAME" => "_lastName",
-            "OXCOMPANY" => "_company",
+            "OXID" => "id",
+            "OXCUSTNR" => "customerNumber",
+            "OXSAL" => "salutation",
+            "OXFNAME" => "firstName",
+            "OXLNAME" => "lastName",
+            "OXCOMPANY" => "company",
             "OXSTREET" => null,
             "OXSTREETNR" => null,
-            "OXADDINFO" => "_deliveryInstruction",
-            "OXZIP" => "_zipCode",
-            "OXCITY" => "_city",
-            "OXSTATEID" => "_state",
-            "OXPRIVFON" => "_phone",
-            "OXMOBFON" => "_mobile",
-            "OXFAX" => "_fax",
-            "OXUSERNAME" => "_eMail",
-            "OXUSTID" => "_vatNumber",
-            "OXURL" => "_www",
-            "OXDBOPTIN" => "_hasNewsletterSubscription",
-            "OXBIRTHDATE" => "_birthday",
-            "OXCREATE" => "_created",
-            "OXTIMESTAMP" => "_modified",
-            "OXACTIVE" => "_IsActive"
+            "OXADDINFO" => "deliveryInstruction",
+            "OXZIP" => "zipCode",
+            "OXCITY" => "city",
+            "OXSTATEID" => "state",
+            "OXPRIVFON" => "phone",
+            "OXMOBFON" => "mobile",
+            "OXFAX" => "fax",
+            "OXUSERNAME" => "eMail",
+            "OXUSTID" => "vatNumber",
+            "OXURL" => "www",
+            "OXDBOPTIN" => "hasNewsletterSubscription",
+            "OXBIRTHDATE" => "birthday",
+            "OXCREATE" => "created",
+            "OXTIMESTAMP" => "modified",
+            "OXACTIVE" => "IsActive"
         )
     );   
     
@@ -85,13 +85,13 @@ class Customer extends \jtl\Connector\Oxid\Mapper\BaseMapper
     
     public function OXSTREET($data)
     {       
-        preg_match('/^[a-z ]*/i', $data->_street, $result);
+        preg_match('/^[a-z ]*/i', $data->street, $result);
         return  $result[0];
     }
     
     public function OXSTREETNR($data)
     {
-        preg_match('/[0-9].*/i', $data->_street, $result);
+        preg_match('/[0-9].*/i', $data->street, $result);
         return  $result[0];
     }
 }

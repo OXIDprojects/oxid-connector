@@ -28,7 +28,7 @@ class Unit extends BaseMapper
     
     public function getUnit()
     {   
-        $sqlResult = $this->db->query("SELECT OXID, OXTITLE, OXUNITNAME, OXUNITQUANTITY FROM oxarticles WHERE OXUNITNAME <> '' GROUP BY OXUNITNAME;");
+        $sqlResult = $this->db->query("SELECT OXID, OXTITLE, OXUNITNAME, OXUNITQUANTITY FROM oxarticles WHERE OXUNITNAME <> '' GROUP BY OXUNITNAME");
         
         return $sqlResult;
     }

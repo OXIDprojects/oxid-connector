@@ -79,7 +79,7 @@ class CategoryI18n extends BaseMapper
     {   
         $sqlResult = $this->db->query("SELECT * " .
                                         " FROM oxcategories " .
-                                        " WHERE oxcategories.OXID = '{$params['OXID']}';");        
+                                        " WHERE oxcategories.OXID = '{$params['OXID']}'");        
         return $sqlResult;
     }
 }

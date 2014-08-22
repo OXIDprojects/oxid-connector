@@ -46,15 +46,15 @@ class BaseMapper
 		        
 		        $subMapperClass = "\\jtl\\Connector\\Oxid\\Mapper\\".$endpoint;
                 
-		        if(!class_exists($subMapperClass)) throw new \Exception("There is no mapper for ".$endpoint); 
+		        if(!class_exists($subMapperClass)) throw new \Exception("There is no mapper for ".$endpoint);
 		        else {
 		            if(!method_exists($model,$setMethod)) throw new \Exception("Set method ".$setMethod." does not exists");
                     
-		            $subMapper = new $subMapperClass();
-		            
+		            $subMapper = new $subMapperClass();	            
+                    
                     $values = $subMapper->pull($data);
                     
-		            foreach($values as $obj) $model->$setMethod($obj);
+		            foreach($values as $obj); $model->$setMethod($obj);
 		        }
 		    } else {
 		        if(isset($data[$endpoint])) $value = $data[$endpoint];
@@ -108,9 +108,9 @@ class BaseMapper
     		        $dbObj->$endpoint = $this->$endpoint($obj,$model,$parentObj);
     		    }
     		    elseif($this->type->getProperty($host)->isNavigation()) {
-    		        list($preEndpoint,$preNavSetMethod,$preAddToParent) = explode('|',$endpoint);
+    		        list($preEndpoint,$preNavSetMethod,$preMapper) = explode('|',$endpoint);
     		        
-    		        if($preAddToParent) {
+    		        if($preMapper) {
     		            $preSubMapperClass = "\\jtl\\Connector\\Oxid\\Mapper\\".$preEndpoint;
     		            
     		            if(!class_exists($preSubMapperClass)) throw new \Exception("There is no mapper for ".$host);
@@ -145,7 +145,7 @@ class BaseMapper
         		    }
         		    else throw new \Exception("There is no property or method to map ".$endpoint);
                     
-        		    if(!empty($value)) $dbObj->$endpoint = $value;        		    
+        		    if(!empty($value)) $dbObj->$endpoint = $value;
     		    }	    		    
     		}
             
@@ -195,7 +195,7 @@ class BaseMapper
 		        }
 		    }
 		    
-            $return[] = $model->getPublic();		
+            $return[] = $model->getPublic();
 	    }
 		
 	    return is_array($data) ? $return : $return[0];
@@ -208,22 +208,22 @@ class BaseMapper
      * @param integer $limit
      * @return array
      */  
-	public function pull($data=null,$offset=0,$limit=null) {        
+	public function pull($data=null,$offset=0,$limit=null) {
         $limitQuery = isset($limit) ? ' LIMIT '.$offset.','.$limit : '';
         
 	    if(isset($this->mapperConfig['query'])) {
 	        $query = !is_null($data) ? preg_replace('/\[\[(\w+)\]\]/e','$data[$1]', $this->mapperConfig['query']) : $this->mapperConfig['query'];
-	        $query .= $limitQuery;	        
+	        $query .= $limitQuery;
 	    }
 	    else $query = 'SELECT * FROM '.$this->mapperConfig['table'].$limitQuery;
         
-	    $dbResult = $this->db->query($query);        	
+	    $dbResult = $this->db->query($query);
 
 	    $return = array();
 		
-		foreach($dbResult as $data) {			
-			$return[] = $this->generateModel($data);			            	
-		}		
+		foreach($dbResult as $data) {
+			$return[] = $this->generateModel($data);
+		}
         
 		return $return;
 	}

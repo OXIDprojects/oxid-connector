@@ -66,7 +66,7 @@ class CategoryAttrI18n extends BaseMapper
         $sqlResult = $this->_db->query(" SELECT * FROM oxcategory2attribute " .
                                        " INNER JOIN oxattribute " .
                                        " ON oxcategory2attribute.OXATTRID = oxattribute.OXID " .
-                                       " WHERE oxcategory2attribute.OXOBJECTID = '{$params['OXID']}';");
+                                       " WHERE oxcategory2attribute.OXOBJECTID = '{$params['OXID']}'");
         return $sqlResult;
     }
 }

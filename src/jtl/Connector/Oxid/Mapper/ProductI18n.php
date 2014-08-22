@@ -70,7 +70,7 @@ class ProductI18n extends BaseMapper
                                         " FROM oxarticles" .
                                         " LEFT JOIN oxartextends" .
                                         " ON oxarticles.OXID = oxartextends.OXID " .
-                                        " WHERE oxarticles.OXID = '{$param['OXID']}';");
+                                        " WHERE oxarticles.OXID = '{$param['OXID']}'");
         
         return $sqlResult;
     }

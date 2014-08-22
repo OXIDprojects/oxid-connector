@@ -29,11 +29,11 @@ class Product extends BaseMapper
                 "manufacturerNumber" => "OXMPN",
                 "isMasterProduct" => null,
                 "inflowDate" => null,
-                "prices" => "ProductPrice|addPrice",
-                "variations" => "ProductVariation|addVariation",
-                "i18ns" => "ProductI18n|addI18n",
+                //"prices" => "ProductPrice|addPrice",
+                //"variations" => "ProductVariation|addVariation",
+                //"i18ns" => "ProductI18n|addI18n",
                 //"fileDownloads" => "ProductFileDownload|addFileDownload",
-                //"categories" => "Product2Category|addCategory"
+                "categories" => "Product2Category|addCategory"
             ),
            "mapPush" => array(
                 "OXID" => "id",
@@ -67,7 +67,7 @@ class Product extends BaseMapper
     public function isMasterProduct($data)
     {            
             $sqlResult = $this->db->query("SELECT Count(OXPARENTID) AS ParentCount FROM oxid_michele.oxarticles
-                                            WHERE OXPARENTID = '{$data['OXID']}';");
+                                            WHERE OXPARENTID = '{$data['OXID']}'");
             
             if(($sqlResult[0]['ParentCount'] != 0))
             {

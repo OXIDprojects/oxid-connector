@@ -33,7 +33,7 @@ class TaxRate extends BaseMapper
         $oxidConf = new Config();
         
         $sqlResult = $this->db->query("SELECT *, DECODE(OXVARVALUE, '{$oxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
-                                       " WHERE OXVARNAME = 'dDefaultVAT';");
+                                       " WHERE OXVARNAME = 'dDefaultVAT'");
         
         return $sqlResult;
     }

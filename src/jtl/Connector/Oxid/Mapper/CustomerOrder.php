@@ -30,7 +30,7 @@ class CustomerOrder extends BaseMapper
             "trackingURL" => "OXTRACKCODE",
             //"billingAddress" => "CustomerOrderBillingAddress|addBillingAddress",
             "shippingAddress" => "CustomerOrderShippingAddress|addShippingAddress",
-            "paymentInfo" => "CustomerOrderPaymentInfo|addPaymentInfo",
+            //"paymentInfo" => "CustomerOrderPaymentInfo|addPaymentInfo",
             "items" => "CustomerOrderItem|addItem"
             
         ),

@@ -9,12 +9,11 @@ class Product2Category extends BaseMapper
         (
             "query" => "SELECT * FROM oxobject2category ORDER BY OXCATNID ASC",
             "table" => "oxobject2category",
-            "PK" => "OXID",
             "mapPull" => array
                 (
-                    "id" => "OXID",
-                    "categoryId" => "OXCATNID",
-                    "productId" => "OXOBJECTID"
+                "categoryId" => "OXCATNID",    
+                "id" => "OXID",
+                "productId" => "OXOBJECTID"
                 ),
             "mapPush" => array(
                 "OXID" => "_id",

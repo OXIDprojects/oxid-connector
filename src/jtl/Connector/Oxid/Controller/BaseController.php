@@ -3,7 +3,6 @@ namespace jtl\Connector\Oxid\Controller;
 
 use jtl\Core\Rpc\Error;
 use jtl\Core\Database\Mysql;
-use jtl\Core\Model\QueryFilter;
 use jtl\Core\Utilities\ClassName;
 use jtl\Core\Controller\Controller;
 use jtl\Core\Exception\TransactionException;

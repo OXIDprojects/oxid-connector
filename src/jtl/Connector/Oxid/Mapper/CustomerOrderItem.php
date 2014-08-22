@@ -46,7 +46,7 @@ class CustomerOrderItem extends BaseMapper
     
     public function getOrderItem($param)
     {   
-        $sqlResult = $this->db->query("SELECT * FROM oxorderarticles WHERE OXORDERID = '{$param['OXID']}';");
+        $sqlResult = $this->db->query("SELECT * FROM oxorderarticles WHERE OXORDERID = '{$param['OXID']}'");
                
         return $sqlResult;
     }

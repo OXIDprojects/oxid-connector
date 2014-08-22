@@ -69,7 +69,7 @@ class ProductPrice extends BaseMapper
     
     public function getProductPrice($param)
     {   
-        $sqlResult = $this->db->query("SELECT * FROM oxarticles WHERE OXID = '{$param['OXID']}';");
+        $sqlResult = $this->db->query("SELECT * FROM oxarticles WHERE OXID = '{$param['OXID']}'");
         
         return $sqlResult;
     }

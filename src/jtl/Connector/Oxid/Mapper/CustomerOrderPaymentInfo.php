@@ -66,7 +66,7 @@ class CustomerOrderPaymentInfo  extends BaseMapper
     {   
         $sqlResult = $this->db->query("SELECT oxorder.OXID AS OXORDERID, oxuserpayments.OXID AS OXPAYMENTSID, oxuserpayments.OXUSERID, DECODE(OXVALUE, 'sd45DF09_sdlk09239DD') AS OXVALUEDECODED
                                         FROM oxuserpayments, oxorder WHERE oxuserpayments.OXUSERID = oxorder.OXUSERID
-                                        AND oxuserpayments.OXID = '{$param['OXPAYMENTID']}';");
+                                        AND oxuserpayments.OXID = '{$param['OXPAYMENTID']}'");
         
         //Hole alle PaymentInfos pro Bestellung
         for ($i = 0; $i < count($sqlResult); $i++)

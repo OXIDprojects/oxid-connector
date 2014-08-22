@@ -46,7 +46,7 @@ class ProductVariation extends BaseMapper
     public function getProductVariation($param)
     {   
         $sqlResult = $this->db->query(" SELECT * FROM oxarticles " .
-                                " WHERE OXID = '{$param['OXID']}'; ");
+                                " WHERE OXID = '{$param['OXID']}' ");
         
         return $sqlResult;
     }

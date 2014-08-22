@@ -7,16 +7,16 @@ class Category extends BaseMapper
 {
     protected $mapperConfig = array
     (
-        "query" => "SELECT * FROM oxcategories ORDER BY OXID = OXROOTID DESC;",
+        "query" => "SELECT * FROM oxcategories ORDER BY OXID = OXROOTID DESC",
         "table" => "oxcategories",
         "mapPull" => array(
             "id" => "OXID",
             "parentCategoryId" => null,
             "sort" => "OXSORT",
             "isActive" => null,
-            "i18ns" => "CategoryI18n|addI18n",
-            "attributes" => "CategoryAttr|addAttribute",
-    	    "invisibilities" => "CategoryInvisibility|addInvisibility"
+            //"i18ns" => "CategoryI18n|addI18n",
+            //"attributes" => "CategoryAttr|addAttribute",
+    	    //"invisibilities" => "CategoryInvisibility|addInvisibility"
         ),
         "mapPush" => array(
             "OXID" => "id",
@@ -24,7 +24,7 @@ class Category extends BaseMapper
             "OXSORT" => "sort",
             "OXACTIVE" => "isActive",
             //"CategoryI18n|addI18n" => "i18ns",
-            "CategoryInvisibility|addInvisibility" => "invisibilities"
+            //"CategoryInvisibility|addInvisibility" => "invisibilities"
         )
        );
   

@@ -16,7 +16,7 @@ class Image extends BaseMapper
     {             
         $result = [];
             
-        $sqlResult = $this->db->query("SELECT * FROM oxarticles WHERE OXPARENTID = '' ORDER BY OXPARENTID ASC LIMIT {$params['offset']},{$params['limit']};");
+        $sqlResult = $this->db->query("SELECT * FROM oxarticles WHERE OXPARENTID = '' ORDER BY OXPARENTID ASC LIMIT {$params['offset']},{$params['limit']}");
 
         foreach ($sqlResult as $data)
         {           
