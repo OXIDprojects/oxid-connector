@@ -3,6 +3,8 @@ namespace jtl\Connector\Oxid\Controller;
 
 use jtl\Core\Rpc\Error;
 use jtl\Core\Database\Mysql;
+use jtl\Core\Model\DataModel;
+use jtl\Core\Model\QueryFilter;
 use jtl\Core\Utilities\ClassName;
 use jtl\Core\Controller\Controller;
 use jtl\Core\Exception\TransactionException;
@@ -20,7 +22,7 @@ class BaseController extends Controller
         $this->db = Mysql::getInstance();
 	}	
 	
-    public function pull($params) {
+    public function pull(QueryFilter $filter) {
         $action = new Action();
         $action->setHandled(true);
         
@@ -32,7 +34,7 @@ class BaseController extends Controller
             
             $mapper = new $class();
                 
-            $result = $mapper->pull($params, $params->getOffset(), $params->getLimit());
+            $result = $mapper->pull($filter, $filter->getOffset(), $filter->getLimit());
             
             $action->setResult($result);          
         }
@@ -46,7 +48,7 @@ class BaseController extends Controller
         return $action;
     }
     
-    public function push($params) {
+    public function push(DataModel $model) {
         $action = new Action();
         
         $action->setHandled(true);
@@ -59,7 +61,7 @@ class BaseController extends Controller
             
             $mapper = new $class();
             
-            $result = $mapper->push($params);
+            $result = $mapper->push($model);
             
             $action->setResult($result);
         }

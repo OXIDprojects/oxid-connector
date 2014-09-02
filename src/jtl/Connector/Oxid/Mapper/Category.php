@@ -50,25 +50,25 @@ class Category extends BaseMapper
         return $isActive;
     }
     
-    //protected function OXPARENTID($data)
-    //{
-    //    if(is_null($data["parentCategoryId"]))
-    //    {
-    //        $oxParentId = "oxrootid";
-    //    }else{
-    //        $oxParentId = $data["parentCategoryId"];
-    //    }
-    //    return $oxParentId;
-    //}
+    protected function OXPARENTID($data)
+    {
+        if(is_null($data["parentCategoryId"]))
+        {
+            $oxParentId = "oxrootid";
+        }else{
+            $oxParentId = $data["parentCategoryId"];
+        }
+        return $oxParentId;
+    }
     
-    //protected function OXACTIVE($data)
-    //{
-    //    if($data["isActive"] == true)
-    //    {
-    //        $oxActive = 1;
-    //    }else{
-    //        $oxActive = 0;
-    //    }
-    //    return $oxActive;
-    //}
+    protected function OXACTIVE($data)
+    {
+        if($data["isActive"] == true)
+        {
+            $oxActive = 1;
+        }else{
+            $oxActive = 0;
+        }
+        return $oxActive;
+    }
 }
