@@ -8,10 +8,11 @@ class Product2Category extends BaseMapper
     protected $mapperConfig = array
         (
             "query" => "SELECT * FROM oxobject2category ORDER BY OXCATNID ASC",
+            "getMethod" => "getCategories",
             "table" => "oxobject2category",
             "mapPull" => array
                 (
-                "categoryId" => "OXCATNID",    
+                "categoryId" => "OXCATNID",
                 "id" => "OXID",
                 "productId" => "OXOBJECTID"
                 ),
@@ -21,4 +22,10 @@ class Product2Category extends BaseMapper
                 "OXOBJECTID" => "_productId"
             )   
         );
+    
+    
+    //public function pull($data=null, $offset=0, $limit=null) {
+    //    return array($this->generateModel($data));
+    //}
+    
 }

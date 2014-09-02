@@ -28,9 +28,9 @@ class CustomerOrder extends BaseMapper
             "status" => "OXBILLSTATEID",
             "tracking" => "OXTRACKCODE",
             "trackingURL" => "OXTRACKCODE",
-            //"billingAddress" => "CustomerOrderBillingAddress|addBillingAddress",
+            "billingAddress" => "CustomerOrderBillingAddress|addBillingAddress",
             "shippingAddress" => "CustomerOrderShippingAddress|addShippingAddress",
-            //"paymentInfo" => "CustomerOrderPaymentInfo|addPaymentInfo",
+            "paymentInfo" => "CustomerOrderPaymentInfo|addPaymentInfo",
             "items" => "CustomerOrderItem|addItem"
             
         ),

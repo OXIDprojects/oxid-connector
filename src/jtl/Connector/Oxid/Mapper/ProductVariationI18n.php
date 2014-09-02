@@ -8,39 +8,36 @@ use jtl\Connector\Model\ProductVariationI18n as ProductVariationI18nModel;
 
 class ProductVariationI18n extends BaseMapper
 {
-    public function pull($data=null, $offset=0, $limit=null)
+    public function pull($varPos=null ,$data=null, $offset=0, $limit=null)
     {
         $return = [];
         $languages = $this->getLanguageIDs();
         $productVariationI18nTable = $this->getProductVariationI18n($data);
-        
+                
         foreach ($productVariationI18nTable as $value)
-        {              
-            $productVariationI18nModel = new ProductVariationI18nModel();
-            
+        {                   
             foreach ($languages as $language)
             {
-                $langBaseId = $language['baseId'];
-                    
+                $langBaseId = $language['baseId'];               
+                
                 if($language['baseId'] == 0)
                 {   
                     if($this->getLocalCode($language['code']))
                     {
                         if(!empty($value['OXVARNAME']))
                         {
-                            $variantIDs = array_map('trim', split('\|', $value['OXVARNAME']));
+                                $variantIDs = array_map('trim', split('\|', $value['OXVARNAME']));
+                            
+                                $productVariationI18nModel = new ProductVariationI18nModel();
                                 
-                            foreach ($variantIDs as $variantID)
-                            {
                                 $identity = new IdentityModel;
-                                $identity->setEndpoint(md5($variantID));
+                                $identity->setEndpoint(md5($variantIDs[$varPos]));
                                 $productVariationI18nModel->setProductVariationId($identity);
                                     
                                 $productVariationI18nModel->setLocaleName($this->getLocalCode($language['code']));
-                                $productVariationI18nModel->setName($variantID);
+                                $productVariationI18nModel->setName($variantIDs[$varPos]);
                                     
                                 $return[] = $productVariationI18nModel;
-                            }
                         }
                     }
                 }else{
@@ -51,30 +48,31 @@ class ProductVariationI18n extends BaseMapper
                             $variantIDs = array_map('trim', split('\|', $value["OXVARNAME"]));
                             $variantLangIDs = array_map('trim', split('\|', $value["OXVARNAME_{$langBaseId}"]));
                             
-                            for ($i = 0; $i < count($variantIDs); $i++)
-                            {
-                                $identity = new IdentityModel;
-                                $identity->setEndpoint(md5($variantIDs[$i]));
-                                $productVariationI18nModel->setProductVariationId($identity);
+                            $productVariationI18nModel = new ProductVariationI18nModel();
                                 
-                                $productVariationI18nModel->setLocaleName($this->getLocalCode($language['code']));
-                                $productVariationI18nModel->setName($variantLangIDs[$i]);
+                            $identity = new IdentityModel;
+                            $identity->setEndpoint(md5($variantIDs[$varPos]));
+                            $productVariationI18nModel->setProductVariationId($identity);
                                 
-                                $return[] = $productVariationI18nModel;
-                            }
+                            $productVariationI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                            $productVariationI18nModel->setName($variantLangIDs[$varPos]);
+                                
+                            $return[] = $productVariationI18nModel;
                         }
                     }
                 }
-                return $return;
             }                
-            
+            return $return;
         }
     }
     
     public function getProductVariationI18n($param)
-    {   
+    {  
+        //$sqlResult = $this->db->query(" SELECT * FROM oxarticles " .
+        //                               " WHERE OXID = '{$param['OXID']}' ");
+        
         $sqlResult = $this->db->query(" SELECT * FROM oxarticles " .
-                                       " WHERE OXID = '{$param['OXID']}' ");
+                                       " WHERE OXID = '531f91d4ab8bfb24c4d04e473d246d0b' ");
         
         return $sqlResult;
     }

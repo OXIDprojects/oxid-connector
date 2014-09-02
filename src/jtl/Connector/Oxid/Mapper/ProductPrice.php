@@ -10,7 +10,7 @@ class ProductPrice extends BaseMapper
 {
     
     public function pull($data=null, $offset=0, $limit=null)
-    {
+    {   
         $return = [];
         $productPriceTable = $this->getProductPrice($data);
                

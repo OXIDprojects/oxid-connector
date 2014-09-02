@@ -6,6 +6,9 @@ use jtl\Connector\Oxid\Config\Loader\Config;
 use jtl\Connector\ModelContainer\ProductContainer;
 use jtl\Connector\Model\Identity as IdentityModel;
 use jtl\Connector\Model\ProductVariation as ProductVariationModel;
+use jtl\Connector\Model\ProductVariationI18n as ProductVariationI18nModel;
+use jtl\Connector\Model\ProductVariationValue as ProductVariationValueModel;
+use jtl\Connector\Oxid\Mapper\ProductVariationI18n as ProductVariationI18nMapper;
 
 class ProductVariation extends BaseMapper
 {
@@ -16,16 +19,21 @@ class ProductVariation extends BaseMapper
         
         foreach ($productVariationTable as $value)
             {              
-                $productVariationModel = new ProductVariationModel();
-                
                 if ($value['OXVARNAME']) {
                     
                     $variantIDs = array_map('trim', split('\|', $value['OXVARNAME']));
                     
-                    foreach ($variantIDs as $variantID) {
+                    for ($i = 0; $i < count($variantIDs); $i++)
+                    {
+                        $productVariationModel = new ProductVariationModel();
+                        $productVariationI18nModel = new ProductVariationI18nModel();
+                        $productVariationValueModel = new ProductVariationValueModel();
                         
+                        $productVariationI18nMapper = new ProductVariationI18nMapper();
+                        $productVariationValueMapper = new ProductVariationValueMapper();
+                                                
                         $identity = new IdentityModel;
-                        $identity->setEndpoint(md5($variantID));
+                        $identity->setEndpoint(md5($variantIDs[$i]));
                         $productVariationModel->setId($identity);
                         
                         $identity = new IdentityModel;
@@ -33,7 +41,20 @@ class ProductVariation extends BaseMapper
                         $productVariationModel->setProductId($identity);
                         
                         $productVariationModel->setSort(intval($value['OXSORT']));
-                        //$productVariationModel->addI18n($value);
+                        
+                        $productVariationI18nModel = $productVariationI18nMapper->pull($i, $value, 0, null);
+                        
+                        foreach ($productVariationI18nModel as $I18nModel)
+                        {
+                            $productVariationModel->addi18n($I18nModel);
+                        }
+                        
+                        $productVariationValueModel = $productVariationValueMapper->pull($i, $value, 0, null);
+                        
+                        foreach ($productVariationI18nModel as $ValueModel)
+                        {
+                            $productVariationModel->addValue($ValueModel);
+                        }
                         
                         $return[] = $productVariationModel;
                     }
@@ -45,8 +66,11 @@ class ProductVariation extends BaseMapper
     
     public function getProductVariation($param)
     {   
+        //$sqlResult = $this->db->query(" SELECT * FROM oxarticles " .
+        //                              " WHERE OXID = '{$param['OXID']}' ");
+        
         $sqlResult = $this->db->query(" SELECT * FROM oxarticles " .
-                                " WHERE OXID = '{$param['OXID']}' ");
+                                      " WHERE OXID = '531f91d4ab8bfb24c4d04e473d246d0b' ");
         
         return $sqlResult;
     }

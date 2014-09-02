@@ -67,10 +67,10 @@ class ProductI18n extends BaseMapper
     public function getProductI18n($param)
     {      
         $sqlResult = $this->db->query("SELECT oxarticles.*, oxartextends.*" .
-                                        " FROM oxarticles" .
-                                        " LEFT JOIN oxartextends" .
-                                        " ON oxarticles.OXID = oxartextends.OXID " .
-                                        " WHERE oxarticles.OXID = '{$param['OXID']}'");
+                                      " FROM oxarticles" .
+                                      " LEFT JOIN oxartextends" .
+                                      " ON oxarticles.OXID = oxartextends.OXID " .
+                                      " WHERE oxarticles.OXID = '{$param['OXID']}'");
         
         return $sqlResult;
     }

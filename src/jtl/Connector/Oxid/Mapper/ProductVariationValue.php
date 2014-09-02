@@ -23,7 +23,7 @@ class ProductVariationValue extends BaseMapper
             $productVariationValuese[] = $value['OXVARSELECT'];
             $productVariations[] = $value['OXVARNAME'];
             
-            //die(print_r($value['OXVARNAME']));
+            die(print_r($value['OXVARNAME']));
         }
         
         foreach ($productVariationValuese as $productVariationValues)
@@ -53,7 +53,6 @@ class ProductVariationValue extends BaseMapper
             }
         }
         
-        // ##### Bearbeiten ##### //
         if(!empty($value['OXVARSELECT']))
         {
             $variantIDs = array_map('trim', split('\|', $value['OXVARNAME']));
