@@ -30,7 +30,7 @@ class Product extends BaseMapper
                 "isMasterProduct" => null,
                 "inflowDate" => null,
                 "prices" => "ProductPrice|addPrice",
-                "variations" => "ProductVariation|addVariation",
+                //"variations" => "ProductVariation|addVariation",
                 "i18ns" => "ProductI18n|addI18n",
                 //"fileDownloads" => "ProductFileDownload|addFileDownload",
                 //"categories" => "Product2Category|addCategory"

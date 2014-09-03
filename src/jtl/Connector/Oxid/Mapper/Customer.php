@@ -85,13 +85,13 @@ class Customer extends \jtl\Connector\Oxid\Mapper\BaseMapper
     
     public function OXSTREET($data)
     {       
-        preg_match('/^[a-z ]*/i', $data->street, $result);
+        preg_match('/^[a-z ]*/i', $data['street'], $result);
         return  $result[0];
     }
     
     public function OXSTREETNR($data)
     {
-        preg_match('/[0-9].*/i', $data->street, $result);
+        preg_match('/[0-9].*/i', $data['street'], $result);
         return  $result[0];
     }
 }
