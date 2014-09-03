@@ -375,7 +375,7 @@ class BaseMapper
         
         $SQLResult = $this->db->query(" SELECT DECODE(OXVARVALUE, '{$OxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
                  " WHERE OXVARNAME = 'aLanguages' OR OXVARNAME = 'aLanguageParams' ");
-        
+               
         for ($i = 0; $i < count($SQLResult); $i++)
         {
             switch ($i)
@@ -394,10 +394,16 @@ class BaseMapper
             $LanguageResult[$VarName] = unserialize($SQLResult[$i]['OXVARVALUEDECODED']);           
         }
         
+        
+        
         foreach ($LanguageResult['aLanguages'] as $key => $value)
         {
             $LanguageResult['aLanguages'][$key] = array_merge($LanguageResult['aLanguages'][$key], array("code"=>$key));
-            $this->array_put_to_position($LanguageResult['aLanguages'][$key], $LanguageResult["No VarName"][$key], 0, "name");
+            
+            if (array_key_exists('No VarName', $LanguageResult))
+            {    
+                $this->array_put_to_position($LanguageResult['aLanguages'][$key], $LanguageResult['No VarName'][$key], 0, "name");
+            }
         }
         
         unset($LanguageResult["aLanguageParams"]);
