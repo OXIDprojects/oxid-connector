@@ -25,10 +25,11 @@ class CustomerOrder extends BaseMapper
             "shippingMethodCode" => "OXDELTYPE",
             "shippingMethodName" => "OXDELTYPE",
             "totalSum" => "OXTOTALBRUTSUM",
-            "status" => "OXBILLSTATEID",
+            "status" => null,
+            "paymentStatus" => null,
             "tracking" => "OXTRACKCODE",
             "trackingURL" => "OXTRACKCODE",
-            "billingAddress" => "CustomerOrderBillingAddress|addBillingAddress",
+            //"billingAddress" => "CustomerOrderBillingAddress|addBillingAddress",
             "shippingAddress" => "CustomerOrderShippingAddress|addShippingAddress",
             "paymentInfo" => "CustomerOrderPaymentInfo|addPaymentInfo",
             "items" => "CustomerOrderItem|addItem"
@@ -57,14 +58,14 @@ class CustomerOrder extends BaseMapper
         )
     );
     
-    public function estimatedDeliveryDate($data)
-    {
+    public function created($data)
+    {   
         return $this->stringToDateTime($data['OXORDERDATE']);
     }
     
-    public function shippingDate($data)
+    public function estimatedDeliveryDate($data)
     {
-        return $this->stringToDateTime($data['OXSENDDATE']);
+        return $this->stringToDateTime($data['OXORDERDATE']);
     }
     
     public function paymentDate($data)
@@ -72,9 +73,39 @@ class CustomerOrder extends BaseMapper
         return $this->stringToDateTime($data['OXPAID']);
     }
     
-    public function created($data)
+    public function shippingDate($data)
+    {
+        return $this->stringToDateTime($data['OXSENDDATE']);
+    }  
+    
+    public function status($data)
     {   
-        return $this->stringToDateTime($data['OXORDERDATE']);
+        switch ($data['OXTRANSSTATUS']) {
+            case "ORDERFOLDER_NEW":
+                return "new";
+                break;
+            case "ORDERFOLDER_FINISHED":
+                return "completed";
+                break;           
+            case "ORDERFOLDER_PROBLEMS":
+                return "cancelled";
+                break;
+        };
+    }
+    
+    public function paymentStatus($data)
+    {   
+        switch ($data['OXTRANSSTATUS']) {
+            case "OK":
+                return "completed";
+                break;
+            case "NOT_FINISHED":
+                return "unpaid";
+                break;           
+            case "ERROR":
+                return "unpaid";
+                break;
+        };
     }
     
 }

@@ -8,7 +8,7 @@ class GlobalData extends BaseMapper
 {
     protected $mapperConfig = array(
         "mapPull" => array(
-            //"languages" => "Language|addLanguage",
+            "languages" => "Language|addLanguage",
             //"customerGroups" => "CustomerGroup|addCustomerGroup",
             "taxRates" => "TaxRate|addTaxRate",
             //"shippingClasses" => "ShippingClass|addShippingClass",

@@ -16,12 +16,12 @@ class Image extends BaseMapper
     {             
         $result = [];
             
-        $sqlResult = $this->db->query("SELECT * FROM oxarticles WHERE OXPARENTID = '' ORDER BY OXPARENTID ASC LIMIT {$params['offset']},{$params['limit']}");
+        $sqlResult = $this->db->query("SELECT * FROM oxarticles WHERE OXPARENTID = '' ORDER BY OXPARENTID ASC");
 
         foreach ($sqlResult as $data)
         {           
             for ($i = 1; $i < 14; $i++)
-            {       
+            {
                     $imageModel = new ImageModel();
                     
                     $identityModel = new IdentityModel();

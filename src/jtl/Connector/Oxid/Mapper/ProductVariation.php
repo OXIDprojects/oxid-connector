@@ -49,12 +49,12 @@ class ProductVariation extends BaseMapper
                             $productVariationModel->addi18n($I18nModel);
                         }
                         
-                        $productVariationValueModel = $productVariationValueMapper->pull($i, $value, 0, null);
+                        //$productVariationValueModel = $productVariationValueMapper->pull($i, $value, 0, null);
                         
-                        foreach ($productVariationI18nModel as $ValueModel)
-                        {
-                            $productVariationModel->addValue($ValueModel);
-                        }
+                        //foreach ($productVariationValueModel as $ValueModel)
+                        //{
+                        //    $productVariationModel->addValue($ValueModel);
+                        //}
                         
                         $return[] = $productVariationModel;
                     }
