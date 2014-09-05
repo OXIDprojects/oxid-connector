@@ -9,6 +9,7 @@ use jtl\Connector\Model\ProductVariation as ProductVariationModel;
 use jtl\Connector\Model\ProductVariationI18n as ProductVariationI18nModel;
 use jtl\Connector\Model\ProductVariationValue as ProductVariationValueModel;
 use jtl\Connector\Oxid\Mapper\ProductVariationI18n as ProductVariationI18nMapper;
+use jtl\Connector\Oxid\Mapper\ProductVariationValue as ProductVariationValueMapper;
 
 class ProductVariation extends BaseMapper
 {
@@ -26,11 +27,11 @@ class ProductVariation extends BaseMapper
                     for ($i = 0; $i < count($variantIDs); $i++)
                     {
                         $productVariationModel = new ProductVariationModel();
-                        $productVariationI18nModel = new ProductVariationI18nModel();
-                        $productVariationValueModel = new ProductVariationValueModel();
-                        
+                        $productVariationI18nModel = new ProductVariationI18nModel();                       
                         $productVariationI18nMapper = new ProductVariationI18nMapper();
+                        $productVariationValueModel = new ProductVariationValueModel();
                         $productVariationValueMapper = new ProductVariationValueMapper();
+                        
                                                 
                         $identity = new IdentityModel;
                         $identity->setEndpoint(md5($variantIDs[$i]));
@@ -49,12 +50,12 @@ class ProductVariation extends BaseMapper
                             $productVariationModel->addi18n($I18nModel);
                         }
                         
-                        //$productVariationValueModel = $productVariationValueMapper->pull($i, $value, 0, null);
+                        $productVariationValueModel = $productVariationValueMapper->pull($variantIDs[$i], $i, $value, 0, null);
                         
-                        //foreach ($productVariationValueModel as $ValueModel)
-                        //{
-                        //    $productVariationModel->addValue($ValueModel);
-                        //}
+                        foreach ($productVariationValueModel as $ValueModel)
+                        {
+                            $productVariationModel->addValue($ValueModel);
+                        }
                         
                         $return[] = $productVariationModel;
                     }

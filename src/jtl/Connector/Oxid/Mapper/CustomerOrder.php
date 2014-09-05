@@ -24,7 +24,7 @@ class CustomerOrder extends BaseMapper
             "shippingDate" => null,
             "shippingMethodCode" => "OXDELTYPE",
             "shippingMethodName" => "OXDELTYPE",
-            "totalSum" => "OXTOTALBRUTSUM",
+            "totalSum" => "OXTOTALNETSUM",
             "status" => null,
             "paymentStatus" => null,
             "tracking" => "OXTRACKCODE",
