@@ -56,39 +56,37 @@ class BaseMapper
                     
 		            foreach($values as $obj) $model->$setMethod($obj);
 		        }
-		    } else {
+		    } 
+            else {
 		        if(isset($data[$endpoint])) $value = $data[$endpoint];
 		        elseif(method_exists(get_class($this),$host)) $value = $this->$host($data);
-		        //else throw new \Exception("There is no property or method to map ".$host);
+		        //else throw new \Exception($this->model.": There is no property or method to map ".$host);
                 else $value = '';
                 
-		        if($this->type->getProperty($host)->isIdentity())
-                {
-                    $value = new Identity($value);
-                    
-                    $setMethod = 'set'.ucfirst($host);
-                    $model->$setMethod($value);
-                } else {
+		        if($this->type->getProperty($host)->isIdentity()) $value = new Identity($value);
+                else {
 		            $type = $this->type->getProperty($host)->getType();
                     
                     if(!is_null($value)) {
 		                if($type == "DateTime" && !is_null($value)) $value = new \DateTime($value);
 		                else settype($value,$type);
-                        
-                        $setMethod = 'set'.ucfirst($host);
-                        $model->$setMethod($value);
                     }
+                }
+   
+                $setMethod = 'set'.ucfirst($host);
+                $model->$setMethod($value);
 		        }
-		        
-		    }
-		}
-		return $model->getPublic();
-	}
+   		    }
+            if(method_exists(get_class($this),'addData')) $this->addData($model,$data);
+            return $this->type->isMain() ? $model->getPublic() : $model;    
+        }
     
     /**
      * map from model to db object
-     * @param object $data
-     * @return \stdClass
+     * @param unknown $data
+     * @param string $parentDbObj
+     * @throws \Exception
+     * @return multitype:NULL
      */
 	public function generateDbObj($data,$parentDbObj,$parentObj=null,$addToParent=false) {
         $return = [];
@@ -149,58 +147,72 @@ class BaseMapper
     		    }	    		    
     		}
             if(!$addToParent) {
-                /*
-                switch($obj->getAction()) {
-                case 'complete':
-                if(isset($this->mapperConfig['where'])) {
-                $whereKey = $this->mapperConfig['where'];
-                $whereValue = $dbObj->{$this->mapperConfig['where']};
                 
-                if(is_array($whereKey)) {
-                $whereValue = [];
-                foreach($whereKey as $key) {
-                $whereValue[] = $dbObj->{$key};
-                }
-                }
-                
-                $insertResult = $this->db->deleteInsertRow($dbObj,$this->mapperConfig['table'],$whereKey,$whereValue);
-                
-                if(isset($this->mapperConfig['identity'])) {
-                $obj->{$this->mapperConfig['identity']}()->setEndpoint($insertResult->getKey());
-                }
-                }
-                break;
-                
-                case 'insert':
-                $insertResult = $this->db->insertRow($dbObj,$this->mapperConfig['table']);
-                
-                if(isset($this->mapperConfig['identity'])) {
-                $obj->{$this->mapperConfig['identity']}()->setEndpoint($insertResult->getKey());    		            
-                }
-                break;
-                
-                case 'update':
-                if(isset($this->mapperConfig['where'])) {
-                $whereKey = $this->mapperConfig['where'];
-                $whereValue = $dbObj->{$this->mapperConfig['where']};
-                
-                if(is_array($whereKey)) {
-                $whereValue = [];
-                foreach($whereKey as $key) {
-                $whereValue[] = $dbObj->{$key};
-                }
-                }
-                
-                $this->db->updateRow($dbObj,$this->mapperConfig['table'],$whereKey,$whereValue);
-                }
-                break;
-                
-                case 'delete':
-                break;
-                }
-                 */
-                if($obj->getAction()) var_dump($dbObj);
-            } else {	
+    		    switch($obj->getAction()) {
+        		    case 'complete':
+        		        if(isset($this->mapperConfig['where'])) {
+        		            $whereKey = $this->mapperConfig['where'];
+        		            $whereValue = $dbObj->{$this->mapperConfig['where']};
+        		        
+        		            if(is_array($whereKey)) {
+        		                $whereValue = [];
+        		                foreach($whereKey as $key) {
+        		                    $whereValue[] = $dbObj->{$key};
+        		                }
+        		            }
+        		        
+        		            $insertResult = $this->db->deleteInsertRow($dbObj,$this->mapperConfig['table'],$whereKey,$whereValue);
+        		            
+        		            if(isset($this->mapperConfig['identity'])) {
+        		                $obj->{$this->mapperConfig['identity']}()->setEndpoint($insertResult->getKey());
+        		            }
+        		        }
+        		    break;
+        		
+        		    case 'insert':
+        		        $insertResult = $this->db->insertRow($dbObj,$this->mapperConfig['table']);
+        		        
+        		        if(isset($this->mapperConfig['identity'])) {
+        		            $obj->{$this->mapperConfig['identity']}()->setEndpoint($insertResult->getKey());    		            
+        		        }
+        		    break;
+        		
+        		    case 'update':
+        		        if(isset($this->mapperConfig['where'])) {
+            		        $whereKey = $this->mapperConfig['where'];
+            		        $whereValue = $dbObj->{$this->mapperConfig['where']};
+            		
+            		        if(is_array($whereKey)) {
+            		            $whereValue = [];
+            		            foreach($whereKey as $key) {
+            		                $whereValue[] = $dbObj->{$key};
+            		            }
+            		        }
+            		        
+            		        $this->db->updateRow($dbObj,$this->mapperConfig['table'],$whereKey,$whereValue);
+        		        }
+        		    break;
+        		
+        		    case 'delete':
+        		        if(isset($this->mapperConfig['where'])) {
+        		            $whereKey = $this->mapperConfig['where'];
+        		            $whereValue = $dbObj->{$this->mapperConfig['where']};
+        		        
+        		            if(is_array($whereKey)) {
+        		                $whereValue = [];
+        		                foreach($whereKey as $key) {
+        		                    $whereValue[] = $dbObj->{$key};
+        		                }
+        		            }
+        		        
+        		            $this->db->deleteRow($dbObj,$this->mapperConfig['table'],$whereKey,$whereValue);
+        		        }        		   
+        		    break;
+        		}
+        		
+        		//if($obj->getAction()) var_dump($dbObj);
+    		}
+    		else {	
     		    foreach($dbObj as $key => $value) {
     		        $parentDbObj->$key = $value;
     		    }  	    
@@ -235,11 +247,11 @@ class BaseMapper
      * @param integer $limit
      * @return array
      */  
-	public function pull($data=null,$offset=0,$limit=null) {
+	public function pull($parentData=null,$offset=0,$limit=null) {
         $limitQuery = isset($limit) ? ' LIMIT '.$offset.','.$limit : '';
         
 	    if(isset($this->mapperConfig['query'])) {
-	        $query = !is_null($data) ? preg_replace('/\[\[(\w+)\]\]/e','$data[$1]', $this->mapperConfig['query']) : $this->mapperConfig['query'];
+	        $query = !is_null($parentData) ? preg_replace('/\[\[(\w+)\]\]/e','$parentData[$1]', $this->mapperConfig['query']) : $this->mapperConfig['query'];
 	        $query .= $limitQuery;
 	    }
 	    else $query = 'SELECT * FROM '.$this->mapperConfig['table'].$limitQuery;
@@ -261,17 +273,19 @@ class BaseMapper
      * @param string $dbObj
      * @return multitype:NULL
      */
-    public function push($data, $dbObj = null) {
-        if(isset($this->mapperConfig['getMethod'])) {
-            $subGetMethod = $this->mapperConfig['getMethod'];
-            $parent = $data;
-            $data = $data->$subGetMethod();
-        }
-        
-        $return = $this->generateDbObj($data,$dbObj);
-        
-        return $return;
-    }
+	public function push($data,$dbObj=null) {
+	    if($data->getAction() == 'complete' && method_exists(get_class($this),'complete')) $this->complete($data);	    
+	    
+	    if(isset($this->mapperConfig['getMethod'])) {
+	        $subGetMethod = $this->mapperConfig['getMethod'];
+	        $parent = $data;
+	        $data = $data->$subGetMethod();	       
+	    }
+	    
+	    $return = $this->generateDbObj($data,$dbObj,$parent);
+	    
+	    return $return;
+	}
     
     /**
      * Default statistics

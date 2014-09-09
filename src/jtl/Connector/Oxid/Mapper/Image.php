@@ -24,9 +24,7 @@ class Image extends BaseMapper
             {
                     $imageModel = new ImageModel();
                     
-                    $identityModel = new IdentityModel();
-                    $identityModel->setEndpoint($data['OXID']);
-                    $imageModel->setForeignKey($identityModel);
+                    //$imageModel->setForeignKey($data['OXID']);
                     
                     $imageModel->setRelationType("product");
                     

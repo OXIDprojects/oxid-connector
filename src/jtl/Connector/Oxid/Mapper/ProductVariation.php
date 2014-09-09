@@ -22,7 +22,7 @@ class ProductVariation extends BaseMapper
             {              
                 if ($value['OXVARNAME']) {
                     
-                    $variantIDs = array_map('trim', split('\|', $value['OXVARNAME']));
+                    $variantIDs = array_map(split(' \| ', $value['OXVARNAME']));
                     
                     for ($i = 0; $i < count($variantIDs); $i++)
                     {

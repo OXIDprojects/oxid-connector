@@ -2,77 +2,57 @@
 namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
-use jtl\Connector\Oxid\Config\Loader\Config;
 
-use jtl\Connector\ModelContainer\GlobalDataContainer;
-use jtl\Connector\Model\CustomerGroupI18n as CustomerGroupI18nModel;
 use jtl\Connector\Model\Identity as IdentityModel;
+use jtl\Connector\Model\CustomerGroupI18n as CustomerGroupI18nModel;
 
-/**
- * Summary of CustomerGroupI18n
- */
 class CustomerGroupI18n extends BaseMapper
 {
-    public function fetchAll($container = null, $type = null, $params = array())
+    public function pull($data=null, $offset=0, $limit=null)
     {
-        $customerGroupI18nModel = new CustomerGroupI18nModel();       
+        $return = [];
         $languages = $this->getLanguageIDs();
         
-        foreach ($params as $value)
-        {
-            //Pro Sprache
-            foreach ($languages as $language)
-            {
-                $langBaseId = $language['baseId'];
-                
-                if($language['baseId'] == 0)
-                { 
-                    if($this->getLocalCode($language['code']))
+        foreach ($languages as $language)
+        {               
+            if($language['baseId'] == 0)
+            { 
+                if($this->getLocalCode($language['code']))
+                {
+                    if(!empty($data['OXTITLE']))
                     {
-                        if(!empty($value['OXTITLE']))
-                        {
-                            $identityModel = new IdentityModel();
-                            $identityModel->setEndpoint($value['OXID']);
-                            $customerGroupI18nModel->setCustomerGroupId($identityModel);
+                        $customerGroupI18nModel = new CustomerGroupI18nModel();
+                        
+                        $identityModel = new IdentityModel();
+                        $identityModel->setEndpoint($data['OXID']);
+                        $customerGroupI18nModel->setCustomerGroupId($identityModel);
                             
-                            $customerGroupI18nModel->setLocaleName($this->getLocalCode($language['code']));
-                            $customerGroupI18nModel->setName($value['OXTITLE']);
+                        $customerGroupI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                        $customerGroupI18nModel->setName($data['OXTITLE']);
                             
-                            $container->add('customer_group_i18n', $customerGroupI18nModel->getPublic(), false);
-                        }
-                    }
-                }else{
-                    if($this->getLocalCode($language['code']))
-                    {
-                        if(!empty($value["OXTITLE_{$langBaseId}"]))
-                        {
-                            $identityModel = new IdentityModel();
-                            $identityModel->setEndpoint($value['OXID']);
-                            $customerGroupI18nModel->setCustomerGroupId($identityModel);
-                            
-                            $customerGroupI18nModel->setLocaleName($this->getLocalCode($language['code']));
-                            $customerGroupI18nModel->setName($value["OXTITLE_{$langBaseId}"]);
-                            
-                            $container->add('customer_group_i18n', $customerGroupI18nModel->getPublic(), false);
-                        }
+                        $return[] = $customerGroupI18nModel;
                     }
                 }
-            }   
-        }
+            }else{
+                if($this->getLocalCode($language['code']))
+                {   
+                    if(!empty($data["OXTITLE_{$language['baseId']}"]))
+                    {
+                        $customerGroupI18nModel = new CustomerGroupI18nModel();
+                        
+                        $identityModel = new IdentityModel();
+                        $identityModel->setEndpoint($data['OXID']);
+                        $customerGroupI18nModel->setCustomerGroupId($identityModel);
+                            
+                        $customerGroupI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                        $customerGroupI18nModel->setName($data["OXTITLE_{$language['baseId']}"]);
+                            
+                        $return[] = $customerGroupI18nModel;
+                    }
+                }
+            }
+        }   
+        return $return;
     }
     
-    public function getCustomerGroupI18n()
-    {
-        $oxidConf = new Config();
-        
-        $sqlResult = $this->_db->query("SELECT * " .
-                                        " FROM oxgroups;");
-        return $sqlResult;
-    }
 }
-
-/* non mapped properties
-CustomerGroupI18n:
- * _metaDescription 
- * _metaKeywords
- */

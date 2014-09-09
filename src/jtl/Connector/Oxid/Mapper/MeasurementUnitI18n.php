@@ -50,6 +50,3 @@ class MeasurementUnitI18n extends BaseMapper
         return $sqlResult;
     }
 }
-/* non mapped properties
- * MeasurementUnitI18n:
- */

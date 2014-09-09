@@ -22,7 +22,7 @@ class MeasurementUnit extends BaseMapper
             $measurementUnit->setId($identityModel);
             
             $measurementUnit->setCode($this->getUnitCode($value['OXUNITNAME'], 0));
-            $measurementUnit->setDisplayCode($this->getUnitCode($value['OXUNITNAME'], 1));   
+            $measurementUnit->setDisplayCode($this->getUnitCode($value['OXUNITNAME'], 1));
             
             $container->add('measurement_unit', $measurementUnit->getPublic(), false);
         }
@@ -39,6 +39,3 @@ class MeasurementUnit extends BaseMapper
         return $sqlResult;
     }
 }
-/* non mapped properties
- * MeasurementUnit:
- */
