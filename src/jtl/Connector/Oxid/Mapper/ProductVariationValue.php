@@ -14,54 +14,37 @@ use jtl\Connector\Oxid\Mapper\ProductVariationValueI18n as ProductVariationValue
  */
 class ProductVariationValue extends BaseMapper
 {
-    public function pull($varKey=null, $varPos=null, $data=null, $offset=0, $limit=null)
+    public function pull($oxId=null, $varArr=null ,$varKey=null, $varKeyPos=null, $data=null, $offset=0, $limit=null)
     {
         $return = [];
-        $productVariationValueTable = $this->getProductVariationValue($data);
         $productVariationValueModel = new ProductVariationValueModel;
-        $productVariationValueI18nModel = new ProductVariationValueI18nModel;
-        $productVariationValueI18nMapper = new ProductVariationValueI18nMapper;
+
+        foreach ($varArr[$varKey] as $varValueKey)
+        {
+            $productVariationValueI18nModel = new ProductVariationValueI18nModel;
+            $productVariationValueI18nMapper = new ProductVariationValueI18nMapper;
+            
+            $varValueKeyPos = array_search($varValueKey, $varArr[$varKey]);
+            
+            $identity = new IdentityModel;
+            $identity->setEndpoint($varValueKey);
+            $productVariationValueModel->setId($identity);
+ 
+            $identity = new IdentityModel;
+            $identity->setEndpoint($oxId);
+            $productVariationValueModel->setProductVariationId($identity);
+            
+            $productVariationValueI18nModel = $productVariationValueI18nMapper->pull($varValueKey, $varValueKeyPos, $varKey, $varKeyPos, $data, 0, null);
                 
-        foreach ($productVariationValueTable as $value)
-        {   
-            if(!empty($value['OXVARSELECT']))
+            foreach ($productVariationValueI18nModel as $I18nModel)
             {
-                $variantValues[] = array_map('trim', split('\|', $value['OXVARSELECT']))[$varPos];
+                $productVariationValueModel->addi18n($I18nModel);
             }
-        }              
-        
-        // Removes all double entries 
-        $variantValues =  array_values(array_unique($variantValues));
-        
-        for ($varValPos = 0; $varValPos < count($variantValues); $varValPos++)
-            {                
-                $identity = new IdentityModel;
-                $identity->setEndpoint(md5($variantValues[$varPos]));
-                $productVariationValueModel->setId($identity);
-                    
-                $identity = new IdentityModel;
-                $identity->setEndpoint(md5($varKey));
-                $productVariationValueModel->setProductVariationId($identity);
-                    
-                $productVariationValueI18nModel = $productVariationValueI18nMapper->pull($varPos, $varValPos, $variantValues[$varPos], $productVariationValueTable, 0, null);
-                    
-                //die(print_r($productVariationValueI18nModel));
                 
-                foreach ($productVariationValueI18nModel as $I18nModel)
-                {
-                    $productVariationValueModel->addi18n($I18nModel);
-                }
-                    
-                $return[] = $productVariationValueModel;
-            }
-            return $return;
-    }
-    
-    public function getProductVariationValue($param)
-    {   
-        // $sqlResult = $this->db->query(" SELECT * FROM oxarticles WHERE oxarticles.OXPARENTID = '{$param['OXID']}' ");
-        $sqlResult = $this->db->query(" SELECT * FROM oxarticles WHERE oxarticles.OXPARENTID = '943ed656e21971fb2f1827facbba9bec' ");
-                
-        return $sqlResult;
+            $return[] = $productVariationValueModel;
+        }    
+        
+        //die(print_r($return));
+        return $return;
     }
 }

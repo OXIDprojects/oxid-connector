@@ -12,58 +12,50 @@ use jtl\Connector\Model\ProductVariationValueI18n as ProductVariationValueI18nMo
  */
 class ProductVariationValueI18n extends BaseMapper
 {   
-    public function pull($varPos=null, $varValPos=null, $mainI18n=null, $data=null, $offset=0, $limit=null)
+    public function pull($varValueId=null, $varValueKeyPos=null, $varKey=null, $varKeyPos=null ,$data=null, $offset=0, $limit=null)
     {      
+        $return = [];
         $languages = $this->getLanguageIDs();
         
-        //Pro Sprache
         foreach ($languages as $language)
         {
             $langBaseId = $language['baseId'];
             
+            $VariaionArray = $this->getProdVarArray($data, $langBaseId);
+            
+            $varKey = array_keys($VariaionArray)[$varKeyPos];
+            
             if($language['baseId'] == 0)
-            {   
+            {                  
                 if($this->getLocalCode($language['code']))
                 {   
                     $productVariationValueI18nModel = new ProductVariationValueI18nModel();
                     
                     $identity = new IdentityModel;
-                    $identity->setEndpoint(md5($mainI18n));
+                    $identity->setEndpoint($varValueId);
                     $productVariationValueI18nModel->setProductVariationValueId($identity);
-
+                    
                     $productVariationValueI18nModel->setLocaleName($this->getLocalCode($language['code']));
-                    $productVariationValueI18nModel->setName($mainI18n);
+                    $productVariationValueI18nModel->setName($VariaionArray[$varKey][$varValueKeyPos]);
                     
                     $return[] = $productVariationValueI18nModel;
                 }
             }else{
                 if($this->getLocalCode($language['code']))
                 {   
-                    foreach ($data as $value)
-                    {   
-                        if(!empty($value["OXVARSELECT_{$langBaseId}"]))
-                        {
-                            $variantValueI18ns[] = array_map('trim', split('\|', $value["OXVARSELECT_{$langBaseId}"]))[0];
-                        }
-                    }           
-                        
-                    // Removes all double entries 
-                    $variantValueI18n =  array_values(array_unique($variantValueI18ns))[$varValPos];
-                    
                     $productVariationValueI18nModel = new ProductVariationValueI18nModel();
                     
                     $identity = new IdentityModel;
-                    $identity->setEndpoint(md5($mainI18n));
+                    $identity->setEndpoint($varValueId);
                     $productVariationValueI18nModel->setProductVariationValueId($identity);
-                            
-                    $productVariationValueI18nModel->setLocaleName($this->getLocalCode($language['code'])); 
                     
-                    $productVariationValueI18nModel->setName($variantValueI18n);
-                            
+                    $productVariationValueI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                    $productVariationValueI18nModel->setName($VariaionArray[$varKey][$varValueKeyPos]);
+                    
                     $return[] = $productVariationValueI18nModel;
-                    }
                 }
-            } 
-        return $return;
-        }
-     }
+            }
+        } 
+    return $return;
+    }
+}

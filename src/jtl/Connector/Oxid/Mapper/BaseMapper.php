@@ -602,4 +602,44 @@ class BaseMapper
                 break;
         }
     }
+    
+    /**
+     * Summary of getProdVarArray
+     * @param $data
+     * @param $langBaseId
+     * @return Array
+     */
+    public function getProdVarArray($data, $langBaseId) {
+        if ($langBaseId == 0) {
+            foreach ($data as $value)
+            {
+                if (!empty($value['OXVARNAME'])) {
+                    $variantIDs = array_map('trim', split(' \| ', $value['OXVARNAME']));
+                } elseif (!empty($value['OXVARSELECT']))
+                    $variantValueIDs[] = array_map('trim', split(' \| ', $value['OXVARSELECT']));
+            }
+            
+        } else {
+            foreach ($data as $value)
+            {
+                if (!empty($value["OXVARNAME_{$langBaseId}"])) {
+                    $variantIDs = array_map('trim', split(' \| ', $value["OXVARNAME_{$langBaseId}"]));
+                } elseif (!empty($value["OXVARSELECT_{$langBaseId}"]))
+                    $variantValueIDs[] = array_map('trim', split(' \| ', $value["OXVARSELECT_{$langBaseId}"]));
+            }
+        }
+        
+        //Doppelte Einträge löschen
+        for ($i = 0; $i < count($variantIDs); $i++)
+        {
+            foreach ($variantValueIDs as $variantValueID)
+            {
+                $newVariantValueIDs[$i][] = $variantValueID[$i];   
+            }
+            $newVariantValueIDs[$i] = array_values(array_unique($newVariantValueIDs[$i]));
+        }
+        $newVariantValueIDs = array_combine($variantIDs, $newVariantValueIDs);
+            
+        return $newVariantValueIDs;
+    }
 }

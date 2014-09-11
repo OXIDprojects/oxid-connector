@@ -13,7 +13,7 @@ class FileDownload extends BaseMapper
             "id" => "OXID",
             "maxDownloads" => "OXMAXDOWNLOADS",
             "maxDays" => null,
-            "created" => null
+            "created" => null,
         ),
         "mapPush" => array(
             "OXID" => "_id",

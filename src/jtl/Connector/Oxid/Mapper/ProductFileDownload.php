@@ -8,7 +8,8 @@ class ProductFileDownload extends BaseMapper
     protected $mapperConfig = array
         (
             "table" => "oxfiles",
-            "PK" => "OXID",
+            "query" => "SELECT * FROM oxfiles
+                WHERE OXARTID = [[OXID]]",
             "mapPull" => array
             (
                 "productId" => "OXARTID",
@@ -20,4 +21,8 @@ class ProductFileDownload extends BaseMapper
                 "OXID" => "_fileDownloadId"
             )
         );
+    
+    public function pull($data=null, $offset=0, $limit=null) {
+        return array($this->generateModel($data));
+    }
 }

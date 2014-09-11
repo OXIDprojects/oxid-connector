@@ -15,7 +15,7 @@ class CustomerGroup extends BaseMapper
                     "i18ns" => "CustomerGroupI18n|addI18n"
                 ),
                 "mapPush" => array(
-                    "OXID" => "_id",
+                    "OXID" => "_id"
                 )
             );
     

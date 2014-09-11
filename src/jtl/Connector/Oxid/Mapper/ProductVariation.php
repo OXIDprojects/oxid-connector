@@ -18,13 +18,13 @@ class ProductVariation extends BaseMapper
         $return = [];
         $productVariationTable = $this->getProductVariation($data);
         
+        $VariaionArray = $this->getProdVarArray($productVariationTable, 0);
+        
         foreach ($productVariationTable as $value)
             {              
                 if ($value['OXVARNAME']) {
-                    
-                    $variantIDs = array_map(split(' \| ', $value['OXVARNAME']));
-                    
-                    for ($i = 0; $i < count($variantIDs); $i++)
+                   
+                    for ($i = 0; $i < count($VariaionArray); $i++)
                     {
                         $productVariationModel = new ProductVariationModel();
                         $productVariationI18nModel = new ProductVariationI18nModel();                       
@@ -32,9 +32,10 @@ class ProductVariation extends BaseMapper
                         $productVariationValueModel = new ProductVariationValueModel();
                         $productVariationValueMapper = new ProductVariationValueMapper();
                         
-                                                
+                        $oxId = $value['OXID'] . '_' . array_keys($VariaionArray)[$i];
+                        
                         $identity = new IdentityModel;
-                        $identity->setEndpoint(md5($variantIDs[$i]));
+                        $identity->setEndpoint($oxId);
                         $productVariationModel->setId($identity);
                         
                         $identity = new IdentityModel;
@@ -43,36 +44,38 @@ class ProductVariation extends BaseMapper
                         
                         $productVariationModel->setSort(intval($value['OXSORT']));
                         
-                        $productVariationI18nModel = $productVariationI18nMapper->pull($i, $value, 0, null);
+                        $productVariationI18nModel = $productVariationI18nMapper->pull($oxId, $i, $productVariationTable, 0, null);
                         
                         foreach ($productVariationI18nModel as $I18nModel)
                         {
                             $productVariationModel->addi18n($I18nModel);
                         }
                         
-                        $productVariationValueModel = $productVariationValueMapper->pull($variantIDs[$i], $i, $value, 0, null);
+                        $productVariationValueModel = $productVariationValueMapper->pull($oxId, $VariaionArray, array_keys($VariaionArray)[$i], $i, $productVariationTable, 0, null);
                         
                         foreach ($productVariationValueModel as $ValueModel)
                         {
                             $productVariationModel->addValue($ValueModel);
                         }
-                        
                         $return[] = $productVariationModel;
                     }
                 }
             }
         return $return;
-        
     }
     
     public function getProductVariation($param)
     {   
         //$sqlResult = $this->db->query(" SELECT * FROM oxarticles " .
-        //                              " WHERE OXID = '{$param['OXID']}' ");
+        //                              " WHERE OXID = '{$param['OXID']}' " .
+        //                              " OR    OXPARENTID = '{$param['OXID']}' " .
+        //                              " ORDER BY OXPARENTID ASC");
         
         $sqlResult = $this->db->query(" SELECT * FROM oxarticles " .
-                                      " WHERE OXID = '531f91d4ab8bfb24c4d04e473d246d0b' ");
+                                      " WHERE OXID = '531f91d4ab8bfb24c4d04e473d246d0b' " .
+                                      " OR    OXPARENTID = '531f91d4ab8bfb24c4d04e473d246d0b' ".
+                                      " ORDER BY OXPARENTID ASC");
         
         return $sqlResult;
-    }
+    }  
 }
