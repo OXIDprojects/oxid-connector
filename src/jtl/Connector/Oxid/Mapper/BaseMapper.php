@@ -273,8 +273,10 @@ class BaseMapper
      * @param string $dbObj
      * @return multitype:NULL
      */
-	public function push($data,$dbObj=null) {
-	    if($data->getAction() == 'complete' && method_exists(get_class($this),'complete')) $this->complete($data);	    
+    public function push($data,$dbObj=null) {
+	    $parent = null;
+        
+        if($data->getAction() == 'complete' && method_exists(get_class($this),'complete')) $this->complete($data);	    
 	    
 	    if(isset($this->mapperConfig['getMethod'])) {
 	        $subGetMethod = $this->mapperConfig['getMethod'];
