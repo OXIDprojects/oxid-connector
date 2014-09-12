@@ -650,6 +650,75 @@
                     }
                 }
             }
+        },
+		"Specific": {
+            "comment": "",
+            "supported": true,
+            "transactional": true,
+            "objects": {
+                "manufacturer": {
+                    "push": {
+                        "supported": true,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "Id",
+                            "Sort",
+							"Type"
+                        ]
+                    }
+                },
+                "SpecificI18n": {
+                    "push": {
+                        "supported": true,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "LocaleName",
+                            "Name"
+                        ]
+                    }
+                },
+				"SpecificValue": {
+                    "push": {
+                        "supported": true,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "Id",
+                            "Sort"
+                        ]
+                    }
+                },
+				"SpecificValueI18n": {
+                    "push": {
+                        "supported": true,
+                        "comment": ""
+                    },
+                    "pull": {
+                        "supported": true,
+                        "comment": "",
+                        "properties": [
+                            "Description",
+                            "LocalName",
+							"MetaDescription",
+							"MetaKeywords",
+							"TitleTag",
+							"UrlPath",
+							"Value"
+                        ]
+                    }
+                }
+            }
         }
     }
 }

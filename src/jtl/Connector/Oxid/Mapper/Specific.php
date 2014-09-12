@@ -3,33 +3,22 @@ namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 
-use jtl\Connector\Model\Identity as IdentityModel;
-use jtl\Connector\Model\Specific as SpecificModel;
-
-class ProductAttrI18n extends BaseMapper
+class Specific extends BaseMapper
 {
-    public function pull($data=null, $offset=0, $limit=null)
-    {    
-        $return = [];
-        $specificTable = $this->getSpecific($data);
-        
-        foreach ($specificTable as $value)
-        {
-            $specificModel = new SpecificModel();
-            
-            //ToDo!!!
-            
-            $return[] = $productAttrModel;
-        }
-        return $return;
-    }
-    
-    public function getSpecific($param)
-    {
-        $sqlResult = $this->db->query(" SELECT * FROM oxobject2attribute " .
-                                       " INNER JOIN oxattribute " .
-                                       " ON oxobject2attribute.OXATTRID = oxattribute.OXID " .
-                                       " WHERE oxobject2attribute.OXOBJECTID = '{$params['OXID']}'");
-        return $sqlResult;
-    }  
+    protected $mapperConfig = array
+    (
+        "table" => "oxattribute",
+        "mapPull" => array(
+            "id" => "OXID",
+            "sort" => "OXSORT",
+            "i18ns" => "SpecificI18n|addI18n",
+            "values" => "SpecificValue|addValue",
+        ),
+        "mapPush" => array(
+            "OXID" => "id",
+            "OXSORT" => "sort",
+            "SpecificI18n|addI18n" => "i18ns",
+            "SpecificValue|addValues" => "values",
+        )
+       );
 }

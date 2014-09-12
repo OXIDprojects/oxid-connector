@@ -13,8 +13,6 @@ class Unit extends BaseMapper
         $return = [];
         $UnitTable = $this->getUnit();
         
-        die(print_r($UnitTable));
-        
         foreach ($UnitTable as $value)
         {
             $unit = new UnitModel();

@@ -4,32 +4,36 @@ namespace jtl\Connector\Oxid\Mapper;
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 
 use jtl\Connector\Model\Identity as IdentityModel;
-use jtl\Connector\Model\Specific as SpecificModel;
+use jtl\Connector\Model\SpecificI18n as SpecificI18nModel;
 
-class ProductAttrI18n extends BaseMapper
+class SpecificI18n extends BaseMapper
 {
     public function pull($data=null, $offset=0, $limit=null)
     {    
         $return = [];
-        $specificTable = $this->getSpecific($data);
+        $languages = $this->getLanguageIDs();
         
-        foreach ($specificTable as $value)
-        {
-            $specificModel = new SpecificModel();
-            
-            //ToDo!!!
-            
-            $return[] = $productAttrModel;
+        foreach ($languages as $language)
+        {   
+            if($this->getLocalCode($language['code']))
+            {
+                $specificI18nModel = new SpecificI18nModel();
+                
+                $identity = new IdentityModel;
+                $identity->setEndpoint($data['OXID']);
+                $specificI18nModel->setSpecificId($identity);
+                
+                $specificI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                
+                if($language['baseId'] == 0)
+                {   
+                    $specificI18nModel->setName($data['OXTITLE']);
+                }else{
+                    $specificI18nModel->setName($data["OXTITLE_{$language['baseId']}"]);
+                }       
+                $return[] = $specificI18nModel;               
+            }
         }
         return $return;
     }
-    
-    public function getSpecific($param)
-    {
-        $sqlResult = $this->db->query(" SELECT * FROM oxobject2attribute " .
-                                       " INNER JOIN oxattribute " .
-                                       " ON oxobject2attribute.OXATTRID = oxattribute.OXID " .
-                                       " WHERE oxobject2attribute.OXOBJECTID = '{$params['OXID']}'");
-        return $sqlResult;
-    }  
 }

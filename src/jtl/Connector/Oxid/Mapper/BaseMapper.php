@@ -643,7 +643,11 @@ class BaseMapper
             {
                 foreach ($variantValueIDs as $variantValueID)
                 {
-                    $newVariantValueIDs[$i][] = $variantValueID[$i];   
+                    
+                    if (empty($variantValueID[$i])){
+                        die(print_r($variantValueID));
+                    }
+                    $newVariantValueIDs[$i][] = $variantValueID[$i];
                 }
                 $newVariantValueIDs[$i] = array_values(array_unique($newVariantValueIDs[$i]));
             }
