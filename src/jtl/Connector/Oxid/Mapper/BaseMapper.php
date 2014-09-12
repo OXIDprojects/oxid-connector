@@ -100,13 +100,18 @@ class BaseMapper
     	    if(!$this->type) $this->type = $model->getModelType();
     	    
     	    $dbObj = new \stdClass();
+            $preMapper = null;
             
     		foreach($this->mapperConfig['mapPush'] as $endpoint => $host) {
     		    if(is_null($host) && method_exists(get_class($this),$endpoint)) {
     		        $dbObj->$endpoint = $this->$endpoint($obj,$model,$parentObj);
     		    }
     		    elseif($this->type->getProperty($host)->isNavigation()) {
-    		        list($preEndpoint,$preNavSetMethod,$preMapper) = explode('|',$endpoint);
+                    if (substr_count($endpoint,'|') > 1) {
+                        list($preEndpoint,$preNavSetMethod,$preMapper) = explode('|',$endpoint);    
+                    } else {
+                        list($preEndpoint,$preNavSetMethod) = explode('|',$endpoint);    
+                    }
     		        
     		        if($preMapper) {
     		            $preSubMapperClass = "\\jtl\\Connector\\Oxid\\Mapper\\".$preEndpoint;

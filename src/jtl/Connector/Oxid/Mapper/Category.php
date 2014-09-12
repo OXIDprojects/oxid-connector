@@ -14,8 +14,8 @@ class Category extends BaseMapper
             "parentCategoryId" => null,
             "sort" => "OXSORT",
             "isActive" => null,
-            //"i18ns" => "CategoryI18n|addI18n",
-            //"attributes" => "CategoryAttr|addAttribute",
+            "i18ns" => "CategoryI18n|addI18n",
+            "attributes" => "CategoryAttr|addAttribute",
     	    //"invisibilities" => "CategoryInvisibility|addInvisibility"
         ),
         "mapPush" => array(
@@ -23,7 +23,7 @@ class Category extends BaseMapper
             "OXPARENTID" => "parentCategoryId",
             "OXSORT" => "sort",
             "OXACTIVE" => "isActive",
-            //"CategoryI18n|addI18n" => "i18ns",
+            "CategoryI18n|addI18n" => "i18ns",
             //"CategoryAttr|addAttribute" => "attributes",
             //"CategoryInvisibility|addInvisibility" => "invisibilities"
         )

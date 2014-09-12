@@ -46,6 +46,11 @@ class CategoryAttr extends BaseMapper
                                        " ON oxcategory2attribute.OXATTRID = oxattribute.OXID " .
                                        " WHERE oxcategory2attribute.OXOBJECTID = '{$params['OXID']}'");
         
+        die(print_r(" SELECT * FROM oxcategory2attribute " .
+                                       " INNER JOIN oxattribute " .
+                                       " ON oxcategory2attribute.OXATTRID = oxattribute.OXID " .
+                                       " WHERE oxcategory2attribute.OXOBJECTID = '{$params['OXID']}'"));
+        
         return $sqlResult;
     }    
 }
