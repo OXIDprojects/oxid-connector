@@ -3,29 +3,42 @@ namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 
+use jtl\Connector\Model\Identity as IdentityModel;
+use jtl\Connector\Model\Product2Category as Product2CategoryModel;
+
 class Product2Category extends BaseMapper
 {
-    protected $mapperConfig = array
-        (
-            "query" => "SELECT * FROM oxobject2category ORDER BY OXCATNID ASC",
-            "getMethod" => "getCategories",
-            "table" => "oxobject2category",
-            "mapPull" => array
-                (
-                "categoryId" => "OXCATNID",
-                "id" => "OXID",
-                "productId" => "OXOBJECTID"
-                ),
-            "mapPush" => array(
-                "OXID" => "_id",
-                "OXCATNID" => "_categoryId",
-                "OXOBJECTID" => "_productId"
-            )   
-        );
+    public function pull($data=null, $offset=0, $limit=null)
+    {    
+        $return = [];
+        $product2CategoryTable = $this->getProduct2Category($data);
+        
+        foreach ($product2CategoryTable as $value)
+        {
+            $product2CategoryModel = new Product2CategoryModel();
+            
+            $identityModel = new IdentityModel();
+            $identityModel->setEndpoint($value['OXCATNID']);
+            $product2CategoryModel->setCategoryId($identityModel);
+            
+            $identityModel = new IdentityModel();
+            $identityModel->setEndpoint($value['OXID']);
+            $product2CategoryModel->setId($identityModel);
+            
+            $identityModel = new IdentityModel();
+            $identityModel->setEndpoint($value['OXOBJECTID']);
+            $product2CategoryModel->setProductId($identityModel);
+            
+            $return[] = $product2CategoryModel;
+        }
+        return $return;
+    }
     
-    
-    //public function pull($data=null, $offset=0, $limit=null) {
-    //    return array($this->generateModel($data));
-    //}
-    
+    public function getProduct2Category($param)
+    {
+        $sqlResult = $this->db->query(" SELECT * FROM oxobject2category " .
+                                      " WHERE OXOBJECTID = '{$param['OXID']}' " .
+                                      " ORDER BY OXCATNID ASC ");
+        return $sqlResult;
+    }  
 }
