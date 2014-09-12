@@ -14,42 +14,32 @@ class ProductVariationI18n extends BaseMapper
         $languages = $this->getLanguageIDs();
         
         foreach ($languages as $language)
-        {
-            $langBaseId = $language['baseId'];               
+        {   
+            $productVariationI18nModel = new ProductVariationI18nModel();
             
-            $VariaionArray = $this->getProdVarArray($data, $langBaseId);
+            $VariaionArray = $this->getProdVarArray($data, $language['baseId']);
             
             $varKey = array_keys($VariaionArray)[$varKeyPos];
-                
-            if($language['baseId'] == 0)
-            {   
-                if($this->getLocalCode($language['code']))
-                {      
-                    $productVariationI18nModel = new ProductVariationI18nModel();
-                                
+            
+            if($this->getLocalCode($language['code']))
+            {
+                if($language['baseId'] == 0)
+                {   
                     $identity = new IdentityModel;
                     $identity->setEndpoint($oxId . '_' . array_keys($VariaionArray)[$varKeyPos]);
                     $productVariationI18nModel->setProductVariationId($identity);
-                                    
+                    
                     $productVariationI18nModel->setLocaleName($this->getLocalCode($language['code']));
                     $productVariationI18nModel->setName(array_keys($VariaionArray)[$varKeyPos]);
-                    
-                    $return[] = $productVariationI18nModel;
-                }
-            }else{
-                if($this->getLocalCode($language['code']))
-                {           
-                    $productVariationI18nModel = new ProductVariationI18nModel();
-                                
+                }else{
                     $identity = new IdentityModel;
                     $identity->setEndpoint($oxId . '_' . $varKey);
                     $productVariationI18nModel->setProductVariationId($identity);
-                                
+                    
                     $productVariationI18nModel->setLocaleName($this->getLocalCode($language['code']));
                     $productVariationI18nModel->setName(array_keys($VariaionArray)[$varKeyPos]);
-                    
-                    $return[] = $productVariationI18nModel;
-                }
+                }       
+                $return[] = $productVariationI18nModel;
             }
         }
         return $return;

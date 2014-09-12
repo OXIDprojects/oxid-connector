@@ -17,10 +17,10 @@ class ProductVariationValue extends BaseMapper
     public function pull($oxId=null, $varArr=null ,$varKey=null, $varKeyPos=null, $data=null, $offset=0, $limit=null)
     {
         $return = [];
-        $productVariationValueModel = new ProductVariationValueModel;
 
         foreach ($varArr[$varKey] as $varValueKey)
         {
+            $productVariationValueModel = new ProductVariationValueModel;
             $productVariationValueI18nModel = new ProductVariationValueI18nModel;
             $productVariationValueI18nMapper = new ProductVariationValueI18nMapper;
             
@@ -43,8 +43,6 @@ class ProductVariationValue extends BaseMapper
                 
             $return[] = $productVariationValueModel;
         }    
-        
-        //die(print_r($return));
         return $return;
     }
 }

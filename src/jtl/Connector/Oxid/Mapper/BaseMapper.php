@@ -630,16 +630,21 @@ class BaseMapper
         }
         
         //Doppelte Einträge löschen
-        for ($i = 0; $i < count($variantIDs); $i++)
+        if(!empty($variantIDs) & !empty($variantValueIDs))
         {
-            foreach ($variantValueIDs as $variantValueID)
+            for ($i = 0; $i < count($variantIDs); $i++)
             {
-                $newVariantValueIDs[$i][] = $variantValueID[$i];   
+                foreach ($variantValueIDs as $variantValueID)
+                {
+                    $newVariantValueIDs[$i][] = $variantValueID[$i];   
+                }
+                $newVariantValueIDs[$i] = array_values(array_unique($newVariantValueIDs[$i]));
             }
-            $newVariantValueIDs[$i] = array_values(array_unique($newVariantValueIDs[$i]));
-        }
-        $newVariantValueIDs = array_combine($variantIDs, $newVariantValueIDs);
+            $newVariantValueIDs = array_combine($variantIDs, $newVariantValueIDs);    
             
-        return $newVariantValueIDs;
+            return $newVariantValueIDs;
+        } else {
+            return null;
+        }
     }
 }

@@ -20,10 +20,12 @@ class ProductVariation extends BaseMapper
         
         $VariaionArray = $this->getProdVarArray($productVariationTable, 0);
         
-        foreach ($productVariationTable as $value)
+        if (!empty($VariaionArray))
+        {
+            foreach ($productVariationTable as $value)
             {              
                 if ($value['OXVARNAME']) {
-                   
+                    
                     for ($i = 0; $i < count($VariaionArray); $i++)
                     {
                         $productVariationModel = new ProductVariationModel();
@@ -61,19 +63,15 @@ class ProductVariation extends BaseMapper
                     }
                 }
             }
+        }
         return $return;
     }
     
     public function getProductVariation($param)
     {   
-        //$sqlResult = $this->db->query(" SELECT * FROM oxarticles " .
-        //                              " WHERE OXID = '{$param['OXID']}' " .
-        //                              " OR    OXPARENTID = '{$param['OXID']}' " .
-        //                              " ORDER BY OXPARENTID ASC");
-        
         $sqlResult = $this->db->query(" SELECT * FROM oxarticles " .
-                                      " WHERE OXID = '531f91d4ab8bfb24c4d04e473d246d0b' " .
-                                      " OR    OXPARENTID = '531f91d4ab8bfb24c4d04e473d246d0b' ".
+                                      " WHERE OXID = '{$param['OXID']}' " .
+                                      " OR    OXPARENTID = '{$param['OXID']}' " .
                                       " ORDER BY OXPARENTID ASC");
         
         return $sqlResult;

@@ -18,43 +18,39 @@ class ProductVariationValueI18n extends BaseMapper
         $languages = $this->getLanguageIDs();
         
         foreach ($languages as $language)
-        {
-            $langBaseId = $language['baseId'];
+        {   
+            $productVariationValueI18nModel = new ProductVariationValueI18nModel();
             
-            $VariaionArray = $this->getProdVarArray($data, $langBaseId);
+            $VariaionArray = $this->getProdVarArray($data, $language['baseId']);
             
             $varKey = array_keys($VariaionArray)[$varKeyPos];
             
-            if($language['baseId'] == 0)
-            {                  
+            If(!empty($VariaionArray[$varKey][$varValueKeyPos]))
+            {   
                 if($this->getLocalCode($language['code']))
-                {   
-                    $productVariationValueI18nModel = new ProductVariationValueI18nModel();
-                    
-                    $identity = new IdentityModel;
-                    $identity->setEndpoint($varValueId);
-                    $productVariationValueI18nModel->setProductVariationValueId($identity);
-                    
-                    $productVariationValueI18nModel->setLocaleName($this->getLocalCode($language['code']));
-                    $productVariationValueI18nModel->setName($VariaionArray[$varKey][$varValueKeyPos]);
-                    
-                    $return[] = $productVariationValueI18nModel;
+                {
+                    if($language['baseId'] == 0)
+                    {                  
+                        $identity = new IdentityModel;
+                        $identity->setEndpoint($varValueId);
+                        $productVariationValueI18nModel->setProductVariationValueId($identity);
+                        
+                        $productVariationValueI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                        $productVariationValueI18nModel->setName($VariaionArray[$varKey][$varValueKeyPos]);
+                    }else{  
+                        
+                        $identity = new IdentityModel;
+                        $identity->setEndpoint($varValueId);
+                        $productVariationValueI18nModel->setProductVariationValueId($identity);
+                        
+                        $productVariationValueI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                        
+                        $productVariationValueI18nModel->setName($VariaionArray[$varKey][$varValueKeyPos]);
+                    }    
                 }
-            }else{
-                if($this->getLocalCode($language['code']))
-                {   
-                    $productVariationValueI18nModel = new ProductVariationValueI18nModel();
-                    
-                    $identity = new IdentityModel;
-                    $identity->setEndpoint($varValueId);
-                    $productVariationValueI18nModel->setProductVariationValueId($identity);
-                    
-                    $productVariationValueI18nModel->setLocaleName($this->getLocalCode($language['code']));
-                    $productVariationValueI18nModel->setName($VariaionArray[$varKey][$varValueKeyPos]);
-                    
-                    $return[] = $productVariationValueI18nModel;
-                }
+                $return[] = $productVariationValueI18nModel;
             }
+            
         } 
     return $return;
     }
