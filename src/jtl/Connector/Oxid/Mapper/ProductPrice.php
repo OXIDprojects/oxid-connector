@@ -16,7 +16,7 @@ class ProductPrice extends BaseMapper
                
         for ($i = 0; $i <= 3; $i++)       
         {   
-            $productPriceModel = new ProductPriceModel();  
+            $productPriceModel = new ProductPriceModel();
             
             $customerGroupId = '';
             

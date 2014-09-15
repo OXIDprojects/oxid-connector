@@ -20,9 +20,10 @@ class SpecificValue extends BaseMapper
         foreach ($specificValueTable as $value)
         {
             $specificValueModel = new SpecificValueModel();
+            $specValId = $data['OXTITLE'] . '_' . $value['OXVALUE'];
             
             $identity = new IdentityModel;
-            $identity->setEndpoint($data['OXTITLE'] . '_' . $value['OXVALUE']);
+            $identity->setEndpoint($specValId);
             $specificValueModel->setId($identity);
             
             $identity = new IdentityModel;
@@ -31,12 +32,12 @@ class SpecificValue extends BaseMapper
             
             $specificValueModel->setSort(intval($value['OXPOS']));
             
-            //$specificValueI18nModel = $specificValueI18nMapper->pull($varValueKey, $varValueKeyPos, $varKey, $varKeyPos, $data, 0, null);
+            $specificValueI18nModel = $specificValueI18nMapper->pull($specValId, $value, 0, null);
             
-            //foreach ($specificValueI18nModel as $I18nModel)
-            //{
-            //    $specificValueModel->addi18n($I18nModel);
-            //}
+            foreach ($specificValueI18nModel as $I18nModel)
+            {
+                $specificValueModel->addi18n($I18nModel);
+            }
             
             $return[] = $specificValueModel;
         }

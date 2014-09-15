@@ -8,28 +8,32 @@ use jtl\Connector\Model\SpecificValueI18n as SpecificValueI18nModel;
 
 class SpecificValueI18n extends BaseMapper
 {
-    public function pull($data=null, $offset=0, $limit=null)
+    public function pull($specValId=null, $data=null, $offset=0, $limit=null)
     {    
         $return = [];
-        $specificValueI18nTable = $this->getSpecificValueI18n($data);
+        $languages = $this->getLanguageIDs();
         
-        foreach ($specificValueI18nTable as $value)
+        foreach ($languages as $language)
         {
-            $specificValueI18nModel = new SpecificValueI18nModel();
-            
-            //ToDo!!!
-            
-            $return[] = $specificValueI18nModel;
+            if($this->getLocalCode($language['code']))
+            {
+                $specificValueI18nModel = new SpecificValueI18nModel();
+
+                $identity = new IdentityModel;
+                $identity->setEndpoint($specValId);
+                $specificValueI18nModel->setSpecificValueId($identity);
+                
+                $specificValueI18nModel->setLocaleName($this->getLocalCode($language['code']));
+                
+                if($language['baseId'] == 0)
+                {
+                    $specificValueI18nModel->setValue($data['OXVALUE']);
+                } else {
+                    $specificValueI18nModel->setValue($data["OXVALUE_{$language['baseId']}"]);
+                }
+            }    
+            $return[] = $specificValueI18nModel;               
         }
         return $return;
     }
-    
-    public function getSpecificValueI18n($param)
-    {
-        $sqlResult = $this->db->query(" SELECT * FROM oxobject2attribute " .
-                                       " INNER JOIN oxattribute " .
-                                       " ON oxobject2attribute.OXATTRID = oxattribute.OXID " .
-                                       " WHERE oxobject2attribute.OXOBJECTID = '{$params['OXID']}'");
-        return $sqlResult;
-    }  
 }

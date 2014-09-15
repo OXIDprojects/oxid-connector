@@ -3,13 +3,9 @@ namespace jtl\Connector\Oxid\Mapper;
 
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 
-use jtl\Connector\ModelContainer\ProductContainer;
 use jtl\Connector\Model\Identity as IdentityModel;
 use jtl\Connector\Model\ProductVariationValueI18n as ProductVariationValueI18nModel;
 
-/**
- * Summary of ProductVariationValueI18n
- */
 class ProductVariationValueI18n extends BaseMapper
 {   
     public function pull($varValueId=null, $varValueKeyPos=null, $varKey=null, $varKeyPos=null ,$data=null, $offset=0, $limit=null)
