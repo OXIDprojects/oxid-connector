@@ -18,6 +18,7 @@
         </br>
         <?php
         define('CONNECTOR_DIR', __DIR__ . '/../vendor/jtl/connector/');
+        
         require_once(__DIR__ . "/../vendor/autoload.php");
         
         use \jtl\Connector\Oxid\Installer\Installer;

@@ -1,7 +1,7 @@
 <?php
-namespace jtl\Connector\Modified\Installer\Modules;
+namespace jtl\Connector\Oxid\Installer\Modules;
 
-use \jtl\Connector\Modified\Installer\Module;
+use \jtl\Connector\Oxid\Installer\Module;
 
 class TaxRate extends Module {
     public static $name = "Default tax rate";

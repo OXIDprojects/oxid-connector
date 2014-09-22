@@ -1,9 +1,9 @@
 <?php
-namespace jtl\Connector\Modified\Installer;
+namespace jtl\Connector\Oxid\Installer;
 
 use \jtl\Core\Config\Config;
 use \jtl\Core\Config\Loader\Json as ConfigJson;
-use \jtl\Connector\Modified\Config\Loader\Config as ConfigLoader;
+use \jtl\Connector\Oxid\Config\Loader\Config as ConfigLoader;
 use \jtl\Core\Database\Mysql;
 use \jtl\Core\Utilities\Singleton;
 use \jtl\Connector\Session\SessionHelper;
@@ -59,7 +59,7 @@ class Installer extends Singleton {
                         require(__DIR__.'/Modules/'.$file);
                         $parts = explode('_',$file);
                         $className = current(explode(".",$parts[1]));
-                        $fullName = '\\jtl\\Connector\\Modified\\Installer\\Modules\\'.$className;
+                        $fullName = '\\jtl\\Connector\\Oxid\\Installer\\Modules\\'.$className;
                         $modules[$className] = new $fullName($db,$sqlite);                                        
                     }
                 }

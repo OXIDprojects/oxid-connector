@@ -16,6 +16,7 @@ class Category extends BaseMapper
             "isActive" => null,
             "i18ns" => "CategoryI18n|addI18n",
             "attributes" => "CategoryAttr|addAttribute",
+            "customerGroups" => "CategoryCustomerGroup|addCustomerGroup",
     	    "invisibilities" => "CategoryInvisibility|addInvisibility"
         ),
         "mapPush" => array(
@@ -25,6 +26,7 @@ class Category extends BaseMapper
             "OXACTIVE" => "isActive",
             "CategoryI18n|addI18n" => "i18ns",
             "CategoryAttr|addAttribute" => "attributes",
+            "CategoryCustomerGroup|addCustomerGroup" => "customerGroups",
             "CategoryInvisibility|addInvisibility" => "invisibilities"
         )
        );

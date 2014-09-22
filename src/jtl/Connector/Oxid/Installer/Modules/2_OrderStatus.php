@@ -1,7 +1,7 @@
 <?php
-namespace jtl\Connector\Modified\Installer\Modules;
+namespace jtl\Connector\Oxid\Installer\Modules;
 
-use \jtl\Connector\Modified\Installer\Module;
+use \jtl\Connector\Oxid\Installer\Module;
 
 class OrderStatus extends Module {
     public static $name = 'Order status mapping';
@@ -23,7 +23,7 @@ class OrderStatus extends Module {
         $mapping = $this->sqlite->query('SELECT * FROM status');
         
         foreach($mapping as $map) {
-            $currentMapping[$map['jtl']] = $map['modified'];
+            $currentMapping[$map['jtl']] = $map['oxid'];
         }
         
         foreach($this->jtlStats as $key => $value) {
@@ -51,7 +51,7 @@ class OrderStatus extends Module {
                         jtl TEXT,
                         modified INTEGER)");
         
-        $query = 'INSERT INTO status (jtl, modified) VALUES ';
+        $query = 'INSERT INTO status (jtl, oxid) VALUES ';
         
         foreach($this->jtlStats as $key => $value) {
             if(isset($_REQUEST[$value])) $query .= '("'.$value.'",'.$_REQUEST[$value].'),';

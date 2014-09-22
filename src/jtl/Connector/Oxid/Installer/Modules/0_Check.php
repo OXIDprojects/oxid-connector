@@ -1,7 +1,7 @@
 <?php
-namespace jtl\Connector\Modified\Installer\Modules;
+namespace jtl\Connector\Oxid\Installer\Modules;
 
-use \jtl\Connector\Modified\Installer\Module;
+use \jtl\Connector\Oxid\Installer\Module;
 
 class Check extends Module {
     public static $name = 'System check';

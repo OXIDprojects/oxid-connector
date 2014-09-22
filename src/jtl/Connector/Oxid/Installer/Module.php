@@ -1,5 +1,5 @@
 <?php
-namespace jtl\Connector\Modified\Installer;
+namespace jtl\Connector\Oxid\Installer;
 
 class Module {
     public $db = null;
