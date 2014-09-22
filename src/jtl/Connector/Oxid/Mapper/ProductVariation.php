@@ -73,7 +73,6 @@ class ProductVariation extends BaseMapper
                                       " WHERE OXID = '{$param['OXID']}' " .
                                       " OR    OXPARENTID = '{$param['OXID']}' " .
                                       " ORDER BY OXPARENTID ASC ");
-
         return $sqlResult;
     }  
 }

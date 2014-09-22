@@ -627,6 +627,11 @@ class BaseMapper
      * @return Array
      */
     public function getProdVarArray($data, $langBaseId) {
+        
+        unset($variantIDs);
+        unset($variantValueIDs);
+        $unequal = false;
+        
         if ($langBaseId == 0) {
             foreach ($data as $value)
             {
@@ -646,20 +651,30 @@ class BaseMapper
             }
         }
         
-        //Doppelte Einträge löschen
+        //Delete duplicate entries
         if(!empty($variantIDs) & !empty($variantValueIDs))
-        {
+        {   
             for ($i = 0; $i < count($variantIDs); $i++)
-            {
+            {   
                 foreach ($variantValueIDs as $variantValueID)
-                {
-                    $newVariantValueIDs[$i][] = $variantValueID[$i];   
+                {            
+                    //Variations must be consistent
+                    if (count($variantIDs) <> count($variantValueID)) {
+                        $unequal = True;
+                    } else {
+                        $newVariantValueIDs[$i][] = $variantValueID[$i];
+                    }
                 }
-                $newVariantValueIDs[$i] = array_values(array_unique($newVariantValueIDs[$i]));
+                if (!$unequal) {
+                    $newVariantValueIDs[$i] = array_values(array_unique($newVariantValueIDs[$i]));   
+                }
             }
-            $newVariantValueIDs = array_combine($variantIDs, $newVariantValueIDs);    
-            
-            return $newVariantValueIDs;
+            if (!$unequal) {
+                $newVariantValueIDs = array_combine($variantIDs, $newVariantValueIDs);
+                return $newVariantValueIDs;
+            } else {
+                return null;  
+            }
         } else {
             return null;
         }
