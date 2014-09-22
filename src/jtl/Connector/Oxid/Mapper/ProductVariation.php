@@ -29,7 +29,7 @@ class ProductVariation extends BaseMapper
                     for ($i = 0; $i < count($VariaionArray); $i++)
                     {
                         $productVariationModel = new ProductVariationModel();
-                        $productVariationI18nModel = new ProductVariationI18nModel();                       
+                        $productVariationI18nModel = new ProductVariationI18nModel();
                         $productVariationI18nMapper = new ProductVariationI18nMapper();
                         $productVariationValueModel = new ProductVariationValueModel();
                         $productVariationValueMapper = new ProductVariationValueMapper();
@@ -72,8 +72,8 @@ class ProductVariation extends BaseMapper
         $sqlResult = $this->db->query(" SELECT * FROM oxarticles " .
                                       " WHERE OXID = '{$param['OXID']}' " .
                                       " OR    OXPARENTID = '{$param['OXID']}' " .
-                                      " ORDER BY OXPARENTID ASC");
-        
+                                      " ORDER BY OXPARENTID ASC ");
+
         return $sqlResult;
     }  
 }

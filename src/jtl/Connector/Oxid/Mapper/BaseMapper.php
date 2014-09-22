@@ -256,8 +256,18 @@ class BaseMapper
         $limitQuery = isset($limit) ? ' LIMIT '.$offset.','.$limit : '';
         
 	    if(isset($this->mapperConfig['query'])) {
-	        $query = !is_null($parentData) ? preg_replace('/\[\[(\w+)\]\]/e','$parentData[$1]', $this->mapperConfig['query']) : $this->mapperConfig['query'];
-	        $query .= $limitQuery;
+	        if(!is_null($parentData)) { 
+	           $query = preg_replace_callback(
+	               '/\[\[(\w+)\]\]/',
+    	           function ($match) use ($parentData) {
+    	               return $parentData[$match[1]];
+    	           },
+    	           $this->mapperConfig['query']
+	           );
+	        }
+	        else $query = $this->mapperConfig['query'];
+	        
+	        $query .= $limitQuery;	        
 	    }
 	    else $query = 'SELECT * FROM '.$this->mapperConfig['table'].$limitQuery;
         
@@ -610,7 +620,7 @@ class BaseMapper
         }
     }
     
-    /**
+     /**
      * Summary of getProdVarArray
      * @param $data
      * @param $langBaseId
@@ -621,18 +631,18 @@ class BaseMapper
             foreach ($data as $value)
             {
                 if (!empty($value['OXVARNAME'])) {
-                    $variantIDs = array_map('trim', split(' \| ', $value['OXVARNAME']));
+                    $variantIDs = array_map('trim', explode(' | ', $value['OXVARNAME']));
                 } elseif (!empty($value['OXVARSELECT']))
-                    $variantValueIDs[] = array_map('trim', split(' \| ', $value['OXVARSELECT']));
+                    $variantValueIDs[] = array_map('trim', explode(' | ', $value['OXVARSELECT']));
             }
             
         } else {
             foreach ($data as $value)
             {
                 if (!empty($value["OXVARNAME_{$langBaseId}"])) {
-                    $variantIDs = array_map('trim', split(' \| ', $value["OXVARNAME_{$langBaseId}"]));
+                    $variantIDs = array_map('trim', explode(' | ', $value["OXVARNAME_{$langBaseId}"]));
                 } elseif (!empty($value["OXVARSELECT_{$langBaseId}"]))
-                    $variantValueIDs[] = array_map('trim', split(' \| ', $value["OXVARSELECT_{$langBaseId}"]));
+                    $variantValueIDs[] = array_map('trim', explode(' | ', $value["OXVARSELECT_{$langBaseId}"]));
             }
         }
         
@@ -643,11 +653,7 @@ class BaseMapper
             {
                 foreach ($variantValueIDs as $variantValueID)
                 {
-                    
-                    if (empty($variantValueID[$i])){
-                        die(print_r($variantValueID));
-                    }
-                    $newVariantValueIDs[$i][] = $variantValueID[$i];
+                    $newVariantValueIDs[$i][] = $variantValueID[$i];   
                 }
                 $newVariantValueIDs[$i] = array_values(array_unique($newVariantValueIDs[$i]));
             }
