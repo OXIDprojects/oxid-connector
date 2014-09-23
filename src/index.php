@@ -8,14 +8,14 @@ use jtl\Core\Rpc\RequestPacket;
 use jtl\Core\Rpc\ResponsePacket;
 use jtl\Core\Rpc\Error;
 use jtl\Core\Rpc\Respose;
-use jtl\Connector\Oxid\Connector;
+use jtl\Connector\Oxid\Oxid;
 
 $condir = __DIR__ . "/../vendor/jtl/connector/";
 define('CONNECTOR_DIR', $condir);
 define('ENDPOINT_DIR', realpath(__DIR__ . '/../../'));
 define('OXID_DIR', ENDPOINT_DIR . "/oxid_michele/");
 
-$connector = Connector::getInstance();
+$connector = Oxid::getInstance();
 $application = Application::getInstance();
 $application->register($connector);
 $application->run();

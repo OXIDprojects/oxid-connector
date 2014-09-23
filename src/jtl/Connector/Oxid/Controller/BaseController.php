@@ -6,13 +6,11 @@ use jtl\Core\Database\Mysql;
 use jtl\Core\Model\DataModel;
 use jtl\Core\Model\QueryFilter;
 use jtl\Core\Utilities\ClassName;
-use jtl\Core\Controller\Controller;
-use jtl\Core\Exception\TransactionException;
+use \jtl\Core\Controller\Controller;
 
 use jtl\Connector\Result\Action;
 use jtl\Connector\Model\Statistic;
 use jtl\Connector\ModelContainer\MainContainer;
-use jtl\Connector\Transaction\Handler as TransactionHandler;
 
 class BaseController extends Controller
 {
@@ -22,7 +20,7 @@ class BaseController extends Controller
         $this->db = Mysql::getInstance();
 	}	
 	
-    public function pull(QueryFilter $filter) {
+    public function pull(QueryFilter $queryfilter) {
         $action = new Action();
         $action->setHandled(true);
         
@@ -34,14 +32,14 @@ class BaseController extends Controller
             
             $mapper = new $class();
                 
-            $result = $mapper->pull($filter, $filter->getOffset(), $filter->getLimit());
+            $result = $mapper->pull(null, $queryfilter->getOffset(), $queryfilter->getLimit());
             
             $action->setResult($result);          
         }
         catch (\Exception $exc) {
                 $err = new Error();
                 $err->setCode($exc->getCode());
-                $err->setMessage($exc->getMessage());
+                $err->setMessage($exc->getFile().' ('.$exc->getLine().'):'.$exc->getMessage());
                 $action->setError($err);
             }
             
@@ -74,14 +72,10 @@ class BaseController extends Controller
         
         return $action;        
     }
-	   
-    public function delete($params) {
-        
-    }
 
-    public function statistic($params) {
+    public function statistic(QueryFilter $filter) {
         $reflect = new \ReflectionClass($this);
-        $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}\\{$reflect->getShortName()}";
+        $class = "\\jtl\\Connector\\Oxid\\Mapper\\{$reflect->getShortName()}";
         
         if(class_exists($class)) {
             $action = new Action();
@@ -92,7 +86,7 @@ class BaseController extends Controller
                 
                 $statModel = new Statistic();
                 
-                $statModel->setAvailable($mapper->fetchCount());
+                $statModel->setAvailable($mapper->statistic());
                 $statModel->setPending(0);
                 $statModel->setControllerName(lcfirst($reflect->getShortName()));
                 

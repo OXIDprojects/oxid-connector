@@ -5,6 +5,7 @@ use jtl\Core\Database\Mysql;
 use jtl\Core\Utilities\Date;
 use jtl\Core\Utilities\Language;
 use jtl\Connector\Model\Identity;
+use jtl\Connector\Session\SessionHelper;
 
 use jtl\Connector\Oxid\Config\Loader\Config;
 

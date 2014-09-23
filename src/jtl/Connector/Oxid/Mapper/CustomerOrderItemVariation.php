@@ -4,11 +4,10 @@ namespace jtl\Connector\Oxid\Mapper;
 use jtl\Connector\Oxid\Mapper\BaseMapper;
 
 use jtl\Connector\Model\Identity as IdentityModel;
-use jtl\Connector\Model\CustomerOrderItem as CustomerOrderItemModel;
 use jtl\Connector\Model\CustomerOrderItemVariation as CustomerOrderItemVariationModel;
-use jtl\Connector\Oxid\Mapper\CustomerOrderItemVariation as CustomerOrderItemVariationMapper;
+use jtl\Connector\Oxid\Mapper\CustomerOrderItem as ProductVariationValueMapper;
 
-class CustomerOrderItem extends BaseMapper
+class CustomerOrderItemVariation extends BaseMapper
 {
     public function pull($data=null, $offset=0, $limit=null)
     {
@@ -36,14 +35,14 @@ class CustomerOrderItem extends BaseMapper
                 $identityModel->setEndpoint($value['OXSELVARIANT']);
                 $customerOrderItemModel->setConfigItemId($identityModel);
                 
-                //addVariation
+                addVariation
                 
-                //$productVariationI18nModel = $productVariationI18nMapper->pull($oxId, $i, $productVariationTable, 0, null);
+                $productVariationI18nModel = $productVariationI18nMapper->pull($oxId, $i, $productVariationTable, 0, null);
                         
-                //foreach ($productVariationI18nModel as $I18nModel)
-                //{
-                //    $customerOrderItemModel->addVariation($variationModel);
-                //}
+                foreach ($productVariationI18nModel as $I18nModel)
+                {
+                    $productVariationModel->addi18n($I18nModel);
+                }
             
                 $customerOrderItemModel->setName($value['OXTITLE']);
                 $customerOrderItemModel->setPrice((double)$value['OXPRICE']);
