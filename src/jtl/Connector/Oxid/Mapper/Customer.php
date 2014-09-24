@@ -56,10 +56,10 @@ class Customer extends \jtl\Connector\Oxid\Mapper\BaseMapper
             "OXUSTID" => "vatNumber",
             "OXURL" => "www",
             "OXDBOPTIN" => "hasNewsletterSubscription",
-            "OXBIRTHDATE" => "birthday",
+            "OXBIRTHDATE" => null,
             "OXCREATE" => "created",
             "OXTIMESTAMP" => "modified",
-            "OXACTIVE" => "IsActive"
+            "OXACTIVE" => "isActive"
         )
     );   
     
@@ -85,13 +85,23 @@ class Customer extends \jtl\Connector\Oxid\Mapper\BaseMapper
     
     public function OXSTREET($data)
     {       
-        preg_match('/^[a-z ]*/i', $data['street'], $result);
+        preg_match('/^[a-z ]*/i', $data->getStreet(), $result);
         return  $result[0];
     }
     
     public function OXSTREETNR($data)
     {
-        preg_match('/[0-9].*/i', $data['street'], $result);
+        preg_match('/[0-9].*/i', $data->getStreet(), $result);
         return  $result[0];
+    }
+    
+    public function OXBIRTHDATE($data)
+    {
+        if(!empty($data->getBirthday()))
+        {
+            return $data->getBirthday();
+        } else {
+            return null;
+        }
     }
 }
