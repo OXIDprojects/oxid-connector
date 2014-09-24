@@ -67,18 +67,13 @@ class CategoryI18n extends BaseMapper
         return $return;
     }
     
-    //public function push($data,$dbObj) {
-    //    $return = [];
-        
-    //    foreach($data->getCategoryI18n() as $categoryI18n) {
-    //        $categoryI18n = new CategoryI18nModel();
-    //    }
-    //}
-    
     public function push($parent,$dbObj=null) {
         $return = [];
         
         die(print_r($parent));
+        
+        $test = new \stdClass();
+        $test->title = "";
         
         //foreach($parent->getItems() as $itemData) {
         //    if($itemData->getType() == "product") {

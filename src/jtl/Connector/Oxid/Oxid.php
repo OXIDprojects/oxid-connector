@@ -22,7 +22,7 @@ class Oxid extends BaseConnector
 {
     protected $_controller;
     protected $_action;
-
+    
     protected function init()
     {
         $session = new SessionHelper("oxid");

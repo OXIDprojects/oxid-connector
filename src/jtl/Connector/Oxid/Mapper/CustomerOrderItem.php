@@ -17,8 +17,9 @@ class CustomerOrderItem extends BaseMapper
         
         foreach ($customerOrderItemTable as $value)
         {
-            if (empty($value['OXPARENTID'])) {
                 $customerOrderItemModel = new CustomerOrderItemModel();
+                $customerOrderItemVariationModel = new CustomerOrderItemVariationModel();
+                $customerOrderItemVariationMapper = new CustomerOrderItemVariationMapper();
             
                 $identityModel = new IdentityModel();
                 $identityModel->setEndpoint($value['OXID']);
@@ -36,33 +37,30 @@ class CustomerOrderItem extends BaseMapper
                 $identityModel->setEndpoint($value['OXSELVARIANT']);
                 $customerOrderItemModel->setConfigItemId($identityModel);
                 
-                //addVariation
-                
-                //$productVariationI18nModel = $productVariationI18nMapper->pull($oxId, $i, $productVariationTable, 0, null);
-                        
-                //foreach ($productVariationI18nModel as $I18nModel)
-                //{
-                //    $customerOrderItemModel->addVariation($variationModel);
-                //}
+                if (!empty($value['OXSELVARIANT'])) {
+                    $customerOrderItemVariationModel = $customerOrderItemVariationMapper->pull($value['OXORDERID'], $value, 0, null);
+                    
+                    foreach ($customerOrderItemVariationModel as $variationModel)
+                    {
+                        $customerOrderItemModel->addVariation($variationModel);
+                    }
+                }
             
                 $customerOrderItemModel->setName($value['OXTITLE']);
                 $customerOrderItemModel->setPrice((double)$value['OXPRICE']);
                 $customerOrderItemModel->setVat((double)$value['OXVAT']);
                 $customerOrderItemModel->setQuantity((double)$value['OXAMOUNT']);
                 $customerOrderItemModel->setSku($value['OXARTNUM']);
-            
+               
                 $return[] = $customerOrderItemModel;
-            }
         }
-        
         return $return;
     }
     
     public function getOrderItem($param)
     {   
-        $sqlResult = $this->db->query(" SELECT oxorderarticles.*, oxarticles.OXPARENTID FROM oxorderarticles, oxarticles " .
-                                      " WHERE oxorderarticles.OXARTID = oxarticles.OXID " .
-                                      " AND oxorderarticles.OXORDERID = '{$param['OXID']}' ");
+        $sqlResult = $this->db->query(" SELECT * FROM oxorderarticles " .
+                                      " WHERE oxorderarticles.OXORDERID = '{$param['OXID']}' ");
         return $sqlResult;
     }
 }

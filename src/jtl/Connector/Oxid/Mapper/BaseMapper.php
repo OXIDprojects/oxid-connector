@@ -409,7 +409,7 @@ class BaseMapper
      */
     public function getLanguageIDs()
     {   
-        $OxidConf = new Config();        
+        $OxidConf = new Config();
         
         $SQLResult = $this->db->query(" SELECT DECODE(OXVARVALUE, '{$OxidConf->sConfigKey}' ) AS OXVARVALUEDECODED FROM oxconfig " .
                  " WHERE OXVARNAME = 'aLanguages' OR OXVARNAME = 'aLanguageParams' ");
@@ -429,7 +429,7 @@ class BaseMapper
                     break;
             }
             
-            $LanguageResult[$VarName] = unserialize($SQLResult[$i]['OXVARVALUEDECODED']);           
+            $LanguageResult[$VarName] = unserialize($SQLResult[$i]['OXVARVALUEDECODED']);
         }
         
         foreach ($LanguageResult['aLanguages'] as $key => $value)
@@ -627,7 +627,7 @@ class BaseMapper
      * @param $langBaseId
      * @return Array
      */
-    public function getProdVarArray($data, $langBaseId) {
+    public function getProdVarArray($data, $langBaseId=0) {
         
         unset($variantIDs);
         unset($variantValueIDs);
@@ -667,7 +667,7 @@ class BaseMapper
                     }
                 }
                 if (!$unequal) {
-                    $newVariantValueIDs[$i] = array_values(array_unique($newVariantValueIDs[$i]));   
+                    $newVariantValueIDs[$i] = array_values(array_unique($newVariantValueIDs[$i]));
                 }
             }
             if (!$unequal) {
