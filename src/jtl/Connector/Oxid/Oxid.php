@@ -91,7 +91,9 @@ class Oxid extends BaseConnector
             E_USER_DEPRECATED => 'E_USER_DEPRECATED'
         );
         
-        file_put_contents("/tmp/error.log", date("[Y-m-d H:i:s] ") . "(" . $types[$errno] . ") File ({$errfile}, {$errline}): {$errstr}\n", FILE_APPEND);
+        if (is_writable("/tmp/error.log")) {
+            file_put_contents("/tmp/error.log", date("[Y-m-d H:i:s] ") . "(" . $types[$errno] . ") File ({$errfile}, {$errline}): {$errstr}\n", FILE_APPEND);
+        }
     }
     
     public function exception_handler(\Exception $exception)
